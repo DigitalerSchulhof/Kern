@@ -1,0 +1,22 @@
+modul:
+  name: Prototyp
+  beschreibung: Ein Prototyp für Module
+  lehrernetz: false
+  autor: Digitaler Schulhof
+  version: 1.0
+  geladen: funktionen/geladen.php
+  ziele: anfragen/ziele.php
+  rechte: funktionen/rechte.yml
+  seiten: seiten/seitenliste
+  seitenPrio: 0
+  speicher: dateien/Proto
+  einstellungen: funktionen/einstellungen.yml
+  datendanken:
+    - schulhof
+    - personen
+  benötigt:
+    - DSH/Modul1
+    - DSH/Modul2
+  erweitert:
+    - DSH/Modul3
+    - DSH/Modul4
