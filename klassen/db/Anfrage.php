@@ -1,5 +1,5 @@
 <?php
-namespace DB\Anfrage;
+namespace DB;
 
 /**
 * Eine Datenbankanfrage

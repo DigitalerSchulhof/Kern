@@ -1,6 +1,6 @@
 <?php
 namespace DB;
-use DB\Anfrage\Anfrage;
+use DB\Anfrage;
 
 /**
 * Eine Datenbankverbindung
