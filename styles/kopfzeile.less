@@ -1,75 +1,76 @@
 // LAYOUT;
 
-#dsh_kopfzeile_o {
-	position: @kopfzeile_positionierung;
+#dshKopfzeileO {
+	position: @kopfzeilePositionierung;
 	width: 100%;
-	top: @kopfzeile_abstandvonoben;
+	top: @kopfzeileAbstandvonoben;
 	left: 0px;
 	z-index: 20;
 }
 
-#dsh_kopfzeile_i {
-	margin: @kopfzeile_aussenabstand;
-	width: @seitenbreite;
-	height: @kopfzeile_hoehe;
+#dshKopfzeileI {
+	margin: @kopfzeileAussenabstand;
+	width: 100%;
+	max-width: @seitenbreite;
+	height: @kopfzeileHoehe;
 	padding: 10px 10px 0px 10px;
 }
 
-#dsh_platzhalter {
-	margin-top: @kopfzeile_platzhalter;
+#dshPlatzhalter {
+	margin-top: @kopfzeilePlatzhalter;
 	height: 0px;
 	width: 100%;
 }
 
-.dsh_seite_P #dsh_kopfzeile_i {
+.dshSeiteP #dshKopfzeileI {
 	width: @seitenbreite;
 	margin: 0 auto;
 }
 
-.dsh_seite_H #dsh_kopfzeile_i,
-.dsh_seite_T #dsh_kopfzeile_i {
+.dshSeiteH #dshKopfzeileI,
+.dshSeiteT #dshKopfzeileI {
 	width: 100%;
 	max-width: @seitenbreite !important;
 	margin: 0 auto;
 }
 
-#dsh_logo {
+#dshLogo {
 	position: absolute;
 	left: 10px;
 	top: 10px;
 	display: inline-block;
 }
 
-#dsh_logo_bild {
+#dshLogoBild {
 	float: left;
 	padding-right: 10px;
-	height: @logo_höhe;
+	height: @logoHoehe;
 }
 
-#dsh_logo_schrift {
+#dshLogoSchrift {
 	float: left;
-	display: @logo_anzeige;
+	display: @logoAnzeige;
 }
 
-#dsh_logo_o, #dsh_logo_u {
+#dshLogoO, #dshLogoU {
 	position: relative;
 	font-size: 170%;
 	padding: 2px 0px 0px 0px;
 	display: block;
 }
 
-#dsh_logo_o {
+#dshLogoO {
 	font-weight: bold;
 }
 
 // FARBEN;
 
-#dsh_logo_o, #dsh_logo_u {
-	color: @logo_schriftfarbe;
+#dshLogoO, #dshLogoU {
+	color: @logoSchriftfarbe;
 }
 
-#dsh_kopfzeile_o {
-	background: @kopfzeile_hintergrund;
-	border-bottom: @kopfzeile_border_bottom;
-	box-shadow: @kopfzeile_box_shadow;
+#dshKopfzeileO {
+	background: @kopfzeileHintergrund;
+	border-bottom: @kopfzeileBorderBottom;
+	box-shadow: @kopfzeileBoxShadow @kopfzeileBoxShadowFarbe;
 }

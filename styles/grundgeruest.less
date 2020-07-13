@@ -1,0 +1,67 @@
+// LAYOUT;
+
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+* {
+	font-family: @hauptSchriftart, sans-serif;
+	font-size: @hauptSchriftgroesse;
+	font-weight: normal;
+	padding: 0px;
+	margin: 0px;
+	list-style-type: none;
+	line-height: 1.2em;
+	text-decoration: none;
+	box-sizing: border-box;
+}
+
+// FARBEN;
+
+* {
+	color: @schriftfarbepositiv;
+}
+
+body {
+	background: @koerperhintergrund;
+}
+
+#dshHauptteilO {
+	background-color: @seitenhintergrund;
+}
+
+// LAYOUT;
+
+
+#dshHauptteilI {
+	width: 100%;
+	max-width: @seitenbreite;
+	margin: 0px auto;
+	padding: 10px 0px 10px 0px;
+	position: relative;
+}
+
+// FARBEN;
+
+.dshVollbild {
+	background: @seitenhintergrund;
+}
+
+// LAYOUT;
+
+.dshVollbild {
+	position: relative;
+}
+
+.dshSeiteP #dshHauptteilI {
+	width: @seitenbreite;
+	margin: 0px auto;
+}
+
+.dshSeiteH #dshHauptteilI,
+.dshSeiteT #dshHauptteilI {
+	width: 100%;
+	max-width: @seitenbreite !important;
+	margin: 0px auto;
+}
