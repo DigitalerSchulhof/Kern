@@ -14,6 +14,7 @@
 	max-width: @seitenbreite;
 	height: @kopfzeileHoehe;
 	padding: 10px 10px 0px 10px;
+  position: relative;
 }
 
 #dshPlatzhalter {
@@ -63,7 +64,58 @@
 	font-weight: bold;
 }
 
+.dshKopfnavigation {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.dshKopfnavigation li {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.dshSuche {
+  position: relative;
+}
+
+  #dshSuchePcErgebnisse {
+    position: absolute;
+    display: block;
+    width: 100%;
+    top: 25px;
+    left 0px;
+    padding: 10px 5px 5px 5px;
+    border: 1px solid;
+    border-bottom-right-radius: @radius2;
+    border-bottom-left-radius: @radius2;
+    min-height: 35px;
+    max-height: 150px;
+    display: none;
+  }
+
+  #dshSuchePcSchliessen {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  }
+
+  #dshKopfnaviFeld .dshUiToggle {
+    border: 1px solid;
+  }
+
 // FARBEN;
+
+#dshKopfnaviFeld .dshUiToggle, #dshKopfnaviFeld .dshUiToggled:hover {
+  background: @kopfzeileHintergrund !important;
+  border-color: @akzent1 !important;
+  color: @akzent1;
+}
+
+#dshKopfnaviFeld .dshUiToggle:hover, #dshKopfnaviFeld .dshUiToggled {
+  color: @kopfzeileHintergrund !important;
+  background: @akzent1 !important;
+}
 
 #dshLogoO, #dshLogoU {
 	color: @logoSchriftfarbe;
@@ -73,4 +125,9 @@
 	background: @kopfzeileHintergrund;
 	border-bottom: @kopfzeileBorderBottom;
 	box-shadow: @kopfzeileBoxShadow @kopfzeileBoxShadowFarbe;
+}
+
+#dshSuchePcErgebnisse {
+  background: @abstufung1;
+  border-color: @abstufung4;
 }
