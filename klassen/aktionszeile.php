@@ -24,6 +24,7 @@ class Aktionszeile extends UI\Element {
     parent::__construct();
     $this->brotkrumen = $brotkrumen;
     $this->aktionsicons   = $aktionsicons;
+    $this->setID("dshAktionszeile");
   }
 
   /**
