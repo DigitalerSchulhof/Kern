@@ -28,12 +28,6 @@
 	margin: 0 auto;
 }
 
-.dshSeiteH #dshKopfzeileI,
-.dshSeiteT #dshKopfzeileI {
-	width: 100%;
-	max-width: @seitenbreite !important;
-	margin: 0 auto;
-}
 
 #dshLogo {
 	position: absolute;
@@ -101,30 +95,57 @@
   }
 
   #dshKopfnaviFeld .dshUiToggle {
-    border: 1px solid;
+    // border: 1px solid;
+    box-shadow: none !important;
   }
-
-#dshAktionszeile {
-  padding: 10px;
-}
 
 // Aktionszeile
 #dshAktionszeile {
+  padding: 10px;
   padding-bottom: 0;
 }
-  
+
+  #dshAktionszeile #dshBrotkrumen {
+    font-size: 80%;
+  }
+
+  #dshAktionszeile #dshBrotkrumen a {
+    font-size: inherit;
+  }
+
+// MOBIL;
+
+
+#dshKopfzeileI {
+	max-width: @seitenbreite;
+  width: auto;
+}
 
 // FARBEN;
 
-#dshKopfnaviFeld .dshUiToggle, #dshKopfnaviFeld .dshUiToggled:hover {
-  background-color: @kopfzeileHintergrund !important;
-  border-color: @logoSchriftfarbe !important;
+#dshKopfnaviFeld .dshUiToggle {
+  background-color: @kopfzeileHintergrund;
+  border-bottom-color: @logoSchriftfarbe;
   color: @logoSchriftfarbe;
 }
 
-#dshKopfnaviFeld .dshUiToggle:hover, #dshKopfnaviFeld .dshUiToggled {
-  color: @kopfzeileHintergrund !important;
-  background-color: @logoSchriftfarbe !important;
+#dshKopfnaviFeld .dshUiToggle:focus {
+  border-color: @logoSchriftfarbe;
+}
+
+#dshKopfnaviFeld .dshUiToggle:hover {
+ border-color: @logoSchriftfarbe !important;
+}
+
+#dshKopfnaviFeld .dshUiToggled {
+  background-color: @logoSchriftfarbe;
+  border-color: @logoSchriftfarbe;
+  color: @kopfzeileHintergrund;
+}
+
+#dshKopfnaviFeld .dshUiToggled:focus {
+  background-color: @kopfzeileHintergrund;
+  color: @logoSchriftfarbe;
 }
 
 #dshLogoO, #dshLogoU {

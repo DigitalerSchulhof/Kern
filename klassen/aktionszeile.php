@@ -38,7 +38,7 @@ class Aktionszeile extends UI\Element {
 
   public function __toString() : string {
     global $DSH_URL;
-    $brotkrumen = "";
+    $brotkrumen = "<span id=\"dshBrotkrumen\">";
     if($this->brotkrumen) {
       $pfad = "";
       foreach($DSH_URL as $i => $segment) {
@@ -51,10 +51,11 @@ class Aktionszeile extends UI\Element {
         $brotkrumen .= $el;
         $pfad .= "$segment/";
       }
+      $brotkrumen .= "</span>";
     }
 
     $aktionsicons = "";
-    if($this->aktionsicons) {
+    if($this->aktionsicons || true) {
       $angebote = Core\Angebote::angeboteFinden("Kern/Aktionsicons");
       foreach($angebote as $angebot){
         $aktionsicons .= $angebot;
