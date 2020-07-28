@@ -18,7 +18,7 @@ class Anfrage implements \Iterator {
 	* @param int $anzahl Anzahl an Ergebnissen (affected_rows)
 	* @param array $ergebnis Die Ergebnisse
 	*/
-  public function __construct($anzahl = 0, $ergebnis = array()) {
+  public function __construct($anzahl = 0, $ergebnis = []) {
   	$this->anzahl = $anzahl;
     $this->ergebnis = $ergebnis;
     $this->position = 0;

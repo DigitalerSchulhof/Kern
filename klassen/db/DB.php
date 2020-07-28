@@ -40,9 +40,9 @@ class DB {
   * @return array Ergebnis der Anfrage als indexiertes Array oder Anzahl betroffener Zeilen
   */
   public function anfrage($anfrage, $parameterarten = "", ...$werte) : Anfrage {
-    $ergebnis = array();
+    $ergebnis = [];
 
-    if(count($werte) == 1 && is_array($werte[0]) && count($werte[0][0] ?? array()) == 1) {
+    if(count($werte) == 1 && is_array($werte[0]) && count($werte[0][0] ?? []) == 1) {
       $werte = $werte[0];
     }
 
@@ -71,9 +71,9 @@ class DB {
     if ($paramfehler) {throw new \Exception("Ungültige Parameter(-arten)");}
 
     // Referenzen für bind auf die Werte erstellen
-    $ref = array();
+    $ref = [];
     if (!isset($werte[0]) || !is_array($werte[0])) {
-      $refneu = array();
+      $refneu = [];
       for ($i = 0; $i<count($werte); $i++) {
         $refneu[] = &$werte[$i];
       }
@@ -81,7 +81,7 @@ class DB {
     }
     else {
       for ($i = 0; $i<count($werte); $i++) {
-        $refneu = array();
+        $refneu = [];
         for ($j = 0; $j<count($werte[$i]); $j++) {
           $refneu[] = &$werte[$i][$j];
         }
