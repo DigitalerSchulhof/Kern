@@ -24,7 +24,7 @@ $anmeldungFeldBenutzer = new UI\FormularFeld(new UI\InhaltElement("Benutzer:"), 
 $anmeldungFeldPasswort = new UI\FormularFeld(new UI\InhaltElement("Passwort:"), new UI\Passwortfeld("dshAnmeldungPasswort"));
 
 $anmeldungFormular = new UI\FormularTabelle($anmeldungFeldBenutzer, $anmeldungFeldPasswort);
-$anmeldungFormulat->addKnopf((new UI\Knopf("Anmelden", "Erfolg")) ->addFunktion("onclick", "kern.schulhof.nutzerkonten.anmelden()"));
+$anmeldungFormular->addKnopf((new UI\Knopf("Anmelden", "Erfolg")) ->addFunktion("onclick", "kern.schulhof.nutzerkonten.anmelden()"));
 $anmeldungFormular->addKnopf((new UI\Knopf("Passwort vergessen")) ->addFunktion("href", "Schulhof/Passwort_vergessen"));
 $anmeldungFormular->addKnopf((new UI\Knopf("Registrieren"))       ->addFunktion("href", "Schulhof/Registrieren"));
 $anmeldungFormular->getAktionen()->addFunktion("onclick", "kern.nutzerkonten.anmeldung.brclick(event)");
