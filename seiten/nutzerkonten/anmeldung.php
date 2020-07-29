@@ -4,10 +4,10 @@ $CODE .= new Kern\Aktionszeile();
 
 $CODE .= UI\Zeile::standard(new UI\SeitenUeberschrift("Schulhof"));
 
-$meldungBrowserLaden    = new UI\Meldung("Kompatibilität prüfen", "Es wird geprüft, ob der aktuelle Browser unterstützt wird...", "Arbeit");
-$meldungBrowserErfolg   = new UI\Meldung("Kompatibilität prüfen", "Der aktuelle Browser unterstützt alle Funktionen des Digitalen Schulhofs!", "Erfolg", new UI\Icon(""));
-$meldungBrowserFehler   = new UI\Meldung("Kompatibilität prüfen", "<b>Der aktuelle Browser unterstützt nicht alle Funktionen des Digitalen Schulhofs!</b>", "Fehler", new UI\Icon(""));
-$meldungBrowserUnsicher = new UI\Meldung("Kompatibilität prüfen", "Der aktuelle Browser konnte nicht erkannt werden! Um sicherzustellen, dass alle Funktionen des Digitalen Schulhofs verwendet werden können, muss ein aktueller Browser verwendet werden. <a href=\"https://digitaler-schulhof.de/Wiki/Browser\" class=\"extern\">Hier</a> finden Sie eine Liste an Browsern, die offiziell unterstützt werden.", "Warnung"); // @TODO: Browserliste
+$meldungBrowserLaden    = new UI\Meldung("Kompatibilität prüfen", "Es wird geprüft, ob Ihr Browser unterstützt wird...", "Arbeit");
+$meldungBrowserErfolg   = new UI\Meldung("Kompatibilität prüfen", "Ihr Browser unterstützt alle Funktionen des Digitalen Schulhofs!", "Erfolg", new UI\Icon(""));
+$meldungBrowserFehler   = new UI\Meldung("Kompatibilität prüfen", "<b>Ihr Browser unterstützt nicht alle Funktionen des Digitalen Schulhofs!</b>", "Fehler", new UI\Icon(""));
+$meldungBrowserUnsicher = new UI\Meldung("Kompatibilität prüfen", "Ihr Browser konnte nicht erkannt werden! Um sicherzustellen, dass alle Funktionen des Digitalen Schulhofs verwendet werden können, muss ein aktueller Browser verwendet werden. <a href=\"https://digitaler-schulhof.de/Wiki/Browser\" class=\"extern\">Hier</a> finden Sie eine Liste an Browsern, die offiziell unterstützt werden.", "Warnung"); // @TODO: Browserliste
 $meldungBrowserLaden    ->setID("dshBrowsercheckLaden");
 $meldungBrowserErfolg   ->setID("dshBrowsercheckErfolg")  ->setStyle("display", "none");
 $meldungBrowserFehler   ->setID("dshBrowsercheckFehler")  ->setStyle("display", "none");
