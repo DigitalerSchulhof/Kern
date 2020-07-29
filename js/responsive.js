@@ -1,5 +1,5 @@
 var resizecheck = () => {
-  console.log(document.body.clientWidth);
+  console.log("Breite:" + document.body.clientWidth);
   if(document.body.clientWidth >= 1024) {
     $("body").classList.add("dshSeiteP");
     $("body").classList.remove("dshSeiteT", "dshSeiteH");
@@ -12,4 +12,6 @@ var resizecheck = () => {
   }
 };
 window.addEventListener("resize", resizecheck);
-window.addEventListener("load", resizecheck);
+window.addEventListener("load", () => {
+  window.dispatchEvent(new Event("resize"));
+});
