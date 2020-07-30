@@ -1,8 +1,7 @@
 <?php
 $angemeldet = false;  // @TODO: Angemeldet
 if(!$angemeldet) {
-  $seite = "Schulhof/Anmeldung";
-  einbinden($seite);
+  einbinden("Schulhof/Anmeldung");
   return;
 }
 
