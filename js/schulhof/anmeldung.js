@@ -1,4 +1,4 @@
-kern.nutzerkonten.anmeldung = {
+kern.schulhof.anmeldung = {
   browsercheck: () => {
     if($("#dshBrowsercheckLaden").length === 0) {
       return;
@@ -50,20 +50,46 @@ kern.nutzerkonten.anmeldung = {
         default:
           unterstuetzt  = undefined;
       };
-      if(unterstuetzt === true) {
-        $("#dshBrowsercheckLaden").style.display  = "none";
-        $("#dshBrowsercheckErfolg").style.display = "";
-      } else if(unterstuetzt === false) {
-        $("#dshBrowsercheckLaden").style.display  = "none";
-        $("#dshBrowsercheckFehler").style.display = "";
-      } else {
-        $("#dshBrowsercheckLaden").style.display  = "none";
-        $("#dshBrowsercheckUnsicher").style.display = "";
-      }
-      if(icon !== null) {
-        $("#dshBrowsercheckErfolg").querySelector("i.icon.i1").classList.add(...icon.split(" "));
-        $("#dshBrowsercheckFehler").querySelector("i.icon.i1").classList.add(...icon.split(" "));
-      }
+      new Promise((fertig) => {
+        let start = new Date().getTime();
+
+        let http = new XMLHttpRequest();
+        http.onreadystatechange = () => {
+          if(http.readyState === 4) {
+            let ms = new Date().getTime() - start;
+            if(http.status !== 0) {
+              fertig(ms);
+            } else {
+              fertig(null);
+            }
+          }
+        };
+        http.onerror = () => {
+          let ms = new Date().getTime() - start;
+          fertig(null);
+        };
+        http.open("HEAD", "ping.php", true);
+        http.send(null);
+      }).then((ms) => {
+        if(ms !== null && ms > 100) {
+          $("#dshBrowsercheckInternet").style.display = "";
+          $("#dshBrowsercheckInternet").title = "Antwortzeit: " + ms + "ms";
+        }
+        if(unterstuetzt === true) {
+          $("#dshBrowsercheckLaden").style.display  = "none";
+          $("#dshBrowsercheckErfolg").style.display = "";
+        } else if(unterstuetzt === false) {
+          $("#dshBrowsercheckLaden").style.display  = "none";
+          $("#dshBrowsercheckFehler").style.display = "";
+        } else {
+          $("#dshBrowsercheckLaden").style.display  = "none";
+          $("#dshBrowsercheckUnsicher").style.display = "";
+        }
+        if(icon !== null) {
+          $("#dshBrowsercheckErfolg").querySelector("i.icon.i1").classList.add(...icon.split(" "));
+          $("#dshBrowsercheckFehler").querySelector("i.icon.i1").classList.add(...icon.split(" "));
+        }
+      });
     }, 333);
   },
   brclick: function (ev) {

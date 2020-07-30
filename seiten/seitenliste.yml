@@ -1,2 +1,3 @@
 seiten:
-  "Schulhof/Anmeldung": "Kern/seiten/nutzerkonten/anmeldung.php"
+  "Schulhof"          : "Kern/seiten/schulhof/nutzerkonto.php"
+  "Schulhof/Anmeldung": "Kern/seiten/schulhof/anmeldung.php"

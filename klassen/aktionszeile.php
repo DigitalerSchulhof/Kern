@@ -12,6 +12,9 @@ class Aktionszeile extends UI\Element {
   /** @var bool $brotkrumen Ob Brotkrumen auszugeben sind */
   protected $brotkrumen;
 
+  /** @var string[] URL für die Brotkrumen */
+  protected $brotkrumen_url;
+
   /** @var bool $aktionen Ob Aktionsicons auszugeben sind */
   protected $aktionsicons;
 
@@ -21,10 +24,25 @@ class Aktionszeile extends UI\Element {
    * @param boolean $aktionen Ob Aktionsicons auszugeben sind
    */
   public function __construct($brotkrumen = true, $aktionsicons = true) {
+    global $DSH_URL;
     parent::__construct();
-    $this->brotkrumen = $brotkrumen;
+    $this->brotkrumen     = $brotkrumen;
     $this->aktionsicons   = $aktionsicons;
+    $this->brotkrumen_url = $DSH_URL;
     $this->setID("dshAktionszeile");
+  }
+
+  /**
+   * Setzt die Basis für die Brotkrumen
+   * @param string|string[] $url Wenn string[], dann als Array gewertet, ansonsten als ... gewertet
+   * @return self
+   */
+  public function setBrotkrumenURL(...$url) : self {
+    if(count($url) === 1 && is_array($url[0])) {
+      $url = $url[0];
+    }
+    $this->brotkrumen_url = $url;
+    return $this;
   }
 
   /**
@@ -34,14 +52,24 @@ class Aktionszeile extends UI\Element {
    */
   public function setBrotkrumen($brotkrumen) : self {
     $this->brotkrumen = $brotkrumen;
+    return $this;
+  }
+
+  /**
+   * Setzt, ob Aktionsicons auszugeben sind
+   * @param bool $aktionsicons :)
+   * @return self
+   */
+  public function setAktionsicons($aktionsicons) : self {
+    $this->aktionsicons = $aktionsicons;
+    return $this;
   }
 
   public function __toString() : string {
-    global $DSH_URL;
     $brotkrumen = "<span id=\"dshBrotkrumen\">";
     if($this->brotkrumen) {
       $pfad = "";
-      foreach($DSH_URL as $i => $segment) {
+      foreach($this->brotkrumen_url as $i => $segment) {
         if($i > 0) {
           $brotkrumen .= " / ";
         }

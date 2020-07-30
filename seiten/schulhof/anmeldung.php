@@ -4,15 +4,17 @@ $CODE .= new Kern\Aktionszeile();
 
 $CODE .= UI\Zeile::standard(new UI\SeitenUeberschrift("Schulhof"));
 
-$meldungBrowserLaden    = new UI\Meldung("Kompatibilität prüfen", "Es wird geprüft, ob Ihr Browser unterstützt wird...", "Arbeit");
-$meldungBrowserErfolg   = new UI\Meldung("Kompatibilität prüfen", "Ihr Browser unterstützt alle Funktionen des Digitalen Schulhofs!", "Erfolg", new UI\Icon(""));
-$meldungBrowserFehler   = new UI\Meldung("Kompatibilität prüfen", "<b>Ihr Browser unterstützt nicht alle Funktionen des Digitalen Schulhofs!</b>", "Fehler", new UI\Icon(""));
-$meldungBrowserUnsicher = new UI\Meldung("Kompatibilität prüfen", "Ihr Browser konnte nicht erkannt werden! Um sicherzustellen, dass alle Funktionen des Digitalen Schulhofs verwendet werden können, muss ein aktueller Browser verwendet werden. <a href=\"https://digitaler-schulhof.de/Wiki/Browser\" class=\"extern\">Hier</a> finden Sie eine Liste an Browsern, die offiziell unterstützt werden.", "Warnung"); // @TODO: Browserliste
+$meldungBrowserLaden    = new UI\Meldung("Kompatibilität prüfen",       "Es wird geprüft, ob Ihr Browser unterstützt wird...", "Arbeit");
+$meldungBrowserErfolg   = new UI\Meldung("Kompatibilität prüfen",       "Ihr Browser unterstützt alle Funktionen des Digitalen Schulhofs!", "Erfolg", new UI\Icon(""));
+$meldungBrowserFehler   = new UI\Meldung("Kompatibilität prüfen",       "<b>Ihr Browser unterstützt nicht alle Funktionen des Digitalen Schulhofs!</b>", "Fehler", new UI\Icon(""));
+$meldungBrowserUnsicher = new UI\Meldung("Kompatibilität prüfen",       "Ihr Browser konnte nicht erkannt werden! Um sicherzustellen, dass alle Funktionen des Digitalen Schulhofs verwendet werden können, muss ein aktueller Browser verwendet werden. <a href=\"https://digitaler-schulhof.de/Wiki/Browser\" class=\"extern\">Hier</a> finden Sie eine Liste an Browsern, die offiziell unterstützt werden.", "Warnung"); // @TODO: Browserliste
+$meldungBrowserInternet = new UI\Meldung("Langsame Internetverbindung", "Es wurde eine langsame Internetverbindung festgestellt. Für ein bestmögliches Erlebnis ist eine schnelle Internetverbindung notwendig.", "Warnung");
 $meldungBrowserLaden    ->setID("dshBrowsercheckLaden");
 $meldungBrowserErfolg   ->setID("dshBrowsercheckErfolg")  ->setStyle("display", "none");
 $meldungBrowserFehler   ->setID("dshBrowsercheckFehler")  ->setStyle("display", "none");
 $meldungBrowserUnsicher ->setID("dshBrowsercheckUnsicher")->setStyle("display", "none")->setAttribut("title", "Fehlt Ihr Browser? Lassen Sie es uns über GitHub wissen! :)");
-$browserMeldungen       = [$meldungBrowserLaden, $meldungBrowserErfolg, $meldungBrowserFehler, $meldungBrowserUnsicher];
+$meldungBrowserInternet ->setID("dshBrowsercheckInternet")->setStyle("display", "none");
+$browserMeldungen       = [$meldungBrowserLaden, $meldungBrowserErfolg, $meldungBrowserFehler, $meldungBrowserUnsicher, $meldungBrowserInternet];
 
 $spalteAnmeldung = new UI\Spalte("A2");
 $spalteAnmeldung->add(new UI\Ueberschrift(2, "Anmeldung"));
@@ -24,10 +26,10 @@ $anmeldungFeldBenutzer = new UI\FormularFeld(new UI\InhaltElement("Benutzer:"), 
 $anmeldungFeldPasswort = new UI\FormularFeld(new UI\InhaltElement("Passwort:"), new UI\Passwortfeld("dshAnmeldungPasswort"));
 
 $anmeldungFormular = new UI\FormularTabelle($anmeldungFeldBenutzer, $anmeldungFeldPasswort);
-$anmeldungFormular->addKnopf((new UI\Knopf("Anmelden", "Erfolg")) ->addFunktion("onclick", "kern.schulhof.nutzerkonten.anmelden()"));
+$anmeldungFormular->addKnopf((new UI\Knopf("Anmelden", "Erfolg")) ->addFunktion("onclick", "kern.schulhof.anmeldung.anmelden()"));
 $anmeldungFormular->addKnopf((new UI\Knopf("Passwort vergessen")) ->addFunktion("href", "Schulhof/Passwort_vergessen"));
 $anmeldungFormular->addKnopf((new UI\Knopf("Registrieren"))       ->addFunktion("href", "Schulhof/Registrieren"));
-$anmeldungFormular->getAktionen()->addFunktion("onclick", "kern.nutzerkonten.anmeldung.brclick(event)");
+$anmeldungFormular->getAktionen()->addFunktion("onclick", "kern.schulhof.anmeldung.brclick(event)");
 $spalteAnmeldung->add($anmeldungFormular);
 
 $spalteLinks = new UI\Spalte("A2");
@@ -68,5 +70,5 @@ $spalteLinks->add($linksListe);
 
 $CODE .= new UI\Zeile($spalteAnmeldung, $spalteLinks);
 
-$CODE .= "<script>kern.nutzerkonten.anmeldung.browsercheck()</script>";
+$CODE .= "<script>kern.schulhof.anmeldung.browsercheck()</script>";
 ?>
