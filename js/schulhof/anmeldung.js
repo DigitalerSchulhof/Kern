@@ -72,37 +72,34 @@ kern.schulhof.anmeldung = {
         http.send(null);
       }).then((ms) => {
         if(ms !== null && ms > 100) {
-          $("#dshBrowsercheckInternet").style.display = "";
-          $("#dshBrowsercheckInternet").title = "Antwortzeit: " + ms + "ms";
+          $("#dshBrowsercheckInternet").weg();
+          $("#dshBrowsercheckInternet").attr("title", "Antwortzeit: " + ms + "ms");
         }
+        $("#dshBrowsercheckLaden").weg();
         if(unterstuetzt === true) {
-          $("#dshBrowsercheckLaden").style.display  = "none";
-          $("#dshBrowsercheckErfolg").style.display = "";
+          $("#dshBrowsercheckErfolg").her();
         } else if(unterstuetzt === false) {
-          $("#dshBrowsercheckLaden").style.display  = "none";
-          $("#dshBrowsercheckFehler").style.display = "";
+          $("#dshBrowsercheckFehler").her();
         } else {
-          $("#dshBrowsercheckLaden").style.display  = "none";
-          $("#dshBrowsercheckUnsicher").style.display = "";
+          $("#dshBrowsercheckUnsicher").her();
         }
         if(icon !== null) {
-          $("#dshBrowsercheckErfolg").querySelector("i.icon.i1").classList.add(...icon.split(" "));
-          $("#dshBrowsercheckFehler").querySelector("i.icon.i1").classList.add(...icon.split(" "));
+          $("#dshBrowsercheckErfolg i.icon.i1", "#dshBrowsercheckFehler i.icon.i1").addKlasse(...icon.split(" "));
         }
       });
     }, 333);
   },
   brclick: function (ev) {
-    let t  = ev.target;
-    if(!t.classList.contains("dshUiFormular")) {
+    let t = $(ev.target);
+    if(!t.is(".dshUiFormular")) {
       return;
     }
-    let ben = t.querySelector("#dshAnmeldungBenutzer");
+    let ben = t.find("#dshAnmeldungBenutzer");
     if(ev.offsetX < 0) {
-      ben.placeholder = "jesper";
+      ben.attr("placeholder", "jesper");
     }
-    if(ev.offsetX > t.clientWidth) {
-      ben.placeholder = "patrick";
+    if(ev.offsetX > t[0].clientWidth) {
+      ben.attr("placeholder", "patrick");
     }
   }
 };

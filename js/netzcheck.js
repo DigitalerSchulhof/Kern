@@ -21,11 +21,11 @@
       http.open("HEAD", "ping.php", true);
       http.send(null);
     }).then((ms) => {
-      $("#dshNetzcheck").classList.remove("offline");
+      $("#dshNetzcheck").removeKlasse("offline");
       setTimeout(netzcheck, 5000);
     },
     (ms) => {
-      $("#dshNetzcheck").classList.add("offline");
+      $("#dshNetzcheck").addKlasse("offline");
       setTimeout(netzcheck, 5000);
     });
   };

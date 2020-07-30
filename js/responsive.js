@@ -1,14 +1,14 @@
 var resizecheck = () => {
   console.log("Breite:" + document.body.clientWidth);
   if(document.body.clientWidth >= 1024) {
-    $("body").classList.add("dshSeiteP");
-    $("body").classList.remove("dshSeiteT", "dshSeiteH");
+    $("body").addKlasse("dshSeiteP");
+    $("body").removeKlasse("dshSeiteT", "dshSeiteH");
   } else if(document.body.clientWidth >= 768) {
-    $("body").classList.add("dshSeiteT");
-    $("body").classList.remove("dshSeiteP", "dshSeiteH");
+    $("body").addKlasse("dshSeiteT");
+    $("body").removeKlasse("dshSeiteP", "dshSeiteH");
   } else {
-    $("body").classList.add("dshSeiteH");
-    $("body").classList.remove("dshSeiteP", "dshSeiteT");
+    $("body").addKlasse("dshSeiteH");
+    $("body").removeKlasse("dshSeiteP", "dshSeiteT");
   }
 };
 window.addEventListener("resize", resizecheck);
