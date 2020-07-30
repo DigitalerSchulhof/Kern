@@ -84,22 +84,9 @@ kern.schulhof.anmeldung = {
           $("#dshBrowsercheckUnsicher").her();
         }
         if(icon !== null) {
-          $("#dshBrowsercheckErfolg i.icon.i1", "#dshBrowsercheckFehler i.icon.i1").addKlasse(...icon.split(" "));
+          $("#dshBrowsercheckErfolg i.dshUiIcon.i1", "#dshBrowsercheckFehler i.dshUiIcon.i1").addKlasse(...icon.split(" "));
         }
       });
     }, 333);
-  },
-  brclick: function (ev) {
-    let t = $(ev.target);
-    if(!t.is(".dshUiFormular")) {
-      return;
-    }
-    let ben = t.find("#dshAnmeldungBenutzer");
-    if(ev.offsetX < 0) {
-      ben.attr("placeholder", "jesper");
-    }
-    if(ev.offsetX > t[0].clientWidth) {
-      ben.attr("placeholder", "patrick");
-    }
   }
 };

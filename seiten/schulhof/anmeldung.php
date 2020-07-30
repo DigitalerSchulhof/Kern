@@ -29,7 +29,6 @@ $anmeldungFormular = new UI\FormularTabelle($anmeldungFeldBenutzer, $anmeldungFe
 $anmeldungFormular->addKnopf((new UI\Knopf("Anmelden", "Erfolg")) ->addFunktion("onclick", "kern.schulhof.anmeldung.anmelden()"));
 $anmeldungFormular->addKnopf((new UI\Knopf("Passwort vergessen")) ->addFunktion("href", "Schulhof/Passwort_vergessen"));
 $anmeldungFormular->addKnopf((new UI\Knopf("Registrieren"))       ->addFunktion("href", "Schulhof/Registrieren"));
-$anmeldungFormular->getAktionen()->addFunktion("onclick", "kern.schulhof.anmeldung.brclick(event)");
 $spalteAnmeldung->add($anmeldungFormular);
 
 $spalteLinks = new UI\Spalte("A2");
