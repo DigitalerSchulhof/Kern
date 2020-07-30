@@ -12,14 +12,15 @@ class DB {
   private $schluessel;
 
 	/**
-	* @param string $host Der Host
-	* @param string $benutzer Der Benutzer
-	* @param string $passwort Dass Passwort
-	* @param string $datenbank Die Datenbank
-	* @param string $schluessel Der Datenbankschlüssel
+	* @param string $host :)
+	* @param string $benutzer :)
+  * @param int    $port :)
+	* @param string $passwort :)
+	* @param string $datenbank :)
+	* @param string $schluessel :)
 	*/
-  public function __construct($host, $benutzer, $passwort, $datenbank, $schluessel) {
-    $this->db = new \mysqli($host, $benutzer, $passwort, $datenbank);
+  public function __construct($host, $port, $benutzer, $passwort, $datenbank, $schluessel) {
+    $this->db = new \mysqli($host, $benutzer, $passwort, $datenbank, $port);
   	$this->db->set_charset("utf8");
     $this->schluessel = $schluessel;
   }
