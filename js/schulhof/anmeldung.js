@@ -72,7 +72,7 @@ kern.schulhof.anmeldung = {
         http.send(null);
       }).then((ms) => {
         if(ms !== null && ms > 100) {
-          $("#dshBrowsercheckInternet").weg();
+          $("#dshBrowsercheckInternet").her();
           $("#dshBrowsercheckInternet").attr("title", "Antwortzeit: " + ms + "ms");
         }
         $("#dshBrowsercheckLaden").weg();
@@ -88,5 +88,21 @@ kern.schulhof.anmeldung = {
         }
       });
     }, 333);
+  },
+  brclick: (ev) => {
+    let t = $(ev.target);
+    if(!t.is(".dshUiFormular")) {
+      return;
+    }
+    let ben = t.find("#dshAnmeldungBenutzer");
+    if(ev.offsetX < 0) {
+      ben.attr("placeholder", "jesper");
+    }
+    if(ev.offsetX > t[0].clientWidth) {
+      ben.attr("placeholder", "patrick");
+    }
+  },
+  anmelden: () => {
+    console.log("hi");
   }
 };
