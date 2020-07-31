@@ -89,20 +89,12 @@ kern.schulhof.anmeldung = {
       });
     }, 333);
   },
-  brclick: (ev) => {
-    let t = $(ev.target);
-    if(!t.is(".dshUiFormular")) {
-      return;
-    }
-    let ben = t.find("#dshAnmeldungBenutzer");
-    if(ev.offsetX < 0) {
-      ben.attr("placeholder", "jesper");
-    }
-    if(ev.offsetX > t[0].clientWidth) {
-      ben.attr("placeholder", "patrick");
-    }
-  },
   anmelden: () => {
-    console.log("hi");
+    var benutzer = $("#dshAnmeldungBenutzer").wert();
+    var passwort = $("#dshAnmeldungPasswort").wert();
+
+    core.ajax("Kern", 0, ["Anmeldung", "Anmeldedaten werden überprüft"], {bentuzer: benutzer, passwort: passwort}).then((r) => {
+      console.log(r);
+    });
   }
 };
