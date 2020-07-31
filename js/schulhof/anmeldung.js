@@ -72,16 +72,16 @@ kern.schulhof.anmeldung = {
         http.send(null);
       }).then((ms) => {
         if(ms !== null && ms > 100) {
-          $("#dshBrowsercheckInternet").her();
-          $("#dshBrowsercheckInternet").attr("title", "Antwortzeit: " + ms + "ms");
+          $("#dshBrowsercheckInternet").einblenden();
+          $("#dshBrowsercheckInternet").setAttr("title", "Antwortzeit: " + ms + "ms");
         }
-        $("#dshBrowsercheckLaden").weg();
+        $("#dshBrowsercheckLaden").ausblenden();
         if(unterstuetzt === true) {
-          $("#dshBrowsercheckErfolg").her();
+          $("#dshBrowsercheckErfolg").einblenden();
         } else if(unterstuetzt === false) {
-          $("#dshBrowsercheckFehler").her();
+          $("#dshBrowsercheckFehler").einblenden();
         } else {
-          $("#dshBrowsercheckUnsicher").her();
+          $("#dshBrowsercheckUnsicher").einblenden();
         }
         if(icon !== null) {
           $("#dshBrowsercheckErfolg i.dshUiIcon.i1", "#dshBrowsercheckFehler i.dshUiIcon.i1").addKlasse(...icon.split(" "));
@@ -90,8 +90,8 @@ kern.schulhof.anmeldung = {
     }, 333);
   },
   anmelden: () => {
-    var benutzer = $("#dshAnmeldungBenutzer").wert();
-    var passwort = $("#dshAnmeldungPasswort").wert();
+    var benutzer = $("#dshAnmeldungBenutzer").getWert();
+    var passwort = $("#dshAnmeldungPasswort").getWert();
 
     core.ajax("Kern", 0, ["Anmeldung", "Anmeldedaten werden überprüft"], {bentuzer: benutzer, passwort: passwort}).then((r) => {
       console.log(r);
