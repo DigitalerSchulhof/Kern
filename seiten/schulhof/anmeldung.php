@@ -5,8 +5,8 @@ $CODE .= new Kern\Aktionszeile();
 $CODE .= UI\Zeile::standard(new UI\SeitenUeberschrift("Schulhof"));
 
 $meldungBrowserLaden    = new UI\Meldung("Kompatibilität prüfen",       "Es wird geprüft, ob Ihr Browser unterstützt wird...", "Arbeit");
-$meldungBrowserErfolg   = new UI\Meldung("Kompatibilität prüfen",       "Dieser unterstützt alle Funktionen des Digitalen Schulhofs.", "Erfolg", new UI\Icon(""));
-$meldungBrowserFehler   = new UI\Meldung("Kompatibilität prüfen",       "<b>Dieser unterstützt möglicherweise nicht alle Funktionen des Digitalen Schulhofs!</b>", "Fehler", new UI\Icon(""));
+$meldungBrowserErfolg   = new UI\Meldung("Kompatibilität prüfen",       "Dieser Browser unterstützt alle Funktionen des Digitalen Schulhofs.", "Erfolg", new UI\Icon(""));
+$meldungBrowserFehler   = new UI\Meldung("Kompatibilität prüfen",       "<b>Dieser Browser unterstützt möglicherweise nicht alle Funktionen des Digitalen Schulhofs!</b>", "Fehler", new UI\Icon(""));
 $meldungBrowserUnsicher = new UI\Meldung("Kompatibilität prüfen",       "Dieser Browser konnte nicht erkannt werden! Um sicherzustellen, dass alle Funktionen des Digitalen Schulhofs verwendet werden können, muss ein aktueller Browser verwendet werden. <a href=\"https://digitaler-schulhof.de/Wiki/Browser\" class=\"dshExtern\">Hier</a> finden Sie eine Liste an Browsern, die offiziell unterstützt werden.", "Warnung"); // @TODO: Browserliste
 $meldungBrowserInternet = new UI\Meldung("Langsame Internetverbindung", "Es wurde eine langsame Internetverbindung festgestellt. Für ein bestmögliches Erlebnis ist eine schnelle Internetverbindung notwendig.", "Warnung");
 $meldungBrowserLaden    ->setID("dshBrowsercheckLaden");
