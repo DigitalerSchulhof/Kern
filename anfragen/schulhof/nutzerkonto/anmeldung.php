@@ -55,7 +55,6 @@ if ($ldap["LDAP"] != "1") {
 // Benutzer anmelden
 session_start();
 $sessionid = session_id();
-echo $sessionid;
 $jetzt = time();
 $sessiontimeout = $jetzt + $inaktivitaetszeit*60;
 
@@ -106,4 +105,7 @@ if (file_exists("$ROOT/dateien/Kern/personen/$id/postfach/temp")) {
 if (!file_exists("$ROOT/dateien/Kern/personen/$id/postfach/temp")) {
   mkdir("$ROOT/dateien/Kern/personen/$id/postfach/temp", 0775);
 }
+
+Anfrage::setTyp("Weiterleitung");
+Anfrage::setRueck("Ziel", "Schulhof/Nutzerkonto");
 ?>
