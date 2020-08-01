@@ -123,5 +123,50 @@ class DB {
 
     return new Anfrage($anzahl, $ergebnis);
   }
+
+
+  public function neuerDatensatz($tabelle) {
+    $fehler = false;
+    $id = '-';
+
+    if (isset($_SESSION['BENUTZERID'])) {$benutzer = $_SESSION['BENUTZERID'];}
+    else {
+      throw new \Exception("Nicht identifizierter Benutzer versucht ");
+    }
+
+    // Neue ID bestimmten und eintragen
+    $jetzt = time();
+    $sql = $this->db->prepare("SET FOREIGN_KEY_CHECKS = 0;");
+    $sql->execute();
+    $sql->close();
+
+    $sql = $db->prepare("INSERT INTO $tabelle (id, idvon, idzeit) SELECT id, idvon, idzeit FROM (SELECT IFNULL(id*0,0)+? AS idvon, IFNULL(id*0,0)+? AS idzeit, IFNULL(MIN(id)+1,1) AS id FROM $tabelle WHERE id+1 NOT IN (SELECT id FROM $tabelle)) AS vorherigeid");
+    $sql->bind_param("ii", $benutzer, $jetzt);
+    $sql->execute();
+    $sql->close();
+
+  	$sql = $db->prepare("SET FOREIGN_KEY_CHECKS = 1;");
+    $sql->execute();
+    $sql->close();
+
+    // ID zurückgewinnen
+    $id = null;
+    $sql = $db->prepare("SELECT id FROM $tabelle WHERE idvon = ? AND idzeit = ?");
+    $sql->bind_param("ii", $benutzer, $jetzt);
+    if ($sql->execute()) {
+      $sql->bind_result($id);
+      $sql->fetch();
+    }
+    else {$fehler = true;}
+    $sql->close();
+    // Persönliche Daten löschen
+    if ($id !== null) {
+      $sql = $db->prepare("UPDATE $tabelle SET idvon = NULL, idzeit = NULL WHERE id = ?");
+      $sql->bind_param("i", $id);
+      $sql->execute();
+      $sql->close();
+    }
+    return $id;
+  }
 }
 ?>

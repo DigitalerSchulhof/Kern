@@ -4,3 +4,12 @@
 2:
   ort: anfragen/schulhof/nutzerkonto/anmeldung.php
   beschreibung: Das <b>Passwort</b> ist ungültig.
+3:
+  ort: anfragen/schulhof/nutzerkonto/anmeldung.php
+  beschreibung: Der <b>LDAP-Server</b> der die Benutzerdaten verwaltet, ist aktuell nicht erreichbar.
+4:
+  ort: anfragen/schulhof/nutzerkonto/anmeldung.php
+  beschreibung: Der <b>Benutzername</b> oder das <b>Passwort</b> ist falsch.
+5:
+  ort: anfragen/schulhof/nutzerkonto/anmeldung.php
+  beschreibung: Der <b>Benutzer</b> wurde unter diesem Benutzernamen nicht gefunden. Möglicherweise ist das Konto inaktiv, weil das Passwort abgelaufen ist. In diesem Fall kann ein neues Kennwort über »Passwort vergessen« angefordert werden.
