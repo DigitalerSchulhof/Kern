@@ -61,18 +61,19 @@ $sessiontimeout = $jetzt + $inaktivitaetszeit*60;
 // Alte Sessions mit dieser SessionID bearbeiten löschen
 $sql = "UPDATE kern_nutzersessions SET sessionid = null WHERE sessionid = [?]";
 $anfrage = $DBS->anfrage($sql, "s", $sessionid);
-$sql = "DELETE FROM kern_nutzersessions WHERE id NOT IN (SELECT id FROM kern_nutzerkonten ORDER BY sessiontimeout LIMIT 2) AND nutzer = ? AND sessiontimeout < ?";
-$timeoutlimit = $jetzt - 60*60*24*2;
-$anfrage = $DBS->anfrage($sql, "ii", $id, $timeoutlimit);
 
-// Neue Session eintragen
-$sessiondbid = $DBS->neuerDatensatz("kern_nutzersessions");
-$sql = "UPDATE kern_nutzersessions SET sessionid = {?}, nutzer = ?, sessiontimeout = ? WHERE id = ?";
-$anfrage = $DBS->anfrage($sql, "siis", $sessionid, $id, $sessiontimeout, $sessiondbid);
-
-// Postfachordner verwalten
-if (file_exists(__DIR__."../../../../../dateien/Kern/personen/$id/postfach/temp")) {Kern\Dateisystem::ordnerLoeschen(__DIR__."../../../../../dateien/Kern/personen/$id/postfach/temp");}
-if (!file_exists(__DIR__."../../../../../dateien/Kern/personen/$id/postfach/temp")) {mkdir(__DIR__."../../../../../dateien/Kern/personen/$id/postfach/temp", 0775);}
+$sql = "SELECT id FROM kern_nutzersessions WHERE nutzer = ? ORDER BY sessiontimeout LIMIT 2";
+$anfrage = $DBS->anfrage($sql, "i", $id);
+$sicheresessions = [];
+while ($anfrage->werte($sid)) {
+  $sicheresessions[] = $sid;
+}
+if (count($sicheresessions) > 0) {
+  $sicheresessionssql = implode(",", $sicheresessions);
+  $sql = "DELETE FROM kern_nutzersessions WHERE id NOT IN ($sicheresessionssql) AND nutzer = ? AND sessiontimeout < ?";
+  $timeoutlimit = $jetzt - 60*60*24*2;
+  $anfrage = $DBS->anfrage($sql, "ii", $id, $timeoutlimit);
+}
 
 // Sessionvariablen setzen
 $_SESSION['BENUTZERNAME'] = $benutzer;
@@ -90,5 +91,18 @@ $_SESSION['PASSWORTTIMEOUT'] = $passworttimeout;
 $_SESSION['DSGVO_FENSTERWEG'] = true;
 $_SESSION['DSGVO_EINWILLIGUNG_A'] = true;
 
-$_SESSION['BENUTZERUEBERSICHTANZAHL'] = $uebersichtsanzahl;
+$_SESSION['BENUTZERUEBERSICHTANZAHL'] = $uebersichtszahl;
+
+// Neue Session eintragen
+$sessiondbid = $DBS->neuerDatensatz("kern_nutzersessions");
+$sql = "UPDATE kern_nutzersessions SET sessionid = {?}, nutzer = ?, sessiontimeout = ? WHERE id = ?";
+$anfrage = $DBS->anfrage($sql, "siis", $sessionid, $id, $sessiontimeout, $sessiondbid);
+
+// Postfachordner verwalten
+if (file_exists(__DIR__."/../../../../../dateien/Kern/personen/$id/postfach/temp")) {
+  Kern\Dateisystem::ordnerLoeschen(__DIR__."/../../../../../dateien/Kern/personen/$id/postfach/temp");
+}
+if (!file_exists(__DIR__."/../../../../../dateien/Kern/personen/$id/postfach/temp")) {
+  mkdir(__DIR__."/../../../../../dateien/Kern/personen/$id/postfach/temp", 0775);
+}
 ?>
