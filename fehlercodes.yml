@@ -1,6 +1,6 @@
 1:
   ort: anfragen/schulhof/nutzerkonto/anmeldung.php
-  beschreibung: Der Benutzername ist ungültig.
+  beschreibung: Der <b>Benutzername</b> ist ungültig.
 2:
   ort: anfragen/schulhof/nutzerkonto/anmeldung.php
-  beschreibung: Das Passwort ist ungültig.
+  beschreibung: Das <b>Passwort</b> ist ungültig.
