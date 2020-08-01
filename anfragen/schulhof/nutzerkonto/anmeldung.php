@@ -7,7 +7,7 @@ if(!Check::istText($benutzer)) {
 if(strlen($passwort) <= 0) {
   Anfrage::addFehler(2);
 }
-Anfrage::hatFehler();
+Anfrage::checkFehler();
 
 
 $angemeldet = false;
@@ -100,10 +100,10 @@ $sql = "UPDATE kern_nutzersessions SET sessionid = [?], nutzer = ?, sessiontimeo
 $anfrage = $DBS->anfrage($sql, "siis", $sessionid, $id, $sessiontimeout, $sessiondbid);
 
 // Postfachordner verwalten
-if (file_exists(__DIR__."/../../../../../dateien/Kern/personen/$id/postfach/temp")) {
-  Kern\Dateisystem::ordnerLoeschen(__DIR__."/../../../../../dateien/Kern/personen/$id/postfach/temp");
+if (file_exists("$ROOT/dateien/Kern/personen/$id/postfach/temp")) {
+  Kern\Dateisystem::ordnerLoeschen("$ROOT/dateien/Kern/personen/$id/postfach/temp");
 }
-if (!file_exists(__DIR__."/../../../../../dateien/Kern/personen/$id/postfach/temp")) {
-  mkdir(__DIR__."/../../../../../dateien/Kern/personen/$id/postfach/temp", 0775);
+if (!file_exists("$ROOT/dateien/Kern/personen/$id/postfach/temp")) {
+  mkdir("$ROOT/dateien/Kern/personen/$id/postfach/temp", 0775);
 }
 ?>
