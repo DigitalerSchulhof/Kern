@@ -55,6 +55,7 @@ if ($ldap["LDAP"] != "1") {
 // Benutzer anmelden
 session_start();
 $sessionid = session_id();
+echo $sessionid;
 $jetzt = time();
 $sessiontimeout = $jetzt + $inaktivitaetszeit*60;
 
@@ -95,7 +96,7 @@ $_SESSION['BENUTZERUEBERSICHTANZAHL'] = $uebersichtszahl;
 
 // Neue Session eintragen
 $sessiondbid = $DBS->neuerDatensatz("kern_nutzersessions");
-$sql = "UPDATE kern_nutzersessions SET sessionid = {?}, nutzer = ?, sessiontimeout = ? WHERE id = ?";
+$sql = "UPDATE kern_nutzersessions SET sessionid = [?], nutzer = ?, sessiontimeout = ? WHERE id = ?";
 $anfrage = $DBS->anfrage($sql, "siis", $sessionid, $id, $sessiontimeout, $sessiondbid);
 
 // Postfachordner verwalten
