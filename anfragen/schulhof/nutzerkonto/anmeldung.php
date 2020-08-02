@@ -23,7 +23,7 @@ if ($ldap["LDAP"] == "1") {
 
 
   // LDAP Benutzerid
-  $sql = "SELECT kern_personen.id AS id, {salt}, {art}, {titel}, {vorname}, {nachname}, schuljahr, {uebersichtsanzahl}, {inaktivitaetszeit}, passworttimeout FROM kern_personen JOIN kern_nutzerkonten ON kern_personen.id = kern_nutzerkonten.id JOIN kern_nutzereinstellungen ON kern_nutzerkonten.id = kern_nutzereinstellungen.person WHERE ldapid = ?";
+  $sql = "SELECT kern_personen.id AS id, {salt}, {art}, {titel}, {vorname}, {nachname}, {geschlecht}, schuljahr, {uebersichtsanzahl}, {inaktivitaetszeit}, passworttimeout FROM kern_personen JOIN kern_nutzerkonten ON kern_personen.id = kern_nutzerkonten.id JOIN kern_nutzereinstellungen ON kern_nutzerkonten.id = kern_nutzereinstellungen.person WHERE ldapid = ?";
   $anfrage = $DBS->anfrage($sql, "si", $ldapbenuzterid);
 
 }
@@ -31,7 +31,7 @@ if ($ldap["LDAP"] == "1") {
 else {
   $jetzt = time();
   // Benutzer suchen
-  $sql = "SELECT kern_personen.id AS id, {salt}, {art}, {titel}, {vorname}, {nachname}, schuljahr, {uebersichtsanzahl}, {inaktivitaetszeit}, passworttimeout FROM kern_personen JOIN kern_nutzerkonten ON kern_personen.id = kern_nutzerkonten.id JOIN kern_nutzereinstellungen ON kern_nutzerkonten.id = kern_nutzereinstellungen.person WHERE benutzername = [?] AND (passworttimeout IS null OR passworttimeout > ?)";
+  $sql = "SELECT kern_personen.id AS id, {salt}, {art}, {titel}, {vorname}, {nachname}, {geschlecht}, schuljahr, {uebersichtsanzahl}, {inaktivitaetszeit}, passworttimeout FROM kern_personen JOIN kern_nutzerkonten ON kern_personen.id = kern_nutzerkonten.id JOIN kern_nutzereinstellungen ON kern_nutzerkonten.id = kern_nutzereinstellungen.person WHERE benutzername = [?] AND (passworttimeout IS null OR passworttimeout > ?)";
   $anfrage = $DBS->anfrage($sql, "si", $benutzer, $jetzt);
 }
 
@@ -39,7 +39,7 @@ else {
 if ($anfrage->getAnzahl() == 0) {
   Anfrage::addFehler(5, true);
 }
-$anfrage->werte($id, $salt, $art, $titel, $vorname, $nachname, $schuljahr, $uebersichtszahl, $inaktivitaetszeit, $passworttimeout);
+$anfrage->werte($id, $salt, $art, $titel, $vorname, $nachname, $geschlecht, $schuljahr, $uebersichtszahl, $inaktivitaetszeit, $passworttimeout);
 
 
 // Passwortprüfung nur im FALLBACK-Fall notwendig
@@ -76,22 +76,19 @@ if (count($sicheresessions) > 0) {
 }
 
 // Sessionvariablen setzen
-$_SESSION['BENUTZERNAME'] = $benutzer;
-$_SESSION['SESSIONID'] = $sessionid;
-$_SESSION['SESSIONTIMEOUT'] = $sessiontimeout;
-$_SESSION['SESSIONAKTIVITAET'] = $inaktivitaetszeit;
-$_SESSION['BENUTZERTITEL'] = $titel;
-$_SESSION['BENUTZERVORNAME'] = $vorname;
-$_SESSION['BENUTZERNACHNAME'] = $nachname;
-$_SESSION['BENUTZERID'] = $id;
-$_SESSION['BENUTZERART'] = $art;
-$_SESSION['BENUTZERSCHULJAHR'] = $schuljahr;
-$_SESSION['PASSWORTTIMEOUT'] = $passworttimeout;
+$anmelden = new Kern\Nutzerkonto($titel, $vorname, $nachname);
+$anmelden->setId($id);
+$anmelden->setArt($art);
+$anmelden->setBenutzer($benutzer);
+$anmelden->setSession($sessionid, $sessiontimeout, $inaktivitaetszeit);
+$anmelden->setSchuljahr($schuljahr);
+$anmelden->setPassworttimeout($passworttimeout);
+$anmelden->setUebersichtszahl($uebersichtszahl);
+$anmelden->setGeschlecht($geschlecht);
 
+$_SESSION['Benutzer'] = $anmelden;
 $_SESSION['DSGVO_FENSTERWEG'] = true;
 $_SESSION['DSGVO_EINWILLIGUNG_A'] = true;
-
-$_SESSION['BENUTZERUEBERSICHTANZAHL'] = $uebersichtszahl;
 
 // Neue Session eintragen
 $sessiondbid = $DBS->neuerDatensatz("kern_nutzersessions");

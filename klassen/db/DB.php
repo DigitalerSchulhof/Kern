@@ -129,7 +129,7 @@ class DB {
     $fehler = false;
     $id = '-';
 
-    if (isset($_SESSION['BENUTZERID'])) {$benutzer = $_SESSION['BENUTZERID'];}
+    if (isset($_SESSION['Benutzer'])) {$benutzer = $_SESSION['Benutzer']->getId();}
     else {
       throw new \Exception("Nicht identifizierter Benutzer versucht ");
     }

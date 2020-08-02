@@ -4,6 +4,7 @@ include "$MODUL/klassen/db/DB.php";
 include "$MODUL/klassen/aktionszeile.php";
 include "$MODUL/klassen/einstellungen.php";
 include "$MODUL/klassen/dateisystem.php";
+include "$MODUL/klassen/person.php";
 
 use \DB\DB;
 
