@@ -50,6 +50,10 @@ if ($ldap["LDAP"] != "1") {
   if ($anfrage->getAnzahl() != 1) {
     Anfrage::addFehler(4, true);
   }
+  $anfrage->werte($anz);
+  if($anz != 1) {
+    Anfrage::addFehler(4, true);
+  }
 }
 
 // Benutzer anmelden
@@ -100,7 +104,7 @@ if (file_exists("$ROOT/dateien/Kern/personen/$id/postfach/temp")) {
   Kern\Dateisystem::ordnerLoeschen("$ROOT/dateien/Kern/personen/$id/postfach/temp");
 }
 if (!file_exists("$ROOT/dateien/Kern/personen/$id/postfach/temp")) {
-  mkdir("$ROOT/dateien/Kern/personen/$id/postfach/temp", 0775);
+  mkdir("$ROOT/dateien/Kern/personen/$id/postfach/temp", 0775, true);
 }
 
 Anfrage::setTyp("Weiterleitung");

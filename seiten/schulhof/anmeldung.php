@@ -1,4 +1,10 @@
 <?php
+if(Check::angemeldet()) {
+  Anfrage::setTyp("Weiterleitung");
+  Anfrage::setRueck("Ziel", "Schulhof/Nutzerkonto");
+  return;
+}
+
 $DSH_TITEL = "Anmeldung";
 $CODE .= new Kern\Aktionszeile();
 

@@ -1,5 +1,4 @@
 <?php
-session_start();
 if(!Check::angemeldet()) {
   einbinden("Schulhof/Anmeldung");
   return;
