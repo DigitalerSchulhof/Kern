@@ -93,10 +93,6 @@ kern.schulhof.anmeldung = {
     var benutzer = $("#dshAnmeldungBenutzer").getWert();
     var passwort = $("#dshAnmeldungPasswort").getWert();
 
-    core.ajax("Kern", 0, ["Anmeldung", "Anmeldedaten werden überprüft"], {benutzer: benutzer, passwort: passwort}).then((r) => {
-      if(!r.Fehler) {
-        location.reload();
-      }
-    });
+    core.ajax("Kern", 0, ["Anmeldung", "Anmeldedaten werden überprüft"], {benutzer: benutzer, passwort: passwort});
   }
 };
