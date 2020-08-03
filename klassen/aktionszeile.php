@@ -76,7 +76,7 @@ class Aktionszeile extends UI\Element {
         $el = new UI\InhaltElement("$segment");
         $el->getAktionen()->addFunktion("href", "$pfad$segment");
         $el->setTag("a");
-        $el->setAttribut("tabindex", "1");
+        $el->setAttribut("tabindex", "0");
         $brotkrumen .= $el;
         $pfad .= "$segment/";
       }
