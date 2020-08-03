@@ -1,4 +1,5 @@
 seiten:
-  "Schulhof"             : "Kern/seiten/schulhof/nutzerkonto.php"
-  "Schulhof/Anmeldung"   : "Kern/seiten/schulhof/anmeldung.php"
-  "Schulhof/Nutzerkonto" : "Kern/seiten/schulhof/nutzerkonto.php"
+  "Schulhof"              : "Kern/seiten/schulhof/nutzerkonto.php"
+  "Schulhof/Anmeldung"    : "Kern/seiten/schulhof/anmeldung.php"
+  "Schulhof/Nutzerkonto"  : "Kern/seiten/schulhof/nutzerkonto.php"
+  "Schulhof/Verwaltung"   : "Kern/seiten/schulhof/verwaltungsbereich.php"
