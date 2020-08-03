@@ -1,6 +1,7 @@
 <?php
 namespace Kern;
 use DB;
+use UI;
 
 class Person {
   /** @var int ID */
@@ -317,6 +318,7 @@ class Nutzerkonto extends Person {
     $sql = "UPDATE kern_nutzersessions SET sessiontimeout = ? WHERE nutzer = ? AND sessionid = [?]";
     $anfrage = $DBS->anfrage($sql, "iis", $zeit, $this->id, $this->sessionid);
     if ($anfrage->getAnzahl() > 0) {
+      $this->sessiontimeout = $zeit;
       return true;
     }
     return false;
@@ -341,6 +343,20 @@ class Nutzerkonto extends Person {
       $this->sessionVerlaengern();
     }
     return $angemeldet;
+  }
+
+
+  public function aktivitaetsanzeige($id) {
+    $balken = new UI\Balken("Zeit", time(), $this->sessiontimeout, $this->inaktivitaetszeit);
+    $balken->setID($id);
+    $code  = $balken;
+    $verlaengern = new UI\Knopf("Verlängern", "Erfolg");
+    $verlaengern->addFunktion("onclick", "nutzerkonto.sessionVerlaengern()");
+    $abmelden = new UI\Knopf("Abmelden", "Warnung");
+    $abmelden->addFunktion("onclick", "nutzerkonto.abmelden()");
+    $absatz = new UI\Absatz("{$verlaengern} {$abmelden}");
+    $code .= $absatz;
+    return $code;
   }
 }
 
