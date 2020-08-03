@@ -1,4 +1,4 @@
-kern.schulhof.anmeldung = {
+kern.schulhof.oeffentlich = {
   browsercheck: () => {
     if($("#dshBrowsercheckLaden").length === 0) {
       return;
@@ -88,11 +88,5 @@ kern.schulhof.anmeldung = {
         }
       });
     }, 333);
-  },
-  anmelden: () => {
-    var benutzer = $("#dshAnmeldungBenutzer").getWert();
-    var passwort = $("#dshAnmeldungPasswort").getWert();
-
-    core.ajax("Kern", 0, ["Anmeldung", "Anmeldedaten werden überprüft"], {benutzer: benutzer, passwort: passwort});
   }
 };

@@ -35,7 +35,7 @@ $anmeldungFormular = new UI\FormularTabelle($anmeldungFeldBenutzer, $anmeldungFe
 $anmeldungFormular->addKnopf((new UI\Knopf("Anmelden", "Erfolg")) ->setSubmit(true));
 $anmeldungFormular->addKnopf((new UI\Knopf("Passwort vergessen")) ->addFunktion("href", "Schulhof/Passwort_vergessen"));
 $anmeldungFormular->addKnopf((new UI\Knopf("Registrieren"))       ->addFunktion("href", "Schulhof/Registrieren"));
-$anmeldungFormular->getAktionen()->addFunktion("onsubmit", "kern.schulhof.anmeldung.anmelden()");
+$anmeldungFormular->getAktionen()->addFunktion("onsubmit", "kern.schulhof.nutzerkonto.anmelden()");
 $spalteAnmeldung->add($anmeldungFormular);
 
 
@@ -56,5 +56,5 @@ $spalteLinks->add(new UI\Ueberschrift(2, "Links"));
 
 $CODE .= new UI\Zeile($spalteAnmeldung, $spalteLinks);
 
-$CODE .= "<script>kern.schulhof.anmeldung.browsercheck()</script>";
+$CODE .= "<script>kern.schulhof.oeffentlich.browsercheck()</script>";
 ?>

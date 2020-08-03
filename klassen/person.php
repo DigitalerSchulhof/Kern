@@ -345,18 +345,32 @@ class Nutzerkonto extends Person {
     return $angemeldet;
   }
 
-
+  /**
+   * Gibt den Balken für die Aktivitätsanzeuge aus
+   * @param  string $id ID der Aktivitätsanzeige
+   * @return string     HTML-Code der Aktivitätsanzeige
+   */
   public function aktivitaetsanzeige($id) {
     $balken = new UI\Balken("Zeit", time(), $this->sessiontimeout, $this->inaktivitaetszeit);
     $balken->setID($id);
     $code  = $balken;
     $verlaengern = new UI\Knopf("Verlängern", "Erfolg");
-    $verlaengern->addFunktion("onclick", "nutzerkonto.sessionVerlaengern()");
+    $verlaengern->addFunktion("onclick", "kern.schulhof.nutzerkonto.sessionVerlaengern()");
     $abmelden = new UI\Knopf("Abmelden", "Warnung");
-    $abmelden->addFunktion("onclick", "nutzerkonto.abmelden()");
+    $abmelden->addFunktion("onclick", "kern.schulhof.nutzerkonto.abmelden.fragen()");
     $absatz = new UI\Absatz("{$verlaengern} {$abmelden}");
     $code .= $absatz;
     return $code;
+  }
+
+  public function postfachOrdnerAufraeumen() {
+    global $ROOT;
+    if (file_exists("$ROOT/dateien/Kern/personen/{$this->id}/postfach/temp")) {
+      Dateisystem::ordnerLoeschen("$ROOT/dateien/Kern/personen/{$this->id}/postfach/temp");
+    }
+    if (!file_exists("$ROOT/dateien/Kern/personen/{$this->id}/postfach/temp")) {
+      mkdir("$ROOT/dateien/Kern/personen/{$this->id}/postfach/temp", 0775, true);
+    }
   }
 }
 

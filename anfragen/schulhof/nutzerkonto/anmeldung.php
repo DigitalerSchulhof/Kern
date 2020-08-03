@@ -100,12 +100,7 @@ $sql = "UPDATE kern_nutzersessions SET sessionid = [?], nutzer = ?, sessiontimeo
 $anfrage = $DBS->anfrage($sql, "siis", $sessionid, $id, $sessiontimeout, $sessiondbid);
 
 // Postfachordner verwalten
-if (file_exists("$ROOT/dateien/Kern/personen/$id/postfach/temp")) {
-  Kern\Dateisystem::ordnerLoeschen("$ROOT/dateien/Kern/personen/$id/postfach/temp");
-}
-if (!file_exists("$ROOT/dateien/Kern/personen/$id/postfach/temp")) {
-  mkdir("$ROOT/dateien/Kern/personen/$id/postfach/temp", 0775, true);
-}
+$anmelden->postfachOrdnerAufraeumen();
 
 Anfrage::setTyp("Weiterleitung");
 Anfrage::setRueck("Ziel", "Schulhof/Nutzerkonto");
