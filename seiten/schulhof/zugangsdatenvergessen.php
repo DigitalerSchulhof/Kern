@@ -18,7 +18,6 @@ $passwortVerBenutzer = new UI\FormularFeld(new UI\InhaltElement("Benutzer:"), (n
 $passwortVerMail = new UI\FormularFeld(new UI\InhaltElement("eMail:"), (new UI\Mailfeld("dshZugangsdatenPasswortMail")));
 $passwortFormular = new UI\FormularTabelle($passwortVerBenutzer, $passwortVerMail);
 $passwortFormular->addKnopf((new UI\Knopf("Zuschicken", "Erfolg")) ->setSubmit(true));
-$passwortFormular->addKnopf((new UI\Knopf("Zurück zur Anmeldung"))       ->addFunktion("href", "Schulhof/Anmeldung"));
 $passwortFormular->getAktionen()->addFunktion("onsubmit", "kern.schulhof.nutzerkonto.vergessen.passwort()");
 $spaltePasswort->add($passwortFormular);
 
@@ -28,9 +27,10 @@ $spalteBenutzer->add(new UI\Ueberschrift(2, "Benutzername"));
 $benutzerVerMail = new UI\FormularFeld(new UI\InhaltElement("eMail:"), (new UI\Mailfeld("dshZugangsdatenBenutzerMail")));
 $benutzerFormular = new UI\FormularTabelle($benutzerVerMail);
 $benutzerFormular->addKnopf((new UI\Knopf("Zuschicken", "Erfolg")) ->setSubmit(true));
-$benutzerFormular->addKnopf((new UI\Knopf("Zurück zur Anmeldung"))       ->addFunktion("href", "Schulhof/Anmeldung"));
 $benutzerFormular->getAktionen()->addFunktion("onsubmit", "kern.schulhof.nutzerkonto.vergessen.benutzername()");
 $spalteBenutzer->add($benutzerFormular);
 
 $CODE .= new UI\Zeile($spaltePasswort, $spalteBenutzer);
+
+$CODE .= UI\Zeile::standard((new UI\Knopf("Zurück zur Anmeldung"))->addFunktion("href", "Schulhof/Anmeldung"));
 ?>

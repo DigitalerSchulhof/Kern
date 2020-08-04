@@ -11,7 +11,6 @@ if (!Check::Einwilligung("DSH")) {
   $akzeptieren->addFunktion("onclick", "kern.cookies.setzen('1', 'DSH')");
 
   $spalte->add(new UI\Absatz($akzeptieren));
-  print_r($_COOKIE);
 } else {
   $spalte->add(new UI\Meldung("Mehrfache Registrierungen", "Registrierungen müssen vom Administrator Personen zugeordnet werden. Dies kann einige Zeit in Anspruch nehmen. Mehrfache Registrierungen beschleunigen das Verfahren nicht!", "Warnung"));
 
@@ -31,7 +30,7 @@ if (!Check::Einwilligung("DSH")) {
   $datenschutz  = new UI\FormularFeld(new UI\InhaltElement("Datenschutz:"),               new UI\IconToggle("dshRegistrierenDatenschutz", "Ich bin mit den Datenschutzvorkehrungen des Digitalen Schulhofs einverstanden und erteile meine Erlaubnis zur Datenverarbeitung.", (new UI\Icon(UI\Konstanten::HAKEN))));
   $berechtigung = new UI\FormularFeld(new UI\InhaltElement("Entscheidungsberechtigung:"), new UI\IconToggle("dshRegistrierenEntscheidung", "Ich bin 18 Jahre alt oder älter, oder ein Erziehungsberechtigter hat mir erlaubt, diese Registrierung durchzuführen.", (new UI\Icon(UI\Konstanten::HAKEN))));
   $korrektheit  = new UI\FormularFeld(new UI\InhaltElement("Korrektheit:"),              new UI\IconToggle("dshRegistrierenKorrektheit", "Meine Angaben sind nach bestem Wissen und Gewissen korrekt.", (new UI\Icon(UI\Konstanten::HAKEN))));
-  $captcha      = new UI\FormularFeld(new UI\InhaltElement("Spamverhinderung:"),          (new UI\Spamschutz("dshRegistrierenCaptcha", 7)));
+  // $captcha      = new UI\FormularFeld(new UI\InhaltElement("Spamverhinderung:"),          (new UI\Spamschutz("dshRegistrierenCaptcha", 7)));
 
   $felder       = [$titel, $vorname, $nachname, $klasse, $passwort, $passwort2, $email, $datenschutz, $berechtigung, $korrektheit, $captcha];
 

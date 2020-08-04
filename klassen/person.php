@@ -347,7 +347,7 @@ class Nutzerkonto extends Person {
     }
 
     $_SESSION['Benutzer'] = $this;
-    Check::einwilligung();
+    \Check::einwilligung();
     $_COOKIE["EinwilligungDSH"] = "ja";
 
     // Neue Session eintragen

@@ -16,11 +16,10 @@ if(!isset($_COOKIE["Einwilligung{$typ}"])) {
 
 if ($aktiv == '1') {
   $_COOKIE["Einwilligung{$typ}"] = "ja";
+  setcookie("Einwilligung$typ", "ja", time()+30*24*60*60, "/");
 } else {
-  $_COOKIE["Einwilligung{$typ}"] = "nein";
+  setcookie("Einwilligung$typ", "nein", time()+30*24*60*60, "/");
 }
-
-print_r($_COOKIE);
 
 Anfrage::setTyp("Fortsetzen");
 Anfrage::setRueck("Funktion", "location.reload()");
