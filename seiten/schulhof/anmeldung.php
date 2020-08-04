@@ -35,7 +35,7 @@ $anmeldungFeldPasswort = new UI\FormularFeld(new UI\InhaltElement("Passwort:"), 
 $anmeldungFormular = new UI\FormularTabelle($anmeldungFeldBenutzer, $anmeldungFeldPasswort);
 $anmeldungFormular->addKnopf((new UI\Knopf("Anmelden", "Erfolg"))     ->setSubmit(true) ->addKlasse("autofocus"));
 $anmeldungFormular->addKnopf((new UI\Knopf("Zugangsdaten vergessen")) ->addFunktion("href", "Schulhof/Zugangsdaten_vergessen"));
-$anmeldungFormular->addKnopf((new UI\Knopf("Registrieren"))           ->addFunktion("href", "Schulhof/Registrieren"));
+$anmeldungFormular->addKnopf((new UI\Knopf("Registrieren"))           ->addFunktion("href", "Schulhof/Registrierung"));
 $anmeldungFormular->getAktionen()->addFunktion("onsubmit", "kern.schulhof.nutzerkonto.anmelden()");
 $spalteAnmeldung->add($anmeldungFormular);
 
