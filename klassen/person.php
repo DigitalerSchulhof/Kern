@@ -2,7 +2,6 @@
 namespace Kern;
 use DB;
 use UI;
-use Mail;
 
 class Person {
   /** @var int ID */
@@ -492,9 +491,10 @@ class Nutzerkonto extends Person {
   	$text .= "eMailadresse: {$mail}</p>";
   	$text .= "<p><b>Achtung!</b> Dieses Passwort ist aus Sicherheitsgründen ab jetzt nur <b>eine Stunde</b> gültig. Verstreicht diese Zeit, ohne dass eine Änderung am Passwort vorgenommen wurde, muss bei der Anmeldung über <i>Passwort vergessen?</i> ein neues Passwort angefordert werden. Dazu werden die Angaben <i>Benutzername</i> und <i>eMailadresse</i> benötigt. Das neue Passwort ist dann auch nur eine Stunde gültig.</p>";
   	$text .= "<p><b>Kurz:</b> Das Passwort sollte sobald wie möglich geändert werden!!</p>";
-  	$text .= "<p>Viel Spaß mit dem neuen Zugang!";
+  	$text .= "<p>Viel Spaß mit dem neuen Zugang!</p>";
 
-  	return Mail::senden($empfaenger, $mail, $betreff, $text);
+    $brief = new Mail();
+  	return $brief->senden($empfaenger, $mail, $betreff, $text);
   }
 
   /**

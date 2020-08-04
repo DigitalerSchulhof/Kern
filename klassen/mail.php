@@ -1,6 +1,5 @@
 <?php
 namespace Kern;
-use Kern\Einstellungen;
 
 class Mail {
   /** @var string Adrese des SMTP-Hosts */
@@ -54,6 +53,14 @@ class Mail {
   }
 
   /**
+   * Gibt die Adresse und den zugeörogen Titel zurück
+   * @return string :)
+   */
+  public function __toString() : string {
+    return "{$this->adresse} ({$this->titel})";
+  }
+
+  /**
    * Verschickt eine Nachricht vom Schulhofmailaccount
    * @param  string  $empfaenger     Name des Empfängers
    * @param  string  $mailempfaenger Adresse des Empfängers
@@ -69,7 +76,7 @@ class Mail {
     require_once "$ROOT/core/phpmailer/PHPMailerAutoload.php";
 
   	// Vorbereitungen treffen
-  	$umschlag = new PHPMailer();
+  	$umschlag = new \PHPMailer();
   	$umschlag->CharSet  = 'utf-8';
   	$umschlag->IsSMTP();
     $umschlag->Host     = $this->host;
@@ -121,7 +128,5 @@ class Mail {
   	return $umschlag->Send();
   }
 
-
 }
-
 ?>

@@ -7,7 +7,7 @@ if(!Check::istText($benutzer)) {
 if(strlen($passwort) <= 0) {
   Anfrage::addFehler(2);
 }
-Anfrage::checkFehler();
+Anfrage::checkMeldung();
 
 
 $angemeldet = false;

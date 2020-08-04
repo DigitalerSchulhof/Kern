@@ -22,3 +22,9 @@
 8:
   ort: anfragen/schulhof/nutzerkonto/passwortVergessen.php
   beschreibung: Es konnte kein neues Passwort verschickt werden. Die hier eingegebenen Daten stimmen nicht mit den gespeicherten Daten überein. Groß- und Kleinschreibung ist auch bei der eMailadresse zu beachten!
+9:
+  ort: anfragen/schulhof/nutzerkonto/benutzernameVergessen.php
+  beschreibung: Die <b>eMail-Adresse</b> ist ungültig.
+10:
+  ort: anfragen/schulhof/nutzerkonto/passwortVergessen.php
+  beschreibung: Diese eMailadresse ist im Digitalen Schulhof nicht hinterlegt.
