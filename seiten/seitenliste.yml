@@ -4,4 +4,4 @@ seiten:
   "Schulhof/Zugangsdaten_vergessen" : "Kern/seiten/schulhof/zugangsdatenvergessen.php"
   "Schulhof/Nutzerkonto"            : "Kern/seiten/schulhof/nutzerkonto.php"
   "Schulhof/Verwaltung"             : "Kern/seiten/schulhof/verwaltungsbereich.php"
-  "Schulhof/Registrieren"           : "Kern/seiten/schulhof/registrieren.php"
+  "Schulhof/Registrieren"           : "Kern/seiten/schulhof/registrierung.php"
