@@ -4,6 +4,7 @@ $CODE .= new Kern\Aktionszeile();
 
 $spalte = new UI\Spalte("A1", new UI\SeitenUeberschrift("Registrieren"));
 
+$spalte->add(new UI\Meldung("Mehrfache Registrierungen", "Registrierungen müssen vom Administrator Personen zugeordnet werden, welches einige Zeit in Anspruch nehmen kann. Mehrfache Registrierungen beschleunigen das Verfahren nicht!", "Warnung"));
 
 if (!Check::Einwilligung("DSH")) {
   $spalte->add(new UI\Meldung("Datenschutzhinweis", "Um eine Registrierung für den Digitalen Schulhof vorzunehmen, müssen die Cookies des Digitalen Schulhofs akzeptiert werden.", "Information"));

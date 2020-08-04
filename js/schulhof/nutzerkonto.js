@@ -9,12 +9,12 @@ kern.schulhof.nutzerkonto = {
       core.ajax("UI", 1, ["Abmeldung", "Bitte warten"], {art: "Warnung", titel: "Wirklich abmelden?", inhalt: "Damit die Abmeldung erfolgen kann, ist eine Bestätigung notwendig!", aktionen: [{inhalt: "Abmelden", art: "Warnung", ziel: "kern.schulhof.nutzerkonto.abmelden.ausfuehren()"}, {typ: "Abbrechen"}]});
     },
     ausfuehren: () => {
-      core.ajax("Kern", 1, ["Abmeldung", "Die Abmeldung wird durchgeführt"], null);
+      core.ajax("Kern", 1, ["Abmeldung", "Die Abmeldung wird durchgeführt"]);
     }
   },
   session: {
     verlaengern: () => {
-      core.ajax("Kern", 2, ["Session verlängern", "Die Verlängerung wird durchgeführt"], null).then((r) => {
+      core.ajax("Kern", 2, ["Session verlängern", "Die Verlängerung wird durchgeführt"]).then((r) => {
         kern.schulhof.nutzerkonto.session.aktualisieren(r.Limit, r.Ende);
       });
     },
