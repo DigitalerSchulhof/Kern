@@ -31,3 +31,39 @@
 11:
   ort: anfragen/cookies/setzen.php
   beschreibung: Diese Einwilligung existiert im Moment nicht. Die Seite muss neu geladen werden.
+12:
+  ort: anfragen/schulhof/nutzerkonto/registrierung.php
+  beschreibung: Der <b>Titel</b> ist ungültig.
+13:
+  ort: anfragen/schulhof/nutzerkonto/registrierung.php
+  beschreibung: Der <b>Vorname</b> ist ungültig.
+14:
+  ort: anfragen/schulhof/nutzerkonto/registrierung.php
+  beschreibung: Der <b>Nachname</b> ist ungültig.
+15:
+  ort: anfragen/schulhof/nutzerkonto/registrierung.php
+  beschreibung: Die <b>Klasse</b> ist ungültig.
+16:
+  ort: anfragen/schulhof/nutzerkonto/registrierung.php
+  beschreibung: Das <b>Passwort</b> ist ungültig. Es muss aus mindestens 6 Zeichen bestehen!
+17:
+  ort: anfragen/schulhof/nutzerkonto/registrierung.php
+  beschreibung: Die <b>Passworte</b> stimmen nicht überein.
+18:
+  ort: anfragen/schulhof/nutzerkonto/registrierung.php
+  beschreibung: Die <b>eMail-Adresse</b> ist ungültig.
+19:
+  ort: anfragen/schulhof/nutzerkonto/registrierung.php
+  beschreibung: Die <b>Datenschutzvereinbarung</b> wurde nicht akzeptiert.
+20:
+  ort: anfragen/schulhof/nutzerkonto/registrierung.php
+  beschreibung: Die <b>Entscheidungsberechtigung</b> wurde nicht bestätigt.
+21:
+  ort: anfragen/schulhof/nutzerkonto/registrierung.php
+  beschreibung: Die <b>Korrektheit</b> der Angaben wurde nicht versichert.
+22:
+  ort: anfragen/schulhof/nutzerkonto/registrierung.php
+  beschreibung: Der <b>Spamschutz</b> konnte nicht überprüft werden.
+23:
+  ort: anfragen/schulhof/nutzerkonto/registrierung.php
+  beschreibung: Der <b>Spamschutz</b> wurde nicht korrekt übertragen.

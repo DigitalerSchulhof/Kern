@@ -158,6 +158,22 @@ class Person {
   public function __toString () : string {
     return "{$this->titel} {$this->vorname} {$this->nachname}";
   }
+
+  /**
+   * Gibt die Arten von Personen zurück
+   * @return array :)
+   */
+  public static function getArten() : array {
+    return self::ARTEN;
+  }
+
+  /**
+   * Gibt die Geschlecher von Personen zurück
+   * @return array :)
+   */
+  public static function getGeschlechter() : array {
+    return self::GESCHLECHTER;
+  }
 }
 
 class Nutzerkonto extends Person {
@@ -512,6 +528,16 @@ class Nutzerkonto extends Person {
         $passwort .= substr($pool,(rand()%(strlen ($pool))), 1);
     }
     return $passwort;
+  }
+
+  public static function generiereSalt($stellen = 32) : string {
+    $pool = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!_-+";
+    $salt = "";
+    srand ((double)microtime()*1000000);
+    for($i = 0; $i < $stellen; $i++) {
+        $salt .= substr($pool,(rand()%(strlen ($pool))), 1);
+    }
+    return $salt;
   }
 
   /**

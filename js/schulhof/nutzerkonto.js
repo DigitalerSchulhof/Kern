@@ -34,5 +34,23 @@ kern.schulhof.nutzerkonto = {
       var mail = $("#dshZugangsdatenBenutzerMail").getWert();
       core.ajax("Kern", 4, ["Benutzername vergessen", "Der Benutzername wird verschickt"], {mail: mail});
     }
+  },
+  registrierung: () => {
+    var art          = $("#dshRegistrierenArt").getWert();
+    var geschlecht   = $("#dshRegistrierenGeschlecht").getWert();
+    var titel        = $("#dshRegistrierenTitel").getWert();
+    var vorname      = $("#dshRegistrierenVorname").getWert();
+    var nachname     = $("#dshRegistrierenNachname").getWert();
+    var klasse       = $("#dshRegistrierenKlasse").getWert();
+    var passwort     = $("#dshRegistrierenPasswort").getWert();
+    var passwort2    = $("#dshRegistrierenPasswort2").getWert();
+    var mail         = $("#dshRegistrierenMail").getWert();
+    var datenschutz  = $("#dshRegistrierenDatenschutz").getWert();
+    var entscheidung = $("#dshRegistrierenEntscheidung").getWert();
+    var korrektheit  = $("#dshRegistrierenKorrektheit").getWert();
+    var spamschutz   = $("#dshRegistrierenSpanschutz").getWert();
+    var spamid       = $("#dshRegistrierenSpanschutzSpamid").getWert();
+
+    core.ajax("Kern", 6, ["Registrieren", "Die Registrierung wird geprüft"], {art: art, geschlecht:geschlecht, titel:titel, vorname:vorname, nachname:nachname, klasse:klasse, passwort:passwort, passwort2:passwort2, mail:mail, datenschutz:datenschutz, entscheidung:entscheidung, korrektheit:korrektheit, spamschutz:spamschutz, spamid:spamid});
   }
 };

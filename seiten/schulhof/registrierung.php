@@ -16,6 +16,18 @@ if (!Check::Einwilligung("DSH")) {
 
   $spalte->add(new UI\Meldung("Datenschutzhinweis", "Mit der Registrierung geht die Einverständnis in die Datenschutzvereinbarung des Digitalen Schulhofs einher. Diese kann hier eingesehen werden: ".(new UI\Link("Datenschutzvereinbarungen lesen", "Website/Datenschutz")), "Information"));
 
+  $artwahl      = new UI\Auswahl("dshRegistrierenArt", "Schüler", "s");
+  $artwahl->add("Erziehungsberechtigte(r)", "e");
+  $artwahl->add("Lehrkraft", "l");
+  $artwahl->add("Verwaltung", "v");
+  $artwahl->add("Externe(r)", "x");
+  $art          = new UI\FormularFeld(new UI\InhaltElement("Art des Nutzerkontos:"),      $artwahl);
+
+  $geschlechtswahl      = new UI\Auswahl("dshRegistrierenGeschlecht", "weiblich", "w");
+  $geschlechtswahl->add("männlich", "m");
+  $geschlechtswahl->add("divers", "d");
+  $geschlecht          = new UI\FormularFeld(new UI\InhaltElement("Geschelcht:"),      $geschlechtswahl);
+
   $titel        = new UI\FormularFeld(new UI\InhaltElement("Titel:"),                     (new UI\Textfeld("dshRegistrierenTitel"))->setAutocomplete("honorific-prefix"));
   $vorname      = new UI\FormularFeld(new UI\InhaltElement("Vorname:"),                   (new UI\Textfeld("dshRegistrierenVorname"))->setAutocomplete("given-name"));
   $nachname     = new UI\FormularFeld(new UI\InhaltElement("Nachname:"),                  (new UI\Textfeld("dshRegistrierenNachname"))->setAutocomplete("family-name"));
@@ -30,9 +42,9 @@ if (!Check::Einwilligung("DSH")) {
   $datenschutz  = new UI\FormularFeld(new UI\InhaltElement("Datenschutz:"),               new UI\IconToggle("dshRegistrierenDatenschutz", "Ich bin mit den Datenschutzvorkehrungen des Digitalen Schulhofs einverstanden und erteile meine Erlaubnis zur Datenverarbeitung.", (new UI\Icon(UI\Konstanten::HAKEN))));
   $berechtigung = new UI\FormularFeld(new UI\InhaltElement("Entscheidungsberechtigung:"), new UI\IconToggle("dshRegistrierenEntscheidung", "Ich bin 18 Jahre alt oder älter, oder ein Erziehungsberechtigter hat mir erlaubt, diese Registrierung durchzuführen.", (new UI\Icon(UI\Konstanten::HAKEN))));
   $korrektheit  = new UI\FormularFeld(new UI\InhaltElement("Korrektheit:"),              new UI\IconToggle("dshRegistrierenKorrektheit", "Meine Angaben sind nach bestem Wissen und Gewissen korrekt.", (new UI\Icon(UI\Konstanten::HAKEN))));
-  $spamschutz   = new UI\FormularFeld(new UI\InhaltElement("Spamverhinderung:"),          (new UI\Spamschutz("dshRegistrierenCaptcha", 5)));
+  $spamschutz   = new UI\FormularFeld(new UI\InhaltElement("Spamverhinderung:"),          (new UI\Spamschutz("dshRegistrierenSpamschutz", 7)));
 
-  $felder       = [$titel, $vorname, $nachname, $klasse, $passwort, $passwort2, $email, $datenschutz, $berechtigung, $korrektheit, $spamschutz];
+  $felder       = [$art, $geschlecht, $titel, $vorname, $nachname, $klasse, $email, $passwort, $passwort2, $datenschutz, $berechtigung, $korrektheit, $spamschutz];
 
   $formular = new UI\FormularTabelle(...$felder);
 
