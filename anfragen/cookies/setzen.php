@@ -2,15 +2,15 @@
 Anfrage::post("aktiv", "typ");
 
 if(!Check::istToggle($aktiv)) {
-  Anfrage::addFehler(11);
+  Anfrage::addFehler(-3);
 }
 if($typ != "DSH" && $typ != "EXT") {
-  Anfrage::addFehler(12);
+  Anfrage::addFehler(-3);
 }
 Anfrage::checkFehler();
 
 if(!isset($_COOKIE["Einwilligung{$typ}"])) {
-  Anfrage::addFehler(13);
+  Anfrage::addFehler(11);
 }
 
 
