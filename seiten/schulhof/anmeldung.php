@@ -9,19 +9,6 @@ $DSH_TITEL = "Anmeldung";
 $CODE .= new Kern\Aktionszeile();
 
 $spalte = new UI\Spalte("A1", new UI\SeitenUeberschrift("Schulhof"));
-if (isset($DSH_URL[2])) {
-  if ($DSH_URL[2] == "Bis_bald!") {
-    $meldung = new UI\Meldung("Abmeldung erfolgreich", "Die Abmeldung wurde durchgeführt. Bis bald!", "Information", new UI\Icon(UI\Konstanten::ABMELDEN));
-    $spalte->add($meldung);
-  } else if ($DSH_URL[2] == "Passwort_verschickt!") {
-    $meldung = new UI\Meldung("Passwort verschickt", "Das neue Passwort wurde per eMail verschickt. Es ist nur kurze Zeit gültig und sollte daher schnell geändert werden.", "Information", new UI\Icon(UI\Konstanten::VERSCHICKEN));
-    $spalte->add($meldung);
-  } else if ($DSH_URL[2] == "Benutzername_verschickt!") {
-    $meldung = new UI\Meldung("Benutzername verschickt", "Der Benutzername wurde per eMail verschickt.", "Information", new UI\Icon(UI\Konstanten::VERSCHICKEN));
-    $spalte->add($meldung);
-  }
-}
-
 $CODE .= new UI\Zeile($spalte);
 
 $meldungBrowserLaden    = new UI\Meldung("Kompatibilität prüfen",       "Es wird geprüft, ob Ihr Browser unterstützt wird...", "Arbeit");

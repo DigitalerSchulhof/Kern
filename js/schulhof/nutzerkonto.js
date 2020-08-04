@@ -23,5 +23,16 @@ kern.schulhof.nutzerkonto = {
       for (var i=0; i<= orte.length; i++) {
       }
     }
+  },
+  vergessen: {
+    passwort: () => {
+      var benutzer = $("#dshZugangsdatenPasswortBenutzer").getWert();
+      var mail = $("#dshZugangsdatenPasswortMail").getWert();
+      core.ajax("Kern", 3, ["Passwort vergessen", "Ein neues Passwort wird erzeugt und verschickt"], {benutzer: benutzer, mail: mail});
+    },
+    benutzername: () => {
+      var mail = $("#dshZugangsdatenBenutzerMail").getWert();
+      core.ajax("Kern", 4, ["Benutzername vergessen", "Der Benutzername wird verschickt"], {mail: mail});
+    }
   }
 };

@@ -2,6 +2,7 @@
 namespace Kern;
 use DB;
 use UI;
+use Mail;
 
 class Person {
   /** @var int ID */
@@ -441,9 +442,7 @@ class Nutzerkonto extends Person {
     $this->sessiontimeout = time()+60*$this->inaktivitaetszeit;
     $sql = "UPDATE kern_nutzersessions SET sessiontimeout = ? WHERE sessionid = [?] AND nutzer = ?";
     $anfrage = $DBS->anfrage($sql, "isi", $this->sessiontimeout, $this->sessionid, $this->id);
-    if ($anfrage->getAnzahl() == 0) {
-      return false;
-    }
+    $param = [];
     $param["Limit"] = $this->inaktivitaetszeit;
     $param["Ende"] = $this->sessiontimeout;
     return $param;
@@ -463,6 +462,54 @@ class Nutzerkonto extends Person {
     }
     unset($_SESSION);
     return true;
+  }
+
+  /**
+   * Setzt ein neues Passwort für den Benutzer, das für 1h gültig ist
+   * @param  string  $mail    Mail-Adresse des Empfängers
+   * @param  integer $stellen Anzahl der stellen des neuen Passworts
+   * @param  string  $salt    Zufällige Verlängerung des Passworts
+   * @return bool             true, wenn Setzen erfolgreich, sonst false
+   */
+  public function neuesPasswort($mail, $stellen = 10, $salt = "") : bool {
+    global $DBS;
+    $passwort = $this->generierePasswort($stellen);
+    $passworttimeout = time() + 60*60;
+
+    // Neues Passwort setzen
+    $sql = "UPDATE kern_nutzerkonten SET passwort = SHA1(?), passworttimeout = ? WHERE id = ?";
+    $DBS->anfrage($sql, "sii", $passwort.$salt, $passworttimeout, $this->id);
+
+    // Nachricht verschicken
+  	$betreff = "Passwort vergessen";
+  	$anrede = $this->getAnrede();
+    $empfaenger = $this->__toString();
+
+  	$text = "<p>$anrede</p>";
+  	$text .= "<p>Es wurde ein neues Passwort generiert. Hier sind die Zugangsdaten:<br>";
+  	$text .= "Benutzername: {$this->benutzer}<br>";
+  	$text .= "Passwort: {$passwort}<br>";
+  	$text .= "eMailadresse: {$mail}</p>";
+  	$text .= "<p><b>Achtung!</b> Dieses Passwort ist aus Sicherheitsgründen ab jetzt nur <b>eine Stunde</b> gültig. Verstreicht diese Zeit, ohne dass eine Änderung am Passwort vorgenommen wurde, muss bei der Anmeldung über <i>Passwort vergessen?</i> ein neues Passwort angefordert werden. Dazu werden die Angaben <i>Benutzername</i> und <i>eMailadresse</i> benötigt. Das neue Passwort ist dann auch nur eine Stunde gültig.</p>";
+  	$text .= "<p><b>Kurz:</b> Das Passwort sollte sobald wie möglich geändert werden!!</p>";
+  	$text .= "<p>Viel Spaß mit dem neuen Zugang!";
+
+  	return Mail::senden($empfaenger, $mail, $betreff, $text);
+  }
+
+  /**
+   * Gibt ein zufälliges Passwort zurück
+   * @param  int     $stellen Anzahl Stellen des Passworts
+   * @return string           Zufälliges Passwort angegebener Länge
+   */
+  public function generierePasswort($stellen = 10) : string {
+    $pool = "abcdefhkmnpqrstuvwxyz2345678ABCDEFGHKLMNPQRSTUVWXYZ!_-+";
+    $passwort = "";
+    srand ((double)microtime()*1000000);
+    for($i = 0; $i < $stellen; $i++) {
+        $passwort .= substr($pool,(rand()%(strlen ($pool))), 1);
+    }
+    return $passwort;
   }
 
   /**

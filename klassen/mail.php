@@ -53,7 +53,17 @@ class Mail {
     $this->schuldomain = $einstellungen["Schuldomain"];
   }
 
-  public function cms_mailsenden($empfaenger, $mailempfaenger, $betreff, $text, $textPlain = false, $signatur = true) {
+  /**
+   * Verschickt eine Nachricht vom Schulhofmailaccount
+   * @param  string  $empfaenger     Name des Empfängers
+   * @param  string  $mailempfaenger Adresse des Empfängers
+   * @param  string  $betreff        Betreff der Nachricht
+   * @param  string  $text           Text der Nachricht in HTML
+   * @param  string  $textPlain      Text der Nachricht als Plaintext
+   * @param  boolean $signatur       Soll eine Signatur mitgeschickt werden
+   * @return bool                    true, wenn Versand erfolgreich, sonst false
+   */
+  public function senden($empfaenger, $mailempfaenger, $betreff, $text, $textPlain = null, $signatur = true) : bool {
   	global $ROOT;
 
     require_once "$ROOT/core/phpmailer/PHPMailerAutoload.php";
@@ -94,7 +104,7 @@ class Mail {
   	$umschlag->Body = $HTML;
 
   	// HTML in Plain umwandeln
-  	if (!$textPlain) {
+  	if ($textPlain === null) {
   		$plain = str_replace("<p>", "", $text);
   		$plain = str_replace("</p>", "<br>", $plain);
   		$plain = str_replace("<i>", "›", $plain);

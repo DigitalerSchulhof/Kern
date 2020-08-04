@@ -14,5 +14,11 @@
   ort: anfragen/schulhof/nutzerkonto/anmeldung.php
   beschreibung: Der <b>Benutzer</b> wurde unter diesem Benutzernamen nicht gefunden. Möglicherweise ist das Konto inaktiv, weil das Passwort abgelaufen ist. In diesem Fall kann ein neues Kennwort über »Passwort vergessen« angefordert werden.
 6:
-  ort: alle Anfragen, die eine Anmeldung erfordern
-  beschreibung: Aktuell ist kein Benutzer angemeldet.
+  ort: anfragen/schulhof/nutzerkonto/passwortVergessen.php
+  beschreibung: Der <b>Benutzername</b> ist ungültig.
+7:
+  ort: anfragen/schulhof/nutzerkonto/passwortVergessen.php
+  beschreibung: Die <b>eMail-Adresse</b> ist ungültig.
+8:
+  ort: anfragen/schulhof/nutzerkonto/passwortVergessen.php
+  beschreibung: Es konnte kein neues Passwort verschickt werden. Die hier eingegebenen Daten stimmen nicht mit den gespeicherten Daten überein. Groß- und Kleinschreibung ist auch bei der eMailadresse zu beachten!

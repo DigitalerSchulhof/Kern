@@ -1,6 +1,6 @@
 <?php
 if(!Check::angemeldet()) {
-  Anfrage::addFehler(6, true);
+  Anfrage::addFehler(-2, true);
 }
 
 // Timeout verlaengern
