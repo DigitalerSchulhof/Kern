@@ -28,3 +28,12 @@
 10:
   ort: anfragen/schulhof/nutzerkonto/passwortVergessen.php
   beschreibung: Diese eMailadresse ist im Digitalen Schulhof nicht hinterlegt.
+11:
+  ort: anfragen/cookies/setzen.php
+  beschreibung: Es kann entsweder eingewilligt oder die Einwilligung widerrufen werden.
+12:
+  ort: anfragen/cookies/setzen.php
+  beschreibung: Die gewünschte Einwilligung existiert nicht.
+13:
+  ort: anfragen/cookies/setzen.php
+  beschreibung: Diese Einwilligung existiert im Moment nicht. Die Seite muss neu geladen werden.

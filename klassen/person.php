@@ -347,8 +347,8 @@ class Nutzerkonto extends Person {
     }
 
     $_SESSION['Benutzer'] = $this;
-    $_SESSION['DSGVO_FENSTERWEG'] = true;
-    $_SESSION['DSGVO_EINWILLIGUNG_A'] = true;
+    Check::einwilligung();
+    $_COOKIE["EinwilligungDSH"] = "ja";
 
     // Neue Session eintragen
     $sessiondbid = $DBS->neuerDatensatz("kern_nutzersessions");
