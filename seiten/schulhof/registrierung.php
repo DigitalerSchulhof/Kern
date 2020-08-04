@@ -1,8 +1,8 @@
 <?php
-$DSH_TITEL = "Registrieren";
+$DSH_TITEL = "Registrierung";
 $CODE .= new Kern\Aktionszeile();
 
-$spalte = new UI\Spalte("A1", new UI\SeitenUeberschrift("Registrieren"));
+$spalte = new UI\Spalte("A1", new UI\SeitenUeberschrift("Registrierung"));
 
 if (!Check::Einwilligung("DSH")) {
   $spalte->add(new UI\Meldung("Datenschutzhinweis", "Um eine Registrierung für den Digitalen Schulhof vorzunehmen, müssen die Cookies des Digitalen Schulhofs akzeptiert werden.", "Information"));
