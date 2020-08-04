@@ -22,10 +22,6 @@ if (isset($DSH_URL[2])) {
 
 $CODE .= new UI\Zeile($spalte);
 
-if(count($DSH_URL) === 3 && $DSH_URL[2] === "Bis_bald!") {
-  $CODE .= UI\Zeile::standard(new UI\Meldung("Abgemeldet", "Die Abmeldung war erfolgreich. Bis bald!", "Information", new UI\Icon("fas fa-sign-out-alt")));
-}
-
 $meldungBrowserLaden    = new UI\Meldung("Kompatibilität prüfen",       "Es wird geprüft, ob Ihr Browser unterstützt wird...", "Arbeit");
 $meldungBrowserErfolg   = new UI\Meldung("Kompatibilität prüfen",       "Dieser Browser unterstützt alle Funktionen des Digitalen Schulhofs.", "Erfolg", new UI\Icon(""));
 $meldungBrowserFehler   = new UI\Meldung("Kompatibilität prüfen",       "<b>Dieser Browser unterstützt möglicherweise nicht alle Funktionen des Digitalen Schulhofs!</b>", "Fehler", new UI\Icon(""));
