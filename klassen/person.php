@@ -465,6 +465,16 @@ class Nutzerkonto extends Person {
     return true;
   }
 
+  /**
+   * Prüft, ob der Benutzer das Recht hat, die Spezifizierte Aktion auszuführen
+   * @param  string $aktion YAML-Syntax für Rechte
+   * @return bool   true, wenn das Recht vorhanden ist, false sonst
+   */
+  public function hatRecht() : bool {
+    // @TODO: Rechte auslesen!
+    return true;
+  }
+
 }
 
 

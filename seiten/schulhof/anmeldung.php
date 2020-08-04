@@ -5,17 +5,19 @@ if(Check::angemeldet()) {
   return;
 }
 
+$DSH_TITEL = "Anmeldung";
+$CODE .= new Kern\Aktionszeile();
 
 $spalte = new UI\Spalte("A1", new UI\SeitenUeberschrift("Schulhof"));
 if (isset($DSH_URL[2])) {
   if ($DSH_URL[2] == "Bis_bald!") {
-    $meldung = new UI\Meldung("Abmeldung erfolgreich", "Die Abmeldung wurde durchgeführt. Bis bald!", "Information");
+    $meldung = new UI\Meldung("Abmeldung erfolgreich", "Die Abmeldung wurde durchgeführt. Bis bald!", "Information", new UI\Icon(UI\Konstanten::ABMELDEN));
     $spalte->add($meldung);
   } else if ($DSH_URL[2] == "Passwort_verschickt!") {
-    $meldung = new UI\Meldung("Passwort verschickt", "Das neue Passwort wurde per eMail verschickt. Es ist nur kurze Zeit gültig und sollte daher schnell geändert werden.", "Information");
+    $meldung = new UI\Meldung("Passwort verschickt", "Das neue Passwort wurde per eMail verschickt. Es ist nur kurze Zeit gültig und sollte daher schnell geändert werden.", "Information", new UI\Icon(UI\Konstanten::VERSCHICKEN));
     $spalte->add($meldung);
   } else if ($DSH_URL[2] == "Benutzername_verschickt!") {
-    $meldung = new UI\Meldung("Benutzername verschickt", "Der Benutzername wurde per eMail verschickt.", "Information");
+    $meldung = new UI\Meldung("Benutzername verschickt", "Der Benutzername wurde per eMail verschickt.", "Information", new UI\Icon(UI\Konstanten::VERSCHICKEN));
     $spalte->add($meldung);
   }
 }
@@ -45,7 +47,7 @@ $anmeldungFeldPasswort = new UI\FormularFeld(new UI\InhaltElement("Passwort:"), 
 
 $anmeldungFormular = new UI\FormularTabelle($anmeldungFeldBenutzer, $anmeldungFeldPasswort);
 $anmeldungFormular->addKnopf((new UI\Knopf("Anmelden", "Erfolg")) ->setSubmit(true) ->addKlasse("autofocus"));
-$anmeldungFormular->addKnopf((new UI\Knopf("Passwort vergessen")) ->addFunktion("href", "Schulhof/Passwort_vergessen"));
+$anmeldungFormular->addKnopf((new UI\Knopf("Zugangsdaten vergessen")) ->addFunktion("href", "Schulhof/Zugangsdaten_vergessen"));
 $anmeldungFormular->addKnopf((new UI\Knopf("Registrieren"))       ->addFunktion("href", "Schulhof/Registrieren"));
 $anmeldungFormular->getAktionen()->addFunktion("onsubmit", "kern.schulhof.nutzerkonto.anmelden()");
 $spalteAnmeldung->add($anmeldungFormular);
