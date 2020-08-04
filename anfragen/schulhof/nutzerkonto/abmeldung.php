@@ -5,13 +5,7 @@ if(!Check::angemeldet()) {
 }
 
 // Benutzer abmelden
-$sql = "UPDATE kern_nutzersessions SET sessiontimeout = 0 WHERE sessionid = [?] AND nutzer = ?";
-$anfrage = $DBS->anfrage($sql, "si", $DSH_BENUTZER->getSessionid(), $DSH_BENUTZER->getId());
-
-// Postfachordner verwalten
-$DSH_BENUTZER->postfachOrdnerAufraeumen();
-
-unset($_SESSION);
+$DSH_BENUTZER->abmelden();
 
 Anfrage::setTyp("Weiterleitung");
 Anfrage::setRueck("Ziel", "Schulhof/Anmeldung/Bis_bald!");

@@ -73,7 +73,8 @@ class Aktionszeile extends UI\Element {
         if($i > 0) {
           $brotkrumen .= " / ";
         }
-        $el = new UI\InhaltElement("$segment");
+        $segmentanzeige = str_replace("_", " ", $segment);
+        $el = new UI\InhaltElement("$segmentanzeige");
         $el->getAktionen()->addFunktion("href", "$pfad$segment");
         $el->setTag("a");
         $el->setAttribut("tabindex", "0");

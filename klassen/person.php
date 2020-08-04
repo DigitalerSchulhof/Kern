@@ -309,6 +309,59 @@ class Nutzerkonto extends Person {
   }
 
   /**
+   * Prüft, ob das übergebene Passwort zum Nutzer gehört
+   * @param  string $passwort :)
+   * @return bool             true, wenn das Passwort stimmt, false sonst
+   */
+  public function passwortPruefen($passwort) : bool {
+    global $DBS;
+    $sql = "SELECT COUNT(*) AS anzahl FROM kern_nutzerkonten WHERE passwort = SHA1(?) AND id = ?";
+    $anfrage = $DBS->anfrage($sql, "si", $passwort, $this->id);
+    if ($anfrage->getAnzahl() != 1) {
+      return false;
+    }
+    $anfrage->werte($anz);
+    if($anz != 1) {
+      return false;
+    }
+    return true;
+  }
+
+  public function anmelden() : bool {
+    global $DBS;
+    // Alte Sessions mit dieser SessionID bearbeiten löschen
+    $sql = "UPDATE kern_nutzersessions SET sessionid = null WHERE sessionid = [?]";
+    $anfrage = $DBS->anfrage($sql, "s", $this->sessionid);
+
+    $sql = "SELECT id FROM kern_nutzersessions WHERE nutzer = ? ORDER BY sessiontimeout LIMIT 2";
+    $anfrage = $DBS->anfrage($sql, "i", $this->id);
+    $sicheresessions = [];
+    while ($anfrage->werte($sid)) {
+      $sicheresessions[] = $sid;
+    }
+    if (count($sicheresessions) > 0) {
+      $sicheresessionssql = implode(",", $sicheresessions);
+      $sql = "DELETE FROM kern_nutzersessions WHERE id NOT IN ($sicheresessionssql) AND nutzer = ? AND sessiontimeout < ?";
+      $timeoutlimit = time() - 60*60*24*2;
+      $anfrage = $DBS->anfrage($sql, "ii", $this->id, $timeoutlimit);
+    }
+
+    $_SESSION['Benutzer'] = $this;
+    $_SESSION['DSGVO_FENSTERWEG'] = true;
+    $_SESSION['DSGVO_EINWILLIGUNG_A'] = true;
+
+    // Neue Session eintragen
+    $sessiondbid = $DBS->neuerDatensatz("kern_nutzersessions");
+    $sql = "UPDATE kern_nutzersessions SET sessionid = [?], nutzer = ?, sessiontimeout = ? WHERE id = ?";
+    $anfrage = $DBS->anfrage($sql, "siis", $this->sessionid, $this->id, $this->sessiontimeout, $sessiondbid);
+
+    // Postfachordner verwalten
+    $this->postfachOrdnerAufraeumen();
+
+    return true;
+  }
+
+  /**
    * Verlängert die Session bis jetzt + Inaktivitätszeit
    * @return bool true, wenn erfolgreich, sonst false
    */
@@ -355,7 +408,7 @@ class Nutzerkonto extends Person {
     $balken->setID($id);
     $code  = $balken;
     $verlaengern = new UI\Knopf("Verlängern", "Erfolg");
-    $verlaengern->addFunktion("onclick", "kern.schulhof.nutzerkonto.sessionVerlaengern()");
+    $verlaengern->addFunktion("onclick", "kern.schulhof.nutzerkonto.session.verlaengern()");
     $abmelden = new UI\Knopf("Abmelden", "Warnung");
     $abmelden->addFunktion("onclick", "kern.schulhof.nutzerkonto.abmelden.fragen()");
     $absatz = new UI\Absatz("{$verlaengern} {$abmelden}");
@@ -363,15 +416,55 @@ class Nutzerkonto extends Person {
     return $code;
   }
 
-  public function postfachOrdnerAufraeumen() {
+  /**
+   * Löscht die Temporären Dateien im Postfach
+   * @return bool true, wenn erfolgreich, sonst false
+   */
+  public function postfachOrdnerAufraeumen() : bool {
     global $ROOT;
+    $erfolg = true;
     if (file_exists("$ROOT/dateien/Kern/personen/{$this->id}/postfach/temp")) {
-      Dateisystem::ordnerLoeschen("$ROOT/dateien/Kern/personen/{$this->id}/postfach/temp");
+      $erfolg = $erfolg && Dateisystem::ordnerLoeschen("$ROOT/dateien/Kern/personen/{$this->id}/postfach/temp");
     }
     if (!file_exists("$ROOT/dateien/Kern/personen/{$this->id}/postfach/temp")) {
-      mkdir("$ROOT/dateien/Kern/personen/{$this->id}/postfach/temp", 0775, true);
+      $erfolg = $erfolg && mkdir("$ROOT/dateien/Kern/personen/{$this->id}/postfach/temp", 0775, true);
     }
+    return $erfolg;
   }
+
+  /**
+   * Verlängert die Session des Benutzers
+   * @return mixed false wenn Fehlerhaft, Array mit neuem Ende und Inaktivitätszeit
+   */
+  public function sessiontimeoutVerlaengern() {
+    global $DBS;
+    $this->sessiontimeout = time()+60*$this->inaktivitaetszeit;
+    $sql = "UPDATE kern_nutzersessions SET sessiontimeout = ? WHERE sessionid = [?] AND nutzer = ?";
+    $anfrage = $DBS->anfrage($sql, "isi", $this->sessiontimeout, $this->sessionid, $this->id);
+    if ($anfrage->getAnzahl() == 0) {
+      return false;
+    }
+    $param["Limit"] = $this->inaktivitaetszeit;
+    $param["Ende"] = $this->sessiontimeout;
+    return $param;
+  }
+
+  /**
+   * Benutzer abmelden
+   * @return bool true, wenn erfolgreich, sonst false
+   */
+  public function abmelden() : bool {
+    global $DBS;
+    $sql = "UPDATE kern_nutzersessions SET sessiontimeout = 0 WHERE sessionid = [?] AND nutzer = ?";
+    $anfrage = $DBS->anfrage($sql, "si", $this->sessionid, $this->id);
+    $this->postfachOrdnerAufraeumen();
+    if ($anfrage->getAnzahl() == 0) {
+      return false;
+    }
+    unset($_SESSION);
+    return true;
+  }
+
 }
 
 

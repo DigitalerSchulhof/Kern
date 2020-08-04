@@ -11,5 +11,18 @@ kern.schulhof.nutzerkonto = {
     ausfuehren: () => {
       core.ajax("Kern", 1, ["Abmeldung", "Die Abmeldung wird durchgeführt"], null);
     }
+  },
+  session: {
+    verlaengern: () => {
+      core.ajax("Kern", 2, ["Session verlängern", "Die Verlängerung wird durchgeführt"], null).then((r) => {
+        kern.schulhof.nutzerkonto.session.aktualisieren(r.Limit, r.Ende);
+      });
+    },
+    aktualisieren: (limit, ende) => {
+      var orte = ["dshAktivitaetNutzerkonto"];
+      for (var i=0; i<= orte.length; i++) {
+
+      }
+    }
   }
 };

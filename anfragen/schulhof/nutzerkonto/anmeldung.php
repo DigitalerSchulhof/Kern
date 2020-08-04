@@ -13,7 +13,7 @@ Anfrage::checkFehler();
 $angemeldet = false;
 $ldap = Kern\Einstellungen::ladenAlle("Kern");
 
-// LDAP - falls aktiv
+// @TODO: LDAP - falls aktiv
 // Ggf. Aktualisierung vom LDAP-Server durchführen
 if ($ldap["LDAP"] == "1") {
   echo "LDAP";
@@ -42,65 +42,30 @@ if ($anfrage->getAnzahl() == 0) {
 $anfrage->werte($id, $salt, $art, $titel, $vorname, $nachname, $geschlecht, $schuljahr, $uebersichtszahl, $inaktivitaetszeit, $passworttimeout);
 
 
+// Benutzer anlegen
+$DSH_BENUTZER = new Kern\Nutzerkonto($titel, $vorname, $nachname);
+$DSH_BENUTZER->setId($id);
+$DSH_BENUTZER->setArt($art);
+$DSH_BENUTZER->setBenutzer($benutzer);
+$DSH_BENUTZER->setSchuljahr($schuljahr);
+$DSH_BENUTZER->setPassworttimeout($passworttimeout);
+$DSH_BENUTZER->setUebersichtszahl($uebersichtszahl);
+$DSH_BENUTZER->setGeschlecht($geschlecht);
+
 // Passwortprüfung nur im FALLBACK-Fall notwendig
 if ($ldap["LDAP"] != "1") {
-  $passwortgesalzen = $passwort.$salt;
-  $sql = "SELECT COUNT(*) AS anzahl FROM kern_nutzerkonten WHERE passwort = SHA1(?) AND id = ?";
-  $anfrage = $DBS->anfrage($sql, "si", $passwortgesalzen, $id);
-  if ($anfrage->getAnzahl() != 1) {
-    Anfrage::addFehler(4, true);
-  }
-  $anfrage->werte($anz);
-  if($anz != 1) {
+  if (!$DSH_BENUTZER->passwortPruefen($passwort.$salt)) {
     Anfrage::addFehler(4, true);
   }
 }
 
-// Benutzer anmelden
+// Session setzen und Benutzer anmelden
 session_start();
 $sessionid = session_id();
-$jetzt = time();
-$sessiontimeout = $jetzt + $inaktivitaetszeit*60;
+$sessiontimeout = time() + $inaktivitaetszeit*60;
+$DSH_BENUTZER->setSession($sessionid, $sessiontimeout, $inaktivitaetszeit);
 
-// Alte Sessions mit dieser SessionID bearbeiten löschen
-$sql = "UPDATE kern_nutzersessions SET sessionid = null WHERE sessionid = [?]";
-$anfrage = $DBS->anfrage($sql, "s", $sessionid);
-
-$sql = "SELECT id FROM kern_nutzersessions WHERE nutzer = ? ORDER BY sessiontimeout LIMIT 2";
-$anfrage = $DBS->anfrage($sql, "i", $id);
-$sicheresessions = [];
-while ($anfrage->werte($sid)) {
-  $sicheresessions[] = $sid;
-}
-if (count($sicheresessions) > 0) {
-  $sicheresessionssql = implode(",", $sicheresessions);
-  $sql = "DELETE FROM kern_nutzersessions WHERE id NOT IN ($sicheresessionssql) AND nutzer = ? AND sessiontimeout < ?";
-  $timeoutlimit = $jetzt - 60*60*24*2;
-  $anfrage = $DBS->anfrage($sql, "ii", $id, $timeoutlimit);
-}
-
-// Sessionvariablen setzen
-$anmelden = new Kern\Nutzerkonto($titel, $vorname, $nachname);
-$anmelden->setId($id);
-$anmelden->setArt($art);
-$anmelden->setBenutzer($benutzer);
-$anmelden->setSession($sessionid, $sessiontimeout, $inaktivitaetszeit);
-$anmelden->setSchuljahr($schuljahr);
-$anmelden->setPassworttimeout($passworttimeout);
-$anmelden->setUebersichtszahl($uebersichtszahl);
-$anmelden->setGeschlecht($geschlecht);
-
-$_SESSION['Benutzer'] = $anmelden;
-$_SESSION['DSGVO_FENSTERWEG'] = true;
-$_SESSION['DSGVO_EINWILLIGUNG_A'] = true;
-
-// Neue Session eintragen
-$sessiondbid = $DBS->neuerDatensatz("kern_nutzersessions");
-$sql = "UPDATE kern_nutzersessions SET sessionid = [?], nutzer = ?, sessiontimeout = ? WHERE id = ?";
-$anfrage = $DBS->anfrage($sql, "siis", $sessionid, $id, $sessiontimeout, $sessiondbid);
-
-// Postfachordner verwalten
-$anmelden->postfachOrdnerAufraeumen();
+$DSH_BENUTZER->anmelden();
 
 Anfrage::setTyp("Weiterleitung");
 Anfrage::setRueck("Ziel", "Schulhof/Nutzerkonto");
