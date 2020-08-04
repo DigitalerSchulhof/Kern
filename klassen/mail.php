@@ -32,10 +32,10 @@ class Mail {
    * Erstellt eine neue Mailverbindung
    */
   public function __construct() {
-    $einstellungen = Einstellungen::ladenAlle("kern");
-    $this->host = $einstellungen["MailSmtpServer"];
-    $this->port = $einstellungen["MailSmtpPort"];
-    $this->titel = $einstellungen["MailTitel"];
+    $einstellungen  = Einstellungen::ladenAlle("kern");
+    $this->host     = $einstellungen["MailSmtpServer"];
+    $this->port     = $einstellungen["MailSmtpPort"];
+    $this->titel    = $einstellungen["MailTitel"];
     if ($einstellungen["MailSmtpAutentifizierung"] == "1") {
       $this->authentifizierung = true;
     } else {
@@ -127,6 +127,5 @@ class Mail {
 
   	return $umschlag->Send();
   }
-
 }
 ?>
