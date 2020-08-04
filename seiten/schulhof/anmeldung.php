@@ -5,10 +5,17 @@ if(Check::angemeldet()) {
   return;
 }
 
-$DSH_TITEL = "Anmeldung";
-$CODE .= new Kern\Aktionszeile();
 
+$DSH_TITEL = "Anmeldung";
+$aktionszeile = new Kern\Aktionszeile();
+// Bis_bald! etc. ignorieren
+$aktionszeile->setBrotkrumenURL("Schulhof", "Anmeldung");
+$CODE .= $aktionszeile;
 $CODE .= UI\Zeile::standard(new UI\SeitenUeberschrift("Schulhof"));
+
+if(count($DSH_URL) === 3 && $DSH_URL[2] === "Bis_bald!") {
+  $CODE .= UI\Zeile::standard(new UI\Meldung("Abgemeldet", "Die Abmeldung war erfolgreich. Bis bald!", "Information", new UI\Icon("fas fa-sign-out-alt")));
+}
 
 $meldungBrowserLaden    = new UI\Meldung("Kompatibilität prüfen",       "Es wird geprüft, ob Ihr Browser unterstützt wird...", "Arbeit");
 $meldungBrowserErfolg   = new UI\Meldung("Kompatibilität prüfen",       "Dieser Browser unterstützt alle Funktionen des Digitalen Schulhofs.", "Erfolg", new UI\Icon(""));
@@ -32,7 +39,7 @@ $anmeldungFeldBenutzer = new UI\FormularFeld(new UI\InhaltElement("Benutzer:"), 
 $anmeldungFeldPasswort = new UI\FormularFeld(new UI\InhaltElement("Passwort:"), (new UI\Passwortfeld("dshAnmeldungPasswort")) ->setAutocomplete("current-password"));
 
 $anmeldungFormular = new UI\FormularTabelle($anmeldungFeldBenutzer, $anmeldungFeldPasswort);
-$anmeldungFormular->addKnopf((new UI\Knopf("Anmelden", "Erfolg")) ->setSubmit(true));
+$anmeldungFormular->addKnopf((new UI\Knopf("Anmelden", "Erfolg")) ->setSubmit(true) ->addKlasse("autofocus"));
 $anmeldungFormular->addKnopf((new UI\Knopf("Passwort vergessen")) ->addFunktion("href", "Schulhof/Passwort_vergessen"));
 $anmeldungFormular->addKnopf((new UI\Knopf("Registrieren"))       ->addFunktion("href", "Schulhof/Registrieren"));
 $anmeldungFormular->getAktionen()->addFunktion("onsubmit", "kern.schulhof.nutzerkonto.anmelden()");
