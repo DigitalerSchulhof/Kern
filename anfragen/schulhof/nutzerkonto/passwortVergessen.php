@@ -8,7 +8,7 @@ if(!Check::istText($benutzer)) {
 if(!Check::istMail($mail)) {
   Anfrage::addFehler(7);
 }
-Anfrage::checkMeldung();
+Anfrage::checkFehler();
 
 $jetzt = time();
 $sql = "SELECT kern_personen.id AS id, {art}, {titel}, {vorname}, {nachname}, {geschlecht}, {salt} FROM kern_personen JOIN kern_nutzerkonten ON kern_personen.id = kern_nutzerkonten.id WHERE benutzername = [?] AND email = [?];";

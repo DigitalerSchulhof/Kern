@@ -409,9 +409,11 @@ class Nutzerkonto extends Person {
     $code  = $balken;
     $verlaengern = new UI\Knopf("Verlängern", "Erfolg");
     $verlaengern->addFunktion("onclick", "kern.schulhof.nutzerkonto.session.verlaengern()");
+    $bearbeiten = new UI\Knopf("Profil bearbeiten");
+    $bearbeiten->addFunktion("href", "Schulhof/Nutzerkonto/Profil");
     $abmelden = new UI\Knopf("Abmelden", "Warnung");
     $abmelden->addFunktion("onclick", "kern.schulhof.nutzerkonto.abmelden.fragen()");
-    $absatz = new UI\Absatz("{$verlaengern} {$abmelden}");
+    $absatz = new UI\Absatz("{$verlaengern} {$bearbeiten} {$abmelden}");
     $code .= $absatz;
     return $code;
   }

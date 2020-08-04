@@ -5,7 +5,7 @@ Anfrage::post("mail");
 if(!Check::istMail($mail)) {
   Anfrage::addFehler(9);
 }
-Anfrage::checkMeldung();
+Anfrage::checkFehler();
 
 $jetzt = time();
 $sql = "SELECT * FROM (SELECT {benutzername} AS nutzer FROM kern_nutzerkonten WHERE email = [?]) AS n ORDER BY nutzer ASC;";
