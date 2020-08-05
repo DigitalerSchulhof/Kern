@@ -4,7 +4,7 @@ Anfrage::post("benutzer", "passwort");
 if(!Check::istText($benutzer)) {
   Anfrage::addFehler(1);
 }
-if(strlen($passwort) <= 0) {
+if(strlen($passwort) < 6) {
   Anfrage::addFehler(2);
 }
 Anfrage::checkFehler();
@@ -60,7 +60,7 @@ if ($ldap["LDAP"] != "1") {
 }
 
 // Session setzen und Benutzer anmelden
-session_start();
+Anfrage::session_start();
 $sessionid = session_id();
 $sessiontimeout = time() + $inaktivitaetszeit*60;
 $DSH_BENUTZER->setSession($sessionid, $sessiontimeout, $inaktivitaetszeit);

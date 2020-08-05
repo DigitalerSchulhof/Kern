@@ -35,22 +35,23 @@ kern.schulhof.nutzerkonto = {
       core.ajax("Kern", 4, ["Benutzername vergessen", "Der Benutzername wird verschickt"], {mail: mail});
     }
   },
-  registrierung: () => {
-    var art          = $("#dshRegistrierenArt").getWert();
-    var geschlecht   = $("#dshRegistrierenGeschlecht").getWert();
-    var titel        = $("#dshRegistrierenTitel").getWert();
-    var vorname      = $("#dshRegistrierenVorname").getWert();
-    var nachname     = $("#dshRegistrierenNachname").getWert();
-    var klasse       = $("#dshRegistrierenKlasse").getWert();
-    var passwort     = $("#dshRegistrierenPasswort").getWert();
-    var passwort2    = $("#dshRegistrierenPasswort2").getWert();
-    var mail         = $("#dshRegistrierenMail").getWert();
-    var datenschutz  = $("#dshRegistrierenDatenschutz").getWert();
-    var entscheidung = $("#dshRegistrierenEntscheidung").getWert();
-    var korrektheit  = $("#dshRegistrierenKorrektheit").getWert();
-    var spamschutz   = $("#dshRegistrierenSpanschutz").getWert();
-    var spamid       = $("#dshRegistrierenSpanschutzSpamid").getWert();
+  registrieren: () => {
+    var art          = $("#dshRegistrierungArt").getWert();
+    var geschlecht   = $("#dshRegistrierungGeschlecht").getWert();
+    var titel        = $("#dshRegistrierungTitel").getWert();
+    var vorname      = $("#dshRegistrierungVorname").getWert();
+    var nachname     = $("#dshRegistrierungNachname").getWert();
+    var klasse       = $("#dshRegistrierungKlasse").getWert();
+    var benutzer     = $("#dshRegistrierungBenutzer").getWert();
+    var passwort     = $("#dshRegistrierungPasswort").getWert();
+    var passwort2    = $("#dshRegistrierungPasswort2").getWert();
+    var mail         = $("#dshRegistrierungMail").getWert();
+    var datenschutz  = $("#dshRegistrierungDatenschutz").getWert();
+    var entscheidung = $("#dshRegistrierungEntscheidung").getWert();
+    var korrektheit  = $("#dshRegistrierungKorrektheit").getWert();
+    var spamschutz   = $("#dshRegistrierungSpamschutz").getWert();
+    var spamid       = $("#dshRegistrierungSpamschutzSpamid").getWert();
 
-    core.ajax("Kern", 6, ["Registrieren", "Die Registrierung wird geprüft"], {art: art, geschlecht:geschlecht, titel:titel, vorname:vorname, nachname:nachname, klasse:klasse, passwort:passwort, passwort2:passwort2, mail:mail, datenschutz:datenschutz, entscheidung:entscheidung, korrektheit:korrektheit, spamschutz:spamschutz, spamid:spamid});
+    core.ajax("Kern", 6, ["Registrieren", "Die Registrierung wird geprüft"], {art: art, geschlecht:geschlecht, titel:titel, vorname:vorname, nachname:nachname, klasse:klasse, benutzer:benutzer, passwort:passwort, passwort2:passwort2, mail:mail, datenschutz:datenschutz, entscheidung:entscheidung, korrektheit:korrektheit, spamschutz:spamschutz, spamid:spamid});
   }
 };

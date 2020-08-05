@@ -5,11 +5,12 @@ if(Check::angemeldet()) {
   return;
 }
 
-$DSH_TITEL = "Anmeldung";
-$CODE .= new Kern\Aktionszeile();
+$DSH_TITEL              = "Anmeldung";
+$CODE[]                 = new Kern\Aktionszeile();
+$CODE[]                 = UI\Zeile::standard(new UI\SeitenUeberschrift("Schulhof"));
 
-$spalte = new UI\Spalte("A1", new UI\SeitenUeberschrift("Schulhof"));
-$CODE .= new UI\Zeile($spalte);
+$spalteAnmeldung        = new UI\Spalte("A2");
+$spalteAnmeldung[]      = new UI\Ueberschrift(2, "Anmeldung");
 
 $meldungBrowserLaden    = new UI\Meldung("Kompatibilität prüfen",       "Es wird geprüft, ob Ihr Browser unterstützt wird...", "Arbeit");
 $meldungBrowserErfolg   = new UI\Meldung("Kompatibilität prüfen",       "Dieser Browser unterstützt alle Funktionen des Digitalen Schulhofs.", "Erfolg", new UI\Icon(""));
@@ -21,41 +22,48 @@ $meldungBrowserErfolg   ->setID("dshBrowsercheckErfolg")  ->setStyle("display", 
 $meldungBrowserFehler   ->setID("dshBrowsercheckFehler")  ->setStyle("display", "none");
 $meldungBrowserUnsicher ->setID("dshBrowsercheckUnsicher")->setStyle("display", "none")->setAttribut("title", "Fehlt Ihr Browser? Lassen Sie es uns über GitHub wissen! :)");
 $meldungBrowserInternet ->setID("dshBrowsercheckInternet")->setStyle("display", "none");
-$browserMeldungen       = [$meldungBrowserLaden, $meldungBrowserErfolg, $meldungBrowserFehler, $meldungBrowserUnsicher, $meldungBrowserInternet];
+$spalteAnmeldung[]      = $meldungBrowserLaden;
+$spalteAnmeldung[]      = $meldungBrowserErfolg;
+$spalteAnmeldung[]      = $meldungBrowserFehler;
+$spalteAnmeldung[]      = $meldungBrowserUnsicher;
+$spalteAnmeldung[]      = $meldungBrowserInternet;
 
-$spalteAnmeldung = new UI\Spalte("A2");
-$spalteAnmeldung->add(new UI\Ueberschrift(2, "Anmeldung"));
-$spalteAnmeldung->add(...$browserMeldungen);
-
+$anmeldungFormular      = new UI\FormularTabelle();
 
 // @TODO: Platzhalter für den Benutzernamen
-$anmeldungFeldBenutzer = new UI\FormularFeld(new UI\InhaltElement("Benutzer:"), (new UI\Textfeld("dshAnmeldungBenutzer"))     ->setAutocomplete("username"));
-$anmeldungFeldPasswort = new UI\FormularFeld(new UI\InhaltElement("Passwort:"), (new UI\Passwortfeld("dshAnmeldungPasswort")) ->setAutocomplete("current-password"));
+$anmeldungFormular[]    = new UI\FormularFeld(new UI\InhaltElement("Benutzer:"),  (new UI\Textfeld("dshAnmeldungBenutzer"))     ->setAutocomplete("username"));
+$anmeldungFormular[]    = new UI\FormularFeld(new UI\InhaltElement("Passwort:"),  (new UI\Passwortfeld("dshAnmeldungPasswort")) ->setAutocomplete("current-password"));
 
-$anmeldungFormular = new UI\FormularTabelle($anmeldungFeldBenutzer, $anmeldungFeldPasswort);
-$anmeldungFormular->addKnopf((new UI\Knopf("Anmelden", "Erfolg"))     ->setSubmit(true) ->addKlasse("autofocus"));
-$anmeldungFormular->addKnopf((new UI\Knopf("Zugangsdaten vergessen")) ->addFunktion("href", "Schulhof/Zugangsdaten_vergessen"));
-$anmeldungFormular->addKnopf((new UI\Knopf("Registrieren"))           ->addFunktion("href", "Schulhof/Registrierung"));
-$anmeldungFormular->getAktionen()->addFunktion("onsubmit", "kern.schulhof.nutzerkonto.anmelden()");
-$spalteAnmeldung->add($anmeldungFormular);
+$anmeldungFormular[]    = (new UI\Knopf("Anmelden", "Erfolg"))     ->setSubmit(true)->addKlasse("autofocus");
+$anmeldungFormular[]    = (new UI\Knopf("Zugangsdaten vergessen")) ->addFunktion("href", "Schulhof/Zugangsdaten_vergessen");
+$anmeldungFormular[]    = (new UI\Knopf("Registrieren"))           ->addFunktion("href", "Schulhof/Registrierung");
 
-
-
-$spalteLinks = new UI\Spalte("A2");
-
-$spalteLinks->add(new UI\Ueberschrift(2, "Apps"));
-$android = new UI\IconKnopf(new UI\Icon(UI\Konstanten::ANDROID), "Andorid");
-$android->addFunktion("href", "https://play.google.com/store/apps/details?id=com.dsh.digitalerschulhof");
-$android->addKlasse("dshExtern");
-$apple = new UI\IconKnopf(new UI\Icon(UI\Konstanten::APPLE), "iOS");
-$apple->addFunktion("href", "https://apps.apple.com/de/app/digitaler-schulhof/id1500912100");
-$apple->addKlasse("dshExtern");
-$spalteLinks->add(new UI\Absatz("$apple $android"));
+$anmeldungFormular->addSubmit("kern.schulhof.nutzerkonto.anmelden()");
+$spalteAnmeldung[]      = $anmeldungFormular;
 
 
-$spalteLinks->add(new UI\Ueberschrift(2, "Links"));
 
-$CODE .= new UI\Zeile($spalteAnmeldung, $spalteLinks);
+$spalteLinks            = new UI\Spalte("A2");
+$spalteLinks[]          = new UI\Ueberschrift(2, "Digitaler Schulhof");
 
-$CODE .= "<script>kern.schulhof.oeffentlich.browsercheck()</script>";
+$knopfAndroid = new UI\IconKnopf(new UI\Icon(UI\Konstanten::ANDROID), "Andorid");
+$knopfAndroid->addFunktion("href", "https://play.google.com/store/apps/details?id=com.dsh.digitalerschulhof");
+$knopfAndroid->addKlasse("dshExtern");
+
+$knopfApple = new UI\IconKnopf(new UI\Icon(UI\Konstanten::APPLE), "iOS");
+$knopfApple->addFunktion("href", "https://apps.apple.com/de/app/digitaler-schulhof/id1500912100");
+$knopfApple->addKlasse("dshExtern");
+
+$knopfGitHub = new UI\IconKnopf(new UI\Icon("fab fa-github"), "GitHub");
+$knopfGitHub->addFunktion("href", "https://github.com/DigitalerSchulhof");
+$knopfGitHub->addKlasse("dshExtern");
+
+$spalteLinks[]          = new UI\Absatz("$knopfApple $knopfAndroid $knopfGitHub");
+
+$spalteLinks[]          = new UI\Ueberschrift(2, "Links");
+$spalteLinks[]          = new UI\Absatz("Links folgen");
+
+$CODE[]                 = new UI\Zeile($spalteAnmeldung, $spalteLinks);
+
+$CODE[]                 = "<script>kern.schulhof.oeffentlich.browsercheck()</script>";
 ?>

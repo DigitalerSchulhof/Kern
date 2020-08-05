@@ -1,53 +1,60 @@
 <?php
-Anfrage::post("art", "titel", "vorname", "nachname", "klasse", "passwort", "passwort2", "mail", "datenschutz", "entscheidung", "korrektheit", "spamschutz", "spamid");
+
+Anfrage::session_start();
+
+Anfrage::post("art", "geschlecht", "titel", "vorname", "nachname", "klasse", "benutzer", "passwort", "passwort2", "mail", "datenschutz", "entscheidung", "korrektheit", "spamschutz", "spamid");
 
 if(!in_array($art, Kern\Person::getArten())) {
-  Anfrage::addFehler(-3);
-}
-if(!in_array($art, Kern\Person::getGeschlechter())) {
-  Anfrage::addFehler(-3);
-}
-if(!Check::istName($titel)) {
   Anfrage::addFehler(12);
 }
-if(!Check::istName($vorname)) {
+if(!in_array($geschlecht, Kern\Person::getGeschlechter())) {
   Anfrage::addFehler(13);
 }
-if(!Check::istName($nachname)) {
+if(!Check::istTitel($titel)) {
   Anfrage::addFehler(14);
 }
-if(!Check::istName($klasse, 0)) {
+if(!Check::istName($vorname)) {
   Anfrage::addFehler(15);
 }
-if(strlen($passwort) < 6) {
+if(!Check::istName($nachname)) {
   Anfrage::addFehler(16);
 }
-if($passwort != $passwort2) {
+if(!Check::istName($klasse, 0)) {
   Anfrage::addFehler(17);
 }
-if(!Check::istMail($mail)) {
+if(!Check::istName($benutzer, 0)) {
   Anfrage::addFehler(18);
 }
-if($datenschutz != "1") {
+if(strlen($passwort) < 6) {
   Anfrage::addFehler(19);
 }
-if($entscheidung != "1") {
+if($passwort != $passwort2) {
   Anfrage::addFehler(20);
 }
-if($korrektheit != "1") {
+if(!Check::istMail($mail)) {
   Anfrage::addFehler(21);
 }
-if (!isset($_SESSION["SPAMSCHUTZ_{$spamid}"])) {
+if($datenschutz != "1") {
   Anfrage::addFehler(22);
-} else if ($_SESSION["SPAMSCHUTZ_{$spamid}"] != $spamschutz) {
+}
+if($entscheidung != "1") {
   Anfrage::addFehler(23);
+}
+if($korrektheit != "1") {
+  Anfrage::addFehler(24);
+}
+
+if (!isset($_SESSION["SPAMSCHUTZ_{$spamid}"])) {
+  Anfrage::addFehler(25);
+} else if ($_SESSION["SPAMSCHUTZ_{$spamid}"] != $spamschutz) {
+  Anfrage::addFehler(26);
 }
 Anfrage::checkFehler();
 
-$neueid = $DBS->neuerDatensatz("kern_nutzerregistrierung");
-$sql = "UPDATE kern_nutzerregistrierung SET art = [?], geschlecht = [?], titel = [?], vorname = [?], nachname = [?], klasse = [?], email = [?], salt = [?], passwort = SHA1(?) WHERE id = ?";
-$salt = Kern\Nutzerkonto::generiereSalt();
-$DBS->anfrage($sql, "sssssssssi", $art, $geschlecht, $titel, $vorname, $nachname, $klasse, $email, $salt, $passwort.$salt, $neueid);
+// $neueid = $DBS->neuerDatensatz("kern_nutzerregistrierung", true);
+// $sql = "UPDATE kern_nutzerregistrierung SET art = [?], geschlecht = [?], titel = [?], vorname = [?], nachname = [?], klasse = [?], email = [?], salt = [?], passwort = SHA1(?) WHERE id = ?";
+// $salt = Kern\Nutzerkonto::generiereSalt();
+// $DBS->anfrage($sql, "sssssssssi", $art, $geschlecht, $titel, $vorname, $nachname, $klasse, $email, $salt, $passwort.$salt, $neueid);
 
 $website = new UI\Knopf("Zurück zur Website");
 $website->addFunktion("href", "Website");

@@ -124,14 +124,24 @@ class DB {
     return new Anfrage($anzahl, $ergebnis);
   }
 
-
-  public function neuerDatensatz($tabelle) {
+  /**
+   * Legt einen leeren Datensatz an
+   * @param  string $tabelle :)
+   * @param  bool   $anonym Wenn true, wird der Datensatz ohne Nutzerverbindung angelegt
+   * @return int    Wert der Spalte <code>id</code> des neuen Datensatzes
+   */
+  public function neuerDatensatz($tabelle, $anonym = false) {
     $fehler = false;
     $id = '-';
 
-    if (isset($_SESSION['Benutzer'])) {$benutzer = $_SESSION['Benutzer']->getId();}
-    else {
-      throw new \Exception("Nicht identifizierter Benutzer versucht ");
+    if($anonym) {
+      // @TODO: Datensatz ohne Nutzer
+    } else {
+      if (isset($_SESSION['Benutzer'])) {
+        $benutzer = $_SESSION['Benutzer']->getId();
+      } else {
+        throw new \Exception("Nicht identifizierter Benutzer versucht ");
+      }
     }
 
     // Neue ID bestimmten und eintragen

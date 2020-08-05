@@ -1,60 +1,62 @@
 <?php
-$DSH_TITEL = "Registrierung";
-$CODE .= new Kern\Aktionszeile();
+$DSH_TITEL          = "Registrierung";
+$CODE[]             = new Kern\Aktionszeile();
 
-$spalte = new UI\Spalte("A1", new UI\SeitenUeberschrift("Registrierung"));
+$spalte             = new UI\Spalte("A1");
+$spalte[]           = new UI\SeitenUeberschrift("Registrierung");
 
 if (!Check::Einwilligung("DSH")) {
-  $spalte->add(new UI\Meldung("Datenschutzhinweis", "Um eine Registrierung für den Digitalen Schulhof vorzunehmen, müssen die Cookies des Digitalen Schulhofs akzeptiert werden.", "Information"));
+  $spalte[]         = new UI\Meldung("Datenschutzhinweis", "Um eine Registrierung für den Digitalen Schulhof vorzunehmen, müssen die Cookies des Digitalen Schulhofs akzeptiert werden.", "Information");
 
-  $akzeptieren = new UI\IconKnopf("Cookies des Digitalen Schulhofs akzeptieren", new UI\Icon(UI\Konstanten::COOKIE));
+  $akzeptieren      = new UI\IconKnopf("Cookies des Digitalen Schulhofs akzeptieren", new UI\Icon(UI\Konstanten::COOKIE));
   $akzeptieren->addFunktion("onclick", "kern.cookies.setzen('1', 'DSH')");
 
-  $spalte->add(new UI\Absatz($akzeptieren));
+  $spalte[]         = new UI\Absatz($akzeptieren);
 } else {
-  $spalte->add(new UI\Meldung("Mehrfache Registrierungen", "Registrierungen müssen vom Administrator Personen zugeordnet werden. Dies kann einige Zeit in Anspruch nehmen. Mehrfache Registrierungen beschleunigen das Verfahren nicht!", "Warnung"));
+  $spalte[]         = new UI\Meldung("Mehrfache Registrierungen", "Registrierungen müssen vom Administrator Personen zugeordnet werden. Dies kann einige Zeit in Anspruch nehmen. Mehrfache Registrierungen beschleunigen das Verfahren nicht!", "Warnung");
 
-  $spalte->add(new UI\Meldung("Datenschutzhinweis", "Mit der Registrierung geht die Einverständnis in die Datenschutzvereinbarung des Digitalen Schulhofs einher. Diese kann hier eingesehen werden: ".(new UI\Link("Datenschutzvereinbarungen lesen", "Website/Datenschutz")), "Information"));
+  $spalte[]         = new UI\Meldung("Datenschutzhinweis", "Mit der Registrierung geht die Einverständnis in die Datenschutzvereinbarung des Digitalen Schulhofs einher. Diese kann hier eingesehen werden: ".(new UI\Link("Datenschutzvereinbarungen lesen", "Website/Datenschutz")), "Information");
 
-  $artwahl      = new UI\Auswahl("dshRegistrierenArt", "Schüler", "s");
-  $artwahl->add("Erziehungsberechtigte(r)", "e");
-  $artwahl->add("Lehrkraft", "l");
-  $artwahl->add("Verwaltung", "v");
-  $artwahl->add("Externe(r)", "x");
-  $art          = new UI\FormularFeld(new UI\InhaltElement("Art des Nutzerkontos:"),      $artwahl);
+  $formular         = new UI\FormularTabelle();
 
-  $geschlechtswahl      = new UI\Auswahl("dshRegistrierenGeschlecht", "weiblich", "w");
-  $geschlechtswahl->add("männlich", "m");
-  $geschlechtswahl->add("divers", "d");
-  $geschlecht          = new UI\FormularFeld(new UI\InhaltElement("Geschelcht:"),      $geschlechtswahl);
+  $artwahl          = new UI\Auswahl("dshRegistrierungArt");
+  $artwahl          ->add("Schüler", "s");
+  $artwahl          ->add("Erziehungsberechtigte(r)", "e");
+  $artwahl          ->add("Lehrkraft", "l");
+  $artwahl          ->add("Verwaltung", "v");
+  $artwahl          ->add("Externe(r)", "x");
+  $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Art des Nutzerkontos:"),      $artwahl);
 
-  $titel        = new UI\FormularFeld(new UI\InhaltElement("Titel:"),                     (new UI\Textfeld("dshRegistrierenTitel"))->setAutocomplete("honorific-prefix"));
-  $vorname      = new UI\FormularFeld(new UI\InhaltElement("Vorname:"),                   (new UI\Textfeld("dshRegistrierenVorname"))->setAutocomplete("given-name"));
-  $nachname     = new UI\FormularFeld(new UI\InhaltElement("Nachname:"),                  (new UI\Textfeld("dshRegistrierenNachname"))->setAutocomplete("family-name"));
-  $klasse       = new UI\FormularFeld(new UI\InhaltElement("Klasse:"),                    (new UI\Textfeld("dshRegistrierenKlasse")));
+  $geschlechtswahl  = new UI\Auswahl("dshRegistrierungGeschlecht");
+  $geschlechtswahl  ->add("Männlich", "m");
+  $geschlechtswahl  ->add("Weiblich", "w");
+  $geschlechtswahl  ->add("Divers", "d");
+  $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Geschelcht:"),      $geschlechtswahl);
 
-  $passwort     = (new UI\Passwortfeld("dshRegistrierenPasswort"))->setAutocomplete("new-password");
-  $passwort2    = (new UI\Passwortfeld("dshRegistrierenPasswort2", $passwort))->setAutocomplete("new-password");
-  $passwort     = new UI\FormularFeld(new UI\InhaltElement("Passwort:"),                  $passwort);
-  $passwort2    = new UI\FormularFeld(new UI\InhaltElement("Passwort bestätigen:"),       $passwort2);
+  $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Titel:"),                     (new UI\Textfeld("dshRegistrierungTitel"))    ->setAutocomplete("honorific-prefix"));
+  $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Vorname:"),                   (new UI\Textfeld("dshRegistrierungVorname"))  ->setAutocomplete("given-name"));
+  $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Nachname:"),                  (new UI\Textfeld("dshRegistrierungNachname")) ->setAutocomplete("family-name"));
+  $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Klasse:"),                    (new UI\Textfeld("dshRegistrierungKlasse")));
+  $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Benutzer:"),                  (new UI\Textfeld("dshRegistrierungBenutzer")) ->setAutocomplete("username"));
 
-  $email        = new UI\FormularFeld(new UI\InhaltElement("eMail-Adresse:"),             (new UI\Mailfeld("dshRegistrierenMail"))->setAutocomplete("email"));
-  $datenschutz  = new UI\FormularFeld(new UI\InhaltElement("Datenschutz:"),               new UI\IconToggle("dshRegistrierenDatenschutz", "Ich bin mit den Datenschutzvorkehrungen des Digitalen Schulhofs einverstanden und erteile meine Erlaubnis zur Datenverarbeitung.", (new UI\Icon(UI\Konstanten::HAKEN))));
-  $berechtigung = new UI\FormularFeld(new UI\InhaltElement("Entscheidungsberechtigung:"), new UI\IconToggle("dshRegistrierenEntscheidung", "Ich bin 18 Jahre alt oder älter, oder ein Erziehungsberechtigter hat mir erlaubt, diese Registrierung durchzuführen.", (new UI\Icon(UI\Konstanten::HAKEN))));
-  $korrektheit  = new UI\FormularFeld(new UI\InhaltElement("Korrektheit:"),              new UI\IconToggle("dshRegistrierenKorrektheit", "Meine Angaben sind nach bestem Wissen und Gewissen korrekt.", (new UI\Icon(UI\Konstanten::HAKEN))));
-  $spamschutz   = new UI\FormularFeld(new UI\InhaltElement("Spamverhinderung:"),          (new UI\Spamschutz("dshRegistrierenSpamschutz", 7)));
+  $passwort         = (new UI\Passwortfeld("dshRegistrierungPasswort"))                       ->setAutocomplete("new-password");
+  $passwort2        = (new UI\Passwortfeld("dshRegistrierungPasswort2", $passwort))           ->setAutocomplete("new-password");
+  $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Passwort:"),                  $passwort);
+  $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Passwort bestätigen:"),       $passwort2);
 
-  $felder       = [$art, $geschlecht, $titel, $vorname, $nachname, $klasse, $email, $passwort, $passwort2, $datenschutz, $berechtigung, $korrektheit, $spamschutz];
+  $formular[]       = new UI\FormularFeld(new UI\InhaltElement("eMail-Adresse:"),             (new UI\Mailfeld("dshRegistrierungMail"))     ->setAutocomplete("email"));
+  $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Datenschutz:"),               (new UI\IconToggle("dshRegistrierungDatenschutz", "Ich bin mit den Datenschutzvorkehrungen des Digitalen Schulhofs einverstanden und erteile meine Erlaubnis zur Datenverarbeitung.", (new UI\Icon(UI\Konstanten::HAKEN)))));
+  $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Entscheidungsberechtigung:"), (new UI\IconToggle("dshRegistrierungEntscheidung", "Ich bin 18 Jahre alt oder älter, oder ein Erziehungsberechtigter hat mir erlaubt, diese Registrierung durchzuführen.", (new UI\Icon(UI\Konstanten::HAKEN)))));
+  $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Korrektheit:"),               (new UI\IconToggle("dshRegistrierungKorrektheit", "Meine Angaben sind nach bestem Wissen und Gewissen korrekt.", (new UI\Icon(UI\Konstanten::HAKEN)))));
+  $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Spamverhinderung:"),          (new UI\Spamschutz("dshRegistrierungSpamschutz", 7)));
 
-  $formular = new UI\FormularTabelle(...$felder);
-
-  $formular->addKnopf((new UI\Knopf("Registrieren", "Erfolg"))  ->setSubmit(true));
-  $formular->addKnopf((new UI\Knopf("Zurück zur Anmeldung"))    ->addFunktion("href", "Schulhof/Anmeldung"));
+  $formular[]       = (new UI\Knopf("Registrieren", "Erfolg"))  ->setSubmit(true);
+  $formular[]       = (new UI\Knopf("Zurück zur Anmeldung"))    ->addFunktion("href", "Schulhof/Anmeldung");
 
   $formular->getAktionen()->addFunktion("onsubmit", "kern.schulhof.nutzerkonto.registrieren()");
 
-  $spalte->add($formular);
+  $spalte[]     = $formular;
 }
 
-$CODE .= new UI\Zeile($spalte);
+$CODE[]         = new UI\Zeile($spalte);
 ?>
