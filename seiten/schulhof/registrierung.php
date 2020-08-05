@@ -52,9 +52,9 @@ if (!Check::Einwilligung("DSH")) {
   $formular[]       = (new UI\Knopf("Registrieren", "Erfolg"))  ->setSubmit(true);
   $formular[]       = (new UI\Knopf("Zurück zur Anmeldung"))    ->addFunktion("href", "Schulhof/Anmeldung");
 
-  $formular->getAktionen()->addFunktion("onsubmit", "kern.schulhof.nutzerkonto.registrieren()");
-  $spalte[]     = $formular;
+  $formular         ->addSubmit("kern.schulhof.nutzerkonto.registrieren()");
+  $spalte[]         = $formular;
 }
 
-$CODE[]         = new UI\Zeile($spalte);
+$CODE[]             = new UI\Zeile($spalte);
 ?>

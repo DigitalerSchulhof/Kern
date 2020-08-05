@@ -42,9 +42,9 @@ if($korrektheit != "1") {
 }
 
 if (!isset($_SESSION["SPAMSCHUTZ_{$spamid}"])) {
-  Anfrage::addFehler(25);
+  Anfrage::addFehler(24);
 } else if ($_SESSION["SPAMSCHUTZ_{$spamid}"] != $spamschutz) {
-  Anfrage::addFehler(26);
+  Anfrage::addFehler(25);
 }
 Anfrage::checkFehler();
 
