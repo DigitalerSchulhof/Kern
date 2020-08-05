@@ -37,7 +37,6 @@ if (!Check::Einwilligung("DSH")) {
   $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Vorname:"),                   (new UI\Textfeld("dshRegistrierungVorname"))  ->setAutocomplete("given-name"));
   $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Nachname:"),                  (new UI\Textfeld("dshRegistrierungNachname")) ->setAutocomplete("family-name"));
   $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Klasse:"),                    (new UI\Textfeld("dshRegistrierungKlasse")));
-  $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Benutzer:"),                  (new UI\Textfeld("dshRegistrierungBenutzer")) ->setAutocomplete("username"));
 
   $passwort         = (new UI\Passwortfeld("dshRegistrierungPasswort"))                       ->setAutocomplete("new-password");
   $passwort2        = (new UI\Passwortfeld("dshRegistrierungPasswort2", $passwort))           ->setAutocomplete("new-password");
@@ -54,7 +53,6 @@ if (!Check::Einwilligung("DSH")) {
   $formular[]       = (new UI\Knopf("Zurück zur Anmeldung"))    ->addFunktion("href", "Schulhof/Anmeldung");
 
   $formular->getAktionen()->addFunktion("onsubmit", "kern.schulhof.nutzerkonto.registrieren()");
-
   $spalte[]     = $formular;
 }
 

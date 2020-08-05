@@ -51,28 +51,25 @@
   beschreibung: Die <b>Klasse</b> ist ungültig.
 18:
   ort: anfragen/schulhof/nutzerkonto/registrierung.php
-  beschreibung: Der <b>Benutzername</b> ist ungültig.
+  beschreibung: Das <b>Passwort</b> ist ungültig. Es muss aus mindestens 6 Zeichen bestehen!
 19:
   ort: anfragen/schulhof/nutzerkonto/registrierung.php
-  beschreibung: Das <b>Passwort</b> ist ungültig. Es muss aus mindestens 6 Zeichen bestehen!
+  beschreibung: Die <b>Passworte</b> stimmen nicht überein.
 20:
   ort: anfragen/schulhof/nutzerkonto/registrierung.php
-  beschreibung: Die <b>Passworte</b> stimmen nicht überein.
+  beschreibung: Die <b>eMail-Adresse</b> ist ungültig.
 21:
   ort: anfragen/schulhof/nutzerkonto/registrierung.php
-  beschreibung: Die <b>eMail-Adresse</b> ist ungültig.
+  beschreibung: Die <b>Datenschutzvereinbarung</b> wurde nicht akzeptiert.
 22:
   ort: anfragen/schulhof/nutzerkonto/registrierung.php
-  beschreibung: Die <b>Datenschutzvereinbarung</b> wurde nicht akzeptiert.
+  beschreibung: Die <b>Entscheidungsberechtigung</b> wurde nicht bestätigt.
 23:
   ort: anfragen/schulhof/nutzerkonto/registrierung.php
-  beschreibung: Die <b>Entscheidungsberechtigung</b> wurde nicht bestätigt.
+  beschreibung: Die <b>Korrektheit</b> der Angaben wurde nicht versichert.
 24:
   ort: anfragen/schulhof/nutzerkonto/registrierung.php
-  beschreibung: Die <b>Korrektheit</b> der Angaben wurde nicht versichert.
-25:
-  ort: anfragen/schulhof/nutzerkonto/registrierung.php
   beschreibung: Der <b>Spamschutz</b> konnte nicht überprüft werden.
-26:
+25:
   ort: anfragen/schulhof/nutzerkonto/registrierung.php
   beschreibung: Der <b>Spamschutz</b> wurde nicht korrekt übertragen.

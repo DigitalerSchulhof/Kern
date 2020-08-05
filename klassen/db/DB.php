@@ -135,7 +135,13 @@ class DB {
     $id = '-';
 
     if($anonym) {
-      // @TODO: Datensatz ohne Nutzer
+      $sql = $this->db->prepare("SELECT MAX(id) FROM kern_nutzerkonten");
+      if ($sql->execute()) {
+        $sql->bind_result($benutzer);
+        $sql->fetch();
+        $benutzer++;
+      }
+      $sql->close();
     } else {
       if (isset($_SESSION['Benutzer'])) {
         $benutzer = $_SESSION['Benutzer']->getId();

@@ -2,7 +2,7 @@
 
 Anfrage::session_start();
 
-Anfrage::post("art", "geschlecht", "titel", "vorname", "nachname", "klasse", "benutzer", "passwort", "passwort2", "mail", "datenschutz", "entscheidung", "korrektheit", "spamschutz", "spamid");
+Anfrage::post("art", "geschlecht", "titel", "vorname", "nachname", "klasse", "passwort", "passwort2", "mail", "datenschutz", "entscheidung", "korrektheit", "spamschutz", "spamid");
 
 if(!in_array($art, Kern\Person::getArten())) {
   Anfrage::addFehler(12);
@@ -22,26 +22,23 @@ if(!Check::istName($nachname)) {
 if(!Check::istName($klasse, 0)) {
   Anfrage::addFehler(17);
 }
-if(!Check::istName($benutzer, 0)) {
+if(strlen($passwort) < 6) {
   Anfrage::addFehler(18);
 }
-if(strlen($passwort) < 6) {
+if($passwort != $passwort2) {
   Anfrage::addFehler(19);
 }
-if($passwort != $passwort2) {
+if(!Check::istMail($mail)) {
   Anfrage::addFehler(20);
 }
-if(!Check::istMail($mail)) {
+if($datenschutz != "1") {
   Anfrage::addFehler(21);
 }
-if($datenschutz != "1") {
+if($entscheidung != "1") {
   Anfrage::addFehler(22);
 }
-if($entscheidung != "1") {
-  Anfrage::addFehler(23);
-}
 if($korrektheit != "1") {
-  Anfrage::addFehler(24);
+  Anfrage::addFehler(23);
 }
 
 if (!isset($_SESSION["SPAMSCHUTZ_{$spamid}"])) {

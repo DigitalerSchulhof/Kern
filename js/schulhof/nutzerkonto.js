@@ -42,7 +42,6 @@ kern.schulhof.nutzerkonto = {
     var vorname      = $("#dshRegistrierungVorname").getWert();
     var nachname     = $("#dshRegistrierungNachname").getWert();
     var klasse       = $("#dshRegistrierungKlasse").getWert();
-    var benutzer     = $("#dshRegistrierungBenutzer").getWert();
     var passwort     = $("#dshRegistrierungPasswort").getWert();
     var passwort2    = $("#dshRegistrierungPasswort2").getWert();
     var mail         = $("#dshRegistrierungMail").getWert();
@@ -52,6 +51,6 @@ kern.schulhof.nutzerkonto = {
     var spamschutz   = $("#dshRegistrierungSpamschutz").getWert();
     var spamid       = $("#dshRegistrierungSpamschutzSpamid").getWert();
 
-    core.ajax("Kern", 6, ["Registrieren", "Die Registrierung wird geprüft"], {art: art, geschlecht:geschlecht, titel:titel, vorname:vorname, nachname:nachname, klasse:klasse, benutzer:benutzer, passwort:passwort, passwort2:passwort2, mail:mail, datenschutz:datenschutz, entscheidung:entscheidung, korrektheit:korrektheit, spamschutz:spamschutz, spamid:spamid});
+    core.ajax("Kern", 6, ["Registrieren", "Die Registrierung wird geprüft"], {art: art, geschlecht:geschlecht, titel:titel, vorname:vorname, nachname:nachname, klasse:klasse, passwort:passwort, passwort2:passwort2, mail:mail, datenschutz:datenschutz, entscheidung:entscheidung, korrektheit:korrektheit, spamschutz:spamschutz, spamid:spamid});
   }
 };
