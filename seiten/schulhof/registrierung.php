@@ -28,8 +28,8 @@ if (!Check::Einwilligung("DSH")) {
   $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Art des Nutzerkontos:"),      $artwahl);
 
   $geschlechtswahl  = new UI\Auswahl("dshRegistrierungGeschlecht");
-  $geschlechtswahl  ->add("Männlich", "m");
   $geschlechtswahl  ->add("Weiblich", "w");
+  $geschlechtswahl  ->add("Männlich", "m");
   $geschlechtswahl  ->add("Divers", "d");
   $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Geschelcht:"),      $geschlechtswahl);
 
