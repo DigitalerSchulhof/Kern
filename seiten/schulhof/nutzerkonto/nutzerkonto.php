@@ -6,7 +6,7 @@ if(!Check::angemeldet()) {
 
 $DSH_TITEL  = "Nutzerkonto";
 $CODE[]     = new Kern\Aktionszeile();
-$CODE[]     = UI\Zeile::standard(new UI\SeitenUeberschrift("Willkommen $DSH_BENUTZER!"));
+$CODE[]     = UI\Zeile::standard(new UI\SeitenUeberschrift("Willkommen ".($DSH_BENUTZER->getName())."!"));
 
 $spalte1    = new UI\Spalte("A2");
 $spalte1[]  = $DSH_BENUTZER->aktivitaetsanzeige("dshAktivitaetNutzerkonto");

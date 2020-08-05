@@ -6,7 +6,7 @@ use UI;
 class Person {
   /** @var int ID */
   protected $id;
-  /** @var char Art slvex*/
+  /** @var string Art slvex*/
   protected $art;
 
   /** @var string Titel */
@@ -15,7 +15,7 @@ class Person {
   protected $vorname;
   /** @var string Nachname */
   protected $nachname;
-  /** @var char Geschlecht wmd*/
+  /** @var string Geschlecht wmd*/
   protected $geschelcht;
 
   /** @var array Benutzerarten: s=Schüler, l=Lehrer, v=Verwaltung, e=Eltern, x=Extern */
@@ -52,7 +52,7 @@ class Person {
 
   /**
    * Art setzen
-   * @param  char $art :)
+   * @param  string $art :)
    * @return self      :)
    */
   public function setArt($art) : self {
@@ -65,7 +65,7 @@ class Person {
 
   /**
    * Geschlecht setzen
-   * @param  char $art :)
+   * @param  string $geschelcht :)
    * @return self      :)
    */
   public function setGeschlecht($geschlecht) : self {
@@ -86,9 +86,9 @@ class Person {
 
   /**
    * Art laden
-   * @return char Art
+   * @return string Art
    */
-  public function getArt() : char {
+  public function getArt() : string {
     return $this->art;
   }
 
@@ -113,14 +113,14 @@ class Person {
    * @return string Nachname
    */
   public function getNachname() : string {
-    return $this->string;
+    return $this->nachname;
   }
 
   /**
    * Geschlecht laden
-   * @return char Geschlecht
+   * @return string Geschlecht
    */
-  public function getGeschlecht() : char {
+  public function getGeschlecht() : string {
     return $this->geschlecht;
   }
 
@@ -152,11 +152,11 @@ class Person {
   }
 
   /**
-   * Name mit Titel der Person
-   * @return int ID
+   * Zeile für eine Tabelle mit Personen
+   * @return string :)
    */
   public function __toString () : string {
-    return "{$this->titel} {$this->vorname} {$this->nachname}";
+    return "KOMMT NOCH";
   }
 
   /**
@@ -500,7 +500,7 @@ class Nutzerkonto extends Person {
     // Nachricht verschicken
   	$betreff = "Passwort vergessen";
   	$anrede = $this->getAnrede();
-    $empfaenger = $this->__toString();
+    $empfaenger = $this->getName();
 
   	$text = "<p>$anrede</p>";
   	$text .= "<p>Es wurde ein neues Passwort generiert. Hier sind die Zugangsdaten:<br>";
@@ -538,6 +538,14 @@ class Nutzerkonto extends Person {
         $salt .= substr($pool,(rand()%(strlen ($pool))), 1);
     }
     return $salt;
+  }
+
+  /**
+   * Erzeugt den Namen der Person
+   * @return string Name der Person
+   */
+  public function getName() : string {
+    return "{$this->titel} {$this->vorname} {$this->nachname}";
   }
 
   /**

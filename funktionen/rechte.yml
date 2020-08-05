@@ -1,0 +1,6 @@
+kern:
+  nutzerkonto:
+    profil:
+      titel: Titel ändern
+      vorname: Vorname ändern
+      nachname: Nachname ändern

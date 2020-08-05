@@ -33,10 +33,10 @@ if (!Check::Einwilligung("DSH")) {
   $geschlechtswahl  ->add("Divers", "d");
   $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Geschelcht:"),      $geschlechtswahl);
 
-  $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Titel:"),                     (new UI\Textfeld("dshRegistrierungTitel"))    ->setAutocomplete("honorific-prefix"));
+  $formular[]       = (new UI\FormularFeld(new UI\InhaltElement("Titel:"),                     (new UI\Textfeld("dshRegistrierungTitel"))    ->setAutocomplete("honorific-prefix")))->setOptional(true);
   $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Vorname:"),                   (new UI\Textfeld("dshRegistrierungVorname"))  ->setAutocomplete("given-name"));
   $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Nachname:"),                  (new UI\Textfeld("dshRegistrierungNachname")) ->setAutocomplete("family-name"));
-  $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Klasse:"),                    (new UI\Textfeld("dshRegistrierungKlasse")));
+  $formular[]       = (new UI\FormularFeld(new UI\InhaltElement("Klasse:"),                    (new UI\Textfeld("dshRegistrierungKlasse"))))->setOptional(true);
 
   $passwort         = (new UI\Passwortfeld("dshRegistrierungPasswort"))                       ->setAutocomplete("new-password");
   $passwort2        = (new UI\Passwortfeld("dshRegistrierungPasswort2", $passwort))           ->setAutocomplete("new-password");

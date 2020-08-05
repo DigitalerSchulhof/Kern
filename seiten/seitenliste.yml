@@ -1,7 +1,8 @@
 seiten:
-  "Schulhof"                        : "Kern/seiten/schulhof/nutzerkonto.php"
+  "Schulhof"                        : "Kern/seiten/schulhof/nutzerkonto/nutzerkonto.php"
   "Schulhof/Anmeldung"              : "Kern/seiten/schulhof/anmeldung.php"
   "Schulhof/Zugangsdaten_vergessen" : "Kern/seiten/schulhof/zugangsdatenvergessen.php"
-  "Schulhof/Nutzerkonto"            : "Kern/seiten/schulhof/nutzerkonto.php"
+  "Schulhof/Nutzerkonto"            : "Kern/seiten/schulhof/nutzerkonto/nutzerkonto.php"
+  "Schulhof/Nutzerkonto/Profil"     : "Kern/seiten/schulhof/nutzerkonto/profil.php"
   "Schulhof/Verwaltung"             : "Kern/seiten/schulhof/verwaltungsbereich.php"
   "Schulhof/Registrierung"          : "Kern/seiten/schulhof/registrierung.php"
