@@ -343,9 +343,17 @@ class Nutzerkonto extends Person {
     return true;
   }
 
+  /**
+   * Meldet diesen Nutzer an
+   * @return bool true, wenn erfolgreich, sonst false
+   */
   public function anmelden() : bool {
     global $DBS;
-    // Alte Sessions mit dieser SessionID bearbeiten löschen
+    // Alte Daten löschen
+    $this->sessionprotokollLoeschen();
+    $this->aktionsprotokollLoeschen();
+
+    // Alte Sessions mit dieser SessionID bearbeiten
     $sql = "UPDATE kern_nutzersessions SET sessionid = null WHERE sessionid = [?]";
     $anfrage = $DBS->anfrage($sql, "s", $this->sessionid);
 
@@ -610,7 +618,7 @@ class Nutzerkonto extends Person {
     $recht = $this->istFremdzugriff();
 
     $rueck = [];
-    $rueck[] = new UI\Meldung("Speicherdauer", "Sessions werden nach zwei Tagen automatisch gelöscht.", "Information");
+    $rueck[] = new UI\Meldung("Speicherdauer und Aufzeichnungserklärung", "<p>Sessions werden nach zwei Tagen automatisch gelöscht.</p><p>Sessions verwalten die Zugriffe auf dieses Nutzerkonto und entstehen mit jeder Anmeldung. Von hieraus können alte oder widerrechtliche Sessions geschlossen werden. Die letzten beiden Sessions werden bei der Anmeldung angezeigt, um mögliche Indentitätsdiebstähle zu identifizieren.</p>", "Information");
 
     $sql = "SELECT id, {sessionid}, sessiontimeout, anmeldezeit FROM kern_nutzersessions WHERE nutzer = ? ORDER BY anmeldezeit DESC";
     $anfrage = $DBS->anfrage($sql, "i", $this->id);
@@ -631,7 +639,7 @@ class Nutzerkonto extends Person {
 
       if ($sessiontimeout > 0) {
         if ($sessionid == $this->sessionid && $DSH_BENUTZER->getId() == $this->id) {
-          $sessiontimeout = "<i>laufende Session</i>";
+          $sessiontimeout = "<i>diese Session</i>";
         } else {
           $sessiontimeout = (new UI\Datum($sessiontimeout))->kurz();
         }
@@ -657,6 +665,30 @@ class Nutzerkonto extends Person {
   }
 
   /**
+   * Löscht das Sessionprotokoll dieses Benutzers
+   * @param  int $id -1 für alles, sonst id der Session
+   * @return bool    true wenn erfolgreich, false sonst
+   */
+  public function sessionprotokollLoeschen($id = null) {
+    global $DBS;
+
+    if ($id === null) {
+      // 2 Tage-Frist
+      $frist = time()-2*60*60*24;
+      $sql = "DELETE FROM kern_nutzersessions WHERE nutzer = ? AND sessiontimeout < ?";
+      $anfrage = $DBS->anfrage($sql, "ii", $this->id, $frist);
+    } else if ($id === -1) {
+      $sql = "DELETE FROM kern_nutzersessions WHERE nutzer = ?";
+      $anfrage = $DBS->anfrage($sql, "i", $this->id);
+    } else {
+      $sql = "DELETE FROM kern_nutzersessions WHERE nutzer = ? AND id = ?";
+      $anfrage = $DBS->anfrage($sql, "ii", $this->id, $id);
+    }
+
+    return $anfrage->getAnzahl() > 0;
+  }
+
+  /**
    * Gibt das Aktionsporokoll für den Benutzer aus
    * @return array Elemente, die bei der Ausgabe erzeugt werden
    */
@@ -665,45 +697,81 @@ class Nutzerkonto extends Person {
     $recht = $this->istFremdzugriff();
 
     $rueck = [];
-    $rueck[] = new UI\Meldung("Speicherdauer", "Sessions werden nach zwei Tagen automatisch gelöscht.", "Information");
+    $rueck[] = new UI\Meldung("Speicherdauer und Aufzeichnungserklärung", "<p>Aktionen werden nach 30 Tagen automatisch gelöscht.</p><p>Über dieses Aktionsprotokoll lassen sich widerrechtlich durchgeführte Aktionen aufspüren. Es werden lediglich Änderungen an der Schulhof-Datenbank und am Dateisystem (Upload, Umbenennen, Löschen) aufgezeichnet. Es erfolgt ausdrücklich keine Erstellung eines »Bewegungsprotokolls«, das aufzeichnet, wer wann welche Seite aufruft oder welche Dateien herunterläd.</p>", "Information");
 
-    $sql = "SELECT id, [sessionid], sessiontimeout, anmeldezeit FROM kern_nutzersessions WHERE nutzer = ? ORDER BY anmeldezeit DESC";
+    if (Einstellungen::laden("Kern", "Aktionslog") != "1") {
+      $rueck[] = new UI\Meldung("Aktionsprotokoll deaktiviert", "<p>Die Aufzeichnung von Aktionen im Digitalen Schulhof ist.</p>", "Information");
+    }
+
+    $sql = "SELECT id, {tabellepfad}, {datensatzdatei}, {aktion}, zeitpunkt FROM kern_aktionslog WHERE nutzer = ? ORDER BY zeitpunkt DESC";
     $anfrage = $DBS->anfrage($sql, "i", $this->id);
 
-    $darfloeschen = $DSH_BENUTZER->hatRecht("$recht.sessionprotokoll.löschen");
-    $titel = ["", "Session-ID", "Sessiontimeout", "Anmeldezeit"];
+    $darfloeschen = $DSH_BENUTZER->hatRecht("$recht.aktionsprotokoll.löschen");
+    $titel = ["", "Tabelle / Pfad", "Datensatz / Datei", "Aktion", "Zeit"];
     if ($darfloeschen) {$titel[] = "Aktionen";}
 
     $zeilen = [];
-    while ($anfrage->werte($id, $sessionid, $sessiontimeout, $anmeldezeit)) {
+    while ($anfrage->werte($id, $tabellepfad, $datensatzdatei, $aktion, $zeitpunkt)) {
       $neuezeile = [];
-      $neuezeile[""] = new UI\Icon("fas fa-history");
-      $neuezeile["Session-ID"] = $sessionid;
+      $neuezeile[""] = new UI\Icon("fas fa-shoe-prints");
+      if ($sessionid != null) {
+        $neuezeile["Session-ID"] = $sessionid;
+      } else {
+        $neuezeile["Session-ID"] = "<i>erloschen</i>";
+      }
+
       if ($sessiontimeout > 0) {
-        if ($sessionid == $this->sessionid && $DSH_BENUTZER->getId == $this->id) {
-          $sessiontimeout = "<i>laufende Session</i>";
+        if ($sessionid == $this->sessionid && $DSH_BENUTZER->getId() == $this->id) {
+          $sessiontimeout = "<i>diese Session</i>";
         } else {
-          $sessiontimeout = new UI\Datum($sessiontimeout);
+          $sessiontimeout = (new UI\Datum($sessiontimeout))->kurz();
         }
       } else {
-        $sessiontimeout = "<i>abgelaufen</i>";
+        $sessiontimeout = "<i>abgemeldet</i>";
       }
       $neuezeile["Sessiontimeout"] = $sessiontimeout;
-      $neuezeile["Anmeldezeit"] = new UI\Datum($anmeldezeit);
+      $neuezeile["Tabelle / Pfad"] = $tabellepfad;
+      $neuezeile["Datensatz / Datei"] = $datensatzdatei;
+      $neuezeile["Aktion"] = $aktion;
+      $neuezeile["Zeit"] = (new Date($zeitpunkt))->kurz();
       if ($darfloeschen) {
         $loeschenknopf = UI\MiniIconKnopf::loeschen();
-        $loeschenknopf->addFunktion("onclick", "kern.personen.sessions.loeschen('$id')");
-        $neuezeile["Anmeldezeit"] = $loeschenknopf;
+        $loeschenknopf->addFunktion("onclick", "kern.personen.aktionen.loeschen('$id')");
+        $neuezeile["Aktionen"] = $loeschenknopf;
       }
       $zeilen[] = $neuezeile;
     }
 
-    $rueck[] = new UI\Tabelle("dshProfilSessionprotokoll", $titel, $zeilen);
+    $rueck[] = new UI\Tabelle("dshProfilSessionprotokoll", $titel, ...$zeilen);
 
     if ($darfloeschen) {
-      $rueck[] = new UI\Absatz(new UI\Knopf("Alle Sessions löschen", "Warnung", "kern.personen.sessions.loeschen('alle')"));
+      $rueck[] = new UI\Absatz(new UI\Knopf("Alle Aktionen löschen", "Warnung", "kern.personen.aktionen.loeschen('alle')"));
     }
     return $rueck;
+  }
+
+  /**
+   * Löscht das Sessionprotokoll dieses Benutzers
+   * @param  int $id -1 für alles, sonst id der Session
+   * @return bool    true wenn erfolgreich, false sonst
+   */
+  public function aktionsprotokollLoeschen($id = null) {
+    global $DBS;
+
+    if ($id === null) {
+      // 2 Tage-Frist
+      $frist = time()-30*60*60*24;
+      $sql = "DELETE FROM kern_aktionslog WHERE nutzer = ? AND zeitpunkt < ?";
+      $anfrage = $DBS->anfrage($sql, "ii", $this->id, $frist);
+    } else if ($id === -1) {
+      $sql = "DELETE FROM kern_aktionslog WHERE nutzer = ?";
+      $anfrage = $DBS->anfrage($sql, "i", $this->id);
+    } else {
+      $sql = "DELETE FROM kern_aktionslog WHERE nutzer = ? AND id = ?";
+      $anfrage = $DBS->anfrage($sql, "ii", $this->id, $id);
+    }
+
+    return $anfrage->getAnzahl() > 0;
   }
 
   /**
@@ -872,16 +940,16 @@ class Nutzerkonto extends Person {
       $reiter->addReitersegment(new UI\Reitersegment($reiterkopf, $reiterkoerper));
     }
 
-    // if ($DSH_BENUTZER->hatRecht("$recht.aktionsprotokoll.sehen")) {
-    //   $reiterspalte     = new UI\Spalte("A1");
-    //   $aktionsprotokoll = $this->getAktionsprotokoll();
-    //   foreach ($aktionsprotokoll as $a) {
-    //     $reiterspalte[]   = $a;
-    //   }
-    //   $reiterkopf = new UI\Reiterkopf("Aktionsprotokoll");
-    //   $reiterkoerper = new UI\Reiterkoerper($reiterspalte->addKlasse("dshUiOhnePadding"));
-    //   $reiter->addReitersegment(new UI\Reitersegment($reiterkopf, $reiterkoerper));
-    // }
+    if ($DSH_BENUTZER->hatRecht("$recht.aktionsprotokoll.sehen")) {
+      $reiterspalte     = new UI\Spalte("A1");
+      $aktionsprotokoll = $this->getAktionsprotokoll();
+      foreach ($aktionsprotokoll as $a) {
+        $reiterspalte[]   = $a;
+      }
+      $reiterkopf = new UI\Reiterkopf("Aktionsprotokoll");
+      $reiterkoerper = new UI\Reiterkoerper($reiterspalte->addKlasse("dshUiOhnePadding"));
+      $reiter->addReitersegment(new UI\Reitersegment($reiterkopf, $reiterkoerper));
+    }
 
     return $reiter;
   }

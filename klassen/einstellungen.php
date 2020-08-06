@@ -20,7 +20,7 @@ class Einstellungen {
     global $DBS;
     $anfrage = $DBS->anfrage("SELECT {wert} AS wert FROM {$modul}_einstellungen WHERE inhalt = [?]", "s", $wert);
     $anfrage->werte($r);
-    return $r;
+    return $r ?? "";
   }
 
   /**

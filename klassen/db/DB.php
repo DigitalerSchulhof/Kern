@@ -10,6 +10,8 @@ class DB {
   private $db;
   /** @var string Enthält den Schlüssel der Datenbank */
   private $schluessel;
+  /** @var bool wenn true, wird in Aktionslog gespeichert, wenn die DB verändert wird, false sonst */
+  private $log;
 
 	/**
 	* @param string $host :)
@@ -18,11 +20,17 @@ class DB {
 	* @param string $passwort :)
 	* @param string $datenbank :)
 	* @param string $schluessel :)
+	* @param string $aktionslog 1
 	*/
-  public function __construct($host, $port, $benutzer, $passwort, $datenbank, $schluessel) {
+  public function __construct($host, $port, $benutzer, $passwort, $datenbank, $schluessel, $aktionslog = "0") {
     $this->db = new \mysqli($host, $benutzer, $passwort, $datenbank, $port);
   	$this->db->set_charset("utf8");
     $this->schluessel = $schluessel;
+    if ($aktionslog == "1") {
+      $this->log = true;
+    } else {
+      $this->log = false;
+    }
   }
 
   /**
