@@ -596,6 +596,7 @@ class Nutzerkonto extends Person {
 
     return $anfrage->getAnzahl() > 0;
   }
+
   /**
    * Löscht das Sessionprotokoll dieses Benutzers
    * @param  int $id -1 für alles, sonst id der Session
