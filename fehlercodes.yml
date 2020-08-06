@@ -88,3 +88,36 @@
 30:
   ort: anfragen/schulhof/nutzerkonto/profil/persoenliches.php
   beschreibung: Das <b>Kürzel</b> ist bereits vergeben.
+31:
+  ort: anfragen/schulhof/nutzerkonto/profil/nutzerkonto.php
+  beschreibung: Der <b>Benutzername</b> ist ungültig.
+32:
+  ort: anfragen/schulhof/nutzerkonto/profil/nutzerkonto.php
+  beschreibung: Die <b>eMail-Adresse</b> ist ungültig.
+33:
+  ort: anfragen/schulhof/nutzerkonto/profil/nutzerkonto.php
+  beschreibung: Der <b>Benutzername</b> ist bereits vergeben.
+34:
+  ort: anfragen/schulhof/nutzerkonto/profil/passwort.php
+  beschreibung: Das <b>alte Passwort</b> ist zu kurz. Es muss aus mindestens 6 Zeichen bestehen.
+35:
+  ort: anfragen/schulhof/nutzerkonto/profil/passwort.php
+  beschreibung: Das <b>neu Passwort</b> ist zu kurz. Es muss aus mindestens 6 Zeichen bestehen.
+36:
+  ort: anfragen/schulhof/nutzerkonto/profil/passwort.php
+  beschreibung: Die <b>neuen Passworte</b> stimmen nicht überein.
+37:
+  ort: anfragen/schulhof/nutzerkonto/profil/passwort.php
+  beschreibung: Das <b>alte Passwort</b> ist nicht korrekt.
+37:
+  ort: anfragen/schulhof/nutzerkonto/profil/einstellungen/nutzerkonto.php
+  beschreibung: Die <b>Inaktivitätszeit</b> ist ungültig. Sie muss zwischen 5 Minuten und 300 Minuten (5 Stunden) betragen.
+38:
+  ort: anfragen/schulhof/nutzerkonto/profil/einstellungen/nutzerkonto.php
+  beschreibung: Die Anzahl an <b>Elementen pro Übersicht</b> ist ungültig. Sie muss zwischen 1 und 10 betragen.
+39:
+  ort: anfragen/schulhof/nutzerkonto/profil/einstellungen/postfach.php
+  beschreibung: Die Anzahl an <b>Tagen bis zur Löscung im Postfach</b> ist ungültig. Sie muss zwischen 1 und 10 betragen.
+40:
+  ort: anfragen/schulhof/nutzerkonto/profil/einstellungen/postfach.php
+  beschreibung: Die Anzahl an <b>Elementen pro Übersicht</b> ist ungültig. Sie muss zwischen 1 und 10 betragen.

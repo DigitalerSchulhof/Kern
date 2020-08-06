@@ -18,7 +18,7 @@ if(!Check::istName($vorname)) {
 if(!Check::istName($nachname)) {
   Anfrage::addFehler(28);
 }
-if($DSH_BENUTZER->getArt() == "l" && !Check::istText($kuerzel)) {
+if($DSH_BENUTZER->getArt() == "l" && !Check::istText($kuerzel,0)) {
   Anfrage::addFehler(28);
 }
 
@@ -29,41 +29,6 @@ $recht = $profil->istFremdzugriff();
 $sql = "SELECT {art} FROM kern_personen WHERE id = ?";
 $anfrage = $DBS->anfrage($sql, "i", $id);
 $anfrage->werte($alteart);
-
-$felder = [];
-$feldertypen = "";
-$sql = "UPDATE kern_personen SET ";
-$ausfuehren = false;
-if ($DSH_BENUTZER->hatRecht("$recht.art")) {
-  $ausfuehren = true;
-  $sql .= "art = [?] ";
-  $felder[] = $art;
-  $feldertypen .= "s";
-}
-if ($DSH_BENUTZER->hatRecht("$recht.geschelcht")) {
-  $ausfuehren = true;
-  $sql .= "geschlecht = [?] ";
-  $felder[] = $geschlecht;
-  $feldertypen .= "s";
-}
-if ($DSH_BENUTZER->hatRecht("$recht.titel")) {
-  $ausfuehren = true;
-  $sql .= "titel = [?] ";
-  $felder[] = $titel;
-  $feldertypen .= "s";
-}
-if ($DSH_BENUTZER->hatRecht("$recht.vorname")) {
-  $ausfuehren = true;
-  $sql .= "vorname = [?] ";
-  $felder[] = $vorname;
-  $feldertypen .= "s";
-}
-if ($DSH_BENUTZER->hatRecht("$recht.nachname")) {
-  $ausfuehren = true;
-  $sql .= "nachname = [?] ";
-  $felder[] = $nachname;
-  $feldertypen .= "s";
-}
 
 if ($DSH_BENUTZER->hatRecht("$recht.kuerzel")) {
   // Prüfen, ob neues Kürzel schon vergeben ist
@@ -89,8 +54,44 @@ if ($art != "l" && $alteart == "l") {
   $DBS->anfrage($sql, "i", $id);
 }
 
+$felder = [];
+$feldertypen = "";
+$sql = "UPDATE kern_personen SET ";
+$ausfuehren = false;
+if ($DSH_BENUTZER->hatRecht("$recht.art")) {
+  $ausfuehren = true;
+  $sql .= "art = [?], ";
+  $felder[] = $art;
+  $feldertypen .= "s";
+}
+if ($DSH_BENUTZER->hatRecht("$recht.geschelcht")) {
+  $ausfuehren = true;
+  $sql .= "geschlecht = [?], ";
+  $felder[] = $geschlecht;
+  $feldertypen .= "s";
+}
+if ($DSH_BENUTZER->hatRecht("$recht.titel")) {
+  $ausfuehren = true;
+  $sql .= "titel = [?], ";
+  $felder[] = $titel;
+  $feldertypen .= "s";
+}
+if ($DSH_BENUTZER->hatRecht("$recht.vorname")) {
+  $ausfuehren = true;
+  $sql .= "vorname = [?], ";
+  $felder[] = $vorname;
+  $feldertypen .= "s";
+}
+if ($DSH_BENUTZER->hatRecht("$recht.nachname")) {
+  $ausfuehren = true;
+  $sql .= "nachname = [?], ";
+  $felder[] = $nachname;
+  $feldertypen .= "s";
+}
+
 if ($ausfuehren) {
-  $sql .= "WHERE id = ?";
+  $sql = substr($sql, 0, -2);
+  $sql .= " WHERE id = ?";
   $felder[] = $id;
   $feldertypen .= "i";
   $DBS->anfrage($sql, $feldertypen, ...$felder);
@@ -98,21 +99,24 @@ if ($ausfuehren) {
 
 if ($DSH_BENUTZER->hatRecht("$recht.kuerzel")) {
   // Prüfen, ob neues Kürzel schon vergeben ist
-  if ($art == "l") {
+  if ($art == "l" && $alteart == "l") {
     $sql = "UPDATE kern_lehrer SET kuerzel = [?] WHERE id = ?";
     $anfrage = $DBS->anfrage($sql, "si", $kuerzel, $id);
   }
 }
 
-// Benutzer anlegen
-$DSH_BENUTZER = new Kern\Nutzerkonto($id, $titel, $vorname, $nachname);
-$DSH_BENUTZER->setArt($art);
-$DSH_BENUTZER->setGeschlecht($geschlecht);
-$DSH_BENUTZER->setTitel($titel);
-$DSH_BENUTZER->setVorname($vorname);
-$DSH_BENUTZER->setNachname($nachname);
+// Benutzer ändern
+if ($id == $DSH_BENUTZER->getId()) {
+  $DSH_BENUTZER->setArt($art);
+  $DSH_BENUTZER->setGeschlecht($geschlecht);
+  $DSH_BENUTZER->setTitel($titel);
+  $DSH_BENUTZER->setVorname($vorname);
+  $DSH_BENUTZER->setNachname($nachname);
+}
 
+$knopf = new UI\Knopf("OK");
+$knopf->addFunktion("onclick", "location.reload()");
 Anfrage::setTyp("Meldung");
 Anfrage::setRueck("Meldung", new UI\Meldung("Änderungen erfolgreich!", "Die Änderungen der persönlichen Informationen wurden vorgenomen.", "Erfolg"));
-Anfrage::setRueck("Knöpfe", [UI\Knopf::ok()]);
+Anfrage::setRueck("Knöpfe", [$knopf]);
 ?>

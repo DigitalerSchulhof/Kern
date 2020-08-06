@@ -78,6 +78,36 @@ class Person {
   }
 
   /**
+   * Titel setzen
+   * @param  string $titel :)
+   * @return self      :)
+   */
+  public function setTitel($titel) : self {
+    $this->titel = $titel;
+    return $this;
+  }
+
+  /**
+   * Vorname setzen
+   * @param  string $vorname :)
+   * @return self      :)
+   */
+  public function setVorname($vorname) : self {
+    $this->vorname = $vorname;
+    return $this;
+  }
+
+  /**
+   * Nachname setzen
+   * @param  string $nachname :)
+   * @return self      :)
+   */
+  public function setNachname($nachname) : self {
+    $this->nachname = $nachname;
+    return $this;
+  }
+
+  /**
    * ID laden
    * @return int ID
    */
@@ -158,6 +188,14 @@ class Person {
    */
   public function __toString () : string {
     return "KOMMT NOCH";
+  }
+
+  /**
+   * Erzeugt den Namen der Person
+   * @return string Name der Person
+   */
+  public function getName() : string {
+    return "{$this->titel} {$this->vorname} {$this->nachname}";
   }
 
   /**
@@ -495,7 +533,7 @@ class Nutzerkonto extends Person {
   	$anrede = $this->getAnrede();
     $empfaenger = $this->getName();
 
-  	$text = "<p>$anrede</p>";
+  	$text = "<p>$anrede,</p>";
   	$text .= "<p>Es wurde ein neues Passwort generiert. Hier sind die Zugangsdaten:<br>";
   	$text .= "Benutzername: {$this->benutzer}<br>";
   	$text .= "Passwort: {$passwort}<br>";
@@ -536,14 +574,6 @@ class Nutzerkonto extends Person {
         $salt .= substr($pool,(rand()%(strlen ($pool))), 1);
     }
     return $salt;
-  }
-
-  /**
-   * Erzeugt den Namen der Person
-   * @return string Name der Person
-   */
-  public function getName() : string {
-    return "{$this->titel} {$this->vorname} {$this->nachname}";
   }
 
   /**

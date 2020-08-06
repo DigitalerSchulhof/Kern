@@ -60,9 +60,45 @@ kern.schulhof.nutzerkonto = {
       var geschlecht  = $("#dshProfilGeschlecht").getWert();
       var titel       = $("#dshProfilTitel").getWert();
       var vorname     = $("#dshProfilVorname").getWert();
-      var kuerzel     = $("#dshProfilKuerzel").getWert();
       var nachname    = $("#dshProfilNachname").getWert();
+      var kuerzel     = $("#dshProfilKuerzel").getWert();
       core.ajax("Kern", 7, ["Profil ändern", "Bitte warten"], {id:id, art:art, geschlecht:geschlecht, titel:titel, vorname:vorname, nachname:nachname, kuerzel:kuerzel});
+    },
+    kontodaten: () => {
+      var id          = $("#dshProfilId").getWert();
+      var benutzer    = $("#dshProfilBenutzer").getWert();
+      var email       = $("#dshProfilMail").getWert();
+      core.ajax("Kern", 8, ["Profil ändern", "Bitte warten"], {id:id, benutzer:benutzer, email:email});
+    },
+    passwort: () => {
+      var id           = $("#dshProfilId").getWert();
+      var passwortalt  = $("#dshProfilPasswortAlt").getWert();
+      var passwortneu  = $("#dshProfilPasswortNeu").getWert();
+      var passwortneu2 = $("#dshProfilPasswortNeu2").getWert();
+      core.ajax("Kern", 9, ["Profil ändern", "Bitte warten"], {id:id, passwortalt:passwortalt, passwortneu:passwortneu, passwortneu2:passwortneu2});
+    },
+    einstellungen: {
+      nutzerkonto: () => {
+        var id                  = $("#dshProfilId").getWert();
+        var inaktivitaetszeit   = $("#dshProfilInaktivitaetszeit").getWert();
+        var uebersichtselemente = $("#dshProfilElementeProUebersicht").getWert();
+        core.ajax("Kern", 10, ["Profileinstellungen ändern", "Bitte warten"], {id:id, inaktivitaetszeit:inaktivitaetszeit, uebersichtselemente:uebersichtselemente});
+      },
+      benachrichtigungen: () => {
+        var id             = $("#dshProfilId").getWert();
+        var nachrichten    = $("#dshProfilNachrichtenmails").getWert();
+        var notifikationen = $("#dshProfilNotifikationsmails").getWert();
+        var blog           = $("#dshProfilOeffentlichBlog").getWert();
+        var termin         = $("#dshProfilOeffentlichTermine").getWert();
+        var galerie        = $("#dshProfilOeffentlichGalerien").getWert();
+        core.ajax("Kern", 11, ["Profileinstellungen ändern", "Bitte warten"], {id:id, nachrichten:nachrichten, notifikationen:notifikationen, blog:blog, termin:termin, galerie:galerie});
+      },
+      postfach: () => {
+        var id         = $("#dshProfilId").getWert();
+        var postfach   = $("#dshProfilPostfachLoeschfrist").getWert();
+        var papierkorb = $("#dshProfilPapierkorbLoeschfrist").getWert();
+        core.ajax("Kern", 12, ["Profileinstellungen ändern", "Bitte warten"], {id:id, postfach:postfach, papierkorb:papierkorb});
+      }
     }
   }
 };
