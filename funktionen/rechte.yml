@@ -1,6 +1,8 @@
 kern:
   nutzerkonto:
     profil:
+      art: Art ändern
+      geschlecht: Geschlecht ändern
       titel: Titel ändern
       vorname: Vorname ändern
       nachname: Nachname ändern
@@ -21,6 +23,8 @@ kern:
   personen:
     profil:
       sehen: Profile sehen
+      art: Art ändern
+      geschlecht: Geschlecht ändern
       titel: Titel ändern
       vorname: Vorname ändern
       nachname: Nachname ändern

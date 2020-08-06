@@ -790,6 +790,24 @@ class Nutzerkonto extends Person {
     $reiter = new UI\Reiter("dshProfil");
 
     $formular         = new UI\FormularTabelle();
+    $artF          = (new UI\Auswahl("dshProfilArt"))->setWert($this->art);
+    $artF          ->add("Schüler", "s");
+    $artF          ->add("Erziehungsberechtigte(r)", "e");
+    $artF          ->add("Lehrkraft", "l");
+    $artF          ->add("Verwaltung", "v");
+    $artF          ->add("Externe(r)", "x");
+    if (!$DSH_BENUTZER->hatRecht("$recht.art")) {
+      $artF->setAttribut("disabled", "disabled");
+    }
+
+    $geschlechtF  = (new UI\Auswahl("dshProfilGeschlecht"))->setWert($this->geschlecht);
+    $geschlechtF  ->add("Weiblich", "w");
+    $geschlechtF  ->add("Männlich", "m");
+    $geschlechtF  ->add("Divers", "d");
+    if (!$DSH_BENUTZER->hatRecht("$recht.geschlecht")) {
+      $artF->setAttribut("disabled", "disabled");
+    }
+
     $titelF = (new UI\Textfeld("dshProfilTitel"))->setWert($this->titel);
     if ($DSH_BENUTZER->hatRecht("$recht.titel")) {
       $titelF->setAutocomplete("honorific-prefix");
@@ -818,9 +836,11 @@ class Nutzerkonto extends Person {
       }
     }
 
-    $formular[]       = (new UI\FormularFeld(new UI\InhaltElement("Titel:"),                     $titelF))->setOptional(true);
-    $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Vorname:"),                   $vornameF);
-    $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Nachname:"),                  $nachnameF);
+    $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Art:"),                      $artF);
+    $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Geschlecht:"),               $geschlechtF);
+    $formular[]       = (new UI\FormularFeld(new UI\InhaltElement("Titel:"),                   $titelF))->setOptional(true);
+    $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Vorname:"),                  $vornameF);
+    $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Nachname:"),                 $nachnameF);
     if ($this->getArt() == "l") {
       $formular[]       = (new UI\FormularFeld(new UI\InhaltElement("Kürzel:"),                      $kuerzelF))->setOptional(true);
     }
