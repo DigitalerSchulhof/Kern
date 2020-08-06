@@ -37,4 +37,5 @@ kern:
         löschen: Sessionprotokoll löschen
       aktionsprotokoll:
         sehen: Aktionsprotokoll sehen
+        details: Details ansehen
         löschen: Aktionsprotokoll löschen

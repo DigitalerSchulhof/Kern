@@ -65,6 +65,14 @@ class DB {
     }
   }
 
+  public function silentanfrage($anfrage, $parameterarten = "", ...$werte) : Anfrage {
+    $alterlog = $this->log;
+    $this->setLog(false);
+    $anfrage = $this->anfrage($anfrage, $parameterarten, ...$werte);
+    $this->log = $alterlog;
+    return $anfrage;
+  }
+
   /**
   * Stellt eine Anfrage an die Datenbank
   * @param string $anfrage SQL-Anfrage {x} wird entschlüsselt, [y] wird verschlüsselt
@@ -123,6 +131,11 @@ class DB {
     }
 
     // Verschlüsselungsersetungen vornehmen
+    $anfragewertlos = $anfrage;
+    $anfragewertlos = str_replace("{", "", $anfragewertlos);
+    $anfragewertlos = str_replace("}", "", $anfragewertlos);
+    $anfragewertlos = str_replace("[", "", $anfragewertlos);
+    $anfragewertlos = str_replace("]", "", $anfragewertlos);
     $anfrage = str_replace("{", "AES_DECRYPT(", $anfrage);
     $anfrage = str_replace("}", ", '$this->schluessel')", $anfrage);
     $anfrage = str_replace("[", "AES_ENCRYPT(", $anfrage);
@@ -153,18 +166,61 @@ class DB {
       throw new \Exception("Ungültige Anfrage\nFehler: ".mysqli_error($this->db));
     }
 
+    // Aus Anfrage Logeintrag basteln
+    $anfragenteile = explode(" ", $anfragewertlos);
+    if (count($anfragenteile) >= 3) {
+      if (strtoupper($anfragenteile[1]) == "INTO" || strtoupper($anfragenteile[1]) == "FROM") {
+        $tabellepfad = $anfragenteile[2];
+      } else {
+        $tabellepfad = $anfragenteile[1];
+      }
+
+      if (strtoupper($anfragenteile[0]) == "INSERT") {
+        $aktion = "Neuer Datensatz";
+      } else if (strtoupper($anfragenteile[0]) == "UPDATE") {
+        $aktion = "Änderung";
+      } else if (strtoupper($anfragenteile[0]) == "DELETE") {
+        $aktion = "Löschung";
+      } else {
+        $aktion = false;
+      }
+
+      if ($aktion) {
+        global $DBS;
+        $DBS->logZugriff("DB", $tabellepfad, $anfragewertlos, $aktion);
+      }
+    }
+
     return new Anfrage($anzahl, $ergebnis);
   }
 
-  public function logZugriff();
+  public function logZugriff($art, $tabellepfad, $datensatzdatei, $aktion) {
+    if (!$this->log) {
+      return;
+    }
+    global $DBS, $DSH_BENUTZER;
+    $zeitpunkt = time();
+    $neueid = $DBS->neuerDatensatz("kern_aktionslog", true, true);
+    if ($DSH_BENUTZER !== null) {
+      $nutzerid = $DSH_BENUTZER->getId();
+      $sql = $this->db->prepare("UPDATE kern_aktionslog SET nutzer = ?, art = AES_ENCRYPT(?, '{$this->schluessel}'), tabellepfad = AES_ENCRYPT(?, '{$this->schluessel}'),  datensatzdatei = AES_ENCRYPT(?, '{$this->schluessel}'),  aktion = AES_ENCRYPT(?, '{$this->schluessel}'),  zeitpunkt = ? WHERE id = ?");
+      $sql->bind_param("issssii", $nutzerid, $art, $tabellepfad, $datensatzdatei, $aktion, $zeitpunkt, $neueid);
+    } else {
+      $sql = $this->db->prepare("UPDATE kern_aktionslog SET art = AES_ENCRYPT(?, '{$this->schluessel}'), tabellepfad = AES_ENCRYPT(?, '{$this->schluessel}'),  datensatzdatei = AES_ENCRYPT(?, '{$this->schluessel}'),  aktion = AES_ENCRYPT(?, '{$this->schluessel}'),  zeitpunkt = ? WHERE id = ?");
+      $sql->bind_param("ssssii", $art, $tabellepfad, $datensatzdatei, $aktion, $zeitpunkt, $neueid);
+    }
+    $sql->execute();
+    $sql->close();
+  }
 
   /**
    * Legt einen leeren Datensatz an
    * @param  string $tabelle :)
    * @param  bool   $anonym Wenn true, wird der Datensatz ohne Nutzerverbindung angelegt
+   * @param  bool   $silent verzichtet auf den Aktionslog
    * @return int    Wert der Spalte <code>id</code> des neuen Datensatzes
    */
-  public function neuerDatensatz($tabelle, $anonym = false) {
+  public function neuerDatensatz($tabelle, $anonym = false, $silent = false) {
     $fehler = false;
     $id = '-';
 
@@ -216,6 +272,12 @@ class DB {
       $sql->execute();
       $sql->close();
     }
+
+    if (!$silent) {
+      global $DBS;
+      $DBS->logZugriff("DB", $tabelle, $id, "Neuer Datensatz");
+    }
+
     return $id;
   }
 }
