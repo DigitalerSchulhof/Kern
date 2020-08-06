@@ -194,7 +194,7 @@ class Nutzerkonto extends Person {
   /** @var int Anzahl an zu ladeneden Elementen pro Übersicht */
   private $uebersichtszahl;
 
-  /** @var string[] Rechte des Nutzers */
+  /** @var mixed Rechtebaum des Nutzers */
   private $rechte;
 
   /**
@@ -962,10 +962,21 @@ class Nutzerkonto extends Person {
    * @link https://gist.github.com/jeengbe/b78d01fb68972e51335ba9696206aa50
    */
   public function rechteLaden() {
-    $this->rechte = [
-      "schulhof.*",
-      "website.elemente.*"
-    ];
+    $this->rechte = array(
+      "schulhof"  => array(
+        "verwaltung"  => array(
+          "nutzerkonten"  => true,
+          "personen"      => array(
+            "loeschen"    => true,
+          ),
+          "sachen"        => array(
+            "loeschen"       => true,
+          ),
+        ),
+        "website"     => true,
+      ),
+      "website"   => true
+    );
   }
 
   /**
@@ -987,8 +998,7 @@ class Nutzerkonto extends Person {
    * @return bool   true, wenn das Recht vorhanden ist, false sonst
    */
   public function hatRecht($recht) : bool {
-    $rechte = $this->rechte;
-    return true;
+    return Rechtehelfer::hatRecht($this->rechte, $recht);
   }
 }
 ?>
