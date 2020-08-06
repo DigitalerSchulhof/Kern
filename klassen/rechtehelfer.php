@@ -2,6 +2,7 @@
 namespace Kern;
 
 class Rechtehelfer {
+  /** @var bool Sollen Rechte geprüft und bei ungültigen Rechten Fehler ausgegeben werden? */
   public const CHECK = true;
 
   // Instanziierung unterbinden
@@ -32,6 +33,7 @@ class Rechtehelfer {
     $recht = explode(".", $recht);
 
     $checkRecht = function($rechte, $recht) use (&$checkRecht) {
+      $rest = $recht;
       foreach($recht as $i => $ebene) {
         if(preg_match("/^[a-zäöüß]+$/i", $ebene) === 1) {
           // Rechtebezeichnung
@@ -50,10 +52,7 @@ class Rechtehelfer {
           // Rechteoder / -und
           $checks = explode(",", substr(substr($ebene, 0, -1), 2));
           // Restliche Ebenenen zu prüfen
-          $rest = $recht;
-          for($x = 0; $x <= $i; $x++) {
-            \array_shift($rest);
-          }
+          array_unshift($rest);
           if($ebene[1] === "|") {
             // Rechteoder
             foreach($checks as $c) {
@@ -80,13 +79,12 @@ class Rechtehelfer {
   }
 
   /**
-   * Nimmt ein Array an rechten, sortiert diese und gibt den passenden Rechtebaum zurück
+   * Nimmt ein Array an Rechten, gibt den passenden Rechtebaum zurück
    * @param  string[] $array Array an Rechten
    * @return array
    */
   public static function array2Baum($array) : array {
     $baum = array();
-
     foreach($array as $recht) {
       if(self::CHECK) {
         if(preg_match("/^(?:[a-zäöüß]+\\.)*(?:[a-zäöüß]+|\\*)$/i", $recht) !== 1) {
