@@ -22,11 +22,11 @@ class Rechtehelfer {
       }
     }
 
+    if($rechte === true || $rechte === false) {
+      return $rechte;
+    }
     if(!count($rechte)) {
       return false;
-    }
-    if($rechte === true) {
-      return true;
     }
 
     $recht = explode(".", $recht);
