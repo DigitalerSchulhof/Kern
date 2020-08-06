@@ -73,3 +73,15 @@
 25:
   ort: anfragen/schulhof/nutzerkonto/registrierung.php
   beschreibung: Der <b>Spamschutz</b> wurde nicht korrekt übertragen.
+26:
+  ort: anfragen/schulhof/nutzerkonto/profil/persoenliches.php
+  beschreibung: Der <b>Titel</b> ist ungültig.
+27:
+  ort: anfragen/schulhof/nutzerkonto/profil/persoenliches.php
+  beschreibung: Der <b>Vorname</b> ist ungültig.
+28:
+  ort: anfragen/schulhof/nutzerkonto/profil/persoenliches.php
+  beschreibung: Der <b>Nachname</b> ist ungültig.
+29:
+  ort: anfragen/schulhof/nutzerkonto/profil/persoenliches.php
+  beschreibung: Das <b>Kürzel</b> ist ungültig.

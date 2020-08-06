@@ -43,8 +43,7 @@ $anfrage->werte($id, $salt, $art, $titel, $vorname, $nachname, $geschlecht, $sch
 
 
 // Benutzer anlegen
-$DSH_BENUTZER = new Kern\Nutzerkonto($titel, $vorname, $nachname);
-$DSH_BENUTZER->setId($id);
+$DSH_BENUTZER = new Kern\Nutzerkonto($id, $titel, $vorname, $nachname);
 $DSH_BENUTZER->setArt($art);
 $DSH_BENUTZER->setBenutzer($benutzer);
 $DSH_BENUTZER->setSchuljahr($schuljahr);

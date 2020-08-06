@@ -62,7 +62,7 @@ kern.schulhof.nutzerkonto = {
       var vorname = $("dshProfilVorname").getWert();
       var nachname = $("dshProfilNachname").getWert();
       var kuerzel = $("dshProfilKuerzel").getWert();
-      core.ajax("Kern", 7, ["Profil ändern", "Bitte warten"], {id:id, art:art, geschlecht:geschlecht, titel:titel, vorname:vorname, kuerzel:kuerzel});
+      core.ajax("Kern", 7, ["Profil ändern", "Bitte warten"], {id:id, art:art, geschlecht:geschlecht, titel:titel, vorname:vorname, nachname:nachname, kuerzel:kuerzel});
     }
   }
 };

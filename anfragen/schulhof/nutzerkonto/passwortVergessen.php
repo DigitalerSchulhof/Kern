@@ -19,10 +19,9 @@ if ($anfrage->getAnzahl() == 0) {
 }
 
 $anfrage->werte($id, $art, $titel, $vorname, $nachname, $geschlecht, $salt);
-$person = new Kern\Nutzerkonto($titel, $vorname, $nachname);
+$person = new Kern\Nutzerkonto($id, $titel, $vorname, $nachname);
 $person->setBenutzer($benutzer);
 $person->setArt($art);
-$person->setId($id);
 $person->setGeschlecht($geschlecht);
 
 $passwort = $person->neuesPasswort($mail, 10, $salt);

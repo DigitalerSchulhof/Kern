@@ -26,12 +26,13 @@ class Person {
 
   /**
    * Erstellt eine neue Person
+   * @param int    $id    :)
    * @param string $titel    :)
    * @param string $vorname  :)
    * @param string $nachname :)
    */
-  public function __construct($titel, $vorname, $nachname) {
-    $this->id = null;
+  public function __construct($id, $titel = null, $vorname = null, $nachname = null) {
+    $this->id = $id;
     $this->art = null;
 
     $this->titel = $titel;
@@ -199,12 +200,13 @@ class Nutzerkonto extends Person {
 
   /**
    * Erstellt eine neues Nutzerkonto
+   * @param id     $id       :)
    * @param string $titel    :)
    * @param string $vorname  :)
    * @param string $nachname :)
    */
-  public function __construct($titel, $vorname, $nachname) {
-    parent::__construct($titel, $vorname, $nachname);
+  public function __construct($id, $titel = null, $vorname = null, $nachname = null) {
+    parent::__construct($id, $titel, $vorname, $nachname);
     $this->benutzer = null;
 
     $this->sessionid = null;
