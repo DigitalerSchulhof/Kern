@@ -35,8 +35,9 @@ if ($passworttimeout !== 0) {
 }
 $CODE[]     = new UI\Zeile($spalte);
 
+$profil     = new Kern\Profil($DSH_BENUTZER);
 $spalte1    = new UI\Spalte("A2");
-$spalte1[]  = $DSH_BENUTZER->aktivitaetsanzeige("dshAktivitaetNutzerkonto");
+$spalte1[]  = $profil->aktivitaetsanzeige("dshAktivitaetNutzerkonto");
 
 $CODE[]     = new UI\Zeile($spalte1);
 ?>

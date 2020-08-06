@@ -7,6 +7,7 @@ include "$MODUL/klassen/dateisystem.php";
 include "$MODUL/klassen/mail.php";
 include "$MODUL/klassen/rechtehelfer.php";
 include "$MODUL/klassen/person.php";
+include "$MODUL/klassen/profil.php";
 
 use \DB\DB;
 

@@ -52,5 +52,17 @@ kern.schulhof.nutzerkonto = {
     var spamid       = $("#dshRegistrierungSpamschutzSpamid").getWert();
 
     core.ajax("Kern", 6, ["Registrieren", "Die Registrierung wird geprüft"], {art: art, geschlecht:geschlecht, titel:titel, vorname:vorname, nachname:nachname, klasse:klasse, passwort:passwort, passwort2:passwort2, mail:mail, datenschutz:datenschutz, entscheidung:entscheidung, korrektheit:korrektheit, spamschutz:spamschutz, spamid:spamid});
+  },
+  aendern: {
+    persoenliches: () => {
+      var id = $("dshProfilId").getWert();
+      var art = $("dshProfilArt").getWert();
+      var geschlecht = $("dshProfilGeschlecht").getWert();
+      var titel = $("dshProfilTitel").getWert();
+      var vorname = $("dshProfilVorname").getWert();
+      var nachname = $("dshProfilNachname").getWert();
+      var kuerzel = $("dshProfilKuerzel").getWert();
+      core.ajax("Kern", 7, ["Profil ändern", "Bitte warten"], {id:id, art:art, geschlecht:geschlecht, titel:titel, vorname:vorname, kuerzel:kuerzel});
+    }
   }
 };

@@ -10,7 +10,7 @@ $CODE[]     = UI\Zeile::standard(new UI\SeitenUeberschrift("Profil von ".($DSH_B
 
 $spalte    = new UI\Spalte("A1");
 
-$profil = $DSH_BENUTZER->getProfil();
+$profil = (new Kern\Profil($DSH_BENUTZER))->getProfil();
 $spalte[]   = $profil;
 
 $CODE[]     = new UI\Zeile($spalte);

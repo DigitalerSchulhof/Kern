@@ -6,4 +6,5 @@ $ZIELE[3] = "anfragen/schulhof/nutzerkonto/passwortVergessen.php";
 $ZIELE[4] = "anfragen/schulhof/nutzerkonto/benutzernameVergessen.php";
 $ZIELE[5] = "anfragen/cookies/setzen.php";
 $ZIELE[6] = "anfragen/schulhof/nutzerkonto/registrierung.php";
+$ZIELE[7] = "anfragen/schulhof/nutzerkonto/profil/persoenliches.php";
 ?>
