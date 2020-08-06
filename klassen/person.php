@@ -353,8 +353,6 @@ class Nutzerkonto extends Person {
    */
   public function anmelden() : bool {
     global $DBS;
-    // Alte Daten löschen
-    $this->sessionprotokollLoeschen();
     $this->aktionsprotokollLoeschen();
 
     // Alte Sessions mit dieser SessionID bearbeiten
@@ -398,7 +396,7 @@ class Nutzerkonto extends Person {
     global $DBS;
     $zeit = time() + $this->inaktivitaetszeit*60;
     $sql = "UPDATE kern_nutzersessions SET sessiontimeout = ? WHERE nutzer = ? AND sessionid = [?]";
-    $anfrage = $DBS->anfrage($sql, "iis", $zeit, $this->id, $this->sessionid);
+    $anfrage = $DBS->silentanfrage($sql, "iis", $zeit, $this->id, $this->sessionid);
     if ($anfrage->getAnzahl() > 0) {
       $this->sessiontimeout = $zeit;
       return true;
@@ -679,8 +677,8 @@ class Nutzerkonto extends Person {
     if ($id === null) {
       // 2 Tage-Frist
       $frist = time()-2*60*60*24;
-      $sql = "DELETE FROM kern_nutzersessions WHERE nutzer = ? AND sessiontimeout < ?";
-      $anfrage = $DBS->anfrage($sql, "ii", $this->id, $frist);
+      $sql = "DELETE FROM kern_nutzersessions WHERE sessiontimeout < ? AND nutzer = ?";
+      $anfrage = $DBS->anfrage($sql, "ii", $frist, $this->id);
     } else if ($id === -1) {
       $sql = "DELETE FROM kern_nutzersessions WHERE nutzer = ?";
       $anfrage = $DBS->anfrage($sql, "i", $this->id);
@@ -707,41 +705,40 @@ class Nutzerkonto extends Person {
       $rueck[] = new UI\Meldung("Aktionsprotokoll deaktiviert", "<p>Die Aufzeichnung von Aktionen im Digitalen Schulhof ist.</p>", "Information");
     }
 
-    $sql = "SELECT id, {tabellepfad}, {datensatzdatei}, {aktion}, zeitpunkt FROM kern_aktionslog WHERE nutzer = ? ORDER BY zeitpunkt DESC";
+    $sql = "SELECT id, {art}, {tabellepfad}, {aktion}, zeitpunkt FROM kern_aktionslog WHERE nutzer = ? ORDER BY zeitpunkt DESC";
     $anfrage = $DBS->anfrage($sql, "i", $this->id);
 
     $darfloeschen = $DSH_BENUTZER->hatRecht("$recht.aktionsprotokoll.löschen");
-    $titel = ["", "Tabelle / Pfad", "Datensatz / Datei", "Aktion", "Zeit"];
+    $darfdetails = $DSH_BENUTZER->hatRecht("$recht.aktionsprotokoll.details");
+    $darfaktionen = $darfloeschen || $darfdetails;
+    $titel = ["", "Datenbank / Pfad", "Aktion", "Zeit"];
     if ($darfloeschen) {$titel[] = "Aktionen";}
 
     $zeilen = [];
-    while ($anfrage->werte($id, $tabellepfad, $datensatzdatei, $aktion, $zeitpunkt)) {
+    while ($anfrage->werte($id, $art, $tabellepfad, $aktion, $zeitpunkt)) {
       $neuezeile = [];
-      $neuezeile[""] = new UI\Icon("fas fa-shoe-prints");
-      if ($sessionid != null) {
-        $neuezeile["Session-ID"] = $sessionid;
+      if ($art == "DB") {
+        $neuezeile[""] = new UI\Icon("fas fa-database");
+      } else if ("Datei") {
+        $neuezeile[""] = new UI\Icon("fas fa-archive");
       } else {
-        $neuezeile["Session-ID"] = "<i>erloschen</i>";
+        $neuezeile[""] = new UI\Icon("fas fa-shoe-prints");
       }
-
-      if ($sessiontimeout > 0) {
-        if ($sessionid == $this->sessionid && $DSH_BENUTZER->getId() == $this->id) {
-          $sessiontimeout = "<i>diese Session</i>";
-        } else {
-          $sessiontimeout = (new UI\Datum($sessiontimeout))->kurz();
-        }
-      } else {
-        $sessiontimeout = "<i>abgemeldet</i>";
-      }
-      $neuezeile["Sessiontimeout"] = $sessiontimeout;
-      $neuezeile["Tabelle / Pfad"] = $tabellepfad;
-      $neuezeile["Datensatz / Datei"] = $datensatzdatei;
+      $neuezeile["Datenbank / Pfad"] = $tabellepfad;
       $neuezeile["Aktion"] = $aktion;
-      $neuezeile["Zeit"] = (new Date($zeitpunkt))->kurz();
-      if ($darfloeschen) {
-        $loeschenknopf = UI\MiniIconKnopf::loeschen();
-        $loeschenknopf->addFunktion("onclick", "kern.personen.aktionen.loeschen('$id')");
-        $neuezeile["Aktionen"] = $loeschenknopf;
+      $neuezeile["Zeit"] = (new UI\Datum($zeitpunkt))->kurz();
+      if ($darfaktionen) {
+        $neuezeile["Aktionen"] = "";
+        if ($darfdetails) {
+          $loeschenknopf = new UI\MiniIconKnopf(new UI\Icon("fas fa-search"), "Details anzeigen");
+          $loeschenknopf->addFunktion("onclick", "kern.personen.aktionen.details('$id')");
+          $neuezeile["Aktionen"] .= "$loeschenknopf ";
+        }
+        if ($darfloeschen) {
+          $loeschenknopf = UI\MiniIconKnopf::loeschen();
+          $loeschenknopf->addFunktion("onclick", "kern.personen.aktionen.loeschen('$id')");
+          $neuezeile["Aktionen"] .= "$loeschenknopf ";
+        }
       }
       $zeilen[] = $neuezeile;
     }
@@ -763,10 +760,10 @@ class Nutzerkonto extends Person {
     global $DBS;
 
     if ($id === null) {
-      // 2 Tage-Frist
+      // 30 Tage-Frist
       $frist = time()-30*60*60*24;
-      $sql = "DELETE FROM kern_aktionslog WHERE nutzer = ? AND zeitpunkt < ?";
-      $anfrage = $DBS->anfrage($sql, "ii", $this->id, $frist);
+      $sql = "DELETE FROM kern_aktionslog WHERE zeitpunkt < ?";
+      $anfrage = $DBS->anfrage($sql, "i", $frist);
     } else if ($id === -1) {
       $sql = "DELETE FROM kern_aktionslog WHERE nutzer = ?";
       $anfrage = $DBS->anfrage($sql, "i", $this->id);

@@ -25,6 +25,7 @@ if (isset($_SESSION["Letzte Anmeldung"]) && $_SESSION["Letzte Anmeldung"]) {
   $meldung .= "<p>Sind diese Angaben falsch? Wenn ja, könnte ein Identitätsdiebstahl vorliegen. ".(new UI\Link("Identitätsdiebstahl melden", "Schulhof/Nutzerkonto/Identitätsdiebstahl"))."</p>";
   $spalte[] = new UI\Meldung("Zuletzt angemeldet", $meldung, "Information");
   $_SESSION["Letzte Anmeldung"] = false;
+  $DSH_BENUTZER->sessionprotokollLoeschen();
 }
 
 
