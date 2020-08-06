@@ -29,7 +29,7 @@ if (isset($_SESSION["Letzte Anmeldung"]) && $_SESSION["Letzte Anmeldung"]) {
 
 
 $passworttimeout = $DSH_BENUTZER->getPassworttimeout();
-if ($passworttimeout !== null) {
+if ($passworttimeout !== 0) {
   $spalte[] = new UI\Meldung("Passwort läuft ab", "Das Kennwort ist nur noch bis ".(new UI\Datum($passworttimeout))." gültig. Bitte jetzt das ".(new UI\Link("Passwort ändern", "Schulhof/Nutzerkonto/Profil"))."!", "Warnung");
 }
 $CODE[]     = new UI\Zeile($spalte);

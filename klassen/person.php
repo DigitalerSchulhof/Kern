@@ -313,7 +313,7 @@ class Nutzerkonto extends Person {
    * @return int Passworttimeout (Timestamp)
    */
   public function getPassworttimeout() : int {
-    return $this->passworttimeout;
+    return $this->passworttimeout ?? 0;
   }
 
   /**
