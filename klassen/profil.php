@@ -175,7 +175,7 @@ class Profil {
     $recht = $this->istFremdzugriff();
 
     $rueck = [];
-    $rueck[] = new UI\Meldung("Speicherdauer und Aufzeichnungserklärung", "<p>Aktionen werden nach 30 Tagen automatisch gelöscht.</p><p>Über dieses Aktionsprotokoll lassen sich widerrechtlich durchgeführte Aktionen aufspüren. Es werden lediglich Änderungen an der Schulhof-Datenbank und am Dateisystem (Upload, Umbenennen, Löschen) aufgezeichnet. Es erfolgt ausdrücklich keine Erstellung eines »Bewegungsprotokolls«, das aufzeichnet, wer wann welche Seite aufruft oder welche Dateien herunterläd.</p>", "Information");
+    $rueck[] = new UI\Meldung("Speicherdauer und Aufzeichnungserklärung", "<p>Aktionen werden nach 30 Tagen automatisch gelöscht.</p><p>Über dieses Aktionsprotokoll lassen sich widerrechtlich durchgeführte Aktionen aufspüren. Es werden lediglich Änderungen an der Schulhof-Datenbank und am Dateisystem (Upload, Umbenennen, Löschen) aufgezeichnet. Es erfolgt ausdrücklich keine Erstellung eines »Bewegungsprotokolls«, das aufzeichnet, wer wann welche Seite aufruft oder welche Dateien herunterlädt.</p>", "Information");
 
     if (Einstellungen::laden("Kern", "Aktionslog") != "1") {
       $rueck[] = new UI\Meldung("Aktionsprotokoll deaktiviert", "<p>Die Aufzeichnung von Aktionen im Digitalen Schulhof ist.</p>", "Information");
