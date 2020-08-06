@@ -1,6 +1,7 @@
 <?php
 namespace DB;
 use DB\Anfrage;
+use Kern;
 
 /**
 * Eine Datenbankverbindung
@@ -22,15 +23,11 @@ class DB {
 	* @param string $schluessel :)
 	* @param string $aktionslog 1
 	*/
-  public function __construct($host, $port, $benutzer, $passwort, $datenbank, $schluessel, $aktionslog = "0") {
+  public function __construct($host, $port, $benutzer, $passwort, $datenbank, $schluessel) {
     $this->db = new \mysqli($host, $benutzer, $passwort, $datenbank, $port);
   	$this->db->set_charset("utf8");
     $this->schluessel = $schluessel;
-    if ($aktionslog == "1") {
-      $this->log = true;
-    } else {
-      $this->log = false;
-    }
+    $this->log = false;
   }
 
   /**
@@ -39,6 +36,33 @@ class DB {
 	*/
   public function trennen() : bool {
     return $this->db->close();
+  }
+
+  /**
+   * Aktionslog an- / ausschalten
+   * @param  bool $log true = an, false = aus
+   * @return self      :)
+   */
+  public function setLog($log) : self {
+    $this->log = $log;
+    return $this;
+  }
+
+  /**
+   * Setzt in allen Datenbanken die LOG-Variable
+   * @return [type] [description]
+   */
+  public static function log() {
+    global $DBS, $DSH_DBS;
+    $log = Kern\Einstellungen::laden("Kern", "Aktionslog");
+    if ($log == "1") {
+      $log = true;
+    } else {
+      $log = false;
+    }
+    foreach($DSH_DBS as $db) {
+      $db->setLog($log);
+    }
   }
 
   /**
@@ -131,6 +155,8 @@ class DB {
 
     return new Anfrage($anzahl, $ergebnis);
   }
+
+  public function logZugriff();
 
   /**
    * Legt einen leeren Datensatz an

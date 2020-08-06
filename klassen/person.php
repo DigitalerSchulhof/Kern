@@ -675,8 +675,8 @@ class Nutzerkonto extends Person {
     if ($id === null) {
       // 2 Tage-Frist
       $frist = time()-2*60*60*24;
-      $sql = "DELETE FROM kern_nutzersessions WHERE nutzer = ? AND sessiontimeout < ?";
-      $anfrage = $DBS->anfrage($sql, "ii", $this->id, $frist);
+      $sql = "DELETE FROM kern_nutzersessions WHERE sessiontimeout < ?";
+      $anfrage = $DBS->anfrage($sql, "i", $frist);
     } else if ($id === -1) {
       $sql = "DELETE FROM kern_nutzersessions WHERE nutzer = ?";
       $anfrage = $DBS->anfrage($sql, "i", $this->id);
@@ -707,7 +707,7 @@ class Nutzerkonto extends Person {
     $anfrage = $DBS->anfrage($sql, "i", $this->id);
 
     $darfloeschen = $DSH_BENUTZER->hatRecht("$recht.aktionsprotokoll.löschen");
-    $titel = ["", "Tabelle / Pfad", "Datensatz / Datei", "Aktion", "Zeit"];
+    $titel = ["", "Datenbank / Pfad", "Datensatz / Datei", "Aktion", "Zeit"];
     if ($darfloeschen) {$titel[] = "Aktionen";}
 
     $zeilen = [];
@@ -730,7 +730,7 @@ class Nutzerkonto extends Person {
         $sessiontimeout = "<i>abgemeldet</i>";
       }
       $neuezeile["Sessiontimeout"] = $sessiontimeout;
-      $neuezeile["Tabelle / Pfad"] = $tabellepfad;
+      $neuezeile["Datenbank / Pfad"] = $tabellepfad;
       $neuezeile["Datensatz / Datei"] = $datensatzdatei;
       $neuezeile["Aktion"] = $aktion;
       $neuezeile["Zeit"] = (new Date($zeitpunkt))->kurz();
@@ -759,10 +759,10 @@ class Nutzerkonto extends Person {
     global $DBS;
 
     if ($id === null) {
-      // 2 Tage-Frist
+      // 30 Tage-Frist
       $frist = time()-30*60*60*24;
-      $sql = "DELETE FROM kern_aktionslog WHERE nutzer = ? AND zeitpunkt < ?";
-      $anfrage = $DBS->anfrage($sql, "ii", $this->id, $frist);
+      $sql = "DELETE FROM kern_aktionslog WHERE zeitpunkt < ?";
+      $anfrage = $DBS->anfrage($sql, "i", $frist);
     } else if ($id === -1) {
       $sql = "DELETE FROM kern_aktionslog WHERE nutzer = ?";
       $anfrage = $DBS->anfrage($sql, "i", $this->id);
