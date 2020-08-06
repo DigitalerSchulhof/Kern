@@ -4,3 +4,37 @@ kern:
       titel: Titel ändern
       vorname: Vorname ändern
       nachname: Nachname ändern
+      kuerzel: Kürzel ändern
+      email: eMail-Adresse ändern
+      benutzer: Benutzername ändern
+      passwort: Passwort ändern
+      einstellungen:
+        nutzerkonto: Einstellungen des Nutzerkontos ändern
+        benachrichtigungen: Einstellungen zu Benachrichtigungen ändern
+        postfach: Einstellungen zum Postfach ändern
+      sessionprotokoll:
+        sehen: Sessionprotokoll sehen
+        löschen: Sessionprotokoll löschen
+      aktionsprotokoll:
+        sehen: Aktionsprotokoll sehen
+        löschen: Aktionsprotokoll löschen
+  personen:
+    profil:
+      sehen: Profile sehen
+      titel: Titel ändern
+      vorname: Vorname ändern
+      nachname: Nachname ändern
+      kuerzel: Kürzel ändern
+      email: eMail-Adresse ändern
+      benutzer: Benutzername ändern
+      passwort: Passwort ändern
+      einstellungen:
+        nutzerkonto: Einstellungen des Nutzerkontos ändern
+        benachrichtigungen: Einstellungen zu Benachrichtigungen ändern
+        postfach: Einstellungen zum Postfach ändern
+      sessionprotokoll:
+        sehen: Sessionprotokoll sehen
+        löschen: Sessionprotokoll löschen
+      aktionsprotokoll:
+        sehen: Aktionsprotokoll sehen
+        löschen: Aktionsprotokoll löschen
