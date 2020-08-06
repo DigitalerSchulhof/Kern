@@ -194,6 +194,8 @@ class Nutzerkonto extends Person {
   /** @var int Anzahl an zu ladeneden Elementen pro Übersicht */
   private $uebersichtszahl;
 
+  /** @var string[] Rechte des Nutzers */
+  private $rechte;
 
   /**
    * Erstellt eine neues Nutzerkonto
@@ -212,6 +214,8 @@ class Nutzerkonto extends Person {
     $this->schuljahr = null;
     $this->passworttimeout = null;
     $this->uebersichtszahl = null;
+
+    $this->rechteLaden();
   }
 
   /**
@@ -955,16 +959,39 @@ class Nutzerkonto extends Person {
   }
 
   /**
-   * Prüft, ob der Benutzer das Recht hat, die Spezifizierte Aktion auszuführen
-   * @param  string $aktion YAML-Syntax für Rechte
-   * @return bool   true, wenn das Recht vorhanden ist, false sonst
+   * Lädt die Rechte aus der Datenbank
+   * Diese werden so sortiert, dass Rechte mit »*« an einer hohen Stelle (weit links) zuerst kommen
+   * Die Definition eines Rechts findet sich hier: <a href="https://gist.github.com/jeengbe/b78d01fb68972e51335ba9696206aa50">https://gist.github.com</a>
+   * @link https://gist.github.com/jeengbe/b78d01fb68972e51335ba9696206aa50
    */
-  public function hatRecht() : bool {
-    // @TODO: Rechte auslesen!
-    return true;
+  public function rechteLaden() {
+    $this->rechte = [
+      "schulhof.*",
+      "website.elemente.*"
+    ];
   }
 
+  /**
+   * Gibt eine Liste an Rechten aus, die der Nutzer hat.
+   * Diese sind so sortiert, dass Rechte mit »*« an einer hohen Stelle (weit links) zuerst kommen
+   * Die Definition eines Rechts findet sich hier: <a href="https://gist.github.com/jeengbe/b78d01fb68972e51335ba9696206aa50">https://gist.github.com</a>
+   * @link https://gist.github.com/jeengbe/b78d01fb68972e51335ba9696206aa50
+   * @return string[]
+   */
+  public function getRechte() {
+    return $this->rechte;
+  }
+
+  /**
+   * Prüft, ob der Benutzer das Recht hat, die Spezifizierte Aktion auszuführen
+   * Die Definition eines Rechts findet sich hier: <a href="https://gist.github.com/jeengbe/b78d01fb68972e51335ba9696206aa50">https://gist.github.com</a>
+   * @link https://gist.github.com/jeengbe/b78d01fb68972e51335ba9696206aa50
+   * @param  string $recht Das Recht
+   * @return bool   true, wenn das Recht vorhanden ist, false sonst
+   */
+  public function hatRecht($recht) : bool {
+    $rechte = $this->rechte;
+    return true;
+  }
 }
-
-
 ?>
