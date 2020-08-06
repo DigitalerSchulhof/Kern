@@ -982,21 +982,7 @@ class Nutzerkonto extends Person {
    * @link https://gist.github.com/jeengbe/b78d01fb68972e51335ba9696206aa50
    */
   public function rechteLaden() {
-    $this->rechte = array(
-      "schulhof"  => array(
-        "verwaltung"  => array(
-          "nutzerkonten"  => true,
-          "personen"      => array(
-            "loeschen"    => true,
-          ),
-          "sachen"        => array(
-            "loeschen"       => true,
-          ),
-        ),
-        "website"     => true,
-      ),
-      "website"   => true
-    );
+    $this->rechte = true;
   }
 
   /**

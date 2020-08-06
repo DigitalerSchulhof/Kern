@@ -39,12 +39,4 @@ $spalte1    = new UI\Spalte("A2");
 $spalte1[]  = $DSH_BENUTZER->aktivitaetsanzeige("dshAktivitaetNutzerkonto");
 
 $CODE[]     = new UI\Zeile($spalte1);
-$CODE = "<br>";
-$CODE .= var_export($DSH_BENUTZER->hatRecht("schulhof.verwaltung.nutzerkonten.löschen"), true)."<br>";                        // true
-$CODE .= var_export($DSH_BENUTZER->hatRecht("schulhof.verwaltung.[&nutzerkonten,personen,sachen].loeschen"),  true)."<br>";   // true
-$CODE .= var_export($DSH_BENUTZER->hatRecht("schulhof.dauerbrenner"),  true)."<br>";                                          // false
-$CODE .= var_export($DSH_BENUTZER->hatRecht("schulhof.dauerbrenner.sehen"),  true)."<br>";                                    // false
-$CODE .= var_export($DSH_BENUTZER->hatRecht("website"),  true)."<br>";                                                        // true
-$CODE .= var_export($DSH_BENUTZER->hatRecht("website.elemente.[|elementa,elementb,elementc].anlegen"),  true)."<br>";         // true
-$CODE .= var_export($DSH_BENUTZER->hatRecht("website.etwas"),  true)."<br>";                                                  // true
 ?>
