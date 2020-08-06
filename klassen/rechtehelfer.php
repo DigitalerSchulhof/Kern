@@ -81,9 +81,9 @@ class Rechtehelfer {
   /**
    * Nimmt ein Array an Rechten, gibt den passenden Rechtebaum zurück
    * @param  string[] $array Array an Rechten
-   * @return array
+   * @return array|bool
    */
-  public static function array2Baum($array) : array {
+  public static function array2Baum($array) {
     $baum = array();
     foreach($array as $recht) {
       if(self::CHECK) {
