@@ -2,7 +2,7 @@
 namespace Kern;
 
 class Rechtehelfer {
-  private const CHECK = true;
+  public const CHECK = true;
 
   // Instanziierung unterbinden
   private function __construct() { }
@@ -77,6 +77,38 @@ class Rechtehelfer {
     };
 
     return $checkRecht($rechte, $recht);
+  }
+
+  /**
+   * Nimmt ein Array an rechten, sortiert diese und gibt den passenden Rechtebaum zurück
+   * @param  string[] $array Array an Rechten
+   * @return array
+   */
+  public static function array2Baum($array) : array {
+    $baum = array();
+
+    foreach($array as $recht) {
+      if(self::CHECK) {
+        if(preg_match("/^(?:[a-zäöüß]+\\.)*(?:[a-zäöüß]+|\\*)$/i", $recht) !== 1) {
+          trigger_error("Das übergebene Recht »{$recht}« ist ungültig", E_USER_WARNING);
+        }
+      }
+      $recht = explode(".", $recht);
+      $baumTeil = &$baum;
+      for($i = 0; $i < count($recht); $i++) {
+        if($recht[$i] === "*" || $i === count($recht) - 1) {
+          if($recht[$i] === "*") {
+            $baumTeil = true;
+          } else {
+            $baumTeil[$recht[$i]] = true;
+          }
+        } else {
+          $baumTeil = &$baumTeil[$recht[$i]];
+        }
+      }
+    }
+    var_dump($array, $baum);
+    return $baum;
   }
 }
 

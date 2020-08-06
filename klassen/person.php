@@ -623,19 +623,24 @@ class Nutzerkonto extends Person {
     return $anfrage->getAnzahl() > 0;
   }
 
+
   /**
    * Lädt die Rechte aus der Datenbank
-   * Diese werden so sortiert, dass Rechte mit »*« an einer hohen Stelle (weit links) zuerst kommen
    * Die Definition eines Rechts findet sich hier: <a href="https://gist.github.com/jeengbe/b78d01fb68972e51335ba9696206aa50">https://gist.github.com</a>
    * @link https://gist.github.com/jeengbe/b78d01fb68972e51335ba9696206aa50
    */
   public function rechteLaden() {
-    $this->rechte = true;
+    global $DBS;
+    $anfrage = $DBS->anfrage("SELECT {recht} FROM kern_nutzerrechte WHERE person = ?", "i", $this->id);
+    $rechte = [];
+    while($anfrage->werte($recht)) {
+      $rechte[] = $recht;
+    }
+    $this->rechte = Rechtehelfer::array2Baum($rechte);
   }
 
   /**
-   * Gibt eine Liste an Rechten aus, die der Nutzer hat.
-   * Diese sind so sortiert, dass Rechte mit »*« an einer hohen Stelle (weit links) zuerst kommen
+   * Gibt den Rechtebaum des Nutzers zurück
    * Die Definition eines Rechts findet sich hier: <a href="https://gist.github.com/jeengbe/b78d01fb68972e51335ba9696206aa50">https://gist.github.com</a>
    * @link https://gist.github.com/jeengbe/b78d01fb68972e51335ba9696206aa50
    * @return string[]
