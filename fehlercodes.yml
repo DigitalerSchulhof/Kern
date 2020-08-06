@@ -85,3 +85,6 @@
 29:
   ort: anfragen/schulhof/nutzerkonto/profil/persoenliches.php
   beschreibung: Das <b>Kürzel</b> ist ungültig.
+30:
+  ort: anfragen/schulhof/nutzerkonto/profil/persoenliches.php
+  beschreibung: Das <b>Kürzel</b> ist bereits vergeben.

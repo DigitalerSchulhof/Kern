@@ -43,7 +43,7 @@ class Profil {
     global $DSH_BENUTZER;
     // Rechte Entscheidung:
     if ($DSH_BENUTZER->getId() != $this->person->getId()) {
-      $recht = "kern.personen.profil";
+      $recht = "kern.personen.personen";
       if (!$DSH_BENUTZER->hatRecht("$recht.sehen")) {
         throw new \Exception("Es liegt keine Berechitung für diese Funktion vor!");
       }
@@ -241,7 +241,7 @@ class Profil {
     $geschlechtF  ->add("Männlich", "m");
     $geschlechtF  ->add("Divers", "d");
     if (!$DSH_BENUTZER->hatRecht("$recht.geschlecht")) {
-      $artF->setAttribut("disabled", "disabled");
+      $geschlechtF->setAttribut("disabled", "disabled");
     }
 
     $titelF = (new UI\Textfeld("dshProfilTitel"))->setWert($this->person->getTitel());
