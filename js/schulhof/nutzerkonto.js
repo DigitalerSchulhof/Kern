@@ -55,13 +55,13 @@ kern.schulhof.nutzerkonto = {
   },
   aendern: {
     persoenliches: () => {
-      var id = $("dshProfilId").getWert();
-      var art = $("dshProfilArt").getWert();
-      var geschlecht = $("dshProfilGeschlecht").getWert();
-      var titel = $("dshProfilTitel").getWert();
-      var vorname = $("dshProfilVorname").getWert();
-      var nachname = $("dshProfilNachname").getWert();
-      var kuerzel = $("dshProfilKuerzel").getWert();
+      var id          = $("#dshProfilId").getWert();
+      var art         = $("#dshProfilArt").getWert();
+      var geschlecht  = $("#dshProfilGeschlecht").getWert();
+      var titel       = $("#dshProfilTitel").getWert();
+      var vorname     = $("#dshProfilVorname").getWert();
+      var kuerzel     = $("#dshProfilKuerzel").getWert();
+      var nachname    = $("#dshProfilNachname").getWert();
       core.ajax("Kern", 7, ["Profil ändern", "Bitte warten"], {id:id, art:art, geschlecht:geschlecht, titel:titel, vorname:vorname, nachname:nachname, kuerzel:kuerzel});
     }
   }

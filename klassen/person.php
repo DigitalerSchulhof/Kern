@@ -547,7 +547,7 @@ class Nutzerkonto extends Person {
   }
 
   /**
-   * Läd die letzten Sessions
+   * Lädt die letzten Sessions
    * @param  int $anzahl Anzahl der zu ladenden Sessions
    * @return array       Timestamps der letzten Sessions
    */
