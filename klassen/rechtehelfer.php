@@ -107,7 +107,6 @@ class Rechtehelfer {
         }
       }
     }
-    var_dump($array, $baum);
     return $baum;
   }
 }
