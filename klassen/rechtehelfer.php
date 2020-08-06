@@ -22,8 +22,8 @@ class Rechtehelfer {
       }
     }
 
-    if($rechte === true) {
-      return true;
+    if($rechte === true || $rechte === false) {
+      return $rechte;
     }
     if(!count($rechte)) {
       return false;
