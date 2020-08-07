@@ -5,7 +5,7 @@ $CODE[]             = new Kern\Aktionszeile();
 $spalte             = new UI\Spalte("A1");
 $spalte[]           = new UI\SeitenUeberschrift("Registrierung");
 
-if (!Check::Einwilligung("DSH")) {
+if (!Kern\Check::einwilligung("DSH")) {
   $spalte[]         = new UI\Meldung("Datenschutzhinweis", "Um eine Registrierung für den Digitalen Schulhof vorzunehmen, müssen die Cookies des Digitalen Schulhofs akzeptiert werden.", "Information");
 
   $akzeptieren      = new UI\IconKnopf("Cookies des Digitalen Schulhofs akzeptieren", new UI\Icon(UI\Konstanten::COOKIE));

@@ -1,7 +1,7 @@
 <?php
 Anfrage::post("benutzer", "passwort");
 
-if(!Check::istText($benutzer)) {
+if(!UI\Check::istText($benutzer)) {
   Anfrage::addFehler(1);
 }
 if(strlen($passwort) < 6) {

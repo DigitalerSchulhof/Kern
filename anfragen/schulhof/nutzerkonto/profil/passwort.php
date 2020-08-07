@@ -1,11 +1,11 @@
 <?php
 Anfrage::post("id", "passwortalt", "passwortneu", "passwortneu2");
 
-if(!Check::angemeldet()) {
+if(!Kern\Check::angemeldet()) {
   Anfrage::addFehler(-2, true);
 }
 
-if(!Check::istZahl($id,0)) {
+if(!UI\Check::istZahl($id,0)) {
   Anfrage::addFehler(-3, true);
 }
 

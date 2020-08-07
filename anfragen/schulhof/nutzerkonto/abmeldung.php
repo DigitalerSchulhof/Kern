@@ -1,6 +1,6 @@
 <?php
 
-if(!Check::angemeldet()) {
+if(!Kern\Check::angemeldet()) {
   Anfrage::addFehler(-2, true);
 }
 

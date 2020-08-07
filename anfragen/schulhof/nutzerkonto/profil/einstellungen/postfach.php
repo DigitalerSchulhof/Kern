@@ -1,11 +1,11 @@
 <?php
 Anfrage::post("id", "postfach", "papierkorb");
 
-if(!Check::angemeldet()) {
+if(!Kern\Check::angemeldet()) {
   Anfrage::addFehler(-2, true);
 }
 
-if(!Check::istZahl($id,0)) {
+if(!UI\Check::istZahl($id,0)) {
   Anfrage::addFehler(-3, true);
 }
 
@@ -15,10 +15,10 @@ if (!$DSH_BENUTZER->hatRecht("$recht.einstellungen.nutzerkonto")) {
   Anfrage::addFehler(-4, true);
 }
 
-if(!Check::istZahl($postfach,1,1000)) {
+if(!UI\Check::istZahl($postfach,1,1000)) {
   Anfrage::addFehler(37);
 }
-if(!Check::istZahl($papierkorb,1,1000)) {
+if(!UI\Check::istZahl($papierkorb,1,1000)) {
   Anfrage::addFehler(38);
 }
 

@@ -10,16 +10,16 @@ if(!in_array($art, Kern\Person::getArten())) {
 if(!in_array($geschlecht, Kern\Person::getGeschlechter())) {
   Anfrage::addFehler(13);
 }
-if(!Check::istTitel($titel)) {
+if(!UI\Check::istTitel($titel)) {
   Anfrage::addFehler(14);
 }
-if(!Check::istName($vorname)) {
+if(!UI\Check::istName($vorname)) {
   Anfrage::addFehler(15);
 }
-if(!Check::istName($nachname)) {
+if(!UI\Check::istName($nachname)) {
   Anfrage::addFehler(16);
 }
-if(!Check::istName($klasse, 0)) {
+if(!UI\Check::istName($klasse, 0)) {
   Anfrage::addFehler(17);
 }
 if(strlen($passwort) < 6) {
@@ -28,7 +28,7 @@ if(strlen($passwort) < 6) {
 if($passwort != $passwort2) {
   Anfrage::addFehler(19);
 }
-if(!Check::istMail($mail)) {
+if(!UI\Check::istMail($mail)) {
   Anfrage::addFehler(20);
 }
 if($datenschutz != "1") {

@@ -1,11 +1,11 @@
 <?php
 Anfrage::post("id", "nachrichten", "notifikationen", "blog", "termin", "galerie");
 
-if(!Check::angemeldet()) {
+if(!Kern\Check::angemeldet()) {
   Anfrage::addFehler(-2, true);
 }
 
-if(!Check::istZahl($id,0) || !Check::istToggle($nachrichten) || !Check::istToggle($notifikationen) || !Check::istToggle($blog) || !Check::istToggle($termin) || !Check::istToggle($galerie)) {
+if(!UI\Check::istZahl($id,0) || !UI\Check::istToggle($nachrichten) || !UI\Check::istToggle($notifikationen) || !UI\Check::istToggle($blog) || !UI\Check::istToggle($termin) || !UI\Check::istToggle($galerie)) {
   Anfrage::addFehler(-3, true);
 }
 

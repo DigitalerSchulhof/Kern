@@ -1,11 +1,11 @@
 <?php
 Anfrage::post("id", "datum");
 
-if(!Check::angemeldet()) {
+if(!Kern\Check::angemeldet()) {
   Anfrage::addFehler(-2, true);
 }
 
-if ((!Check::istZahl($id,0) && $id != 'alle') || !Check::istZahl($datum,0)) {
+if ((!UI\Check::istZahl($id,0) && $id != 'alle') || !UI\Check::istZahl($datum,0)) {
   Anfrage::addFehler(-3, true);
 }
 

@@ -424,10 +424,10 @@ class Nutzerkonto extends Person {
 
     $_SESSION["Benutzer"] = $this;
     $_SESSION["Letzte Anmeldung"] = true;
-    \Check::einwilligung();
+    Check::einwilligung();
     $_COOKIE["EinwilligungDSH"] = "ja";
 
-    $browser = \Check::systeminfo();
+    $browser = Check::systeminfo();
 
     // Neue Session eintragen
     $sessiondbid = $DBS->neuerDatensatz("kern_nutzersessions", false, true);

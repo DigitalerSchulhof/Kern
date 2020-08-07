@@ -2,7 +2,7 @@
 
 Anfrage::post("mail");
 
-if(!Check::istMail($mail)) {
+if(!UI\Check::istMail($mail)) {
   Anfrage::addFehler(9);
 }
 Anfrage::checkFehler();

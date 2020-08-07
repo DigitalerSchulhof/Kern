@@ -1,5 +1,5 @@
 <?php
-if(Check::angemeldet()) {
+if(Kern\Check::angemeldet()) {
   Anfrage::setTyp("Weiterleitung");
   Anfrage::setRueck("Ziel", "Schulhof/Nutzerkonto");
   return;

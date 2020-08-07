@@ -1,11 +1,11 @@
 <?php
 Anfrage::post("id", "aktiv", "adresse", "name", "ehost", "eport", "enutzer", "epasswort", "ahost", "aport", "anutzer", "apasswort");
 
-if(!Check::angemeldet()) {
+if(!Kern\Check::angemeldet()) {
   Anfrage::addFehler(-2, true);
 }
 
-if(!Check::istZahl($id,0) || !Check::istToggle($aktiv)) {
+if(!UI\Check::istZahl($id,0) || !UI\Check::istToggle($aktiv)) {
   Anfrage::addFehler(-3, true);
 }
 
@@ -15,26 +15,26 @@ if (!$DSH_BENUTZER->hatRecht("$recht.einstellungen.email")) {
   Anfrage::addFehler(-4, true);
 }
 
-if(!Check::istMail($adresse)) {
+if(!UI\Check::istMail($adresse)) {
   Anfrage::addFehler(41);
 }
-if(!Check::istText($name)) {
+if(!UI\Check::istText($name)) {
   Anfrage::addFehler(42);
 }
-if(!Check::istText($ehost)) {
+if(!UI\Check::istText($ehost)) {
   Anfrage::addFehler(43);
 }
-if(!Check::istZahl($eport,0,65535)) {
+if(!UI\Check::istZahl($eport,0,65535)) {
   Anfrage::addFehler(44);
 }
-if(!Check::istText($enutzer)) {
+if(!UI\Check::istText($enutzer)) {
   Anfrage::addFehler(45);
 }
 
-if(!Check::istText($ahost)) {
+if(!UI\Check::istText($ahost)) {
   Anfrage::addFehler(46);
 }
-if(!Check::istZahl($aport,0,65535)) {
+if(!UI\Check::istZahl($aport,0,65535)) {
   Anfrage::addFehler(47);
 }
 

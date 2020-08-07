@@ -1,7 +1,7 @@
 <?php
 Anfrage::post("aktiv", "typ");
 
-if(!Check::istToggle($aktiv)) {
+if(!UI\Check::istToggle($aktiv)) {
   Anfrage::addFehler(-3);
 }
 if($typ != "DSH" && $typ != "EXT") {

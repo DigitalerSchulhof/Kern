@@ -1,5 +1,5 @@
 <?php
-if(!Check::angemeldet()) {
+if(!Kern\Check::angemeldet()) {
   einbinden("Schulhof/Anmeldung");
   return;
 }

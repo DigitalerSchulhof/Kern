@@ -2,10 +2,10 @@
 
 Anfrage::post("benutzer", "mail");
 
-if(!Check::istText($benutzer)) {
+if(!UI\Check::istText($benutzer)) {
   Anfrage::addFehler(6);
 }
-if(!Check::istMail($mail)) {
+if(!UI\Check::istMail($mail)) {
   Anfrage::addFehler(7);
 }
 Anfrage::checkFehler();

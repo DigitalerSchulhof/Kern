@@ -1,11 +1,11 @@
 <?php
 Anfrage::post("id", "logid");
 
-if(!Check::angemeldet()) {
+if(!Kern\Check::angemeldet()) {
   Anfrage::addFehler(-2, true);
 }
 
-if ((!Check::istZahl($id,0) && $id != 'alle') || (!Check::istZahl($logid,0) && $logid != 'alle')) {
+if ((!UI\Check::istZahl($id,0) && $id != 'alle') || (!UI\Check::istZahl($logid,0) && $logid != 'alle')) {
   Anfrage::addFehler(-3, true);
 }
 

@@ -1,24 +1,24 @@
 <?php
 Anfrage::post("id", "art", "geschlecht", "titel", "vorname", "nachname", "kuerzel");
 
-if(!Check::angemeldet()) {
+if(!Kern\Check::angemeldet()) {
   Anfrage::addFehler(-2, true);
 }
 
-if(!Check::istZahl($id,0) || !in_array($art, Kern\Person::getArten()) || !in_array($geschlecht, Kern\Person::getGeschlechter())) {
+if(!UI\Check::istZahl($id,0) || !in_array($art, Kern\Person::getArten()) || !in_array($geschlecht, Kern\Person::getGeschlechter())) {
   Anfrage::addFehler(-3, true);
 }
 
-if(!Check::istTitel($titel)) {
+if(!UI\Check::istTitel($titel)) {
   Anfrage::addFehler(26);
 }
-if(!Check::istName($vorname)) {
+if(!UI\Check::istName($vorname)) {
   Anfrage::addFehler(27);
 }
-if(!Check::istName($nachname)) {
+if(!UI\Check::istName($nachname)) {
   Anfrage::addFehler(28);
 }
-if($DSH_BENUTZER->getArt() == "l" && !Check::istText($kuerzel,0)) {
+if($DSH_BENUTZER->getArt() == "l" && !UI\Check::istText($kuerzel,0)) {
   Anfrage::addFehler(28);
 }
 

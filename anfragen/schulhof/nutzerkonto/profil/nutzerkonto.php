@@ -1,18 +1,18 @@
 <?php
 Anfrage::post("id", "benutzer", "email");
 
-if(!Check::angemeldet()) {
+if(!Kern\Check::angemeldet()) {
   Anfrage::addFehler(-2, true);
 }
 
-if(!Check::istZahl($id,0)) {
+if(!UI\Check::istZahl($id,0)) {
   Anfrage::addFehler(-3, true);
 }
 
-if(!Check::istText($benutzer)) {
+if(!UI\Check::istText($benutzer)) {
   Anfrage::addFehler(31);
 }
-if(!Check::istMail($email)) {
+if(!UI\Check::istMail($email)) {
   Anfrage::addFehler(32);
 }
 

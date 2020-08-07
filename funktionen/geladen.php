@@ -1,13 +1,14 @@
 <?php
-include "$MODUL/klassen/db/Anfrage.php";
-include "$MODUL/klassen/db/DB.php";
-include "$MODUL/klassen/aktionszeile.php";
-include "$MODUL/klassen/einstellungen.php";
-include "$MODUL/klassen/dateisystem.php";
-include "$MODUL/klassen/mail.php";
-include "$MODUL/klassen/rechtehelfer.php";
-include "$MODUL/klassen/person.php";
-include "$MODUL/klassen/profil.php";
+include_once("$KLASSEN/check.php");
+include_once("$KLASSEN/db/Anfrage.php");
+include_once("$KLASSEN/db/DB.php");
+include_once("$KLASSEN/aktionszeile.php");
+include_once("$KLASSEN/einstellungen.php");
+include_once("$KLASSEN/dateisystem.php");
+include_once("$KLASSEN/mail.php");
+include_once("$KLASSEN/rechtehelfer.php");
+include_once("$KLASSEN/person.php");
+include_once("$KLASSEN/profil.php");
 
 use \DB\DB;
 
