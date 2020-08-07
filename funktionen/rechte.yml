@@ -13,11 +13,12 @@ kern:
       einstellungen:
         nutzerkonto: Einstellungen des Nutzerkontos ändern
         benachrichtigungen: Einstellungen zu Benachrichtigungen ändern
-        postfach: Einstellungen zum Postfach ändern
+        postfach: Einstellungen zum internen Postfach ändern
+        email: Einstellungen zum eMail-Postfach ändern
       sessionprotokoll:
         sehen: Sessionprotokoll sehen
         löschen: Sessionprotokoll löschen
-      aktionsprotokoll:
+      aktionslog:
         sehen: Aktionsprotokoll sehen
         löschen: Aktionsprotokoll löschen
   personen:
@@ -35,11 +36,12 @@ kern:
       einstellungen:
         nutzerkonto: Einstellungen des Nutzerkontos ändern
         benachrichtigungen: Einstellungen zu Benachrichtigungen ändern
-        postfach: Einstellungen zum Postfach ändern
+        postfach: Einstellungen zum internen Postfach ändern
+        email: Einstellungen zum eMail-Postfach ändern
       sessionprotokoll:
         sehen: Sessionprotokoll sehen
         löschen: Sessionprotokoll löschen
-      aktionsprotokoll:
+      aktionslog:
         sehen: Aktionsprotokoll sehen
         details: Details ansehen
         löschen: Aktionsprotokoll löschen

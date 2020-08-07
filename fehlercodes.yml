@@ -121,3 +121,24 @@
 40:
   ort: anfragen/schulhof/nutzerkonto/profil/einstellungen/postfach.php
   beschreibung: Die Anzahl an <b>Elementen pro Übersicht</b> ist ungültig. Sie muss zwischen 1 und 10 betragen.
+41:
+  ort: anfragen/schulhof/nutzerkonto/profil/einstellungen/email.php
+  beschreibung: Die <b>eMail-Adresse</b> ist ungültig.
+42:
+  ort: anfragen/schulhof/nutzerkonto/profil/einstellungen/email.php
+  beschreibung: Der <b>Anzeigename</b> ist ungültig.
+43:
+  ort: anfragen/schulhof/nutzerkonto/profil/einstellungen/email.php
+  beschreibung: Der <b>IMAP-Host (Posteingang)</b> ist ungültig.
+44:
+  ort: anfragen/schulhof/nutzerkonto/profil/einstellungen/email.php
+  beschreibung: Der <b>IMAP-Port (Posteingang)</b> ist ungültig.
+45:
+  ort: anfragen/schulhof/nutzerkonto/profil/einstellungen/email.php
+  beschreibung: Der <b>Benutzername (Posteingang)</b> ist ungültig.
+46:
+  ort: anfragen/schulhof/nutzerkonto/profil/einstellungen/email.php
+  beschreibung: Der <b>SMTP-Host (Postausgang)</b> ist ungültig.
+47:
+  ort: anfragen/schulhof/nutzerkonto/profil/einstellungen/email.php
+  beschreibung: Der <b>SMTP-Port (Postausgang</b> ist ungültig.

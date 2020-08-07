@@ -283,6 +283,16 @@ class Nutzerkonto extends Person {
   }
 
   /**
+   * Sessionid setzen
+   * @param  string $sessionid :)
+   * @return self              :)
+   */
+  public function setSessionid($sessionid) : self {
+    $this->sessionid = $sessionid;
+    return $this;
+  }
+
+  /**
    * Schuljahr setzen
    * @param  int  $schuljahr ID des aktiven Schuljahres
    * @return self            :)
@@ -324,7 +334,7 @@ class Nutzerkonto extends Person {
    * Sessionid laden
    * @return string SessionID
    */
-  public function getSessionid() : string {
+  public function getSessionid() {
     return $this->sessionid;
   }
 
@@ -397,7 +407,7 @@ class Nutzerkonto extends Person {
 
     // Alte Sessions mit dieser SessionID bearbeiten
     $sql = "UPDATE kern_nutzersessions SET sessionid = null WHERE sessionid = [?]";
-    $anfrage = $DBS->anfrage($sql, "s", $this->sessionid);
+    $anfrage = $DBS->silentanfrage($sql, "s", $this->sessionid);
 
     $sql = "SELECT id FROM kern_nutzersessions WHERE nutzer = ? ORDER BY sessiontimeout LIMIT 2";
     $anfrage = $DBS->anfrage($sql, "i", $this->id);
@@ -409,18 +419,20 @@ class Nutzerkonto extends Person {
       $sicheresessionssql = implode(",", $sicheresessions);
       $sql = "DELETE FROM kern_nutzersessions WHERE id NOT IN ($sicheresessionssql) AND nutzer = ? AND sessiontimeout < ?";
       $timeoutlimit = time() - 60*60*24*2;
-      $anfrage = $DBS->anfrage($sql, "ii", $this->id, $timeoutlimit);
+      $anfrage = $DBS->silentanfrage($sql, "ii", $this->id, $timeoutlimit);
     }
 
-    $_SESSION['Benutzer'] = $this;
-    $_SESSION['Letzte Anmeldung'] = true;
+    $_SESSION["Benutzer"] = $this;
+    $_SESSION["Letzte Anmeldung"] = true;
     \Check::einwilligung();
     $_COOKIE["EinwilligungDSH"] = "ja";
 
+    $browser = \Check::systeminfo();
+
     // Neue Session eintragen
-    $sessiondbid = $DBS->neuerDatensatz("kern_nutzersessions");
-    $sql = "UPDATE kern_nutzersessions SET sessionid = [?], nutzer = ?, sessiontimeout = ?, anmeldezeit = ? WHERE id = ?";
-    $anfrage = $DBS->anfrage($sql, "siiii", $this->sessionid, $this->id, $this->sessiontimeout, time(), $sessiondbid);
+    $sessiondbid = $DBS->neuerDatensatz("kern_nutzersessions", false, true);
+    $sql = "UPDATE kern_nutzersessions SET sessionid = [?], browser = [?], nutzer = ?, sessiontimeout = ?, anmeldezeit = ? WHERE id = ?";
+    $anfrage = $DBS->silentanfrage($sql, "ssiiii", $this->sessionid, $browser, $this->id, $this->sessiontimeout, time(), $sessiondbid);
 
     // Postfachordner verwalten
     $this->postfachOrdnerAufraeumen();
@@ -503,12 +515,13 @@ class Nutzerkonto extends Person {
   public function abmelden() : bool {
     global $DBS;
     $sql = "UPDATE kern_nutzersessions SET sessiontimeout = 0 WHERE sessionid = [?] AND nutzer = ?";
-    $anfrage = $DBS->anfrage($sql, "si", $this->sessionid, $this->id);
+    $anfrage = $DBS->silentanfrage($sql, "si", $this->sessionid, $this->id);
     $this->postfachOrdnerAufraeumen();
     if ($anfrage->getAnzahl() == 0) {
       return false;
     }
     unset($_SESSION);
+    session_destroy();
     return true;
   }
 
@@ -617,7 +630,7 @@ class Nutzerkonto extends Person {
       // 2 Tage-Frist
       $frist = time()-2*60*60*24;
       $sql = "DELETE FROM kern_nutzersessions WHERE sessiontimeout < ? AND nutzer = ?";
-      $anfrage = $DBS->anfrage($sql, "ii", $frist, $this->id);
+      $anfrage = $DBS->silentanfrage($sql, "ii", $frist, $this->id);
     } else if ($id === -1) {
       $sql = "DELETE FROM kern_nutzersessions WHERE nutzer = ?";
       $anfrage = $DBS->anfrage($sql, "i", $this->id);
@@ -640,13 +653,13 @@ class Nutzerkonto extends Person {
     if ($id === null) {
       // 30 Tage-Frist
       $frist = time()-30*60*60*24;
-      $sql = "DELETE FROM kern_aktionslog WHERE zeitpunkt < ?";
-      $anfrage = $DBS->anfrage($sql, "i", $frist);
+      $sql = "DELETE FROM kern_nutzeraktionslog WHERE zeitpunkt < ?";
+      $anfrage = $DBS->silentanfrage($sql, "i", $frist);
     } else if ($id === -1) {
-      $sql = "DELETE FROM kern_aktionslog WHERE nutzer = ?";
+      $sql = "DELETE FROM kern_nutzeraktionslog WHERE nutzer = ?";
       $anfrage = $DBS->anfrage($sql, "i", $this->id);
     } else {
-      $sql = "DELETE FROM kern_aktionslog WHERE nutzer = ? AND id = ?";
+      $sql = "DELETE FROM kern_nutzeraktionslog WHERE nutzer = ? AND id = ?";
       $anfrage = $DBS->anfrage($sql, "ii", $this->id, $id);
     }
 

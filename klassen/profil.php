@@ -15,6 +15,10 @@ class Profil {
     $this->person = $person;
   }
 
+  public function getNutzer() : Nutzerkonto {
+    return $this->person;
+  }
+
   /**
    * Gibt den Balken für die Aktivitätsanzeuge aus
    * @param  string $id ID der Aktivitätsanzeige
@@ -26,7 +30,7 @@ class Profil {
     $code  = $balken;
     $verlaengern = new UI\Knopf("Verlängern", "Erfolg");
     $verlaengern->addFunktion("onclick", "kern.schulhof.nutzerkonto.session.verlaengern()");
-    $bearbeiten = new UI\Knopf("Profil bearbeiten");
+    $bearbeiten = new UI\Knopf("Mein Profil");
     $bearbeiten->addFunktion("href", "Schulhof/Nutzerkonto/Profil");
     $abmelden = new UI\Knopf("Abmelden", "Warnung");
     $abmelden->addFunktion("onclick", "kern.schulhof.nutzerkonto.abmelden.fragen()");
@@ -53,33 +57,26 @@ class Profil {
     return $recht;
   }
 
-  /**
-   * Gibt das Sessionprotokoll für den Benutzer aus
-   * @return array Elemente, die bei der Ausgabe erzeugt werden
-   */
-  public function getSessionprotokoll() : array{
+  public function getSessionprotokollTabelle() : UI\Tabelle {
     global $DSH_BENUTZER, $DBS;
     $recht = $this->istFremdzugriff();
-
-    $rueck = [];
-    $rueck[] = new UI\Meldung("Speicherdauer und Aufzeichnungserklärung", "<p>Sessions werden nach zwei Tagen automatisch gelöscht.</p><p>Sessions verwalten die Zugriffe auf dieses Nutzerkonto und entstehen mit jeder Anmeldung. Von hieraus können alte oder widerrechtliche Sessions geschlossen werden. Die letzten beiden Sessions werden bei der Anmeldung angezeigt, um mögliche Indentitätsdiebstähle zu identifizieren.</p>", "Information");
-
-    $sql = "SELECT id, {sessionid}, sessiontimeout, anmeldezeit FROM kern_nutzersessions WHERE nutzer = ? ORDER BY anmeldezeit DESC";
+    $sql = "SELECT id, {sessionid}, {browser}, sessiontimeout, anmeldezeit FROM kern_nutzersessions WHERE nutzer = ? ORDER BY anmeldezeit DESC";
     $anfrage = $DBS->anfrage($sql, "i", $this->person->getId());
 
     $darfloeschen = $DSH_BENUTZER->hatRecht("$recht.sessionprotokoll.löschen");
-    $titel = ["", "Session-ID", "Sessiontimeout", "Anmeldezeit"];
+    $titel = ["", "Session-ID (Hash)", "Browser", "Sessiontimeout", "Anmeldezeit"];
     if ($darfloeschen) {$titel[] = "Aktionen";}
 
     $zeilen = [];
-    while ($anfrage->werte($id, $sessionid, $sessiontimeout, $anmeldezeit)) {
+    while ($anfrage->werte($id, $sessionid, $browser, $sessiontimeout, $anmeldezeit)) {
       $neuezeile = [];
       $neuezeile[""] = new UI\Icon("fas fa-history");
       if ($sessionid != null) {
-        $neuezeile["Session-ID"] = $sessionid;
+        $neuezeile["Session-ID (Hash)"] = SHA1($sessionid);
       } else {
-        $neuezeile["Session-ID"] = "<i>erloschen</i>";
+        $neuezeile["Session-ID (Hash)"] = "<i>erloschen</i>";
       }
+      $neuezeile["Browser"] = $browser;
 
       if ($sessiontimeout > 0) {
         if ($sessionid == $this->person->getSessionid() && $DSH_BENUTZER->getId() == $this->person->getId()) {
@@ -94,16 +91,31 @@ class Profil {
       $neuezeile["Anmeldezeit"] = (new UI\Datum($anmeldezeit))->kurz();
       if ($darfloeschen) {
         $loeschenknopf = UI\MiniIconKnopf::loeschen();
-        $loeschenknopf->addFunktion("onclick", "kern.personen.sessions.loeschen('$id')");
+        $loeschenknopf->addFunktion("onclick", "kern.schulhof.nutzerkonto.sessions.loeschen.fragen('$id')");
         $neuezeile["Aktionen"] = $loeschenknopf;
       }
       $zeilen[] = $neuezeile;
     }
 
-    $rueck[] = new UI\Tabelle("dshProfilSessionprotokoll", $titel, ...$zeilen);
+    return new UI\Tabelle("dshProfilSessionprotokoll", $titel, ...$zeilen);
+  }
+
+  /**
+   * Gibt das Sessionprotokoll für den Benutzer aus
+   * @return array Elemente, die bei der Ausgabe erzeugt werden
+   */
+  public function getSessionprotokoll() : array{
+    global $DSH_BENUTZER;
+    $recht = $this->istFremdzugriff();
+    $darfloeschen = $DSH_BENUTZER->hatRecht("$recht.sessionprotokoll.löschen");
+
+    $rueck = [];
+    $rueck[] = new UI\Meldung("Speicherdauer und Aufzeichnungserklärung", "<p>Sessions werden nach zwei Tagen automatisch gelöscht.</p><p>Sessions verwalten die Zugriffe auf dieses Nutzerkonto und entstehen mit jeder Anmeldung. Von hieraus können alte oder widerrechtliche Sessions geschlossen werden. Die letzten beiden Sessions werden bei der Anmeldung angezeigt, um mögliche Indentitätsdiebstähle zu identifizieren.</p>", "Information");
+
+    $rueck[] = "<div id=\"dshProfilSessionprotokollLadebereich\">".$this->getSessionprotokollTabelle()."</div>";
 
     if ($darfloeschen) {
-      $rueck[] = new UI\Absatz(new UI\Knopf("Alle Sessions löschen", "Warnung", "kern.personen.sessions.loeschen('alle')"));
+      $rueck[] = new UI\Absatz(new UI\Knopf("Alle Sessions löschen", "Warnung", "kern.schulhof.nutzerkonto.sessions.loeschen.fragen('alle')"));
     }
     return $rueck;
   }
@@ -130,7 +142,7 @@ class Profil {
     $titel = ["", "Datenbank / Pfad", "Aktion", "Zeit"];
     if ($darfloeschen) {$titel[] = "Aktionen";}
 
-    $sql = "SELECT id, {art}, {tabellepfad}, {aktion}, zeitpunkt FROM kern_aktionslog WHERE nutzer = ? AND (zeitpunkt BETWEEN ? AND ?) ORDER BY zeitpunkt DESC";
+    $sql = "SELECT id, {art}, {tabellepfad}, {aktion}, zeitpunkt FROM kern_nutzeraktionslog WHERE nutzer = ? AND (zeitpunkt BETWEEN ? AND ?) ORDER BY zeitpunkt DESC";
     $anfrage = $DBS->anfrage($sql, "iii", $this->person->getId(), $anfang, $ende);
 
     $zeilen = [];
@@ -150,12 +162,12 @@ class Profil {
         $neuezeile["Aktionen"] = "";
         if ($darfdetails) {
           $detailknopf = new UI\MiniIconKnopf(new UI\Icon("fas fa-search"), "Details anzeigen");
-          $detailknopf->addFunktion("onclick", "kern.personen.aktionen.details('$id')");
+          $detailknopf->addFunktion("onclick", "kern.schulhof.nutzerkonto.aktionslog.details('$id')");
           $neuezeile["Aktionen"] .= "$detailknopf ";
         }
         if ($darfloeschen) {
           $loeschenknopf = UI\MiniIconKnopf::loeschen();
-          $loeschenknopf->addFunktion("onclick", "kern.personen.aktionen.loeschen('$id')");
+          $loeschenknopf->addFunktion("onclick", "kern.schulhof.nutzerkonto.aktionslog.loeschen.fragen('$id')");
           $neuezeile["Aktionen"] .= "$loeschenknopf ";
         }
       }
@@ -187,22 +199,22 @@ class Profil {
     $jahr = date("Y", $heute);
     $formular         = new UI\FormularTabelle();
     $tagwahl          = new UI\Auswahl("dshNutzerkontoAktivitaetsdatum");
-    for ($i=0; $i<30; $i++) {
+    for ($i=0; $i<31; $i++) {
       $datum = mktime(0, 0, 0, $monat, $tag-$i, $jahr);
       $tagwahl->add((new UI\Datum($datum))->kurz("WM"), $datum);
     }
     $tagwahl->setWert(mktime(0, 0, 0, $monat, $tag, $jahr));
-    $tagwahl->getAktionen()->addFunktion("onchange", "kern.schulhof.nutzerkonto.aktionen.neuladen()");
+    $tagwahl->getAktionen()->addFunktion("onchange", "kern.schulhof.nutzerkonto.aktionslog.neuladen()");
     $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Datum:"),      $tagwahl);
     $formular[]       = (new UI\Knopf("Suchen"))  ->setSubmit(true);
-    $formular         ->addSubmit("kern.schulhof.nutzerkonto.aktionen.neuladen()");
+    $formular         ->addSubmit("kern.schulhof.nutzerkonto.aktionslog.laden('{$this->person->getId()}')");
     $rueck[]         = $formular;
 
 
-    $rueck[] = $this->getAktionsportokollTag($heute);
+    $rueck[] = "<div id=\"dshProfilAktionslogLadebereich\">".$this->getAktionsportokollTag($heute)."</div>";
 
     if ($DSH_BENUTZER->hatRecht("$recht.aktionsprotokoll.löschen")) {
-      $rueck[] = new UI\Absatz(new UI\Knopf("Alle Aktionen löschen", "Warnung", "kern.personen.aktionen.loeschen('alle')"));
+      $rueck[] = new UI\Absatz(new UI\Knopf("Alle Aktionen löschen", "Warnung", "kern.schulhof.nutzerkonto.aktionslog.loeschen.fragen('alle')"));
     }
     return $rueck;
   }
@@ -218,9 +230,9 @@ class Profil {
     global $DBS, $DSH_BENUTZER;
     $recht = $this->istFremdzugriff();
 
-    $sql = "SELECT {email}, {notifikationsmail}, {postmail}, {postalletage}, {postpapierkorbtage}, {uebersichtsanzahl}, {oeffentlichertermin}, {oeffentlicherblog}, {oeffentlichegalerie}, {inaktivitaetszeit}, {wikiknopf}, {kuerzel}, kern_nutzerkonten.id FROM kern_nutzerkonten JOIN kern_nutzereinstellungen ON kern_nutzerkonten.id = kern_nutzereinstellungen.person LEFT JOIN kern_lehrer ON kern_nutzerkonten.id = kern_lehrer.id WHERE kern_nutzerkonten.id = ?";
+    $sql = "SELECT {email}, {notifikationsmail}, {postmail}, {postalletage}, {postpapierkorbtage}, {uebersichtsanzahl}, {oeffentlichertermin}, {oeffentlicherblog}, {oeffentlichegalerie}, {inaktivitaetszeit}, {wikiknopf}, {kuerzel}, kern_nutzerkonten.id, {emailaktiv}, {emailadresse}, {emailname}, {einganghost}, {eingangport}, {eingangnutzer}, {eingangpasswort}, {ausganghost}, {ausgangport}, {ausgangnutzer}, {ausgangpasswort} FROM kern_nutzerkonten JOIN kern_nutzereinstellungen ON kern_nutzerkonten.id = kern_nutzereinstellungen.person LEFT JOIN kern_lehrer ON kern_nutzerkonten.id = kern_lehrer.id WHERE kern_nutzerkonten.id = ?";
     $anfrage = $DBS->anfrage($sql, "i", $this->person->getId());
-    $anfrage->werte($mail, $notifikationsmail, $postmail, $posttage, $papierkorbtage, $uebersicht, $oetermin, $oeblog, $oegalerie, $inaktiv, $wiki, $kuerzel, $nutzerkonto);
+    $anfrage->werte($mail, $notifikationsmail, $postmail, $posttage, $papierkorbtage, $uebersicht, $oetermin, $oeblog, $oegalerie, $inaktiv, $wiki, $kuerzel, $nutzerkonto, $mailaktiv, $mailadresse, $mailname, $mailehost, $maileport, $mailenutzer, $mailepasswort, $mailahost, $mailaport, $mailanutzer, $mailapasswort);
 
 
     $reiter = new UI\Reiter("dshProfil");
@@ -350,6 +362,7 @@ class Profil {
           $formular         = new UI\FormularTabelle();
           $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Inaktivitätszeit (min):"),       (new UI\Zahlenfeld("dshProfilInaktivitaetszeit", 5, 300))->setWert($inaktiv));
           $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Elemente pro Übersicht:"),       (new UI\Zahlenfeld("dshProfilElementeProUebersicht", 1, 10))->setWert($uebersicht));
+          $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Wiki-Knopf:"),          (new UI\IconToggle("dshProfilWiki", "Ich möchte angezeigt bekommen, wenn es zu einer Seite eine Anleitung gibt.", new UI\Icon(UI\Konstanten::HAKEN)))->setWert($wiki));
 
           $formular[]       = (new UI\Knopf("Änderungen speichern", "Erfolg"))  ->setSubmit(true);
           $formular         ->addSubmit("kern.schulhof.nutzerkonto.aendern.einstellungen.nutzerkonto()");
@@ -369,13 +382,33 @@ class Profil {
           $reiterspalte[]   = $formular;
         }
         if ($DSH_BENUTZER->hatRecht("$recht.einstellungen.postfach")) {
-          $reiterspalte[]   = new UI\Ueberschrift(3, "Postfach");
+          $reiterspalte[]   = new UI\Ueberschrift(3, "Internes Postfach");
           $formular         = new UI\FormularTabelle();
           $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Löschfrist Postfach (Tage):"),          (new UI\Zahlenfeld("dshProfilPostfachLoeschfrist", 1, 1000))->setWert($posttage));
           $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Löschfrist Papierkorb (Tage):"),        (new UI\Zahlenfeld("dshProfilPapierkorbLoeschfrist", 1, 1000))->setWert($papierkorbtage));
 
           $formular[]       = (new UI\Knopf("Änderungen speichern", "Erfolg"))  ->setSubmit(true);
           $formular         ->addSubmit("kern.schulhof.nutzerkonto.aendern.einstellungen.postfach()");
+          $reiterspalte[]   = $formular;
+        }
+        if ($DSH_BENUTZER->hatRecht("$recht.einstellungen.email")) {
+          $reiterspalte[]   = new UI\Ueberschrift(3, "eMail-Postfach");
+          $reiterspalte[]   = new UI\Meldung("eMails im Schulhof empfangen", "Achtung! Damit eMails im Schulhof empfangen werden können, müssen Zugangsdaten gespeichert werden. Dies geschieht natürlich verschlüsselt.", "Information");
+          $formular         = new UI\FormularTabelle();
+          $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Aktiv:"),          (new UI\IconToggle("dshProfilEmailAktiv", "eMails über den Schulhof verwalten", new UI\Icon(UI\Konstanten::HAKEN)))->setWert($mailaktiv));
+          $formular[]       = new UI\FormularFeld(new UI\InhaltElement("eMail-Adresse:"),             (new UI\Mailfeld("dshProfilEmailAdresse"))->setWert($mailadresse));
+          $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Anzeigename:"),               (new UI\Textfeld("dshProfilEmailName"))->setWert($mailname));
+          $formular[]       = new UI\FormularFeld(new UI\InhaltElement("IMAP-Host (Posteingang):"),   (new UI\Textfeld("dshProfilEmailEingangHost"))->setWert($mailehost));
+          $formular[]       = new UI\FormularFeld(new UI\InhaltElement("IMAP-Port (Posteingang):"),   (new UI\Zahlenfeld("dshProfilEmailEingangPort",0,65535))->setWert($maileport));
+          $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Benutzername (Posteingang):"),(new UI\Textfeld("dshProfilEmailEingangNutzer"))->setWert($mailenutzer));
+          $formular[]       = (new UI\FormularFeld(new UI\InhaltElement("Passwort (Posteingang):"),    (new UI\Passwortfeld("dshProfilEmailEingangPasswort"))->setWert($mailepasswort)))->setOptional(true);
+          $formular[]       = new UI\FormularFeld(new UI\InhaltElement("SMTP-Host (Postausgang):"),   (new UI\Textfeld("dshProfilEmailAusgangHost"))->setWert($mailahost));
+          $formular[]       = new UI\FormularFeld(new UI\InhaltElement("SMTP-Port (Postausgang):"),   (new UI\Zahlenfeld("dshProfilEmailAusgangPort",0,65535))->setWert($mailaport));
+          $formular[]       = (new UI\FormularFeld(new UI\InhaltElement("Benutzername (Postausgang):"),(new UI\Textfeld("dshProfilEmailAusgangNutzer"))->setWert($mailanutzer)))->setOptional(true);
+          $formular[]       = (new UI\FormularFeld(new UI\InhaltElement("Passwort (Postausgang):"),    (new UI\Passwortfeld("dshProfilEmailAusgangPasswort"))->setWert($mailapasswort)))->setOptional(true);
+
+          $formular[]       = (new UI\Knopf("Änderungen speichern", "Erfolg"))  ->setSubmit(true);
+          $formular         ->addSubmit("kern.schulhof.nutzerkonto.aendern.einstellungen.email()");
           $reiterspalte[]   = $formular;
         }
         $reiterkopf = new UI\Reiterkopf("Einstellungen");

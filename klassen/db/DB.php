@@ -175,38 +175,64 @@ class DB {
         $tabellepfad = $anfragenteile[1];
       }
 
-      if (strtoupper($anfragenteile[0]) == "INSERT") {
-        $aktion = "Neuer Datensatz";
-      } else if (strtoupper($anfragenteile[0]) == "UPDATE") {
-        $aktion = "Änderung";
-      } else if (strtoupper($anfragenteile[0]) == "DELETE") {
-        $aktion = "Löschung";
-      } else {
-        $aktion = false;
+      $aktion = [];
+      if (strpos(strtoupper($anfragenteile[0]), "INSERT") !== false) {
+        $aktion[] = "Neuer Datensatz";
+      }
+      if (strpos(strtoupper($anfragenteile[0]), "UPDATE") !== false) {
+        $aktion[] = "Änderung";
+      }
+      if (strpos(strtoupper($anfragenteile[0]), "DELETE") !== false) {
+        $aktion[] = "Löschung";
       }
 
-      if ($aktion) {
+      if (count($aktion) > 0) {
+        $aktion = join(", ", $aktion);
         global $DBS;
-        $DBS->logZugriff("DB", $tabellepfad, $anfragewertlos, $aktion);
+        $DBS->logZugriff("DB", $tabellepfad, $anfragewertlos, $aktion, $werte);
       }
     }
 
     return new Anfrage($anzahl, $ergebnis);
   }
 
-  public function logZugriff($art, $tabellepfad, $datensatzdatei, $aktion) {
+  public function logZugriff($art, $tabellepfad, $datensatzdatei, $aktion, $werte = []) {
     if (!$this->log) {
       return;
     }
     global $DBS, $DSH_BENUTZER;
+    if ($art == "DB") {
+      $log = "<b>Anfrage:</b><br>$datensatzdatei<br><br>";
+      if (count($werte) > 0) {
+        $log .= "<b>Werte:</b><br>";
+        $logw = [];
+        if (!is_array($werte[0])) {
+          $nr = 1;
+          foreach ($werte as $w) {
+            $logw[] = "[$nr] $w ";
+          }
+        } else {
+          foreach ($werte as $wert) {
+            $nr = 1;
+            $logw = [];
+            foreach ($wert as $w) {
+              $logw[] = "[$nr] $w ";
+            }
+            $log .= join(", ", $logw)."<br>";
+          }
+        }
+      }
+      $datensatzdatei = $log;
+    }
+
     $zeitpunkt = time();
-    $neueid = $DBS->neuerDatensatz("kern_aktionslog", true, true);
+    $neueid = $DBS->neuerDatensatz("kern_nutzeraktionslog", true, true);
     if ($DSH_BENUTZER !== null) {
       $nutzerid = $DSH_BENUTZER->getId();
-      $sql = $this->db->prepare("UPDATE kern_aktionslog SET nutzer = ?, art = AES_ENCRYPT(?, '{$this->schluessel}'), tabellepfad = AES_ENCRYPT(?, '{$this->schluessel}'),  datensatzdatei = AES_ENCRYPT(?, '{$this->schluessel}'),  aktion = AES_ENCRYPT(?, '{$this->schluessel}'),  zeitpunkt = ? WHERE id = ?");
+      $sql = $this->db->prepare("UPDATE kern_nutzeraktionslog SET nutzer = ?, art = AES_ENCRYPT(?, '{$this->schluessel}'), tabellepfad = AES_ENCRYPT(?, '{$this->schluessel}'),  datensatzdatei = AES_ENCRYPT(?, '{$this->schluessel}'),  aktion = AES_ENCRYPT(?, '{$this->schluessel}'),  zeitpunkt = ? WHERE id = ?");
       $sql->bind_param("issssii", $nutzerid, $art, $tabellepfad, $datensatzdatei, $aktion, $zeitpunkt, $neueid);
     } else {
-      $sql = $this->db->prepare("UPDATE kern_aktionslog SET art = AES_ENCRYPT(?, '{$this->schluessel}'), tabellepfad = AES_ENCRYPT(?, '{$this->schluessel}'),  datensatzdatei = AES_ENCRYPT(?, '{$this->schluessel}'),  aktion = AES_ENCRYPT(?, '{$this->schluessel}'),  zeitpunkt = ? WHERE id = ?");
+      $sql = $this->db->prepare("UPDATE kern_nutzeraktionslog SET art = AES_ENCRYPT(?, '{$this->schluessel}'), tabellepfad = AES_ENCRYPT(?, '{$this->schluessel}'),  datensatzdatei = AES_ENCRYPT(?, '{$this->schluessel}'),  aktion = AES_ENCRYPT(?, '{$this->schluessel}'),  zeitpunkt = ? WHERE id = ?");
       $sql->bind_param("ssssii", $art, $tabellepfad, $datensatzdatei, $aktion, $zeitpunkt, $neueid);
     }
     $sql->execute();
