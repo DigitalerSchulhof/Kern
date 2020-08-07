@@ -32,16 +32,16 @@ if ($benutzername === null) {
 }
 
 if ($logart == "DB") {
-  $meldetitel .= new UI\Icon("fas fa-database");
+  $icon = new UI\Icon("fas fa-database");
 } else if ($logart == "Datei") {
-  $meldetitel .= new UI\Icon("fas fa-archive");
+  $icon = new UI\Icon("fas fa-archive");
 } else {
-  $meldetitel .= new UI\Icon("fas fa-shoe-prints");
+  $icon = new UI\Icon("fas fa-shoe-prints");
 }
-$meldetitel .= " $aktion vom ".((new UI\Datum($zeitpunkt))->kurz("MUs"));
+$meldetitel = "$aktion vom ".((new UI\Datum($zeitpunkt))->kurz("MUs"));
 $meldeinhalt .= new UI\Code($datensatzdatei);
 
 Anfrage::setTyp("Meldung");
-Anfrage::setRueck("Meldung", new UI\Meldung($meldetitel, $meldeinhalt, "Information"));
+Anfrage::setRueck("Meldung", new UI\Meldung($meldetitel, $meldeinhalt, "Information", $icon));
 Anfrage::setRueck("Knöpfe", [UI\Knopf::ok()]);
 ?>
