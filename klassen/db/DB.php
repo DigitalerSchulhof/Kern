@@ -210,6 +210,7 @@ class DB {
           $nr = 1;
           foreach ($werte as $w) {
             $logw[] = "[$nr] $w ";
+            $nr++;
           }
         } else {
           foreach ($werte as $wert) {
@@ -217,6 +218,7 @@ class DB {
             $logw = [];
             foreach ($wert as $w) {
               $logw[] = "[$nr] $w ";
+              $nr++;
             }
             $log .= join(", ", $logw)."<br>";
           }
