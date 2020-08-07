@@ -1,7 +1,5 @@
 <?php
-namespace DB;
-use DB\Anfrage;
-use Kern;
+namespace Kern;
 
 /**
 * Eine Datenbankverbindung
@@ -54,7 +52,7 @@ class DB {
    */
   public static function log() {
     global $DBS, $DSH_DBS;
-    $log = Kern\Einstellungen::laden("Kern", "Aktionslog");
+    $log = Einstellungen::laden("Kern", "Aktionslog");
     if ($log == "1") {
       $log = true;
     } else {

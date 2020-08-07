@@ -1,6 +1,5 @@
 <?php
 namespace Kern;
-use DB;
 use UI;
 
 class Person {

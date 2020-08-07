@@ -1,5 +1,5 @@
 <?php
-namespace DB;
+namespace Kern;
 
 /**
 * Eine Datenbankanfrage

@@ -10,7 +10,7 @@ include_once("$KLASSEN/rechtehelfer.php");
 include_once("$KLASSEN/person.php");
 include_once("$KLASSEN/profil.php");
 
-use \DB\DB;
+use \Kern\DB;
 
 global $DSH_DBS;
 $DSH_DBS = [];
