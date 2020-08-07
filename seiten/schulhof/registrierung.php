@@ -15,7 +15,7 @@ if (!Kern\Check::einwilligung("DSH")) {
 } else {
   $spalte[]         = new UI\Meldung("Mehrfache Registrierungen", "Registrierungen müssen vom Administrator Personen zugeordnet werden. Dies kann einige Zeit in Anspruch nehmen. Mehrfache Registrierungen beschleunigen das Verfahren nicht!", "Warnung");
 
-  $spalte[]         = new UI\Meldung("Datenschutzhinweis", "Mit der Registrierung geht die Einverständnis in die Datenschutzvereinbarung des Digitalen Schulhofs einher. Diese kann hier eingesehen werden: ".(new UI\Link("Datenschutzvereinbarungen lesen", "Website/Datenschutz")), "Information");
+  $spalte[]         = new UI\Meldung("Datenschutzhinweis", "Mit der Registrierung geht das Einverständnis mit der Datenschutzvereinbarung des Digitalen Schulhofs einher. Diese kann hier eingesehen werden: ".(new UI\Link("Datenschutzvereinbarungen lesen", "Website/Datenschutz")), "Information");
 
   $formular         = new UI\FormularTabelle();
 

@@ -155,7 +155,7 @@ kern.schulhof.nutzerkonto = {
     },
     details: (logid) => {
       var id         = $("#dshProfilId").getWert();
-      core.ajax("Kern", 17, "Aktionslog-Details laden", {logid:logid});
+      core.ajax("Kern", 17, "Aktionslog-Details", {logid:logid});
     },
     laden: (id) => {
       if (id == "alle") {
