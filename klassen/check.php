@@ -3,6 +3,10 @@ namespace Kern;
 
 class Check {
 
+  public static function istModul($modul) {
+    return preg_match("/^[A-Za-z0-9]{1,16}$/", $modul) === 1;
+  }
+
   // Liefert das mögliche System
   public static function systeminfo() {
     $info = strtolower($_SERVER['HTTP_USER_AGENT']);
