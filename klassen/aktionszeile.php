@@ -73,7 +73,7 @@ class Aktionszeile extends UI\Element {
         if($i > 0) {
           $brotkrumen .= " / ";
         }
-        $segmentanzeige = str_replace("_", " ", $segment);
+        $segmentanzeige = Check::strToLink($segment);
         $el = new UI\InhaltElement("$segmentanzeige");
         $el->getAktionen()->addFunktion("href", "$pfad$segment");
         $el->setTag("a");
