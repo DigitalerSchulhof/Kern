@@ -20,20 +20,21 @@ if ($aktionen) {
 // @TODO: modulstati prüfen
 $zeilen = [];
 $modulstati = [];
-foreach ($DSH_ALLEMODULE as $modul) {
-  $zeile = [];
-  $zeile[""] = new UI\Icon("fas fa-puzzle-piece");
-  $zeile["Modul"] = $modul;
-  $version = "1.1.1";
-  $zeile["Version"] = $version;
-  $modulid = Kern\Check::strToCode($modul);
-  $modulstati[] = $modulid;
-  $zeile["Status"] = "<span id=\"dshVerwaltungModuleStatus$modulid\">".(new UI\Ladesymbol())."</span><scrip>kern.module</scrip>";
-  $zeile["Status"] = "<span id=\"dshVerwaltungModuleStatus$modulid\">".(new UI\Ladesymbol())."</span>";
-  $zeilen[] = $zeile;
+foreach ($module as $modul) {
+  if (is_dir("$pfad/$modul")) {
+    $zeile = [];
+    $zeile[""] = new UI\Icon("fas fa-puzzle-piece");
+    $zeile["Modul"] = $modul;
+    $version = "1.1.1";
+    $zeile["Version"] = $version;
+    $modulid = Kern\Check::strToCode($modul);
+    $modulstati[] = $modulid;
+    $zeile["Status"] = "<span id=\"dshVerwaltungModuleStatus$modulid\">".(new UI\Ladesymbol())."</span><scrip>kern.schulhof.verwaltung.module.status('$modulid', '$version')</scrip>";
+    $zeilen[] = $zeile;
+  }
 }
-$tabelle = new UI\Tabelle("dshVerwaltungModule", $titel, $zeilen);
-
+$tabelle  = new UI\Tabelle("dshVerwaltungModule", $titel, $zeilen);
+$spalte[] = $tabelle;
 if ("kern.module.installieren") {
   // @TODO: Module installieren
   $knopf = new UI\IconKnopf(new UI\Icon (UI\Konstanten::NEU), "Neue Module installieren", "Erfolg");

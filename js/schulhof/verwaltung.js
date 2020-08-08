@@ -1,17 +1,34 @@
 kern.schulhof.verwaltung = {
   module: {
-    status: (id) => {
-      var feld = $("#"+id);
-      // TODO: Aktualität des Moduls prüfen und ggf. eine Aktualiseren-Knopf erzeugen
-      var aktuell = "aktuell";
-      if (aktuell == "aktuell") {
-        var rueckgabe = ui.laden.Komponente({komponente:"IconKnopf", inhalt:"Aktuell", icon:"Konstanten::HAKEN"});
-      } else {
-        var version = "Aktualisieren zu "+aktuell;
-        var klick = "kern.schulhof.verwaltung.module.update('"+modul+"')";
-        var rueckgabe = ui.laden.Komponente({komponente:"IconKnopf", typ:"Erfolg", inhalt:version, icon:"Konstanten::UPDATE", klickaktion:klick});
+    versionNeuer: (versionalt, versionneu) => {
+      var va = versionalt.split(".");
+      var vn = versionneu.split(".");
+      for (var i=0; i<vn.length; i++) {
+        if (va[i] !== undefined) {
+          if (vn[i] > va[i]) {
+            return true;
+          }
+        } else {
+          return true;
+        }
       }
-      feld.setHTML(rueckgabe);
+      return false;
+    },
+    status: (modulid, version) => {
+      var feld = $("#dshVerwaltungModuleStatus"+modulid);
+      // TODO: Aktualität des Moduls prüfen und ggf. eine Aktualiseren-Knopf erzeugen
+      var rueck = version;
+      if (kern.schulhof.verwaltung.module.versionNeuer(version, rueck)) {
+        var inhalt = "Aktualisieren zu "+reuck;
+        var klick = "kern.schulhof.verwaltung.module.update('"+modulid+"')";
+        ui.laden.Komponente({komponente:"IconKnopf", art:"Erfolg", inhalt:inhalt, icon:"Konstanten::UPDATE", klickaktion:klick}).then((r) => {
+          feld.setHTML(r.code);
+        });
+      } else {
+        ui.laden.Komponente({komponente:"IconKnopf", inhalt:"Aktuell", icon:"Konstanten::HAKEN"}).then((r) => {
+          feld.setHTML(r.code);
+        });
+      }
     }
   }
 };

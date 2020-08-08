@@ -63,7 +63,7 @@ $spalteLinks[]          = new UI\Absatz("$knopfApple $knopfAndroid $knopfGitHub"
 $spalteLinks[]          = new UI\Ueberschrift(2, "Links");
 $spalteLinks[]          = new UI\Absatz("Links folgen");
 
-$SEITE[]                  = new UI\Zeile($spalteAnmeldung, $spalteLinks);
+$SEITE[]                = new UI\Zeile($spalteAnmeldung, $spalteLinks);
 
 $SEITE->setCodedanach("<script>kern.schulhof.oeffentlich.browsercheck()</script>");
 ?>
