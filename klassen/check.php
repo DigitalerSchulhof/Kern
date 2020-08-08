@@ -58,6 +58,10 @@ class Check {
     return preg_replace($suche, $ersetzen, $string);
   }
 
+  public static function strToLink($string) {
+    return str_replace(" ", "_", $string);
+  }
+
   public static function verboten($recht) {
     global $DSH_BENUTZER, $DSH_TITEL, $CODE;
     if (!$DSH_BENUTZER->hatRecht($recht)) {
