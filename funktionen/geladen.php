@@ -3,6 +3,7 @@ include_once("$KLASSEN/check.php");
 include_once("$KLASSEN/db/Anfrage.php");
 include_once("$KLASSEN/db/DB.php");
 include_once("$KLASSEN/aktionszeile.php");
+include_once("$KLASSEN/seite.php");
 include_once("$KLASSEN/einstellungen.php");
 include_once("$KLASSEN/dateisystem.php");
 include_once("$KLASSEN/mail.php");

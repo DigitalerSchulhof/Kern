@@ -1,13 +1,6 @@
 <?php
-if(!Kern\Check::angemeldet()) {
-  einbinden("Schulhof/Anmeldung");
-  return;
-}
+$SEITE = new Kern\Seite("Module", "kern.module.sehen");
 
-Kern\Check::verboten("kern.module.sehen");
-
-$DSH_TITEL  = "Module";
-$CODE[]     = new Kern\Aktionszeile();
 $spalte     = new UI\Spalte("A1", new UI\SeitenUeberschrift("Module"));
 
 $pfad = "$ROOT/module";
@@ -49,6 +42,6 @@ if ("kern.module.installieren") {
   //$knopf->addFunktion("onclick", "alert('Diese Funktin steht noch nicht zur Verfügung.')");
   $spalte[] = new UI\Absatz($knopf);
 }
-$CODE[]     = new UI\Zeile($spalte);
 
+$SEITE->addZeile(new UI\Zeile($spalte));
 ?>
