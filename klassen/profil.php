@@ -63,7 +63,7 @@ class Profil {
     $anfrage = $DBS->anfrage($sql, "i", $this->person->getId());
 
     $darfloeschen = $DSH_BENUTZER->hatRecht("$recht.sessionprotokoll.löschen");
-    $titel = ["", "Session-ID (Hash)", "Browser", "Sessiontimeout", "Anmeldezeit"];
+    $titel = ["", "Sessionstatus", "Browser", "Sessiontimeout", "Anmeldezeit"];
     if ($darfloeschen) {$titel[] = "Aktionen";}
 
     $zeilen = [];
@@ -71,9 +71,9 @@ class Profil {
       $neuezeile = [];
       $neuezeile[""] = new UI\Icon("fas fa-history");
       if ($sessionid != null) {
-        $neuezeile["Session-ID (Hash)"] = SHA1($sessionid);
+        $neuezeile["Sessionstatus"] = "gültig";
       } else {
-        $neuezeile["Session-ID (Hash)"] = "<i>erloschen</i>";
+        $neuezeile["Sessionstatus"] = "<i>erloschen</i>";
       }
       $neuezeile["Browser"] = $browser;
 

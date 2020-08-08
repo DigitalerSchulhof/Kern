@@ -26,7 +26,7 @@ foreach($KATEGORIEN as $kat) {
   if(!($kat instanceof Kern\Verwaltung\Kategorie)) {
     throw new Exception("Die Kategorie ist ungültig");
   } else {
-    $spalte     = new UI\Spalte("A5");
+    $spalte     = new UI\Spalte("A4");
     $spalte[]   = new UI\Ueberschrift("2", $kat->getTitel());
 
     $zeile[]    = $spalte;

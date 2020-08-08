@@ -34,7 +34,6 @@ class Check {
       }
     }
 
-
     // Betriebssystem
     if (preg_match("/linux/", $info)) {
       $os = "Linux";
@@ -47,6 +46,24 @@ class Check {
     }
 
     return "<span title=\"$info\">$browser $version ($os)</span>";
+  }
+
+  public static function strToCode($string) {
+    $suche    = ["/ /", "/Ä/", "/Ö/", "/Ü/", "/ß/", "/ä/", "/ö/", "/ü/"];
+    $ersetzen = ["",    "Ae",  "Oe",  "Ue",  "ss",  "ae",  "oe",  "ue"];
+    return preg_replace($suche, $ersetzen, $string);
+  }
+
+  public static function verboten($recht) {
+    global $DSH_BENUTZER, $DSH_TITEL, $CODE;
+    if (!$DSH_BENUTZER->hatRecht($recht)) {
+      einbinden("Fehler/403");
+      \Anfrage::setTyp("Seite");
+      \Anfrage::setRueck("Titel",  $DSH_TITEL);
+      \Anfrage::setRueck("Code",   $CODE);
+      \Anfrage::ausgeben();
+      die();
+    }
   }
 
   public static function boese($string) {

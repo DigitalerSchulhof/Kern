@@ -45,9 +45,11 @@ kern:
         sehen: Aktionsprotokoll sehen
         details: Details ansehen
         löschen: Aktionsprotokoll löschen
+  verwaltung: Verwaltungsbereich sehen
   module:
     sehen: Module sehen
     installieren: Module installieren
+    aktualisieren: Module aktualisieren
     entfernen: Module entfernen
-  einstellungen: Einstellungen des Kerns ändern
+    einstellungen: Einstellungen an Modulen vornehmen
   konfiguration: Konfiguration ändern
