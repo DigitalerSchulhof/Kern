@@ -27,6 +27,11 @@ foreach ($DSH_ALLEMODULE as $modulpfad) {
   } else {
     $version = "<i>unbekannt</i>";
   }
+  if (isset($modulinfo["modul"]["einstellungen"])) {
+    $einstellungen = $modulinfo["modul"]["einstellungen"];
+  } else {
+    $einstellungen = false;
+  }
   $zeile["Version"] = $version;
   $modulid = Kern\Check::strToCode($modul);
   $modullink = Kern\Check::strToLink($modul);
@@ -42,7 +47,7 @@ foreach ($DSH_ALLEMODULE as $modulpfad) {
     $versionsknopf->addFunktion("onclick", "kern.schulhof.verwaltung.module.version('$modulid')");
     $aktionen[] = $versionsknopf;
   }
-  if ($darfei) {
+  if ($darfei && $einstellungen) {
     $einstellknopf = new UI\MiniIconKnopf(new UI\Icon("fas fa-sliders-h"), "Einstellungen");
     $einstellknopf->addFunktion("href", "Schulhof/Verwaltung/Module/$modullink");
     $aktionen[] = $einstellknopf;
