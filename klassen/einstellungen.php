@@ -12,7 +12,7 @@ class Einstellungen {
   public static function laden($modul, $wert) : string {
     // Falsches Modul
     $modul = strtolower($modul);
-    if (!UI\Check::istLatein($modul)) {
+    if (!Check::istModul($modul)) {
       throw new \Exception("Ungültiges Modul");
     }
 
@@ -30,7 +30,7 @@ class Einstellungen {
   public static function ladenAlle($modul) : array {
     // Falsches Modul
     $modul = strtolower($modul);
-    if (!UI\Check::istLatein($modul)) {
+    if (!Check::istModul($modul)) {
       throw new \Exception("Ungültiges Modul");
     }
 
