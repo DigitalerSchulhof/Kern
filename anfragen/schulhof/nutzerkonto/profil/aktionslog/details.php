@@ -22,6 +22,9 @@ $recht = $profil->istFremdzugriff();
 if (!$DSH_BENUTZER->hatRecht("$recht.aktionslog.details")) {
   Anfrage::addFehler(-4, true);
 }
+if ($DSH_BENUTZER !== $nutzerid && !$DSH_BENUTZER->hatRecht("kern.personen.profil.aktionslog.details")) {
+  Anfrage::addFehler(-4, true);
+}
 
 $meldetitel = "";
 $meldeinhalt = "";
@@ -41,6 +44,10 @@ if ($logart == "DB") {
 $meldetitel = "$aktion vom ".((new UI\Datum($zeitpunkt))->kurz("MUs"));
 $meldeinhalt .= new UI\Code($datensatzdatei);
 
-Anfrage::setTyp("Meldung");
-Anfrage::setRueck("Meldung", new UI\Meldung($meldetitel, $meldeinhalt, "Information", $icon));
+$code = new UI\Fenster("dshProfilFensterLoginfo$logid", "Aktionslog-Details", new UI\Meldung($meldetitel, $meldeinhalt, "Information", $icon));
+$code->addFensteraktion(UI\Knopf::schliessen("dshProfilFensterLoginfo$logid"));
+
+
+Anfrage::setTyp("Code");
+Anfrage::setRueck("Code", (string) $code);
 ?>

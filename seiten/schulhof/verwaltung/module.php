@@ -1,16 +1,15 @@
 <?php
 $SEITE = new Kern\Seite("Module", "kern.module.sehen");
 
+include_once("$ROOT/yaml.php");
 $spalte = new UI\Spalte("A1", new UI\SeitenUeberschrift("Module"));
 
 $darflo = $DSH_BENUTZER->hatRecht("kern.module.loeschen");
 $darfei = $DSH_BENUTZER->hatRecht("kern.module.einstellungen");
-$aktionen = $darflo || $darfei;
+$darfve = $DSH_BENUTZER->hatRecht("kern.module.versionshistorie");
+$aktionen = $darflo || $darfei || $darfve;
 
-$titel = ["", "Modul", "Version", "Status"];
-if ($aktionen) {
-  $titel[] = "Aktionen";
-}
+$titel = ["", "Modul", "Version", "Status", "Aktionen"];
 
 // @TODO: modulstati prüfen
 $modulstati = [];
@@ -26,8 +25,17 @@ foreach ($DSH_ALLEMODULE as $modulpfad) {
   $modulid = Kern\Check::strToCode($modul);
   $modullink = Kern\Check::strToLink($modul);
   $modulstati[] = $modulid;
-  $zeile["Status"] = "<span id=\"dshVerwaltungModuleStatus$modulid\">".(new UI\Ladesymbol())."</apan><script>kern.schulhof.verwaltung.module.status('$modulid', '$version')</script>";
+  $zeile["Status"] = "<span id=\"dshVerwaltungModuleStatus$modulid\">".(new UI\IconKnopf(new UI\Icon(UI\Konstanten::LADEN), "Nach neuer Version suchen ..."))."</span>";
+  $zeile["Status"] .= "<script>kern.schulhof.verwaltung.module.status('$modulid', '$version')</script>";
   $aktionen = [];
+  $detailknopf = new UI\MiniIconKnopf(new UI\Icon(UI\Konstanten::DETAILS), "Details");
+  $detailknopf->addFunktion("onclick", "kern.schulhof.verwaltung.module.details('$modulid')");
+  $aktionen[] = $detailknopf;
+  if ($darfve) {
+    $versionsknopf = new UI\MiniIconKnopf(new UI\Icon("fas fa-code-branch"), "Versionshistorie");
+    $versionsknopf->addFunktion("onclick", "kern.schulhof.verwaltung.module.version('$modulid')");
+    $aktionen[] = $versionsknopf;
+  }
   if ($darfei) {
     $einstellknopf = new UI\MiniIconKnopf(new UI\Icon("fas fa-sliders-h"), "Einstellungen");
     $einstellknopf->addFunktion("href", "Schulhof/Verwaltung/$modullink/Einstellungen");

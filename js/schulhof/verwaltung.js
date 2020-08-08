@@ -19,14 +19,15 @@ kern.schulhof.verwaltung = {
       // TODO: Aktualität des Moduls prüfen und ggf. eine Aktualiseren-Knopf erzeugen
       var rueck = version;
       if (kern.schulhof.verwaltung.module.versionNeuer(version, rueck)) {
-        var inhalt = "Aktualisieren zu "+reuck;
+        var inhalt = "Aktualisieren zu "+rueck;
         var klick = "kern.schulhof.verwaltung.module.update('"+modulid+"')";
-        ui.laden.komponente({komponente:"IconKnopf", art:"Erfolg", inhalt:inhalt, icon:"Konstanten::UPDATE", klickaktion:klick}).then((r) => {
-          feld.setHTML(r.code);
+        ui.laden.komponente({komponente:"IconKnopf", art:"Warnung", inhalt:inhalt, icon:"fas fa-sync-alt", klickaktion:klick}).then((r) => {
+          feld.setHTML(r.Code);
         });
       } else {
-        ui.laden.komponente({komponente:"IconKnopf", inhalt:"Aktuell", icon:"Konstanten::HAKEN"}).then((r) => {
-          feld.setHTML(r.code);
+        ui.laden.komponente({komponente:"IconKnopf", art:"Erfolg", inhalt:"Aktuell", icon:"fas fa-check"}).then((r) => {
+          console.log(r);
+          feld.setHTML(r.Code);
         });
       }
     }

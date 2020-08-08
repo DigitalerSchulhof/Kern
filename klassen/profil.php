@@ -46,7 +46,7 @@ class Profil {
     global $DSH_BENUTZER;
     // Rechte Entscheidung:
     if ($DSH_BENUTZER->getId() != $this->person->getId()) {
-      $recht = "kern.personen.personen";
+      $recht = "kern.personen.profil";
       if (!$DSH_BENUTZER->hatRecht("$recht.sehen")) {
         throw new \Exception("Es liegt keine Berechitung für diese Funktion vor!");
       }
@@ -160,7 +160,7 @@ class Profil {
       if ($darfaktionen) {
         $neuezeile["Aktionen"] = "";
         if ($darfdetails) {
-          $detailknopf = new UI\MiniIconKnopf(new UI\Icon("fas fa-search"), "Details anzeigen");
+          $detailknopf = new UI\MiniIconKnopf(new UI\Icon(UI\Konstanten::DETAILS), "Details anzeigen");
           $detailknopf->addFunktion("onclick", "kern.schulhof.nutzerkonto.aktionslog.details('$id')");
           $neuezeile["Aktionen"] .= "$detailknopf ";
         }
