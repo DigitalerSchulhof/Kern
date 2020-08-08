@@ -117,7 +117,7 @@
   beschreibung: Die Anzahl an <b>Elementen pro Übersicht</b> ist ungültig. Sie muss zwischen 1 und 10 betragen.
 39:
   ort: anfragen/schulhof/nutzerkonto/profil/einstellungen/postfach.php
-  beschreibung: Die Anzahl an <b>Tagen bis zur Löscung im Postfach</b> ist ungültig. Sie muss zwischen 1 und 10 betragen.
+  beschreibung: Die Anzahl an <b>Tagen bis zur Löschung im Postfach</b> ist ungültig. Sie muss zwischen 1 und 10 betragen.
 40:
   ort: anfragen/schulhof/nutzerkonto/profil/einstellungen/postfach.php
   beschreibung: Die Anzahl an <b>Elementen pro Übersicht</b> ist ungültig. Sie muss zwischen 1 und 10 betragen.

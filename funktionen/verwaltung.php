@@ -7,9 +7,9 @@ use UI\Icon;
 $personen   = Liste::getKategorie("personen");
 $technik   = Liste::getKategorie("technik");
 
-$personen[] = new Element("Personen", "Benutzerdaten",  new Icon("fas fa-user"),         "Schulhof/Verwaltung/Personen");
-$personen[] = new Element("Rechte",   "Rechte",         new Icon("fas fa-wrench"),       "Schulhof/Verwaltung/Rechte");
-$personen[] = new Element("Rechte zuordnen",  "Rechte", new Icon("fas fa-user-cog"),     "Schulhof/Verwaltung/Rechte");
+$personen[] = new Element("Personen", "Benutzerdaten",  new Icon("fas fa-user"),          "Schulhof/Verwaltung/Personen");
+$personen[] = new Element("Rechte",   "Rechte",         new Icon("fas fa-lock"),          "Schulhof/Verwaltung/Rechte");
+$personen[] = new Element("Rechte zuordnen",  "Rechte", new Icon("fas fa-user-lock"),     "Schulhof/Verwaltung/Rechte");
 
 $technik[] = new Element("Module",    "Module",         new Icon("fas fa-puzzle-piece"), "Schulhof/Verwaltung/Module", true);
 $technik[] = new Element("Style",     "Style",          new Icon("fas fa-palette"),      "Schulhof/Verwaltung/Style");

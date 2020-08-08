@@ -18,7 +18,7 @@ switch ($meldeid) {
     } else {
       $titel = "Wirklich diese Session löschen?";
     }
-    $inhalt = "Bitte die Löscung bestätigen, um ein Versehen auszuschließen.";
+    $inhalt = "Bitte die Löschung bestätigen, um ein Versehen auszuschließen.";
     Anfrage::setRueck("Meldung", new UI\Meldung($titel, $inhalt, "Warnung"));
     $knoepfe[] = new UI\Knopf("Löschen", "Warnung", "kern.schulhof.nutzerkonto.sessions.loeschen.ausfuehren('{$parameter[0]}')");
     $knoepfe[] = UI\Knopf::abbrechen();
@@ -32,7 +32,7 @@ switch ($meldeid) {
     } else {
       $titel = "Wirklich diesen Aktionslog-Eintrag löschen?";
     }
-    $inhalt = "Bitte die Löscung bestätigen, um ein Versehen auszuschließen.";
+    $inhalt = "Bitte die Löschung bestätigen, um ein Versehen auszuschließen.";
     Anfrage::setRueck("Meldung", new UI\Meldung($titel, $inhalt, "Warnung"));
     $knoepfe[] = new UI\Knopf("Löschen", "Warnung", "kern.schulhof.nutzerkonto.aktionslog.loeschen.ausfuehren('{$parameter[0]}')");
     $knoepfe[] = UI\Knopf::abbrechen();
