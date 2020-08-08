@@ -43,5 +43,4 @@ $meldeinhalt .= new UI\Code($datensatzdatei);
 
 Anfrage::setTyp("Meldung");
 Anfrage::setRueck("Meldung", new UI\Meldung($meldetitel, $meldeinhalt, "Information", $icon));
-Anfrage::setRueck("Knöpfe", [UI\Knopf::ok()]);
 ?>
