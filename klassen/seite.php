@@ -110,7 +110,7 @@ class Seite implements \ArrayAccess {
       throw new \TypeError("Die übergebene Spalte ist nicht vom Typ \\UI\\Zeile");
     }
     if(!is_null($o)) {
-      throw new \TypeError("Nicht implementiert!");
+      throw new \Exception("Nicht implementiert!");
     }
     $this->zeilen[]    = $v;
   }

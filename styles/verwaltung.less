@@ -1,0 +1,66 @@
+.dshVerwaltungsKategorie {
+  display: flex;
+  flex-flow: column;
+}
+
+  .dshVerwaltungsKategorie .dshVerwaltungsElement {
+    box-shadow: 2px 2px 4px 1px rgba(33, 33, 33, 0.1);
+    padding: 7px 13px;
+    display: block;
+    min-height: 40px;
+    position: relative;
+    border-bottom: 2px solid;
+    width: 100%;
+    display: flex;
+    flex-flow: row;
+    transition: all 250ms ease-in-out;
+  }
+
+  .dshVerwaltungsKategorie .dshVerwaltungsElement:first-child {
+    border-top-left-radius: @radius2;
+    border-top-right-radius: @radius2;
+  }
+  .dshVerwaltungsKategorie .dshVerwaltungsElement:last-child {
+    border-bottom-left-radius: @radius2;
+    border-bottom-right-radius: @radius2;
+  }
+
+  .dshVerwaltungsKategorie .dshVerwaltungsElement:hover,
+  .dshVerwaltungsKategorie .dshVerwaltungsElement:focus {
+    box-shadow: 2px 2px 4px 1px rgba(33, 33, 33, 0.1), inset 2px 2px 4px 1px rgba(33, 33, 33, 0.1);
+    outline: none;
+  }
+    .dshVerwaltungsKategorie .dshVerwaltungsElement .dshUiIcon {
+      font-size: 30px;
+      padding: 5px 0;
+    }
+
+    .dshVerwaltungsKategorie .dshVerwaltungsElement h4 {
+      line-height: 40px;
+      margin-top: 0;
+      margin-left: 10px;
+      display: inline-block;
+      flex-grow: 1;
+    }
+
+// FARBEN;
+
+.dshVerwaltungsKategorie .dshVerwaltungsElement {
+  background-color: @standardHintergrund;
+  color: @standardSchrift;
+  border-bottom-color: @standardAkzent !important;
+}
+
+.dshVerwaltungsKategorie .dshVerwaltungsElement .dshUiIcon {
+  color: @standardAkzent;
+}
+
+.dshVerwaltungsKategorie .dshVerwaltungsElement.dshVerwaltungsElementFortgeschritten {
+  background-color: @warnungHintergrund;
+  color: @warnungSchrift;
+  border-bottom-color: @warnungAkzent !important;
+}
+
+.dshVerwaltungsKategorie .dshVerwaltungsElement.dshVerwaltungsElementFortgeschritten .dshUiIcon {
+  color: @warnungAkzent;
+}

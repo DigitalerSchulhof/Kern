@@ -5,9 +5,10 @@ $SEITE[] = UI\Zeile::standard((new UI\SeitenUeberschrift("Verwaltungsbereich"))-
 
 include_once "$DIR/klassen/verwaltungselemente.php";
 
-global $KATEGORIEN;
+use Kern\Verwaltung\Liste;
+use Kern\Verwaltung\Kategorie;
 
-$KATEGORIEN = [];
+Liste::addKategorie(new Kategorie("personen", "Personen"), new Kategorie("technik", "Technik"));
 
 foreach($DSH_ALLEMODULE as $modul) {
   if(file_exists("$modul/funktionen/verwaltung.php")) {
@@ -17,14 +18,22 @@ foreach($DSH_ALLEMODULE as $modul) {
 
 $zeile = new UI\Zeile();
 
-foreach($KATEGORIEN as $kat) {
-  if(!($kat instanceof Kern\Verwaltung\Kategorie)) {
+foreach(Liste::getKategorien() as $kat) {
+  if(!($kat instanceof \Kern\Verwaltung\Kategorie)) {
     throw new Exception("Die Kategorie ist ungültig");
   } else {
-    $spalte     = new UI\Spalte("A4");
-    $spalte[]   = new UI\Ueberschrift("2", $kat->getTitel());
+    if(count($kat->getElemente()) > 0) {
+      $spalte       = new UI\Spalte("A4");
+      $elemente     = new UI\Box();
+      $elemente     ->addKlasse("dshVerwaltungsKategorie");
+      $spalte[]     = new UI\Ueberschrift("2", $kat->getTitel());
 
-    $zeile[]    = $spalte;
+      foreach($kat->getElemente() as $element) {
+        $elemente[] = $element;
+      }
+      $spalte[]     = $elemente;
+      $zeile[]      = $spalte;
+    }
   }
 }
 $SEITE[] = $zeile;
