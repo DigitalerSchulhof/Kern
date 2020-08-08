@@ -45,5 +45,4 @@ $anfrage = $DBS->anfrage($sql, "sssssssssssi", $aktiv, $adresse, $name, $ehost, 
 
 Anfrage::setTyp("Meldung");
 Anfrage::setRueck("Meldung", new UI\Meldung("Änderungen erfolgreich!", "Die Änderungen der eMail-Einstellungen wurden vorgenomen.", "Erfolg"));
-Anfrage::setRueck("Knöpfe", [UI\Knopf::ok()]);
 ?>

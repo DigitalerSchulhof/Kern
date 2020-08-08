@@ -29,5 +29,4 @@ $anfrage = $DBS->anfrage($sql, "sssi", $uebersichtselemente, $inaktivitaetszeit,
 
 Anfrage::setTyp("Meldung");
 Anfrage::setRueck("Meldung", new UI\Meldung("Änderungen erfolgreich!", "Die Änderungen der Nutzerkonto-Einstellungen wurden vorgenomen.", "Erfolg"));
-Anfrage::setRueck("Knöpfe", [UI\Knopf::ok()]);
 ?>

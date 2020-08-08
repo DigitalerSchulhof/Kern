@@ -20,5 +20,4 @@ $anfrage = $DBS->anfrage($sql, "sssssi", $notifikationen, $nachrichten, $termin,
 
 Anfrage::setTyp("Meldung");
 Anfrage::setRueck("Meldung", new UI\Meldung("Änderungen erfolgreich!", "Die Änderungen der Benachrichtigungseinstellungen wurden vorgenomen.", "Erfolg"));
-Anfrage::setRueck("Knöpfe", [UI\Knopf::ok()]);
 ?>

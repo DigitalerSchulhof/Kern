@@ -49,5 +49,4 @@ if ($logid != "alle") {
     Anfrage::setRueck("Meldung", new UI\Meldung("Aktionslog gelöscht!", "Alle aufgezeichneten Aktionen dieses Nutzers wurden entfernt.", "Erfolg"));
   }
 }
-Anfrage::setRueck("Knöpfe", [UI\Knopf::ok()]);
 ?>

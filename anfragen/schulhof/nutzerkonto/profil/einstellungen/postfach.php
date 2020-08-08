@@ -29,5 +29,4 @@ $anfrage = $DBS->anfrage($sql, "ssi", $postfach, $papierkorb, $id);
 
 Anfrage::setTyp("Meldung");
 Anfrage::setRueck("Meldung", new UI\Meldung("Änderungen erfolgreich!", "Die Änderungen der Postfach-Einstellungen wurden vorgenomen.", "Erfolg"));
-Anfrage::setRueck("Knöpfe", [UI\Knopf::ok()]);
 ?>

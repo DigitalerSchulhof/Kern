@@ -49,5 +49,4 @@ if ($sessionid != "alle") {
     Anfrage::setRueck("Meldung", new UI\Meldung("Session gelöscht!", "Alle Sessions dieses Nutzers wurden entfernt.", "Erfolg"));
   }
 }
-Anfrage::setRueck("Knöpfe", [UI\Knopf::ok()]);
 ?>
