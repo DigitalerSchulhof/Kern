@@ -1,17 +1,10 @@
 <?php
-if(!Kern\Check::angemeldet()) {
-  einbinden("Schulhof/Anmeldung");
-  return;
-}
-
-$DSH_TITEL  = "Profil";
-$CODE[]     = new Kern\Aktionszeile();
-$CODE[]     = UI\Zeile::standard(new UI\SeitenUeberschrift("Profil von ".($DSH_BENUTZER->getName())));
+$SEITE = new Kern\Seite("Profil", null);
 
 $spalte    = new UI\Spalte("A1");
+$spalte[]  = new UI\SeitenUeberschrift("Profil von ".($DSH_BENUTZER->getName()));
+$profil    = (new Kern\Profil($DSH_BENUTZER))->getProfil();
+$spalte[]  = $profil;
 
-$profil = (new Kern\Profil($DSH_BENUTZER))->getProfil();
-$spalte[]   = $profil;
-
-$CODE[]     = new UI\Zeile($spalte);
+$SEITE[]   = new UI\Zeile($spalte);
 ?>

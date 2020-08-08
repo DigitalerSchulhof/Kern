@@ -1,6 +1,5 @@
 <?php
-$DSH_TITEL          = "Zugangsdaten vergessen";
-$CODE[]             = new Kern\Aktionszeile();
+$SEITE = new Kern\Seite("Zugangsdaten vergessen");
 
 $spalte             = new UI\Spalte("A1");
 $spalte[]           = new UI\SeitenUeberschrift("Zugangsdaten vergessen");
@@ -10,7 +9,7 @@ if ($ldap == "1") {
   $spalte[]         = new UI\Meldung("Zugang für mehrere Konten", "Dieser Zugang wird für mehrere Dienste verwendet. Wenn er hier geändert wird, hat dies Auswirkungen auf all Ihre Zugänge, die diese Anmeldedaten verwenden!", "Warnung");
 }
 
-$CODE[]             = new UI\Zeile($spalte);
+$SEITE[] = new UI\Zeile($spalte);
 
 $passwortFormular   = new UI\FormularTabelle();
 $passwortFormular[] = new UI\FormularFeld(new UI\InhaltElement("Benutzer:"),  new UI\Textfeld("dshZugangsdatenPasswortBenutzer"));
@@ -31,7 +30,6 @@ $spalteBenutzer     = new UI\Spalte("A2");
 $spalteBenutzer[]   = new UI\Ueberschrift(2, "Benutzername");
 $spalteBenutzer[]   = $benutzerFormular;
 
-$CODE .= new UI\Zeile($spaltePasswort, $spalteBenutzer);
-
-$CODE .= UI\Zeile::standard((new UI\Knopf("Zurück zur Anmeldung"))            ->addFunktion("href", "Schulhof/Anmeldung"));
+$SEITE[] = new UI\Zeile($spaltePasswort, $spalteBenutzer);
+$SEITE[] = UI\Zeile::standard((new UI\Knopf("Zurück zur Anmeldung"))->addFunktion("href", "Schulhof/Anmeldung"));
 ?>

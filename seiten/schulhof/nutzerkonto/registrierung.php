@@ -1,6 +1,5 @@
 <?php
-$DSH_TITEL          = "Registrierung";
-$CODE[]             = new Kern\Aktionszeile();
+$SEITE = new Kern\Seite("Registrierung");
 
 $spalte             = new UI\Spalte("A1");
 $spalte[]           = new UI\SeitenUeberschrift("Registrierung");
@@ -56,5 +55,5 @@ if (!Kern\Check::einwilligung("DSH")) {
   $spalte[]         = $formular;
 }
 
-$CODE[]             = new UI\Zeile($spalte);
+$SEITE[]             = new UI\Zeile($spalte);
 ?>

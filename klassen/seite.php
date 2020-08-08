@@ -13,6 +13,8 @@ class Seite implements \ArrayAccess {
   protected $zeilen;
   /** @var bool Gibt an, ob die Seite eine Aktionszeile besitzt */
   protected $aktionszeile;
+  /** @var string Code am Ende der Seite */
+  protected $codedanach;
 
   /**
    * Erzeugt eine neue Seite, checkt Zugriffsrecht und reagiert entsprechend
@@ -22,11 +24,12 @@ class Seite implements \ArrayAccess {
    *                              string = Recht das benötigt wird
    * @param bool    $aktionszeile true = Aktionszeile ausgeben, false sonst
    */
-  public function __construct($titel, $recht = null, $aktionszeile = true) {
+  public function __construct($titel, $recht = false, $aktionszeile = true) {
     $this->titel = $titel;
     $this->recht = $recht;
     $this->zeilen = [];
     $this->aktionszeile = $aktionszeile;
+    $this->codedanach = "";
 
     if ($recht !== false) {
       if(!Check::angemeldet()) {
@@ -55,6 +58,16 @@ class Seite implements \ArrayAccess {
   }
 
   /**
+   * Setzt das Codedanach-Attribut auf den angegebenen Wert
+   * @param  string $codedanach :)
+   * @return self               :)
+   */
+  public function setCodedanach ($codedanach) : self {
+    $this->codedanach = $codedanach;
+    return $this;
+  }
+
+  /**
    * Fügt der Seite eine neue Zeile hinzu
    * @param  UI\Zeile $zeile :)
    * @return self            :)
@@ -76,7 +89,7 @@ class Seite implements \ArrayAccess {
     foreach ($this->zeilen as $z) {
       $code .= $z;
     }
-    return $code;
+    return $code.$this->codedanach;
   }
 
   /**

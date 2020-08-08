@@ -1,11 +1,6 @@
 <?php
-if(!Kern\Check::angemeldet()) {
-  einbinden("Schulhof/Anmeldung");
-  return;
-}
+$SEITE = new Kern\Seite("Nutzerkonto", null);
 
-$DSH_TITEL  = "Nutzerkonto";
-$CODE[]     = new Kern\Aktionszeile();
 $spalte     = new UI\Spalte();
 $spalte[]   = new UI\SeitenUeberschrift("Willkommen ".($DSH_BENUTZER->getName())."!");
 
@@ -33,11 +28,11 @@ $passworttimeout = $DSH_BENUTZER->getPassworttimeout();
 if ($passworttimeout !== 0) {
   $spalte[] = new UI\Meldung("Passwort läuft ab", "Das Kennwort ist nur noch bis ".(new UI\Datum($passworttimeout))." gültig. Bitte jetzt das ".(new UI\Link("Passwort ändern", "Schulhof/Nutzerkonto/Profil"))."!", "Warnung");
 }
-$CODE[]     = new UI\Zeile($spalte);
+$SEITE[]     = new UI\Zeile($spalte);
 
 $profil     = new Kern\Profil($DSH_BENUTZER);
 $spalte1    = new UI\Spalte("A2");
 $spalte1[]  = $profil->aktivitaetsanzeige("dshAktivitaetNutzerkonto");
 
-$CODE[]     = new UI\Zeile($spalte1);
+$SEITE[]     = new UI\Zeile($spalte1);
 ?>

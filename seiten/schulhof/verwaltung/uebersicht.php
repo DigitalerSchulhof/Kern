@@ -1,12 +1,7 @@
 <?php
-if(!Kern\Check::angemeldet()) {
-  einbinden("Schulhof/Anmeldung");
-  return;
-}
+$SEITE = new Kern\Seite("Verwaltungsbereich", "kern.verwaltung");
 
-$DSH_TITEL  = "Verwaltungsbereich";
-$CODE[]     = new Kern\Aktionszeile();
-$CODE[]     = UI\Zeile::standard((new UI\SeitenUeberschrift("Der Verwaltungsbereich"))->setTitel("Jetzt wird's lustig :D"));
+$SEITE[] = UI\Zeile::standard((new UI\SeitenUeberschrift("Verwaltungsbereich"))->setTitel("Jetzt wird's lustig :D"));
 
 include_once "$DIR/klassen/verwaltungselemente.php";
 
@@ -32,7 +27,5 @@ foreach($KATEGORIEN as $kat) {
     $zeile[]    = $spalte;
   }
 }
-
-$CODE[]         = $zeile;
-
+$SEITE[] = $zeile;
 ?>

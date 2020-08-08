@@ -5,9 +5,8 @@ if(Kern\Check::angemeldet()) {
   return;
 }
 
-$DSH_TITEL              = "Anmeldung";
-$CODE[]                 = new Kern\Aktionszeile();
-$CODE[]                 = UI\Zeile::standard(new UI\SeitenUeberschrift("Schulhof"));
+$SEITE = new Kern\Seite("Anmeldung");
+$SEITE[]                = UI\Zeile::standard(new UI\SeitenUeberschrift("Schulhof"));
 
 $spalteAnmeldung        = new UI\Spalte("A2");
 $spalteAnmeldung[]      = new UI\Ueberschrift(2, "Anmeldung");
@@ -63,7 +62,7 @@ $spalteLinks[]          = new UI\Absatz("$knopfApple $knopfAndroid $knopfGitHub"
 $spalteLinks[]          = new UI\Ueberschrift(2, "Links");
 $spalteLinks[]          = new UI\Absatz("Links folgen");
 
-$CODE[]                 = new UI\Zeile($spalteAnmeldung, $spalteLinks);
+$SEITE[]                  = new UI\Zeile($spalteAnmeldung, $spalteLinks);
 
-$CODE[]                 = "<script>kern.schulhof.oeffentlich.browsercheck()</script>";
+$SEITE->setCodedanach("<script>kern.schulhof.oeffentlich.browsercheck()</script>");
 ?>

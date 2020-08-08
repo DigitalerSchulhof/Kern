@@ -1,7 +1,7 @@
 <?php
 $SEITE = new Kern\Seite("Module", "kern.module.sehen");
 
-$spalte     = new UI\Spalte("A1", new UI\SeitenUeberschrift("Module"));
+$spalte = new UI\Spalte("A1", new UI\SeitenUeberschrift("Module"));
 
 $pfad = "$ROOT/module";
 $module = scandir($pfad);
@@ -20,19 +20,17 @@ if ($aktionen) {
 // @TODO: modulstati prüfen
 $zeilen = [];
 $modulstati = [];
-foreach ($module as $modul) {
-  if (is_dir("$pfad/$modul")) {
-    $zeile = [];
-    $zeile[""] = new UI\Icon("fas fa-puzzle-piece");
-    $zeile["Modul"] = $modul;
-    $version = "1.1.1";
-    $zeile["Version"] = $version;
-    $modulid = Kern\Check::strToCode($modul);
-    $modulstati[] = $modulid;
-    $zeile["Status"] = "<span id=\"dshVerwaltungModuleStatus$modulid\">".(new UI\Ladesymbol())."</span><scrip>kern.module</scrip>";
-    $zeile["Status"] = "<span id=\"dshVerwaltungModuleStatus$modulid\">".(new UI\Ladesymbol())."</span>";
-    $zeilen[] = $zeile;
-  }
+foreach ($DSH_ALLEMODULE as $modul) {
+  $zeile = [];
+  $zeile[""] = new UI\Icon("fas fa-puzzle-piece");
+  $zeile["Modul"] = $modul;
+  $version = "1.1.1";
+  $zeile["Version"] = $version;
+  $modulid = Kern\Check::strToCode($modul);
+  $modulstati[] = $modulid;
+  $zeile["Status"] = "<span id=\"dshVerwaltungModuleStatus$modulid\">".(new UI\Ladesymbol())."</span><scrip>kern.module</scrip>";
+  $zeile["Status"] = "<span id=\"dshVerwaltungModuleStatus$modulid\">".(new UI\Ladesymbol())."</span>";
+  $zeilen[] = $zeile;
 }
 $tabelle = new UI\Tabelle("dshVerwaltungModule", $titel, $zeilen);
 
@@ -43,5 +41,5 @@ if ("kern.module.installieren") {
   $spalte[] = new UI\Absatz($knopf);
 }
 
-$SEITE->addZeile(new UI\Zeile($spalte));
+$SEITE[] = new UI\Zeile($spalte);
 ?>
