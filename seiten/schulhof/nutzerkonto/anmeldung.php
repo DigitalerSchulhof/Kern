@@ -2,7 +2,8 @@
 if(Kern\Check::angemeldet()) {
   Anfrage::setTyp("Weiterleitung");
   Anfrage::setRueck("Ziel", "Schulhof/Nutzerkonto");
-  return;
+  Anfrage::ausgeben();
+  die();
 }
 
 $SEITE = new Kern\Seite("Anmeldung");

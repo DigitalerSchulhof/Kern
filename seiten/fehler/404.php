@@ -1,7 +1,5 @@
 <?php
-$DSH_TITEL = "Fehler 404";
-$CODE .= new Kern\Aktionszeile(true, false);
+$SEITE = new Kern\Seite("Fehler 404");
 
-$CODE .= UI\Zeile::standard(new UI\Meldung("Fehler 404", "Die Seite konnte nicht gefunden werden!", "Fehler"));
-
+$SEITE[] = UI\Zeile::standard(new UI\Meldung("Fehler 404", "Die Seite konnte nicht gefunden werden!", "Fehler"));
 ?>

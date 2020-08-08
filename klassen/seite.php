@@ -25,6 +25,7 @@ class Seite implements \ArrayAccess {
    * @param bool    $aktionszeile true = Aktionszeile ausgeben, false sonst
    */
   public function __construct($titel, $recht = false, $aktionszeile = true) {
+    global $DSH_TITEL, $CODE;
     $this->titel = $titel;
     $this->recht = $recht;
     $this->zeilen = [];
