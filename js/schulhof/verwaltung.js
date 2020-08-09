@@ -67,20 +67,50 @@ kern.modul = {
       core.ajax("Kern", 21, "Schuldaten ändern", {schulname:schulname, schulort:schulort, strhnr:strhnr, plzort:plzort, telefon:telefon, fax:fax, mail:mail, domain:domain});
     },
     vertreter: () => {
-
+      var slname = $("#dshModulKernLeiterName").getWert();
+      var slmail = $("#dshModulKernLeiterMail").getWert();
+      var daname = $("#dshModulKernDatemschutzName").getWert();
+      var damail = $("#dshModulKernDatemschutzMail").getWert();
+      var prname = $("#dshModulKernPresseName").getWert();
+      var prmail = $("#dshModulKernPresseMail").getWert();
+      var wename = $("#dshModulKernWebName").getWert();
+      var wemail = $("#dshModulKernWebMail").getWert();
+      var adname = $("#dshModulKernAdminName").getWert();
+      var admail = $("#dshModulKernAdminMail").getWert();
+      core.ajax("Kern", 22, "Vertreter ändern", {slname:slname, slmail:slmail, daname:daname, damail:damail, prname:prname, prmail:prmail, wename:wename, wemail:wemail, adname:adname, admail:admail});
+    },
+    aktionslog: () => {
+      var aktionslog = $("#dshModulKernLogAktiv").getWert();
+      core.ajax("Kern", 25, "Aktionslog ändern", {aktionslog:aktionslog});
     },
     mail: {
       aendern: () => {
+        var mailadresse = $("#dshModulKernMailadresse").getWert();
+        var mailtitel   = $("#dshModulKernMailtitel").getWert();
+        var mailuser    = $("#dshModulKernMailbenutzer").getWert();
+        var mailpass    = $("#dshModulKernMailpasswort").getWert();
+        var mailhost    = $("#dshModulKernMailhost").getWert();
+        var mailport    = $("#dshModulKernMailport").getWert();
+        var mailauth    = $("#dshModulKernMailauthentifizierung").getWert();
+        var mailsigp    = $("#dshModulKernMailsignaturPlain").getWert();
+        var mailsigh    = $("#dshModulKernMailsignaturHTML").getWert();
+        core.ajax("Kern", 23, "eMailadresse ändern", {mailadresse:mailadresse, mailtitel:mailtitel, mailuser:mailuser, mailpass:mailpass, mailhost:mailhost, mailport:mailport, mailauth:mailauth, mailsigp:mailsigp, mailsigh:mailsigh});
       },
       testen: () => {
-
+        //26
       }
     },
     ldap: {
       aendern: () => {
+        var ldapaktiv   = $("#dshModulKernLdapAktiv").getWert();
+        var ldapuser    = $("#dshModulKernLdapBenutzer").getWert();
+        var ldappass    = $("#dshModulKernLdapPasswort").getWert();
+        var ldaphost    = $("#dshModulKernLdapHost").getWert();
+        var ldapport    = $("#dshModulKernLdapPort").getWert();
+        core.ajax("Kern", 24, "LDAP ändern", {ldapaktiv:ldapaktiv, ldapuser:ldapuser, ldappass:ldappass, ldaphost:ldaphost, ldapport:ldapport});
       },
       testen: () => {
-
+        // 27
       }
     }
   }

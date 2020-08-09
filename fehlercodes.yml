@@ -157,3 +157,45 @@
 52:
   ort: anfragen/schulhof/verwaltung/modul/schuldaten.php
   beschreibung: Die <b>Domain</b> ist ungültig.
+53:
+  ort: anfragen/schulhof/verwaltung/modul/vertreter.php
+  beschreibung: Der <b>Name der Schulleitung</b> ist ungültig.
+54:
+  ort: anfragen/schulhof/verwaltung/modul/vertreter.php
+  beschreibung: Die <b>eMailadresse der Schulleitung</b> ist ungültig.
+55:
+  ort: anfragen/schulhof/verwaltung/modul/vertreter.php
+  beschreibung: Der <b>Name des Datenschützers</b> ist ungültig.
+56:
+  ort: anfragen/schulhof/verwaltung/modul/vertreter.php
+  beschreibung: Die <b>eMailadresse des Datenschützers</b> ist ungültig.
+57:
+  ort: anfragen/schulhof/verwaltung/modul/vertreter.php
+  beschreibung: Der <b>Name des Verantwortlichen im Sinne des Presserecht</b> ist ungültig.
+58:
+  ort: anfragen/schulhof/verwaltung/modul/vertreter.php
+  beschreibung: Die <b>eMailadresse des Verantwortlichen im Sinne des Presserecht</b> ist ungültig.
+59:
+  ort: anfragen/schulhof/verwaltung/modul/mail/aendern.php
+  beschreibung: Die <b>eMailadresse</b> ist ungültig.
+60:
+  ort: anfragen/schulhof/verwaltung/modul/mail/aendern.php
+  beschreibung: Der <b>Titel des Absenders</b> ist ungültig.
+61:
+  ort: anfragen/schulhof/verwaltung/modul/mail/aendern.php
+  beschreibung: Der <b>Benutzername</b> ist ungültig.
+62:
+  ort: anfragen/schulhof/verwaltung/modul/mail/aendern.php
+  beschreibung: Der <b>SMTP-Host (Postausgang)</b> ist ungültig.
+63:
+  ort: anfragen/schulhof/verwaltung/modul/mail/aendern.php
+  beschreibung: Der <b>SMTP-Port (Postausgang)</b> ist ungültig.
+64:
+  ort: anfragen/schulhof/verwaltung/modul/ldap/aendern.php
+  beschreibung: Der <b>LDAP-Admin</b> ist ungültig.
+65:
+  ort: anfragen/schulhof/verwaltung/modul/ldap/aendern.php
+  beschreibung: Der <b>LDAP-Host</b> ist ungültig.
+66:
+  ort: anfragen/schulhof/verwaltung/modul/ldap/aendern.php
+  beschreibung: Der <b>LDAP-Port</b> ist ungültig.
