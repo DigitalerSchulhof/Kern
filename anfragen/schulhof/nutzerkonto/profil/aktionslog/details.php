@@ -26,25 +26,24 @@ if ($DSH_BENUTZER !== $nutzerid && !$DSH_BENUTZER->hatRecht("kern.personen.profi
   Anfrage::addFehler(-4, true);
 }
 
-$meldetitel = "";
-$meldeinhalt = "";
-if ($benutzername === null) {
-  $meldeinhalt .= new UI\Absatz("Zugriff von <b>{$person->getName()}</b> (<i>inaktiv</i>) auf <b>$tabellepfad</b>");
-} else {
-  $meldeinhalt .= new UI\Absatz("Zugriff von <b>{$person->getName()}</b> ($benutzername) auf <b>$tabellepfad</b>");
-}
+$inhalt  = new UI\Ueberschrift(3, "$aktion vom ".((new UI\Datum($zeitpunkt))->kurz("MUs")));
 
 if ($logart == "DB") {
-  $icon = new UI\Icon("fas fa-database");
+  $fenstertitel = (new UI\Icon("fas fa-database"))." Datenbankzugriff";
 } else if ($logart == "Datei") {
-  $icon = new UI\Icon("fas fa-archive");
+  $fenstertitel = (new UI\Icon("fas fa-archive"))." Änderung am Dateisystem";
 } else {
-  $icon = new UI\Icon("fas fa-shoe-prints");
+  $fenstertitel = (new UI\Icon("fas fa-shoe-prints"))." Sonstige Aktion";
 }
-$meldetitel = "$aktion vom ".((new UI\Datum($zeitpunkt))->kurz("MUs"));
-$meldeinhalt .= new UI\Code($datensatzdatei);
 
-$code = new UI\Fenster("dshProfilFensterLoginfo$logid", "Aktionslog-Details", new UI\Meldung($meldetitel, $meldeinhalt, "Information", $icon));
+if ($benutzername === null) {
+  $inhalt .= new UI\Absatz("Zugriff von <b>{$person->getName()}</b> (<i>inaktiv</i>) auf <b>$tabellepfad</b>");
+} else {
+  $inhalt .= new UI\Absatz("Zugriff von <b>{$person->getName()}</b> ($benutzername) auf <b>$tabellepfad</b>");
+}
+$inhalt .= new UI\Code($datensatzdatei);
+
+$code = new UI\Fenster("dshProfilFensterLoginfo$logid", $fenstertitel, $inhalt);
 $code->addFensteraktion(UI\Knopf::schliessen("dshProfilFensterLoginfo$logid"));
 
 

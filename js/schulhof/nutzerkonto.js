@@ -154,7 +154,6 @@ kern.schulhof.nutzerkonto = {
       }
     },
     details: (logid) => {
-      var id         = $("#dshProfilId").getWert();
       core.ajax("Kern", 17, null, {logid:logid}).then((r) => {
         ui.fenster.anzeigen(r.Code);
       });

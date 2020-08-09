@@ -18,4 +18,6 @@ $ZIELE[15] = "anfragen/schulhof/nutzerkonto/profil/sessions/laden.php";
 $ZIELE[16] = "anfragen/schulhof/nutzerkonto/profil/aktionslog/loeschen.php";
 $ZIELE[17] = "anfragen/schulhof/nutzerkonto/profil/aktionslog/details.php";
 $ZIELE[18] = "anfragen/schulhof/nutzerkonto/profil/aktionslog/laden.php";
+$ZIELE[19] = "anfragen/schulhof/verwaltung/module/details.php";
+$ZIELE[20] = "anfragen/schulhof/verwaltung/module/version.php";
 ?>

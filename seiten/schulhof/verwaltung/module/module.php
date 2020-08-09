@@ -2,6 +2,8 @@
 $SEITE = new Kern\Seite("Module", "kern.module.sehen");
 
 include_once("$ROOT/yaml.php");
+use Async\YAML;
+
 $spalte = new UI\Spalte("A1", new UI\SeitenUeberschrift("Module"));
 
 $darflo = $DSH_BENUTZER->hatRecht("kern.module.loeschen");
@@ -11,7 +13,6 @@ $aktionen = $darflo || $darfei || $darfve;
 
 $titel = ["", "Modul", "Version", "Status", " "];
 
-// @TODO: modulstati prüfen
 $modulstati = [];
 $tabelle  = new UI\Tabelle("dshVerwaltungModule", $titel);
 foreach ($DSH_ALLEMODULE as $modulpfad) {
@@ -20,7 +21,17 @@ foreach ($DSH_ALLEMODULE as $modulpfad) {
   $zeile = [];
   $zeile[""] = new UI\Icon("fas fa-puzzle-piece");
   $zeile["Modul"] = $modul;
-  $version = "1.1.1";
+  $modulinfo = YAML::loader(file_get_contents("$modulpfad/modul.yml"));
+  if (isset($modulinfo["modul"]["version"])) {
+    $version = $modulinfo["modul"]["version"];
+  } else {
+    $version = "<i>unbekannt</i>";
+  }
+  if (isset($modulinfo["modul"]["einstellungen"])) {
+    $einstellungen = $modulinfo["modul"]["einstellungen"];
+  } else {
+    $einstellungen = false;
+  }
   $zeile["Version"] = $version;
   $modulid = Kern\Check::strToCode($modul);
   $modullink = Kern\Check::strToLink($modul);
@@ -36,14 +47,15 @@ foreach ($DSH_ALLEMODULE as $modulpfad) {
     $versionsknopf->addFunktion("onclick", "kern.schulhof.verwaltung.module.version('$modulid')");
     $aktionen[] = $versionsknopf;
   }
-  if ($darfei) {
+  if ($darfei && $einstellungen) {
     $einstellknopf = new UI\MiniIconKnopf(new UI\Icon("fas fa-sliders-h"), "Einstellungen");
-    $einstellknopf->addFunktion("href", "Schulhof/Verwaltung/$modullink/Einstellungen");
+    $einstellknopf->addFunktion("href", "Schulhof/Verwaltung/Module/$modullink");
     $aktionen[] = $einstellknopf;
   }
   if ($darflo) {
     $loeschenknopf = UI\MiniIconKnopf::loeschen();
-    $loeschenknopf->addFunktion("onclick", "kern.schulhof.verwaltung.module.loeschen.fragen('$modulid')");
+    // @TODO: Module deinstallieren
+    //$loeschenknopf->addFunktion("onclick", "kern.schulhof.verwaltung.module.loeschen.fragen('$modulid')");
     $aktionen[] = $loeschenknopf;
   }
   $zeile[" "] = join(" ", $aktionen);

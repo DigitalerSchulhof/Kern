@@ -30,6 +30,50 @@ kern.schulhof.verwaltung = {
           feld.setHTML(r.Code);
         });
       }
+    },
+    details: (modulname) => {
+      core.ajax("Kern", 19, null, {modulname:modulname}).then((r) => {
+        ui.fenster.anzeigen(r.Code);
+      });
+    },
+    version: (modulname) => {
+      core.ajax("Kern", 20, null, {modulname:modulname}).then((r) => {
+        ui.fenster.anzeigen(r.Code);
+      });
+    },
+    alteEinblenden: (id) => {
+      var wert = $("#"+id).getWert();
+      var feld = $("#"+id+"Feld");
+      if (wert == "1") {
+        feld.einblenden();
+      } else {
+        feld.ausblenden()
+      }
     }
   }
 };
+
+kern.modul = {
+  einstellungen: {
+    schuldaten: () => {
+
+    },
+    vertreter: () => {
+
+    },
+    mail: {
+      aendern: () => {
+      },
+      testen: () => {
+
+      }
+    },
+    ldap: {
+      aendern: () => {
+      },
+      testen: () => {
+
+      }
+    }
+  }
+}

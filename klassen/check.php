@@ -7,6 +7,15 @@ class Check {
     return preg_match("/^[A-Za-z0-9]{1,16}$/", $modul) === 1;
   }
 
+  public static function browserversion($browserstring, $info) : string {
+    $info = strtolower($_SERVER['HTTP_USER_AGENT']);
+    $version = "";
+    if (preg_match("/.+(?:$browserstring)[\/: ]([\d.]+)/", $info, $matches)) {
+      $version = $matches[1];
+    }
+    return $version;
+  }
+
   // Liefert das mögliche System
   public static function systeminfo() {
     $info = strtolower($_SERVER['HTTP_USER_AGENT']);
@@ -14,28 +23,28 @@ class Check {
     // Browser finden
     if (preg_match("/opera/", $info)) {
       $browser = "Opera";
+      $version = Check::browserversion("opera", $info);
     } else if (preg_match("/opr/", $info)) {
       $browser = "Opera";
+      $version = Check::browserversion("opr", $info);
     } else if (preg_match("/chromium/", $info)) {
       $browser = "Chromium";
+      $version = Check::browserversion("chromium", $info);
     } elseif (preg_match("/chrome/", $info)) {
       $browser = "Chrome";
+      $version = Check::browserversion("chrome", $info);
     } elseif (preg_match("/webkit/", $info)) {
       $browser = "Safari";
+      $version = Check::browserversion("safari", $info);
     } elseif (preg_match("/msie/", $info)) {
       $browser = "Internet Explorer / Edge";
+      $version = Check::browserversion("msie", $info);
     } elseif (preg_match("/mozilla/", $info) && !preg_match("/compatible/", $info)) {
       $browser = "Firefox";
+      $version = Check::browserversion("firefox", $info);
     } else {
       $browser = "Unbekannter Browser";
-    }
-
-    // Browser-Version
-    $version = "";
-    if ($browser != "Unbekannter Browser") {
-      if (preg_match("/.+(?:rv|it|ra|ie)[\/: ]([\d.]+)/", $info, $matches)) {
-        $version = $matches[1];
-      }
+      $version = "";
     }
 
     // Betriebssystem

@@ -8,4 +8,5 @@ seiten:
   "Schulhof/Nutzerkonto"            : "Kern/seiten/schulhof/nutzerkonto/nutzerkonto.php"
   "Schulhof/Nutzerkonto/Profil"     : "Kern/seiten/schulhof/nutzerkonto/profil.php"
   "Schulhof/Verwaltung"             : "Kern/seiten/schulhof/verwaltung/uebersicht.php"
-  "Schulhof/Verwaltung/Module"      : "Kern/seiten/schulhof/verwaltung/module.php"
+  "Schulhof/Verwaltung/Module"      : "Kern/seiten/schulhof/verwaltung/module/module.php"
+  "Schulhof/Verwaltung/Module/Kern" : "Kern/seiten/schulhof/verwaltung/module/einstellungen.php"

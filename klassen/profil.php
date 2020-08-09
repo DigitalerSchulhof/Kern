@@ -63,8 +63,7 @@ class Profil {
     $anfrage = $DBS->anfrage($sql, "i", $this->person->getId());
 
     $darfloeschen = $DSH_BENUTZER->hatRecht("$recht.sessionprotokoll.löschen");
-    $titel = ["", "Sessionstatus", "Browser", "Sessiontimeout", "Anmeldezeit"];
-    if ($darfloeschen) {$titel[] = " ";}
+    $titel = ["", "Sessionstatus", "Browser", "Sessiontimeout", "Anmeldezeit", " "];
 
     $zeilen = [];
     while ($anfrage->werte($id, $sessionid, $browser, $sessiontimeout, $anmeldezeit)) {
@@ -88,6 +87,7 @@ class Profil {
       }
       $neuezeile["Sessiontimeout"] = $sessiontimeout;
       $neuezeile["Anmeldezeit"] = (new UI\Datum($anmeldezeit))->kurz();
+      $neuezeile[" "] = "";
       if ($darfloeschen) {
         $loeschenknopf = UI\MiniIconKnopf::loeschen();
         $loeschenknopf->addFunktion("onclick", "kern.schulhof.nutzerkonto.sessions.loeschen.fragen('$id')");
@@ -138,8 +138,7 @@ class Profil {
     $darfdetails = $DSH_BENUTZER->hatRecht("$recht.aktionsprotokoll.details");
     $darfaktionen = $darfloeschen || $darfdetails;
 
-    $titel = ["", "Datenbank / Pfad", "Aktion", "Zeit"];
-    if ($darfloeschen) {$titel[] = " ";}
+    $titel = ["", "Datenbank / Pfad", "Aktion", "Zeit", " "];
 
     $sql = "SELECT id, {art}, {tabellepfad}, {aktion}, zeitpunkt FROM kern_nutzeraktionslog WHERE nutzer = ? AND (zeitpunkt BETWEEN ? AND ?) ORDER BY zeitpunkt DESC";
     $anfrage = $DBS->anfrage($sql, "iii", $this->person->getId(), $anfang, $ende);
@@ -157,18 +156,16 @@ class Profil {
       $neuezeile["Datenbank / Pfad"] = $tabellepfad;
       $neuezeile["Aktion"] = $aktion;
       $neuezeile["Zeit"] = (new UI\Datum($zeitpunkt))->kurz("MUs");
-      if ($darfaktionen) {
-        $neuezeile[" "] = "";
-        if ($darfdetails) {
-          $detailknopf = new UI\MiniIconKnopf(new UI\Icon(UI\Konstanten::DETAILS), "Details anzeigen");
-          $detailknopf->addFunktion("onclick", "kern.schulhof.nutzerkonto.aktionslog.details('$id')");
-          $neuezeile[" "] .= "$detailknopf ";
-        }
-        if ($darfloeschen) {
-          $loeschenknopf = UI\MiniIconKnopf::loeschen();
-          $loeschenknopf->addFunktion("onclick", "kern.schulhof.nutzerkonto.aktionslog.loeschen.fragen('$id')");
-          $neuezeile[" "] .= "$loeschenknopf ";
-        }
+      $neuezeile[" "] = "";
+      if ($darfdetails) {
+        $detailknopf = new UI\MiniIconKnopf(new UI\Icon(UI\Konstanten::DETAILS), "Details anzeigen");
+        $detailknopf->addFunktion("onclick", "kern.schulhof.nutzerkonto.aktionslog.details('$id')");
+        $neuezeile[" "] .= "$detailknopf ";
+      }
+      if ($darfloeschen) {
+        $loeschenknopf = UI\MiniIconKnopf::loeschen();
+        $loeschenknopf->addFunktion("onclick", "kern.schulhof.nutzerkonto.aktionslog.loeschen.fragen('$id')");
+        $neuezeile[" "] .= "$loeschenknopf ";
       }
       $zeilen[] = $neuezeile;
     }
