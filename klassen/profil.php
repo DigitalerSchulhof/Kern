@@ -64,7 +64,7 @@ class Profil {
 
     $darfloeschen = $DSH_BENUTZER->hatRecht("$recht.sessionprotokoll.löschen");
     $titel = ["", "Sessionstatus", "Browser", "Sessiontimeout", "Anmeldezeit"];
-    if ($darfloeschen) {$titel[] = "Aktionen";}
+    if ($darfloeschen) {$titel[] = " ";}
 
     $zeilen = [];
     while ($anfrage->werte($id, $sessionid, $browser, $sessiontimeout, $anmeldezeit)) {
@@ -91,7 +91,7 @@ class Profil {
       if ($darfloeschen) {
         $loeschenknopf = UI\MiniIconKnopf::loeschen();
         $loeschenknopf->addFunktion("onclick", "kern.schulhof.nutzerkonto.sessions.loeschen.fragen('$id')");
-        $neuezeile["Aktionen"] = $loeschenknopf;
+        $neuezeile[" "] = $loeschenknopf;
       }
       $zeilen[] = $neuezeile;
     }
@@ -139,7 +139,7 @@ class Profil {
     $darfaktionen = $darfloeschen || $darfdetails;
 
     $titel = ["", "Datenbank / Pfad", "Aktion", "Zeit"];
-    if ($darfloeschen) {$titel[] = "Aktionen";}
+    if ($darfloeschen) {$titel[] = " ";}
 
     $sql = "SELECT id, {art}, {tabellepfad}, {aktion}, zeitpunkt FROM kern_nutzeraktionslog WHERE nutzer = ? AND (zeitpunkt BETWEEN ? AND ?) ORDER BY zeitpunkt DESC";
     $anfrage = $DBS->anfrage($sql, "iii", $this->person->getId(), $anfang, $ende);
@@ -158,16 +158,16 @@ class Profil {
       $neuezeile["Aktion"] = $aktion;
       $neuezeile["Zeit"] = (new UI\Datum($zeitpunkt))->kurz("MUs");
       if ($darfaktionen) {
-        $neuezeile["Aktionen"] = "";
+        $neuezeile[" "] = "";
         if ($darfdetails) {
           $detailknopf = new UI\MiniIconKnopf(new UI\Icon(UI\Konstanten::DETAILS), "Details anzeigen");
           $detailknopf->addFunktion("onclick", "kern.schulhof.nutzerkonto.aktionslog.details('$id')");
-          $neuezeile["Aktionen"] .= "$detailknopf ";
+          $neuezeile[" "] .= "$detailknopf ";
         }
         if ($darfloeschen) {
           $loeschenknopf = UI\MiniIconKnopf::loeschen();
           $loeschenknopf->addFunktion("onclick", "kern.schulhof.nutzerkonto.aktionslog.loeschen.fragen('$id')");
-          $neuezeile["Aktionen"] .= "$loeschenknopf ";
+          $neuezeile[" "] .= "$loeschenknopf ";
         }
       }
       $zeilen[] = $neuezeile;

@@ -9,7 +9,7 @@ $darfei = $DSH_BENUTZER->hatRecht("kern.module.einstellungen");
 $darfve = $DSH_BENUTZER->hatRecht("kern.module.versionshistorie");
 $aktionen = $darflo || $darfei || $darfve;
 
-$titel = ["", "Modul", "Version", "Status", "Aktionen"];
+$titel = ["", "Modul", "Version", "Status", " "];
 
 // @TODO: modulstati prüfen
 $modulstati = [];
@@ -46,7 +46,7 @@ foreach ($DSH_ALLEMODULE as $modulpfad) {
     $loeschenknopf->addFunktion("onclick", "kern.schulhof.verwaltung.module.loeschen.fragen('$modulid')");
     $aktionen[] = $loeschenknopf;
   }
-  $zeile["Aktionen"] = join(" ", $aktionen);
+  $zeile[" "] = join(" ", $aktionen);
   $tabelle->addZeile($zeile);
 }
 
