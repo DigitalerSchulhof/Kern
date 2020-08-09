@@ -56,7 +56,15 @@ kern.schulhof.verwaltung = {
 kern.modul = {
   einstellungen: {
     schuldaten: () => {
-
+      var schulname = $("#dshModulKernSchulname").getWert();
+      var schulort  = $("#dshModulKernSchulort").getWert();
+      var strhnr    = $("#dshModulKernSchulstrhnr").getWert();
+      var plzort    = $("#dshModulKernSchulplzort").getWert();
+      var telefon   = $("#dshModulKernSchultelefon").getWert();
+      var fax       = $("#dshModulKernSchulfax").getWert();
+      var mail      = $("#dshModulKernSchulmail").getWert();
+      var domain    = $("#dshModulKernSchuldomain").getWert();
+      core.ajax("Kern", 21, "Schuldaten ändern", {schulname:schulname, schulort:schulort, strhnr:strhnr, plzort:plzort, telefon:telefon, fax:fax, mail:mail, domain:domain});
     },
     vertreter: () => {
 

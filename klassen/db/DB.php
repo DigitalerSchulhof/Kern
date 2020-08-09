@@ -78,54 +78,61 @@ class DB {
 	* @param array $werte Array mit den Werten, die übergeben werden
   * @return array Ergebnis der Anfrage als indexiertes Array oder Anzahl betroffener Zeilen
   */
-  public function anfrage($anfrage, $parameterarten = "", ...$werte) : Anfrage {
+  public function anfrage($anfrage, $parameterarten = "", ...$zwerte) : Anfrage {
     $ergebnis = [];
 
-    if(count($werte) == 1 && is_array($werte[0]) && count($werte[0][0] ?? []) == 1) {
-      $werte = $werte[0];
+    try {
+      // Ziel: Bringe das Array Werte auf die Form
+      // $werte[Anfragennummer] = array mit den Werten;
+      $werte = [];
+      // Anfrage ohne Werte
+      if (is_array($zwerte) && count($zwerte) == 0) {
+        $werte[] = [];
+      }
+      // Einfache Anfrage - es wurden einzelne Werte übergeben
+      else if (is_array($zwerte) && count($zwerte) > 0 && !is_array($zwerte[0])) {
+        $werte[] = $zwerte;
+      }
+      // Mehrfache Anfrage - es wurden mehrere Arrays übergeben
+      else if (is_array($zwerte) && is_array($zwerte[0]) && count($zwerte[0]) > 0 && !is_array($zwerte[0][0])) {
+        $werte = $zwerte;
+      }
+      // Mehrfache Anfrage - es wurde ein Array mit Arrays übergeben
+      else if (is_array($zwerte) && is_array($zwerte[0]) && is_array($zwerte[0][0]) && !is_array($zwerte[0][0][0]) && count($zwerte) == 1) {
+        $werte = $zwerte[0];
+      }
+      // FEHLER
+      else {
+        throw new \Exception("Übergebene Paramter in unzulässigem Format");
+      }
+    } catch (Exception $e) {
+      throw new \Exception("Übergebene Paramter in unzulässigem Format: {$e->getMessage()}");
     }
 
+
+    // Parameter prüfen
+    $werteproanfrage = strlen($parameterarten);
     $paramfehler = false;
-    if (strlen($parameterarten) > 0) {
-      if (is_array($werte)) {
-        if (is_array($werte[0])) {
-          foreach($werte as $w) {
-            if (count($w) != strlen($parameterarten)) {
-              $paramfehler = true;
-            }
-          }
-        }
-        else {
-          if (count($werte) != strlen($parameterarten)) {
-            $paramfehler = true;
-          }
-          else {
-            $werte = array($werte);
-          }
-        }
+    foreach ($werte as $w) {
+      if (count($w) != $werteproanfrage) {
+        $paramfehler = true;
       }
-      else {$paramfehler = false;}
     }
-    // Fehlerhafte Anfrage
-    if ($paramfehler) {throw new \Exception("Ungültige Parameter(-arten)");}
+
+    if ($paramfehler) {
+      throw new \Exception("Übergebene Paramter passen nich tzu übergebenen Parametertypen");
+    }
 
     // Referenzen für bind auf die Werte erstellen
     $ref = [];
-    if (!isset($werte[0]) || !is_array($werte[0])) {
+    // Durchsuche alle Anfragen
+    for ($i = 0; $i<count($werte); $i++) {
+      // Setze Referenzen für die Werte innerhalb der Anfrage
       $refneu = [];
-      for ($i = 0; $i<count($werte); $i++) {
-        $refneu[] = &$werte[$i];
+      for ($j = 0; $j<count($werte[$i]); $j++) {
+        $refneu[] = &$werte[$i][$j];
       }
       $ref[] = $refneu;
-    }
-    else {
-      for ($i = 0; $i<count($werte); $i++) {
-        $refneu = [];
-        for ($j = 0; $j<count($werte[$i]); $j++) {
-          $refneu[] = &$werte[$i][$j];
-        }
-        $ref[] = $refneu;
-      }
     }
 
     // Verschlüsselungsersetungen vornehmen

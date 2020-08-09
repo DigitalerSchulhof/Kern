@@ -141,4 +141,19 @@
   beschreibung: Der <b>SMTP-Host (Postausgang)</b> ist ungültig.
 47:
   ort: anfragen/schulhof/nutzerkonto/profil/einstellungen/email.php
-  beschreibung: Der <b>SMTP-Port (Postausgang</b> ist ungültig.
+  beschreibung: Der <b>SMTP-Port (Postausgang)</b> ist ungültig.
+48:
+  ort: anfragen/schulhof/verwaltung/modul/schuldaten.php
+  beschreibung: Der <b>Schulname</b> ist ungültig.
+49:
+  ort: anfragen/schulhof/verwaltung/modul/schuldaten.php
+  beschreibung: Der <b>Schulort</b> ist ungültig.
+50:
+  ort: anfragen/schulhof/verwaltung/modul/schuldaten.php
+  beschreibung: Die <b>Straße mit der Hausnummer</b> ist ungültig.
+51:
+  ort: anfragen/schulhof/verwaltung/modul/schuldaten.php
+  beschreibung: Die <b>Postleitzahl mit dem Ort</b> ist ungültig.
+52:
+  ort: anfragen/schulhof/verwaltung/modul/schuldaten.php
+  beschreibung: Die <b>Domain</b> ist ungültig.
