@@ -23,25 +23,25 @@ class Check {
     // Browser finden
     if (preg_match("/opera/", $info)) {
       $browser = "Opera";
-      $version = browserversion("opera", $info);
+      $version = Check::browserversion("opera", $info);
     } else if (preg_match("/opr/", $info)) {
       $browser = "Opera";
-      $version = browserversion("opr", $info);
+      $version = Check::browserversion("opr", $info);
     } else if (preg_match("/chromium/", $info)) {
       $browser = "Chromium";
-      $version = browserversion("chromium", $info);
+      $version = Check::browserversion("chromium", $info);
     } elseif (preg_match("/chrome/", $info)) {
       $browser = "Chrome";
-      $version = browserversion("chrome", $info);
+      $version = Check::browserversion("chrome", $info);
     } elseif (preg_match("/webkit/", $info)) {
       $browser = "Safari";
-      $version = browserversion("webkit", $info);
+      $version = Check::browserversion("safari", $info);
     } elseif (preg_match("/msie/", $info)) {
       $browser = "Internet Explorer / Edge";
-      $version = browserversion("msie", $info);
+      $version = Check::browserversion("msie", $info);
     } elseif (preg_match("/mozilla/", $info) && !preg_match("/compatible/", $info)) {
       $browser = "Firefox";
-      $version = browserversion("mozilla", $info);
+      $version = Check::browserversion("firefox", $info);
     } else {
       $browser = "Unbekannter Browser";
       $version = "";
