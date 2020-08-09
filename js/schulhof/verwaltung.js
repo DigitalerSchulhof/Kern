@@ -97,7 +97,16 @@ kern.modul = {
         core.ajax("Kern", 23, "eMailadresse ändern", {mailadresse:mailadresse, mailtitel:mailtitel, mailuser:mailuser, mailpass:mailpass, mailhost:mailhost, mailport:mailport, mailauth:mailauth, mailsigp:mailsigp, mailsigh:mailsigh});
       },
       testen: () => {
-        //26
+        var mailadresse = $("#dshModulKernMailadresse").getWert();
+        var mailtitel   = $("#dshModulKernMailtitel").getWert();
+        var mailuser    = $("#dshModulKernMailbenutzer").getWert();
+        var mailpass    = $("#dshModulKernMailpasswort").getWert();
+        var mailhost    = $("#dshModulKernMailhost").getWert();
+        var mailport    = $("#dshModulKernMailport").getWert();
+        var mailauth    = $("#dshModulKernMailauthentifizierung").getWert();
+        var mailsigp    = $("#dshModulKernMailsignaturPlain").getWert();
+        var mailsigh    = $("#dshModulKernMailsignaturHTML").getWert();
+        core.ajax("Kern", 26, "eMailadresse testen", {mailadresse:mailadresse, mailtitel:mailtitel, mailuser:mailuser, mailpass:mailpass, mailhost:mailhost, mailport:mailport, mailauth:mailauth, mailsigp:mailsigp, mailsigh:mailsigh});
       }
     },
     ldap: {

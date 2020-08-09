@@ -36,7 +36,7 @@ class Mail {
     $this->host     = $einstellungen["MailSmtpServer"];
     $this->port     = $einstellungen["MailSmtpPort"];
     $this->titel    = $einstellungen["MailTitel"];
-    if ($einstellungen["MailSmtpAutentifizierung"] == "1") {
+    if ($einstellungen["MailSmtpAuthentifizierung"] == "1") {
       $this->authentifizierung = true;
     } else {
       $this->authentifizierung = false;
@@ -50,6 +50,22 @@ class Mail {
     $this->schulname = $einstellungen["Schulname"];
     $this->schulort = $einstellungen["Schulort"];
     $this->schuldomain = $einstellungen["Schuldomain"];
+  }
+
+  public function setAttribute($host, $port, $titel, $auth, $adresse, $benutzer, $passwort, $signaturP, $signaturH) {
+    $this->host     = $host;
+    $this->port     = $port;
+    $this->titel    = $titel;
+    if ($auth == "1") {
+      $this->authentifizierung = true;
+    } else {
+      $this->authentifizierung = false;
+    }
+    $this->adresse = $adresse;
+    $this->benutzer = $benutzer;
+    $this->passwort = $passwort;
+    $this->signaturPlain = $signaturP;
+    $this->signaturHTML = $signaturH;
   }
 
   /**

@@ -98,7 +98,7 @@ $formular[]   = (new UI\FormularFeld(new UI\InhaltElement("LDAP-Passwort:"),  $l
 $formular[]   = new UI\FormularFeld(new UI\InhaltElement("LDAP-Host:"),      $ldaphost);
 $formular[]   = new UI\FormularFeld(new UI\InhaltElement("LDAP-Port:"),      $ldapport);
 $formular[]   = (new UI\Knopf("Änderungen speichern", "Erfolg"))             ->setSubmit(true);
-$formular[]   = (new UI\Knopf("Änderungen testen", "Information"))           ->addFunktion("onclick", "kern.modul.einstellungen.ldap.testen()");
+$formular[]   = (new UI\Knopf("Änderungen testen", "Information"))           ->addFunktion("onclick", "kern.modul.einstellungen.ldap.testen()")->setSubmit(false);
 $formular     ->addSubmit("kern.modul.einstellungen.ldap.aendern()");
 $reiterkopf = new UI\Reiterkopf("LDAP");
 $reiterspalte = new UI\Spalte("A1", $formular);

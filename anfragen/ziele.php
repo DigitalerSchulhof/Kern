@@ -25,6 +25,6 @@ $ZIELE[22] = "anfragen/schulhof/verwaltung/modul/vertreter.php";
 $ZIELE[23] = "anfragen/schulhof/verwaltung/modul/mail/aendern.php";
 $ZIELE[24] = "anfragen/schulhof/verwaltung/modul/ldap/aendern.php";
 $ZIELE[25] = "anfragen/schulhof/verwaltung/modul/aktionslog.php";
-$ZIELE[26] = "anfragen/schulhof/verwaltung/modul/mail/testen.php";
-$ZIELE[27] = "anfragen/schulhof/verwaltung/modul/ldap/testen.php";
+$ZIELE[26] = "anfragen/schulhof/verwaltung/modul/mail/test.php";
+$ZIELE[27] = "anfragen/schulhof/verwaltung/modul/ldap/test.php";
 ?>
