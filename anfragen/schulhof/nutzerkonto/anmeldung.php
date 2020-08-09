@@ -66,6 +66,5 @@ $DSH_BENUTZER->setSession($sessionid, $sessiontimeout, $inaktivitaetszeit);
 
 $DSH_BENUTZER->anmelden();
 
-Anfrage::setTyp("Weiterleitung");
-Anfrage::setRueck("Ziel", "Schulhof/Nutzerkonto");
+Anfrage::setTyp("Neuladen");
 ?>
