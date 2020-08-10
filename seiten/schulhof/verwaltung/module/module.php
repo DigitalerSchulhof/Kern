@@ -12,8 +12,8 @@ $spalte = new UI\Spalte("A1", new UI\SeitenUeberschrift("Module"));
 $tabelle = new UI\Tabelle("dshVerwaltungModule", new UI\Icon(UI\Konstanten::MODUL), "Modul", "Version", "Status");
 
 foreach($DSH_ALLEMODULE as $modul => $modulpfad) {
-  $info = YAML::loader(file_get_contents("$modulpfad/modul.yml"));
-  $zeile            = new UI\Tabelle\Zeile();
+  $info   = YAML::loader(file_get_contents("$modulpfad/modul.yml"));
+  $zeile  = new UI\Tabelle\Zeile();
 
   $istSystem = in_array($modul, array("Kern", "UI"));
 

@@ -15,7 +15,7 @@ class Person {
   /** @var string Nachname */
   protected $nachname;
   /** @var string Geschlecht wmd*/
-  protected $geschelcht;
+  protected $geschlecht;
 
   /** @var array Benutzerarten: s=Schüler, l=Lehrer, v=Verwaltung, e=Eltern, x=Extern */
   const ARTEN = ["s", "l", "v", "e", "x"];
@@ -65,7 +65,7 @@ class Person {
 
   /**
    * Geschlecht setzen
-   * @param  string $geschelcht :)
+   * @param  string $geschlecht :)
    * @return self      :)
    */
   public function setGeschlecht($geschlecht) : self {
@@ -161,9 +161,9 @@ class Person {
   public function getAnrede() : string {
     $anrede = "Guten Tag ";
     if ($this->art != "s") {
-      if ($this->geschelcht == "w") {
+      if ($this->geschlecht == "w") {
         $anrede .= "Frau ";
-      } else if ($this->geschelcht == "m") {
+      } else if ($this->geschlecht == "m") {
         $anrede .= "Herr ";
       } else {
         if ($this->titel !== null) {
