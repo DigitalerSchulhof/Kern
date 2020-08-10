@@ -9,16 +9,18 @@
     display: block;
     min-height: 40px;
     position: relative;
-    border-bottom: 2px solid;
+    border-bottom: 1px solid;
+    border-top: 1px solid;
     width: 100%;
     display: flex;
     flex-flow: row;
-    transition: all 250ms ease-in-out;
+    transition: box-shadow 250ms ease-in-out;
   }
 
   .dshVerwaltungsKategorie .dshVerwaltungsElement:first-child {
     border-top-left-radius: @radius2;
     border-top-right-radius: @radius2;
+    border-top: 0;
   }
   .dshVerwaltungsKategorie .dshVerwaltungsElement:last-child {
     border-bottom: 0;
@@ -31,6 +33,22 @@
     box-shadow: 2px 2px 4px 1px rgba(33, 33, 33, 0.1), inset 2px 2px 4px 1px rgba(33, 33, 33, 0.1);
     outline: none;
   }
+  .dshVerwaltungsKategorie .dshVerwaltungsElement:focus {
+    border-left: 2px solid;
+    padding-left: 11px;
+    border-right: 2px solid;
+  }
+
+  .dshVerwaltungsKategorie .dshVerwaltungsElement:first-child:focus {
+    border-top: 2px solid;
+    padding-top: 5px;
+  }
+
+  .dshVerwaltungsKategorie .dshVerwaltungsElement:last-child:focus {
+    border-bottom: 2px solid;
+    padding-bottom: 5px;
+  }
+
     .dshVerwaltungsKategorie .dshVerwaltungsElement .dshUiIcon {
       font-size: 30px;
       padding: 5px 0;
@@ -55,7 +73,7 @@
 .dshVerwaltungsKategorie .dshVerwaltungsElement {
   background-color: @standardHintergrund;
   color: @standardSchrift;
-  border-bottom-color: @standardAkzent !important;
+  border-color: @standardAkzent !important;
 }
 
 .dshVerwaltungsKategorie .dshVerwaltungsElement .dshUiIcon {
@@ -65,7 +83,7 @@
 .dshVerwaltungsKategorie .dshVerwaltungsElement.dshVerwaltungsElementFortgeschritten {
   background-color: @warnungHintergrund;
   color: @warnungSchrift;
-  border-bottom-color: @warnungAkzent !important;
+  border-color: @warnungAkzent !important;
 }
 
 .dshVerwaltungsKategorie .dshVerwaltungsElement.dshVerwaltungsElementFortgeschritten .dshUiIcon {
