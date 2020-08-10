@@ -17,26 +17,18 @@ if (!$DSH_BENUTZER->hatRecht("kern.module.sehen")) {
 include_once("$ROOT/yaml.php");
 use Async\YAML;
 
-$modultitel = "<i>unbekannt</i>";
-$modulbeschreibung = "<i>unbekannt</i>";
-$modulautor = "<i>unbekannt</i>";
-$modulversion = "<i>unbekannt</i>";
+$modultitel = "<i>Unbekannt</i>";
+$modulbeschreibung = "<i>Unbekannt</i>";
+$modulautor = "<i>Unbekannt</i>";
+$modulversion = "<i>Unbekannt</i>";
 
 if (is_file("{$DSH_ALLEMODULE[$modulname]}/modul.yml")) {
   $modulinfo = YAML::loader(file_get_contents("{$DSH_ALLEMODULE[$modulname]}/modul.yml"));
 
-  if (isset($modulinfo["modul"]["name"])) {
-    $modultitel = $modulinfo["modul"]["name"];
-  }
-  if (isset($modulinfo["modul"]["beschreibung"])) {
-    $modulbeschreibung = $modulinfo["modul"]["beschreibung"];
-  }
-  if (isset($modulinfo["modul"]["autor"])) {
-    $modulautor = $modulinfo["modul"]["autor"];
-  }
-  if (isset($modulinfo["modul"]["version"])) {
-    $modulversion = $modulinfo["modul"]["version"];
-  }
+  $modultitel         = $modulinfo["name"]          ?? "<i>Unbekannt</i>";
+  $modulbeschreibung  = $modulinfo["beschreibung"]  ?? "<i>Unbekannt</i>";
+  $modulautor         = $modulinfo["autor"]         ?? "<i>Unbekannt</i>";
+  $modulversion       = $modulinfo["version"]       ?? "<i>Unbekannt</i>";
 }
 
 $fenstertitel = (new UI\Icon("fas fa-puzzle-piece"))." Moduldetails";

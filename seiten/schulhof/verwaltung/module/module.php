@@ -4,71 +4,67 @@ $SEITE = new Kern\Seite("Module", "kern.module.sehen");
 include_once("$ROOT/yaml.php");
 use Async\YAML;
 
-$spalte = new UI\Spalte("A1", new UI\SeitenUeberschrift("Module"));
-
 $darflo = $DSH_BENUTZER->hatRecht("kern.module.loeschen");
 $darfei = $DSH_BENUTZER->hatRecht("kern.module.einstellungen");
 $darfve = $DSH_BENUTZER->hatRecht("kern.module.versionshistorie");
-$aktionen = $darflo || $darfei || $darfve;
 
-$titel = ["", "Modul", "Version", "Status", " "];
+$spalte = new UI\Spalte("A1", new UI\SeitenUeberschrift("Module"));
+$tabelle = new UI\Tabelle("dshVerwaltungModule", new UI\Icon(UI\Konstanten::MODUL), "Modul", "Version", "Status");
 
-$modulstati = [];
-$tabelle  = new UI\Tabelle("dshVerwaltungModule", $titel);
-foreach ($DSH_ALLEMODULE as $modulpfad) {
-  $modulpfadteile = explode("/", $modulpfad);
-  $modul = $modulpfadteile[count($modulpfadteile)-1];
-  $zeile = [];
-  $zeile[""] = new UI\Icon("fas fa-puzzle-piece");
-  $zeile["Modul"] = $modul;
-  $modulinfo = YAML::loader(file_get_contents("$modulpfad/modul.yml"));
-  if (isset($modulinfo["modul"]["version"])) {
-    $version = $modulinfo["modul"]["version"];
-  } else {
-    $version = "<i>unbekannt</i>";
+foreach($DSH_ALLEMODULE as $modul => $modulpfad) {
+  $info = YAML::loader(file_get_contents("$modulpfad/modul.yml"));
+  $zeile            = new UI\Tabelle\Zeile();
+
+  $istSystem = in_array($modul, array("Kern", "UI"));
+
+  if($istSystem) {
+    $zeile->setIcon(new UI\Icon("fas fa-cogs"));
   }
-  if (isset($modulinfo["modul"]["einstellungen"])) {
-    $einstellungen = $modulinfo["modul"]["einstellungen"];
-  } else {
-    $einstellungen = false;
+
+  $zeile["Modul"]   = $info["name"];
+  $zeile["Version"] = $info["version"];
+  $zeile["Status"]  = "<span id=\"dshVerwaltungModuleStatus$modul\">".(new UI\IconKnopf(new UI\Icon(UI\Konstanten::LADEN), "Nach neuer Version suchen..."))."</span>";
+  $zeile["Status"] .= "<script>kern.schulhof.verwaltung.module.status('$modul', '{$info["version"]}')</script>";
+
+  $knopf = new UI\MiniIconKnopf(new UI\Icon(UI\Konstanten::DETAILS), "Details");
+  $knopf ->addFunktion("onclick", "kern.schulhof.verwaltung.module.details('$modul')");
+  $zeile ->addAktion($knopf);
+
+  if($darfve) {
+    $knopf = new UI\MiniIconKnopf(new UI\Icon("fas fa-code-branch"), "Versionshistorie");
+    $knopf ->addFunktion("onclick", "kern.schulhof.verwaltung.module.version('$modul')");
+    $zeile ->addAktion($knopf);
   }
-  $zeile["Version"] = $version;
-  $modulid = Kern\Check::strToCode($modul);
-  $modullink = Kern\Check::strToLink($modul);
-  $modulstati[] = $modulid;
-  $zeile["Status"] = "<span id=\"dshVerwaltungModuleStatus$modulid\">".(new UI\IconKnopf(new UI\Icon(UI\Konstanten::LADEN), "Nach neuer Version suchen ..."))."</span>";
-  $zeile["Status"] .= "<script>kern.schulhof.verwaltung.module.status('$modulid', '$version')</script>";
-  $aktionen = [];
-  $detailknopf = new UI\MiniIconKnopf(new UI\Icon(UI\Konstanten::DETAILS), "Details");
-  $detailknopf->addFunktion("onclick", "kern.schulhof.verwaltung.module.details('$modulid')");
-  $aktionen[] = $detailknopf;
-  if ($darfve) {
-    $versionsknopf = new UI\MiniIconKnopf(new UI\Icon("fas fa-code-branch"), "Versionshistorie");
-    $versionsknopf->addFunktion("onclick", "kern.schulhof.verwaltung.module.version('$modulid')");
-    $aktionen[] = $versionsknopf;
+
+  if($darfei) {
+    $knopf = new UI\MiniIconKnopf(new UI\Icon("fas fa-sliders-h"), "Einstellungen");
+    if($info["einstellungen"] ?? false) {
+      $knopf ->addFunktion("href", "Schulhof/Verwaltung/Module/$modul");
+    } else {
+      $knopf->setTitel("Das Modul hat keine Einstellungen");
+    }
+    $zeile ->addAktion($knopf);
   }
-  if ($darfei && $einstellungen) {
-    $einstellknopf = new UI\MiniIconKnopf(new UI\Icon("fas fa-sliders-h"), "Einstellungen");
-    $einstellknopf->addFunktion("href", "Schulhof/Verwaltung/Module/$modullink");
-    $aktionen[] = $einstellknopf;
+
+  if($darfve) {
+    $knopf = UI\MiniIconKnopf::loeschen();
+    if(!$istSystem) {
+      // @TODO: Module deinstallieren
+      $knopf ->addFunktion("onclick", "kern.schulhof.verwaltung.module.loeschen.fragen('$modul')");
+    }
+    $zeile ->addAktion($knopf);
   }
-  if ($darflo) {
-    $loeschenknopf = UI\MiniIconKnopf::loeschen();
-    // @TODO: Module deinstallieren
-    //$loeschenknopf->addFunktion("onclick", "kern.schulhof.verwaltung.module.loeschen.fragen('$modulid')");
-    $aktionen[] = $loeschenknopf;
-  }
-  $zeile[" "] = join(" ", $aktionen);
-  $tabelle->addZeile($zeile);
+
+  $tabelle[] = $zeile;
 }
 
 $spalte[] = $tabelle;
 
-if ("kern.module.installieren") {
+if ($DSH_BENUTZER->hatRecht("kern.module.installieren")) {
   // @TODO: Module installieren
-  $knopf = new UI\IconKnopf(new UI\Icon (UI\Konstanten::NEU), "Neue Module installieren", "Erfolg");
-  //$knopf->addFunktion("onclick", "alert('Diese Funktin steht noch nicht zur Verfügung.')");
-  $spalte[] = new UI\Absatz($knopf);
+  $knopf      = new UI\IconKnopf(new UI\Icon (UI\Konstanten::NEU), "Neue Module installieren", "Erfolg");
+  $knopf      ->addFunktion("onclick", "alert('Diese Funktion steht noch nicht zur Verfügung.')");
+  $spalte[]   = new UI\Absatz($knopf);
 }
 
 $SEITE[] = new UI\Zeile($spalte);

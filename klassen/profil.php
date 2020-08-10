@@ -61,42 +61,41 @@ class Profil {
     $recht = $this->istFremdzugriff();
     $sql = "SELECT id, {sessionid}, {browser}, sessiontimeout, anmeldezeit FROM kern_nutzersessions WHERE nutzer = ? ORDER BY anmeldezeit DESC";
     $anfrage = $DBS->anfrage($sql, "i", $this->person->getId());
+    $darflo = $DSH_BENUTZER->hatRecht("$recht.sessionprotokoll.löschen");
 
-    $darfloeschen = $DSH_BENUTZER->hatRecht("$recht.sessionprotokoll.löschen");
-    $titel = ["", "Sessionstatus", "Browser", "Sessiontimeout", "Anmeldezeit", " "];
+    $tabelle = new UI\Tabelle("dshProfilSessionprotokoll", new UI\Icon("fas fa-history"), "Sessionstatus", "Browser", "Sessiontimeout", "Anmeldezeit");
 
-    $zeilen = [];
+
     while ($anfrage->werte($id, $sessionid, $browser, $sessiontimeout, $anmeldezeit)) {
-      $neuezeile = [];
-      $neuezeile[""] = new UI\Icon("fas fa-history");
+      $zeile = new UI\Tabelle\Zeile();
       if ($sessionid != null) {
-        $neuezeile["Sessionstatus"] = "gültig";
+        $zeile["Sessionstatus"] = "Gültig";
       } else {
-        $neuezeile["Sessionstatus"] = "<i>erloschen</i>";
+        $zeile["Sessionstatus"] = "<i>Erloschen</i>";
       }
-      $neuezeile["Browser"] = $browser;
+      $zeile["Browser"] = $browser;
 
       if ($sessiontimeout > 0) {
         if ($sessionid == $this->person->getSessionid() && $DSH_BENUTZER->getId() == $this->person->getId()) {
-          $sessiontimeout = "<i>diese Session</i>";
+          $sessiontimeout = "<i>Diese Session</i>";
         } else {
           $sessiontimeout = (new UI\Datum($sessiontimeout))->kurz();
         }
       } else {
-        $sessiontimeout = "<i>abgemeldet</i>";
+        $sessiontimeout = "<i>Abgemeldet</i>";
       }
-      $neuezeile["Sessiontimeout"] = $sessiontimeout;
-      $neuezeile["Anmeldezeit"] = (new UI\Datum($anmeldezeit))->kurz();
-      $neuezeile[" "] = "";
-      if ($darfloeschen) {
-        $loeschenknopf = UI\MiniIconKnopf::loeschen();
-        $loeschenknopf->addFunktion("onclick", "kern.schulhof.nutzerkonto.sessions.loeschen.fragen('$id')");
-        $neuezeile[" "] = $loeschenknopf;
+      $zeile["Sessiontimeout"] = $sessiontimeout;
+      $zeile["Anmeldezeit"] = (new UI\Datum($anmeldezeit))->kurz();
+
+      if ($darflo) {
+        $knopf = UI\MiniIconKnopf::loeschen();
+        $knopf ->addFunktion("onclick", "kern.schulhof.nutzerkonto.sessions.loeschen.fragen('$id')");
+        $zeile ->addAktion($knopf);
       }
-      $zeilen[] = $neuezeile;
+      $tabelle[] = $zeile;
     }
 
-    return new UI\Tabelle("dshProfilSessionprotokoll", $titel, ...$zeilen);
+    return $tabelle;
   }
 
   /**
@@ -138,40 +137,39 @@ class Profil {
     $darfdetails = $DSH_BENUTZER->hatRecht("$recht.aktionsprotokoll.details");
     $darfaktionen = $darfloeschen || $darfdetails;
 
-    $titel = ["", "Datenbank / Pfad", "Aktion", "Zeit", " "];
+    $tabelle = new UI\Tabelle("dshProfilAktionsprotokoll", null, "Datenbank / Pfad", "Aktion", "Zeit");
 
     $sql = "SELECT id, {art}, {tabellepfad}, {aktion}, zeitpunkt FROM kern_nutzeraktionslog WHERE nutzer = ? AND (zeitpunkt BETWEEN ? AND ?) ORDER BY zeitpunkt DESC";
     $anfrage = $DBS->anfrage($sql, "iii", $this->person->getId(), $anfang, $ende);
 
-    $zeilen = [];
     while ($anfrage->werte($id, $art, $tabellepfad, $aktion, $zeitpunkt)) {
-      $neuezeile = [];
+      $zeile = new UI\Tabelle\Zeile();
+
       if ($art == "DB") {
-        $neuezeile[""] = new UI\Icon("fas fa-database");
+        $zeile->setIcon(new UI\Icon("fas fa-database"));
       } else if ("Datei") {
-        $neuezeile[""] = new UI\Icon("fas fa-archive");
+        $zeile->setIcon(new UI\Icon("fas fa-archive"));
       } else {
-        $neuezeile[""] = new UI\Icon("fas fa-shoe-prints");
+        $zeile->setIcon(new UI\Icon("fas fa-shoe-prints"));
       }
-      $neuezeile["Datenbank / Pfad"] = $tabellepfad;
-      $neuezeile["Aktion"] = $aktion;
-      $neuezeile["Zeit"] = (new UI\Datum($zeitpunkt))->kurz("MUs");
-      $neuezeile[" "] = "";
+      $zeile["Datenbank / Pfad"] = $tabellepfad;
+      $zeile["Aktion"] = $aktion;
+      $zeile["Zeit"] = (new UI\Datum($zeitpunkt))->kurz("MUs");
+
       if ($darfdetails) {
-        $detailknopf = new UI\MiniIconKnopf(new UI\Icon(UI\Konstanten::DETAILS), "Details anzeigen");
-        $detailknopf->addFunktion("onclick", "kern.schulhof.nutzerkonto.aktionslog.details('$id')");
-        $neuezeile[" "] .= "$detailknopf ";
+        $knopf = new UI\MiniIconKnopf(new UI\Icon(UI\Konstanten::DETAILS), "Details anzeigen");
+        $knopf ->addFunktion("onclick", "kern.schulhof.nutzerkonto.aktionslog.details('$id')");
+        $zeile ->addAktion($knopf);
       }
       if ($darfloeschen) {
-        $loeschenknopf = UI\MiniIconKnopf::loeschen();
-        $loeschenknopf->addFunktion("onclick", "kern.schulhof.nutzerkonto.aktionslog.loeschen.fragen('$id')");
-        $neuezeile[" "] .= "$loeschenknopf ";
+        $knopf = UI\MiniIconKnopf::loeschen();
+        $knopf ->addFunktion("onclick", "kern.schulhof.nutzerkonto.aktionslog.loeschen.fragen('$id')");
+        $zeile ->addAktion($knopf);
       }
-      $zeilen[] = $neuezeile;
+      $tabelle[] = $zeile;
     }
 
-    $protokoll = new UI\Tabelle("dshProfilAktionsprotokoll", $titel, ...$zeilen);
-    return $protokoll;
+    return $tabelle;
   }
 
   /**
