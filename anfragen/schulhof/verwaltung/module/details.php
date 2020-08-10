@@ -25,10 +25,10 @@ $modulversion = "<i>Unbekannt</i>";
 if (is_file("{$DSH_ALLEMODULE[$modulname]}/modul.yml")) {
   $modulinfo = YAML::loader(file_get_contents("{$DSH_ALLEMODULE[$modulname]}/modul.yml"));
 
-  $modultitel         = $modulinfo["name"]          ?? "<i>Unbekannt</i>";
-  $modulbeschreibung  = $modulinfo["beschreibung"]  ?? "<i>Unbekannt</i>";
-  $modulautor         = $modulinfo["autor"]         ?? "<i>Unbekannt</i>";
-  $modulversion       = $modulinfo["version"]       ?? "<i>Unbekannt</i>";
+  $modultitel         = $modulinfo["name"]          ?? "<i>unbekannt</i>";
+  $modulbeschreibung  = $modulinfo["beschreibung"]  ?? "<i>unbekannt</i>";
+  $modulautor         = $modulinfo["autor"]         ?? "<i>unbekannt</i>";
+  $modulversion       = $modulinfo["version"]       ?? "<i>unbekannt</i>";
 }
 
 $fenstertitel = (new UI\Icon("fas fa-puzzle-piece"))." Moduldetails";

@@ -69,20 +69,20 @@ class Profil {
     while ($anfrage->werte($id, $sessionid, $browser, $sessiontimeout, $anmeldezeit)) {
       $zeile = new UI\Tabelle\Zeile();
       if ($sessionid != null) {
-        $zeile["Sessionstatus"] = "Gültig";
+        $zeile["Sessionstatus"] = "gültig";
       } else {
-        $zeile["Sessionstatus"] = "<i>Erloschen</i>";
+        $zeile["Sessionstatus"] = "<i>grloschen</i>";
       }
       $zeile["Browser"] = $browser;
 
       if ($sessiontimeout > 0) {
         if ($sessionid == $this->person->getSessionid() && $DSH_BENUTZER->getId() == $this->person->getId()) {
-          $sessiontimeout = "<i>Diese Session</i>";
+          $sessiontimeout = "<i>diese Session</i>";
         } else {
           $sessiontimeout = (new UI\Datum($sessiontimeout))->kurz();
         }
       } else {
-        $sessiontimeout = "<i>Abgemeldet</i>";
+        $sessiontimeout = "<i>abgemeldet</i>";
       }
       $zeile["Sessiontimeout"] = $sessiontimeout;
       $zeile["Anmeldezeit"] = (new UI\Datum($anmeldezeit))->kurz();

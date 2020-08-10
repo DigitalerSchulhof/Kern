@@ -40,8 +40,6 @@ foreach($DSH_ALLEMODULE as $modul => $modulpfad) {
     $knopf = new UI\MiniIconKnopf(new UI\Icon("fas fa-sliders-h"), "Einstellungen");
     if($info["einstellungen"] ?? false) {
       $knopf ->addFunktion("href", "Schulhof/Verwaltung/Module/$modul");
-    } else {
-      $knopf->setTitel("Das Modul hat keine Einstellungen");
     }
     $zeile ->addAktion($knopf);
   }
@@ -62,7 +60,7 @@ $spalte[] = $tabelle;
 
 if ($DSH_BENUTZER->hatRecht("kern.module.installieren")) {
   // @TODO: Module installieren
-  $knopf      = new UI\IconKnopf(new UI\Icon (UI\Konstanten::NEU), "Neue Module installieren", "Erfolg");
+  $knopf      = new UI\IconKnopf(new UI\Icon (UI\Konstanten::NEU), "Module installieren", "Erfolg");
   $knopf      ->addFunktion("onclick", "alert('Diese Funktion steht noch nicht zur Verfügung.')");
   $spalte[]   = new UI\Absatz($knopf);
 }
