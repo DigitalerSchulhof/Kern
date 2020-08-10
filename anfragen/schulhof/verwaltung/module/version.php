@@ -22,8 +22,8 @@ $letzteVersion .= new UI\Absatz("Für die aktuelle Version wurde keine Beschreib
 
 $fensterid = "dshVerwaltungModuleModulversion{$modulname}";
 
-if (is_file("{$DSH_ALLEMODULE[$modulname]}/version.yml")) {
-  $versionsinfo = YAML::loader(file_get_contents("{$DSH_ALLEMODULE[$modulname]}/version.yml"));
+if (is_file("{$DSH_ALLEMODULE[$modulname]}/version/versionen.yml")) {
+  $versionsinfo = YAML::loader(file_get_contents("{$DSH_ALLEMODULE[$modulname]}/version/versionen.yml"));
   $code = "";
   // Initial
   $v = array_shift($versionsinfo["version"]);

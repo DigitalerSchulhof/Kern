@@ -25,17 +25,17 @@ $modulversion = "<i>unbekannt</i>";
 if (is_file("{$DSH_ALLEMODULE[$modulname]}/modul.yml")) {
   $modulinfo = YAML::loader(file_get_contents("{$DSH_ALLEMODULE[$modulname]}/modul.yml"));
 
-  if (isset($modulinfo["modul"]["name"])) {
-    $modultitel = $modulinfo["modul"]["name"];
+  if (isset($modulinfo["name"])) {
+    $modultitel = $modulinfo["name"];
   }
-  if (isset($modulinfo["modul"]["beschreibung"])) {
-    $modulbeschreibung = $modulinfo["modul"]["beschreibung"];
+  if (isset($modulinfo["beschreibung"])) {
+    $modulbeschreibung = $modulinfo["beschreibung"];
   }
-  if (isset($modulinfo["modul"]["autor"])) {
-    $modulautor = $modulinfo["modul"]["autor"];
+  if (isset($modulinfo["autor"])) {
+    $modulautor = $modulinfo["autor"];
   }
-  if (isset($modulinfo["modul"]["version"])) {
-    $modulversion = $modulinfo["modul"]["version"];
+  if (isset($modulinfo["version"])) {
+    $modulversion = $modulinfo["version"];
   }
 }
 
