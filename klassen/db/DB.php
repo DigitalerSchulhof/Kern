@@ -201,6 +201,14 @@ class DB {
     return new Anfrage($anzahl, $ergebnis);
   }
 
+  /**
+   * Schreibt einen Zugriff ins Aktionslog
+   * @param  string $art            DB oder Datei
+   * @param  string $tabellepfad    Tabelle oder Pfad auf den zugegriffen wurde
+   * @param  string $datensatzdatei Datei die geschrieben wurde
+   * @param  string $aktion         Aktion die ausgeführt wurde
+   * @param  array  $werte          Werte einer Anfrage
+   */
   public function logZugriff($art, $tabellepfad, $datensatzdatei, $aktion, $werte = []) {
     if (!$this->log) {
       return;

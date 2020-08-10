@@ -123,4 +123,34 @@ kern.modul = {
       }
     }
   }
+};
+
+kern.konfiguration = {
+  verzeichnisse: () => {
+    var art = "Verzeichnisse";
+    var basis   = $("#dshKonfigBasis").getWert();
+    core.ajax("Kern", 29, "Basisverzeichnis ändern", {art:art, basis:basis});
+  },
+  datenbanken: {
+    schulhof: () => {
+      var art        = "Schulhof";
+      var host       = $("#dshKonfigDatenbankShHost").getWert();
+      var port       = $("#dshKonfigDatenbankShPort").getWert();
+      var datenbank  = $("#dshKonfigDatenbankShDatenbank").getWert();
+      var benutzer   = $("#dshKonfigDatenbankShBenutzer").getWert();
+      var passwort   = $("#dshKonfigDatenbankShPasswort").getWert();
+      var schluessel = $("#dshKonfigDatenbankShSchluessel").getWert();
+      core.ajax("Kern", 29, "Basisverzeichnis ändern", {art:art, host:host, port:port, datenbank:datenbank, benutzer:benutzer, passwort:passwort, schluessel:schluessel});
+    },
+    personen: () => {
+      var art        = "Personen";
+      var host       = $("#dshKonfigDatenbankPeHost").getWert();
+      var port       = $("#dshKonfigDatenbankPePort").getWert();
+      var datenbank  = $("#dshKonfigDatenbankPeDatenbank").getWert();
+      var benutzer   = $("#dshKonfigDatenbankPeBenutzer").getWert();
+      var passwort   = $("#dshKonfigDatenbankPePasswort").getWert();
+      var schluessel = $("#dshKonfigDatenbankPeSchluessel").getWert();
+      core.ajax("Kern", 29, "Basisverzeichnis ändern", {art:art, host:host, port:port, datenbank:datenbank, benutzer:benutzer, passwort:passwort, schluessel:schluessel});
+    }
+  }
 }

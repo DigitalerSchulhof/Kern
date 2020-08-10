@@ -217,3 +217,36 @@
 73:
   ort: anfragen/schulhof/nutzerkonto/profil/identitaetsdiebstahl.php
   beschreibung: Das <b>alte Passwort</b> stimmt mit dem <b>neuen Passwort</b> überein.
+74:
+  ort: anfragen/schulhof/verwaltung/konfiguration.php
+  beschreibung: Das <b>Basisverzeichnis</b> ist ungültig.
+75:
+  ort: anfragen/schulhof/verwaltung/konfiguration.php
+  beschreibung: Der <b>Schulhof-Host</b> ist ungültig.
+76:
+  ort: anfragen/schulhof/verwaltung/konfiguration.php
+  beschreibung: Der <b>Schulhof-Port</b> ist ungültig.
+77:
+  ort: anfragen/schulhof/verwaltung/konfiguration.php
+  beschreibung: Die <b>Schulhof-Datenbank</b> ist ungültig.
+78:
+  ort: anfragen/schulhof/verwaltung/konfiguration.php
+  beschreibung: Der <b>Schulhof-Benutzer</b> ist ungültig.
+79:
+  ort: anfragen/schulhof/verwaltung/konfiguration.php
+  beschreibung: Der <b>Schulhof-Schlüssel</b> ist ungültig.
+80:
+  ort: anfragen/schulhof/verwaltung/konfiguration.php
+  beschreibung: Der <b>Personen-Host</b> ist ungültig.
+81:
+  ort: anfragen/schulhof/verwaltung/konfiguration.php
+  beschreibung: Der <b>Personen-Port</b> ist ungültig.
+82:
+  ort: anfragen/schulhof/verwaltung/konfiguration.php
+  beschreibung: Die <b>Personen-Datenbank</b> ist ungültig.
+83:
+  ort: anfragen/schulhof/verwaltung/konfiguration.php
+  beschreibung: Der <b>Personen-Benutzer</b> ist ungültig.
+84:
+  ort: anfragen/schulhof/verwaltung/konfiguration.php
+  beschreibung: Der <b>Personen-Schlüssel</b> ist ungültig.

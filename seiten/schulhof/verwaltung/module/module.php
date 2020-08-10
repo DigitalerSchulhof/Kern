@@ -18,7 +18,7 @@ foreach($DSH_ALLEMODULE as $modul => $modulpfad) {
   $istSystem = in_array($modul, array("Kern", "UI"));
 
   if($istSystem) {
-    $zeile->setIcon(new UI\Icon("fas fa-cogs"));
+    $zeile->setIcon(new UI\Icon("fas fa-puzzle-piece"));
   }
 
   $zeile["Modul"]   = $info["name"];

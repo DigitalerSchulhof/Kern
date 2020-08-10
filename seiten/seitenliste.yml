@@ -11,3 +11,4 @@ seiten:
   "Schulhof/Verwaltung"                      : "Kern/seiten/schulhof/verwaltung/uebersicht.php"
   "Schulhof/Verwaltung/Module"               : "Kern/seiten/schulhof/verwaltung/module/module.php"
   "Schulhof/Verwaltung/Module/Kern"          : "Kern/seiten/schulhof/verwaltung/module/einstellungen.php"
+  "Schulhof/Verwaltung/Konfiguration"        : "Kern/seiten/schulhof/verwaltung/konfiguration.php"
