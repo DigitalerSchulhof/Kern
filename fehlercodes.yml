@@ -109,9 +109,6 @@
 37:
   ort: anfragen/schulhof/nutzerkonto/profil/passwort.php
   beschreibung: Das <b>alte Passwort</b> ist nicht korrekt.
-37:
-  ort: anfragen/schulhof/nutzerkonto/profil/einstellungen/nutzerkonto.php
-  beschreibung: Die <b>Inaktivitätszeit</b> ist ungültig. Sie muss zwischen 5 Minuten und 300 Minuten (5 Stunden) betragen.
 38:
   ort: anfragen/schulhof/nutzerkonto/profil/einstellungen/nutzerkonto.php
   beschreibung: Die Anzahl an <b>Elementen pro Übersicht</b> ist ungültig. Sie muss zwischen 1 und 10 betragen.
@@ -199,3 +196,24 @@
 66:
   ort: anfragen/schulhof/verwaltung/modul/ldap/aendern.php
   beschreibung: Der <b>LDAP-Port</b> ist ungültig.
+67:
+  ort: anfragen/schulhof/nutzerkonto/profil/einstellungen/nutzerkonto.php
+  beschreibung: Die <b>Inaktivitätszeit</b> ist ungültig. Sie muss zwischen 5 Minuten und 300 Minuten (5 Stunden) betragen.
+68:
+  ort: anfragen/schulhof/nutzerkonto/profil/passwort.php
+  beschreibung: Das <b>alte Passwort</b> ist zu kurz. Es muss aus mindestens 6 Zeichen bestehen.
+69:
+  ort: anfragen/schulhof/nutzerkonto/profil/identitaetsdiebstahl.php
+  beschreibung: Das <b>alte Passwort</b> ist zu kurz. Es muss aus mindestens 6 Zeichen bestehen.
+70:
+  ort: anfragen/schulhof/nutzerkonto/profil/identitaetsdiebstahl.php
+  beschreibung: Das <b>neu Passwort</b> ist zu kurz. Es muss aus mindestens 6 Zeichen bestehen.
+71:
+  ort: anfragen/schulhof/nutzerkonto/profil/identitaetsdiebstahl.php
+  beschreibung: Die <b>neuen Passworte</b> stimmen nicht überein.
+72:
+  ort: anfragen/schulhof/nutzerkonto/profil/identitaetsdiebstahl.php
+  beschreibung: Das <b>alte Passwort</b> ist nicht korrekt.
+73:
+  ort: anfragen/schulhof/nutzerkonto/profil/identitaetsdiebstahl.php
+  beschreibung: Das <b>alte Passwort</b> stimmt mit dem <b>neuen Passwort</b> überein.

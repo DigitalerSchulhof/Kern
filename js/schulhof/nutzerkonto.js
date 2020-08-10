@@ -125,7 +125,9 @@ kern.schulhof.nutzerkonto = {
       ausfuehren: (sessionid) => {
         var id         = $("#dshProfilId").getWert();
         core.ajax("Kern", 14, "Sessions löschen", {id:id, sessionid:sessionid}).then(() => {
-          kern.schulhof.nutzerkonto.sessions.laden(id);
+          if (sessionid != 'alle') {
+            kern.schulhof.nutzerkonto.sessions.laden(id);
+          }
         });
       }
     },
@@ -171,5 +173,12 @@ kern.schulhof.nutzerkonto = {
         }
       });
     }
+  },
+  identitaetsdiebstahl: () => {
+    var passwortalt  = $("#dshIdentitaetPasswortAlt").getWert();
+    var passwortneu  = $("#dshIdentitaetPasswortNeu").getWert();
+    var passwortneu2 = $("#dshIdentitaetPasswortNeu2").getWert();
+    var hinweise     = $("#dshIdentitaetHinweise").getWert();
+    core.ajax("Kern", 28, "Identitätsdiebstahl melden", {passwortalt:passwortalt, passwortneu:passwortneu, passwortneu2:passwortneu2, hinweise:hinweise});
   }
 };

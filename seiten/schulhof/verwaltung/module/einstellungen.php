@@ -7,6 +7,7 @@ $einstellungen = Kern\Einstellungen::ladenAlle("Kern");
 
 $reiter = new UI\Reiter("dshModulKernEinstellungen");
 
+$meldung      = new UI\Meldung("Ende der Spielewiese", "<p>Eine falsche Schuldomain kann zur Folge haben, dass die Seiten des Digitalen Schulhofs nicht mehr korrekt angezeigt werden können.</p>", "Warnung", new UI\Icon("fas fa-exclamation-triangle"));
 $formular    = new UI\FormularTabelle();
 $schulname   = (new UI\Textfeld("dshModulKernSchulname"))                 ->setWert($einstellungen["Schulname"]);
 $schulort    = (new UI\Textfeld("dshModulKernSchulort"))                  ->setWert($einstellungen["Schulort"]);
@@ -27,7 +28,7 @@ $formular[]  = new UI\FormularFeld(new UI\InhaltElement("Schuldomain:"),        
 $formular[]  = (new UI\Knopf("Änderungen speichern", "Erfolg"))           ->setSubmit(true);
 $formular    ->addSubmit("kern.modul.einstellungen.schuldaten()");
 $reiterkopf = new UI\Reiterkopf("Schuldaten");
-$reiterspalte = new UI\Spalte("A1", $formular);
+$reiterspalte = new UI\Spalte("A1", $meldung, $formular);
 $reiterkoerper = new UI\Reiterkoerper($reiterspalte->addKlasse("dshUiOhnePadding"));
 $reiter->addReitersegment(new UI\Reitersegment($reiterkopf, $reiterkoerper));
 
@@ -59,6 +60,7 @@ $reiterspalte = new UI\Spalte("A1", $formular);
 $reiterkoerper = new UI\Reiterkoerper($reiterspalte->addKlasse("dshUiOhnePadding"));
 $reiter->addReitersegment(new UI\Reitersegment($reiterkopf, $reiterkoerper));
 
+$meldung      = new UI\Meldung("Ende der Spielewiese", "<p>Hier sollten nur Änderungen erfolgen, wenn man weiß, was man tut. Wenn die folgenden Eingaben fehlerhaft sind, erreichen die Benutzer des Digitalen Schulhofs keine automatischen eMails mehr. Das heißt, dass Benachrichtigungen wegfallen, keine neuen Kennworte verschickt werden können, ...</p><p>Ein Test der Eingaben vor deren Bestätigung wird sehr empfohlen!</p>", "Warnung", new UI\Icon("fas fa-exclamation-triangle"));
 $formular     = new UI\FormularTabelle();
 $mailadresse  = (new UI\Textfeld("dshModulKernMailadresse"))               ->setWert($einstellungen["Mailadresse"]);
 $mailtitel    = (new UI\Textfeld("dshModulKernMailtitel"))                 ->setWert($einstellungen["MailTitel"]);
@@ -82,10 +84,11 @@ $formular[]   = (new UI\Knopf("Änderungen speichern", "Erfolg"))               
 $formular[]   = (new UI\Knopf("Änderungen testen", "Information"))                    ->addFunktion("onclick", "kern.modul.einstellungen.mail.testen()");
 $formular     ->addSubmit("kern.modul.einstellungen.mail.aendern()");
 $reiterkopf = new UI\Reiterkopf("Mailversand");
-$reiterspalte = new UI\Spalte("A1", $formular);
+$reiterspalte = new UI\Spalte("A1", $meldung, $formular);
 $reiterkoerper = new UI\Reiterkoerper($reiterspalte->addKlasse("dshUiOhnePadding"));
 $reiter->addReitersegment(new UI\Reitersegment($reiterkopf, $reiterkoerper));
 
+$meldung      = new UI\Meldung("Ende der Spielewiese", "<p>Hier sollten nur Änderungen erfolgen, wenn man weiß, was man tut. Wenn die folgenden Eingaben fehlerhaft sind, können ggf. keine Anmeldungen am Digitalen Schulhof mehr erfolgen.</p><p>Ein Test der Eingaben vor deren Bestätigung wird sehr empfohlen!</p>", "Warnung", new UI\Icon("fas fa-exclamation-triangle"));
 $formular     = new UI\FormularTabelle();
 $ldapaktiv    = (new UI\IconToggle("dshModulKernLdapAktiv", "Für die Nutzerauthentifizierung einen LDAP-Server verwenden", new UI\Icon(UI\Konstanten::HAKEN)))->setWert($einstellungen["LDAP"]);
 $ldapbenutzer = (new UI\Textfeld("dshModulKernLdapBenutzer"))                ->setWert($einstellungen["LDAP-User"]);
@@ -101,7 +104,7 @@ $formular[]   = (new UI\Knopf("Änderungen speichern", "Erfolg"))             ->
 $formular[]   = (new UI\Knopf("Änderungen testen", "Information"))           ->addFunktion("onclick", "kern.modul.einstellungen.ldap.testen()")->setSubmit(false);
 $formular     ->addSubmit("kern.modul.einstellungen.ldap.aendern()");
 $reiterkopf = new UI\Reiterkopf("LDAP");
-$reiterspalte = new UI\Spalte("A1", $formular);
+$reiterspalte = new UI\Spalte("A1", $meldung, $formular);
 $reiterkoerper = new UI\Reiterkoerper($reiterspalte->addKlasse("dshUiOhnePadding"));
 $reiter->addReitersegment(new UI\Reitersegment($reiterkopf, $reiterkoerper));
 
