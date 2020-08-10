@@ -21,6 +21,5 @@ if ($aktiv == '1') {
   setcookie("Einwilligung$typ", "nein", time()+30*24*60*60, "/");
 }
 
-Anfrage::setTyp("Fortsetzen");
-Anfrage::setRueck("Funktion", "location.reload()");
+Anfrage::setTyp("Neuladen");
 ?>

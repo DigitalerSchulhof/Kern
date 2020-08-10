@@ -122,7 +122,7 @@ class Profil {
   /**
    * Generiert die Tabelle des Aktionsprotokolls für den angegebenen Tag
    * @param  int       $datum Timestamp des Tages von dem das Aktionsprotokoll stammen soll
-   * @return UITabelle        :)
+   * @return UI\Tabelle        :)
    */
   public function getAktionsportokollTag($datum) : UI\Tabelle {
     global $DBS, $DSH_BENUTZER;

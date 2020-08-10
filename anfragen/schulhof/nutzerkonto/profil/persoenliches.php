@@ -115,7 +115,7 @@ if ($id == $DSH_BENUTZER->getId()) {
 }
 
 $knopf = new UI\Knopf("OK");
-$knopf->addFunktion("onclick", "location.reload()");
+$knopf->addFunktion("onclick", "core.neuladen()");
 Anfrage::setTyp("Meldung");
 Anfrage::setRueck("Meldung", new UI\Meldung("Änderungen erfolgreich!", "Die Änderungen der persönlichen Informationen wurden vorgenomen.", "Erfolg"));
 Anfrage::setRueck("Knöpfe", [$knopf]);

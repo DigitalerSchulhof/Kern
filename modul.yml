@@ -1,7 +1,6 @@
-modul:
-  name: Kern
-  beschreibung: Der Kern des Digitalen Schulhofs
-  lehrernetz: false
-  autor: Digitaler Schulhof
-  version: 1.0
-  einstellungen: true
+name: Kern
+beschreibung: Der Kern des Digitalen Schulhofs
+lehrernetz: false
+autor: Digitaler Schulhof
+version: 1.0
+einstellungen: true
