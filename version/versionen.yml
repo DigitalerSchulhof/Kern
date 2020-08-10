@@ -1,6 +1,5 @@
-version:
-  0_1:
-    datum: x
-    version: 0.1
-    neuerungen:
-      - x
+0_1:
+  datum: x
+  version: 0.1
+  neuerungen:
+    - x
