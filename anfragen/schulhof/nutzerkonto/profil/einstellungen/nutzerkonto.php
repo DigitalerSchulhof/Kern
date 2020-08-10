@@ -16,7 +16,7 @@ if (!$DSH_BENUTZER->hatRecht("$recht.einstellungen.nutzerkonto")) {
 }
 
 if(!UI\Check::istZahl($inaktivitaetszeit,5,300)) {
-  Anfrage::addFehler(37);
+  Anfrage::addFehler(67);
 }
 if(!UI\Check::istZahl($uebersichtselemente,1,10)) {
   Anfrage::addFehler(38);

@@ -27,4 +27,5 @@ $ZIELE[24] = "anfragen/schulhof/verwaltung/modul/ldap/aendern.php";
 $ZIELE[25] = "anfragen/schulhof/verwaltung/modul/aktionslog.php";
 $ZIELE[26] = "anfragen/schulhof/verwaltung/modul/mail/test.php";
 $ZIELE[27] = "anfragen/schulhof/verwaltung/modul/ldap/test.php";
+$ZIELE[28] = "anfragen/schulhof/nutzerkonto/profil/identitaetsdiebstahl.php";
 ?>
