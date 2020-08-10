@@ -26,7 +26,7 @@ if (is_file("{$DSH_ALLEMODULE[$modulname]}/version/versionen.yml")) {
   $versionsinfo = YAML::loader(file_get_contents("{$DSH_ALLEMODULE[$modulname]}/version/versionen.yml"));
   $code = "";
   // Initial
-  $v = array_shift($versionsinfo["version"]);
+  $v = array_shift($versionsinfo);
   $letzteVersion = (string) new UI\Ueberschrift(3, "Version {$v["version"]}");
   $letzteVersion .= new UI\Notiz($v["datum"]);
   if (is_array($v["neuerungen"]) && count($v["neuerungen"]) > 0) {
@@ -37,7 +37,7 @@ if (is_file("{$DSH_ALLEMODULE[$modulname]}/version/versionen.yml")) {
     $letzteVersion .= $neuerungen;
   }
 
-  if (count($versionsinfo["version"]) > 0) {
+  if (count($versionsinfo) > 0) {
     $toggle = new UI\Toggle("{$fensterid}Alt", "Ältere Versionen anzeigen");
     $toggle->getAktionen()->addFunktion("onclick", "kern.schulhof.verwaltung.module.alteEinblenden('{$fensterid}Alt')");
     $alteversionen = (string) new UI\Absatz($toggle);

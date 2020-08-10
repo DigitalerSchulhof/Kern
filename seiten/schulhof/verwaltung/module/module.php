@@ -22,13 +22,13 @@ foreach ($DSH_ALLEMODULE as $modulpfad) {
   $zeile[""] = new UI\Icon("fas fa-puzzle-piece");
   $zeile["Modul"] = $modul;
   $modulinfo = YAML::loader(file_get_contents("$modulpfad/modul.yml"));
-  if (isset($modulinfo["modul"]["version"])) {
-    $version = $modulinfo["modul"]["version"];
+  if (isset($modulinfo["version"])) {
+    $version = $modulinfo["version"];
   } else {
     $version = "<i>unbekannt</i>";
   }
-  if (isset($modulinfo["modul"]["einstellungen"])) {
-    $einstellungen = $modulinfo["modul"]["einstellungen"];
+  if (isset($modulinfo["einstellungen"])) {
+    $einstellungen = $modulinfo["einstellungen"];
   } else {
     $einstellungen = false;
   }
