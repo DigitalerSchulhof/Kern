@@ -5,7 +5,7 @@ use Kern\Verwaltung\Element;
 use UI\Icon;
 
 $personen   = Liste::getKategorie("personen");
-$technik   = Liste::getKategorie("technik");
+$technik    = Liste::getKategorie("technik");
 
 $personen[] = new Element("Personen", "Benutzerdaten",      new Icon("fas fa-users"),           "Schulhof/Verwaltung/Personen");
 $personen[] = new Element("Rechte",   "Rechte",             new Icon("fas fa-lock"),            "Schulhof/Verwaltung/Rechte");
@@ -13,7 +13,6 @@ $personen[] = new Element("Rechte zuordnen",  "Rechte",     new Icon("fas fa-use
 
 $technik[] = new Element("Konfiguration", "Konfiguration",  new Icon("fas fa-cogs"),            "Schulhof/Verwaltung/Konfiguration",        true);
 $technik[] = new Element("Module",    "Module",             new Icon(UI\Konstanten::MODUL),     "Schulhof/Verwaltung/Module",               true);
-$technik[] = new Element("Style",     "Style",              new Icon("fas fa-palette"),         "Schulhof/Verwaltung/Style");
 
 $gruppen    = Liste::addKategorie(new \Kern\Verwaltung\Kategorie("gruppen", "Gruppen"));
 $gruppen[]  = new Element("Gremien",  "Gremien",            new Icon("fab fa-black-tie"),       "Schulhof/Verwaltung/Gruppen/Gremien");

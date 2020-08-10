@@ -71,7 +71,7 @@ class Profil {
       if ($sessionid != null) {
         $zeile["Sessionstatus"] = "gültig";
       } else {
-        $zeile["Sessionstatus"] = "<i>grloschen</i>";
+        $zeile["Sessionstatus"] = "<i>erloschen</i>";
       }
       $zeile["Browser"] = $browser;
 
