@@ -7,7 +7,7 @@ $spalte[]           = new UI\SeitenUeberschrift("Registrierung");
 if (!Kern\Check::einwilligung("DSH")) {
   $spalte[]         = new UI\Meldung("Datenschutzhinweis", "Um eine Registrierung für den Digitalen Schulhof vorzunehmen, müssen die Cookies des Digitalen Schulhofs akzeptiert werden.", "Information");
 
-  $akzeptieren      = new UI\IconKnopf("Cookies des Digitalen Schulhofs akzeptieren", new UI\Icon(UI\Konstanten::COOKIE));
+  $akzeptieren      = new UI\GrossIconKnopf(new UI\Icon(UI\Konstanten::COOKIE), "Cookies des Digitalen Schulhofs akzeptieren");
   $akzeptieren->addFunktion("onclick", "kern.cookies.setzen('1', 'DSH')");
 
   $spalte[]         = new UI\Absatz($akzeptieren);
@@ -30,7 +30,7 @@ if (!Kern\Check::einwilligung("DSH")) {
   $geschlechtswahl  ->add("Weiblich", "w");
   $geschlechtswahl  ->add("Männlich", "m");
   $geschlechtswahl  ->add("Divers", "d");
-  $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Geschelcht:"),      $geschlechtswahl);
+  $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Geschlecht:"),      $geschlechtswahl);
 
   $formular[]       = (new UI\FormularFeld(new UI\InhaltElement("Titel:"),                     (new UI\Textfeld("dshRegistrierungTitel"))    ->setAutocomplete("honorific-prefix")))->setOptional(true);
   $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Vorname:"),                   (new UI\Textfeld("dshRegistrierungVorname"))  ->setAutocomplete("given-name"));

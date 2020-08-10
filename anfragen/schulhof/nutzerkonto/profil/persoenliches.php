@@ -64,7 +64,7 @@ if ($DSH_BENUTZER->hatRecht("$recht.art")) {
   $felder[] = $art;
   $feldertypen .= "s";
 }
-if ($DSH_BENUTZER->hatRecht("$recht.geschelcht")) {
+if ($DSH_BENUTZER->hatRecht("$recht.geschlecht")) {
   $ausfuehren = true;
   $sql .= "geschlecht = [?], ";
   $felder[] = $geschlecht;
