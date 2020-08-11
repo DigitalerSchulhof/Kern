@@ -22,6 +22,7 @@ kern:
         sehen: Aktionsprotokoll sehen
         löschen: Aktionsprotokoll löschen
   personen:
+    sehen: Personen sehen
     profil:
       sehen: Profile sehen
       art: Art ändern
@@ -45,6 +46,15 @@ kern:
         sehen: Aktionsprotokoll sehen
         details: Details ansehen
         löschen: Aktionsprotokoll löschen
+    anlegen: Personen anlegen
+    loeschen: Personen löschen
+    importieren:
+      konten: Personen importieren
+      ids: IDs importieren
+      kurszuorddnung:
+        ausDatei: Kurszuordnung aus einer Datei importieren
+        ausKlassen: Kursen alle Schüler aus zugeordneten Klassen zuordnen
+        zuruecksetzen: Kurszuordnung zurücksetzen
   verwaltung: Verwaltungsbereich sehen
   module:
     sehen: Module sehen

@@ -153,4 +153,10 @@ kern.konfiguration = {
       core.ajax("Kern", 29, "Basisverzeichnis ändern", {art:art, host:host, port:port, datenbank:datenbank, benutzer:benutzer, passwort:passwort, schluessel:schluessel});
     }
   }
+};
+
+kern.personen = {
+  anlegen: () => {
+
+  }
 }

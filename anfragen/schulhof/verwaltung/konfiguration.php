@@ -59,6 +59,8 @@ Anfrage::checkFehler();
 
 global $EINSTELLUNGEN;
 
+// @TODO:Datenbanken neu verschlüsseln
+
 if ($art === "Verzeichnisse") {
   $EINSTELLUNGEN["Base"] = $basis;
 } else if ($art === "Schulhof") {
