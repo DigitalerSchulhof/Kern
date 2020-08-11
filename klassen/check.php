@@ -4,7 +4,8 @@ namespace Kern;
 class Check {
 
   public static function istModul($modul) {
-    return preg_match("/^[A-Za-z0-9]{1,16}$/", $modul) === 1;
+    global $DSH_MODULE;
+    return preg_match("/^[A-Za-z0-9]{1,16}$/", $modul) === 1 && (is_file("$DSH_MODULE/$modul/modul.yml") || $modul === "Core");
   }
 
   public static function browserversion($browserstring, $info) : string {
@@ -71,6 +72,10 @@ class Check {
     return str_replace(" ", "_", $string);
   }
 
+  /**
+   * Prüft, on der Benutzer ein Recht besitzt und gibt eine Fehlermeldung aus, wenn nicht
+   * @param string $recht :)
+   */
   public static function verboten($recht) {
     global $DSH_BENUTZER, $DSH_TITEL, $CODE;
     if (!$DSH_BENUTZER->hatRecht($recht)) {
