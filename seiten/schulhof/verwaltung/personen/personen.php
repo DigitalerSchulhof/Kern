@@ -14,9 +14,19 @@ if ($DSH_BENUTZER->hatRecht("kern.personen.anlegen")) {
   $knopf      ->addFunktion("href", "Schulhof/Verwaltung/Personen/Neue_Person");
   $knoepfe[]   = $knopf;
 }
-if ($DSH_BENUTZER->hatRecht("kern.personen.loeschen.nichtZugeordnet()")) {
+if ($DSH_BENUTZER->hatRecht("kern.personen.importieren.(|konten,ids)")) {
+  $knopf      = new UI\IconKnopf(new UI\Icon ("fas fa-file-import"), "Importieren");
+  $knopf      ->addFunktion("onclick", "kern.personen.importieren.auswahl()");
+  $knoepfe[]   = $knopf;
+}
+if ($DSH_BENUTZER->hatRecht("kern.personen.kurszuordnung.(|ausDatei,ausKlasse,zuruecksetzen)")) {
+  $knopf      = new UI\IconKnopf(new UI\Icon ("fas fa-file-import"), "Kurszuordnung");
+  $knopf      ->addFunktion("onclick", "kern.personen.kurszuordnung.auswahl()");
+  $knoepfe[]   = $knopf;
+}
+if ($DSH_BENUTZER->hatRecht("kern.personen.loeschen")) {
   $knopf      = new UI\IconKnopf(new UI\Icon (UI\Konstanten::LOESCHEN), "Nicht zugeordnete Personen löschen", "Warnung");
-  $knopf      ->addFunktion("onclick", "kern.personen.loeschen.nichtzugeornet()");
+  $knopf      ->addFunktion("onclick", "kern.personen.loeschen.nichtzugeornet.fragen()");
   $knoepfe[]   = $knopf;
 }
 

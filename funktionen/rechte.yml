@@ -51,10 +51,10 @@ kern:
     importieren:
       konten: Personen importieren
       ids: IDs importieren
-      kurszuorddnung:
-        ausDatei: Kurszuordnung aus einer Datei importieren
-        ausKlassen: Kursen alle Schüler aus zugeordneten Klassen zuordnen
-        zuruecksetzen: Kurszuordnung zurücksetzen
+    kurszuordnung:
+      ausDatei: Kurszuordnung aus einer Datei importieren
+      ausKlassen: Kursen alle Schüler aus zugeordneten Klassen zuordnen
+      zuruecksetzen: Kurszuordnung zurücksetzen
   verwaltung: Verwaltungsbereich sehen
   module:
     sehen: Module sehen
