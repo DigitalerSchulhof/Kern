@@ -11,8 +11,8 @@ use Kern\Verwaltung\Kategorie;
 Liste::addKategorie(new Kategorie("personen", "Personen"), new Kategorie("technik", "Technik"));
 
 foreach($DSH_ALLEMODULE as $modul) {
-  if(file_exists("$modul/funktionen/verwaltung.php")) {
-    include "$modul/funktionen/verwaltung.php";
+  if(is_file("$modul/funktionen/verwaltung/elemente.php")) {
+    include  "$modul/funktionen/verwaltung/elemente.php";
   }
 }
 
