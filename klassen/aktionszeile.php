@@ -12,8 +12,8 @@ class Aktionszeile extends UI\Element {
   /** @var bool $brotkrumen Ob Brotkrumen auszugeben sind */
   protected $brotkrumen;
 
-  /** @var string[] URL für die Brotkrumen */
-  protected $brotkrumen_url;
+  /** @var string[] Assoziatives Array für Brotkrumen [href => Angezeigter Text] */
+  protected $brotkrumen_pfad;
 
   /** @var bool $aktionen Ob Aktionsicons auszugeben sind */
   protected $aktionsicons;
@@ -28,20 +28,17 @@ class Aktionszeile extends UI\Element {
     parent::__construct();
     $this->brotkrumen     = $brotkrumen;
     $this->aktionsicons   = $aktionsicons;
-    $this->brotkrumen_url = $DSH_URL;
+    $this->brotkrumen_url = null;
     $this->setID("dshAktionszeile");
   }
 
   /**
    * Setzt die Basis für die Brotkrumen
-   * @param string|string[] $url Wenn string[], dann als Array gewertet, ansonsten als ... gewertet
+   * @param string[] $pfad Nimmt ein assoziatives Array [href => Angezeigter Text]
    * @return self
    */
-  public function setBrotkrumenURL(...$url) : self {
-    if(count($url) === 1 && is_array($url[0])) {
-      $url = $url[0];
-    }
-    $this->brotkrumen_url = $url;
+  public function setBrotkrumenPfad($pfad) : self {
+    $this->brotkrumen_pfad = $pfad;
     return $this;
   }
 
@@ -66,23 +63,39 @@ class Aktionszeile extends UI\Element {
   }
 
   public function __toString() : string {
-    $brotkrumen = "<span id=\"dshBrotkrumen\">";
+    $brotkrumen = "";
     if($this->brotkrumen) {
+      $brotkrumen .= "<span id=\"dshBrotkrumen\">";
       $pfad = "";
-      foreach($this->brotkrumen_url as $i => $segment) {
-        if($i > 0) {
-          $brotkrumen .= " / ";
+      if($this->brotkrumen_pfad === null) {
+        global $DSH_URL;
+        foreach($DSH_URL as $i => $segment) {
+          if($i > 0) {
+            $brotkrumen .= " / ";
+          }
+          $el = new UI\InhaltElement("$segment");
+          $el->getAktionen()->addFunktion("href", "$pfad$segment");
+          $el->setTag("a");
+          $el->setAttribut("tabindex", "0");
+          $brotkrumen .= $el;
+          $pfad .= "$segment/";
         }
-        $segmentanzeige = Check::strToLink($segment);
-        $el = new UI\InhaltElement("$segmentanzeige");
-        $el->getAktionen()->addFunktion("href", "$pfad$segment");
-        $el->setTag("a");
-        $el->setAttribut("tabindex", "0");
-        $brotkrumen .= $el;
-        $pfad .= "$segment/";
+      } else {
+        $i = 0;
+        foreach($this->brotkrumen_pfad as $href => $text) {
+          if($i++ > 0) {
+            $brotkrumen .= " / ";
+          }
+          $el = new UI\InhaltElement("$text");
+          $el->getAktionen()->addFunktion("href", "$href");
+          $el->setTag("a");
+          $el->setAttribut("tabindex", "0");
+          $brotkrumen .= $el;
+        }
       }
       $brotkrumen .= "</span>";
     }
+
 
     $aktionsicons = "";
     if($this->aktionsicons || true) {
