@@ -18,7 +18,7 @@ class Rechtehelfer {
    */
   public static function hatRecht($rechte, $recht) : bool {
     if(self::CHECK) {
-      if(preg_match("/^(?:(?:[a-zäöüß]+|\\[[\\|&](?:[a-zäöüß]+,)+[a-zäöüß]+\\])\\.)*(?:[a-zäöüß]+|\\[[\|&](?:[a-zäöüß]+,)+[a-zäöüß]+\\])$/i", $recht) !== 1) {
+      if(preg_match("/^(?:(?:[a-zäöüß]+|\\[[\\|&](?:[a-zäöüß]+,)+[a-zäöüß]+\\])\\.)*(?:[a-zäöüß]+|\\[[\\|&](?:[a-zäöüß]+,)+[a-zäöüß]+\\])$/i", $recht) !== 1) {
         trigger_error("Das zu testende Recht »{$recht}« ist ungültig!", E_USER_WARNING);
       }
     }
