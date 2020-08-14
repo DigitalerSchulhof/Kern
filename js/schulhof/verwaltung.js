@@ -50,6 +50,11 @@ kern.schulhof.verwaltung = {
         feld.ausblenden()
       }
     }
+  },
+  personen: {
+    suche: () => {
+      alert(1);
+    }
   }
 };
 

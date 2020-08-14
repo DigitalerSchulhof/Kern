@@ -9,7 +9,9 @@ $darfei = $DSH_BENUTZER->hatRecht("kern.module.einstellungen");
 $darfve = $DSH_BENUTZER->hatRecht("kern.module.versionshistorie");
 
 $spalte = new UI\Spalte("A1", new UI\SeitenUeberschrift("Module"));
-$tabelle = new UI\Tabelle("dshVerwaltungModule", new UI\Icon(UI\Konstanten::MODUL), "Modul", "Version", "Status");
+$tabelle = new UI\Tabelle("dshVerwaltungModuleInstalliert", new UI\Icon(UI\Konstanten::MODUL), "Modul", "Version", "Status");
+
+$spalte[] = new UI\Ueberschrift(2, "Installiert");
 
 foreach($DSH_ALLEMODULE as $modul => $modulpfad) {
   $info   = YAML::loader(file_get_contents("$modulpfad/modul.yml"));
@@ -18,7 +20,7 @@ foreach($DSH_ALLEMODULE as $modul => $modulpfad) {
   $istSystem = in_array($modul, array("Kern", "UI"));
 
   if($istSystem) {
-    $zeile->setIcon(new UI\Icon("fas fa-puzzle-piece"));
+    $zeile->setIcon(new UI\Icon("fas fa-microchip"));
   }
 
   $zeile["Modul"]   = $info["name"];
@@ -44,7 +46,7 @@ foreach($DSH_ALLEMODULE as $modul => $modulpfad) {
     $zeile ->addAktion($knopf);
   }
 
-  if($darfve) {
+  if($darflo) {
     $knopf = UI\MiniIconKnopf::loeschen();
     if(!$istSystem) {
       // @TODO: Module deinstallieren
@@ -60,9 +62,10 @@ $spalte[] = $tabelle;
 
 if ($DSH_BENUTZER->hatRecht("kern.module.installieren")) {
   // @TODO: Module installieren
-  $knopf      = new UI\IconKnopf(new UI\Icon (UI\Konstanten::NEU), "Module installieren", "Erfolg");
-  $knopf      ->addFunktion("onclick", "alert('Diese Funktion steht noch nicht zur Verfügung.')");
-  $spalte[]   = new UI\Absatz($knopf);
+
+  $spalte[] = new UI\Ueberschrift(2, "Verfügbar");
+  $tabelle  = new UI\Tabelle("dshVerwaltungModuleVerfuegbar", new UI\Icon(UI\Konstanten::MODUL), "Modul", "Version", "Status");
+  $spalte[] = $tabelle;
 }
 
 $SEITE[] = new UI\Zeile($spalte);
