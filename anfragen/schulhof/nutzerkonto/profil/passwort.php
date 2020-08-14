@@ -58,7 +58,4 @@ $text .= "<p>Wenn die Aktion bewusst ausgelöst wurde, muss auf diese Nachricht 
 
 $brief = new Kern\Mail();
 $brief->senden($empfaenger, $mail, $betreff, $text);
-
-Anfrage::setTyp("Meldung");
-Anfrage::setRueck("Meldung", new UI\Meldung("Änderungen erfolgreich!", "Das Passwort wurde geändert. Aus Sicherheitsgründen wird eine Benachrichtigung per eMail verschickt.", "Erfolg"));
 ?>

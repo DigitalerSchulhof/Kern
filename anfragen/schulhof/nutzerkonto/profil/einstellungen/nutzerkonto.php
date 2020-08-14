@@ -26,7 +26,4 @@ Anfrage::checkFehler();
 
 $sql = "UPDATE kern_nutzereinstellungen SET uebersichtsanzahl = [?], inaktivitaetszeit = [?], wikiknopf = [?] WHERE person = ?";
 $anfrage = $DBS->anfrage($sql, "sssi", $uebersichtselemente, $inaktivitaetszeit, $wiki, $id);
-
-Anfrage::setTyp("Meldung");
-Anfrage::setRueck("Meldung", new UI\Meldung("Änderungen erfolgreich!", "Die Änderungen der Nutzerkonto-Einstellungen wurden vorgenomen.", "Erfolg"));
 ?>

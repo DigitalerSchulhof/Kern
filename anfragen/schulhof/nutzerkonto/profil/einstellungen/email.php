@@ -42,7 +42,4 @@ Anfrage::checkFehler();
 
 $sql = "UPDATE kern_nutzereinstellungen SET emailaktiv = [?], emailadresse = [?], emailname = [?], einganghost = [?], eingangport = [?], eingangnutzer = [?], eingangpasswort = [?], ausganghost = [?], ausgangport = [?], ausgangnutzer = [?], ausgangpasswort = [?] WHERE person = ?";
 $anfrage = $DBS->anfrage($sql, "sssssssssssi", $aktiv, $adresse, $name, $ehost, $eport, $enutzer, $epasswort, $ahost, $aport, $anutzer, $apasswort, $id);
-
-Anfrage::setTyp("Meldung");
-Anfrage::setRueck("Meldung", new UI\Meldung("Änderungen erfolgreich!", "Die Änderungen der eMail-Einstellungen wurden vorgenomen.", "Erfolg"));
 ?>

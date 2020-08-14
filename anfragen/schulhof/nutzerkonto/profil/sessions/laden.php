@@ -32,6 +32,5 @@ if ($id == "alle") {
   $code = $profil->getSessionprotokollTabelle();
 }
 
-Anfrage::setTyp("Code");
-Anfrage::setRueck("Code", $code);
+Anfrage::setRueck("Code", (string) $code);
 ?>

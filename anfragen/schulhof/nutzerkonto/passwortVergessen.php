@@ -29,12 +29,4 @@ $passwort = $person->neuesPasswort($mail, 10, $salt);
 if (!$passwort) {
   Anfrage::addFehler(8, true);
 }
-
-$schulhof = new UI\Knopf("Zurück zur Anmeldung");
-$schulhof->addFunktion("href", "Schulhof/Anmeldung");
-$schulhof->addFunktion("onclick", "ui.laden.aus()");
-$knoepfe = [$schulhof];
-Anfrage::setTyp("Meldung");
-Anfrage::setRueck("Meldung", new UI\Meldung("Passwort verschickt!", "Das neue Passwort wurde per eMail verschickt. Es ist nur für kurze Zeit gültig. Eine umgehende Änderung wird empfohlen.", "Information", new UI\Icon(UI\Konstanten::VERSCHICKEN)));
-Anfrage::setRueck("Knöpfe", $knoepfe);
 ?>

@@ -54,15 +54,4 @@ $neueid = $DBS->neuerDatensatz("kern_nutzerregistrierung", true);
 $sql = "UPDATE kern_nutzerregistrierung SET art = [?], geschlecht = [?], titel = [?], vorname = [?], nachname = [?], klasse = [?], email = [?], salt = [?], passwort = SHA1(?) WHERE id = ?";
 $salt = Kern\Nutzerkonto::generiereSalt();
 $DBS->anfrage($sql, "sssssssssi", $art, $geschlecht, $titel, $vorname, $nachname, $klasse, $mail, $salt, $passwort.$salt, $neueid);
-
-$website = new UI\Knopf("Zurück zur Website");
-$website->addFunktion("href", "Website");
-$website->addFunktion("onclick", "ui.laden.aus()");
-$schulhof = new UI\Knopf("Zurück zur Anmeldung");
-$schulhof->addFunktion("href", "Schulhof/Anmeldung");
-$schulhof->addFunktion("onclick", "ui.laden.aus()");
-$knoepfe = [$website, $schulhof];
-Anfrage::setTyp("Meldung");
-Anfrage::setRueck("Meldung", new UI\Meldung("Registrierung erfolgreich!", "Die Registrierung wurde durchgeführt. Ein Administrator muss noch die Verknüpfung mit einer Person des Schulhofs durchführen. Sobald das Nutzerkonto bereitsteht wird eine eMail mit dem zugehörigen Benutzernamen versendet.", "Information"));
-Anfrage::setRueck("Knöpfe", $knoepfe);
 ?>

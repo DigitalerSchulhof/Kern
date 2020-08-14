@@ -26,7 +26,4 @@ Anfrage::checkFehler();
 
 $sql = "UPDATE kern_nutzereinstellungen SET postalletage = [?], postpapierkorbtage = [?] WHERE person = ?";
 $anfrage = $DBS->anfrage($sql, "ssi", $postfach, $papierkorb, $id);
-
-Anfrage::setTyp("Meldung");
-Anfrage::setRueck("Meldung", new UI\Meldung("Änderungen erfolgreich!", "Die Änderungen der Postfach-Einstellungen wurden vorgenomen.", "Erfolg"));
 ?>

@@ -46,7 +46,5 @@ $inhalt .= new UI\Code($datensatzdatei);
 $code = new UI\Fenster("dshProfilFensterLoginfo$logid", $fenstertitel, $inhalt);
 $code->addFensteraktion(UI\Knopf::schliessen("dshProfilFensterLoginfo$logid"));
 
-
-Anfrage::setTyp("Code");
 Anfrage::setRueck("Code", (string) $code);
 ?>

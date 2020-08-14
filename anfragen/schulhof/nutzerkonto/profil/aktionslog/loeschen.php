@@ -38,15 +38,4 @@ if ($id == 'alle') {
     $anfrage = $DBS->anfrage($sql, "ii", $id, $logid);
   }
 }
-
-Anfrage::setTyp("Meldung");
-if ($logid != "alle") {
-  Anfrage::setRueck("Meldung", new UI\Meldung("Aktionslog gelöscht!", "Die aufgezeichnete Aktion wurde entfernt.", "Erfolg"));
-} else {
-  if ($id == "alle") {
-    Anfrage::setRueck("Meldung", new UI\Meldung("Aktionslog gelöscht!", "Alle aufgezeichneten Aktionen wurden entfernt.", "Erfolg"));
-  } else {
-    Anfrage::setRueck("Meldung", new UI\Meldung("Aktionslog gelöscht!", "Alle aufgezeichneten Aktionen dieses Nutzers wurden entfernt.", "Erfolg"));
-  }
-}
 ?>

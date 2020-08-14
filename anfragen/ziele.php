@@ -29,4 +29,5 @@ $ZIELE[26] = "schulhof/verwaltung/modul/mail/test.php";
 $ZIELE[27] = "schulhof/verwaltung/modul/ldap/test.php";
 $ZIELE[28] = "schulhof/nutzerkonto/profil/identitaetsdiebstahl.php";
 $ZIELE[29] = "schulhof/verwaltung/konfiguration.php";
+$ZIELE[30] = "fehlermeldung.php";
 ?>

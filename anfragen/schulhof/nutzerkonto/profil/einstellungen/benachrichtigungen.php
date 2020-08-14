@@ -17,7 +17,4 @@ if (!$DSH_BENUTZER->hatRecht("$recht.einstellungen.benachrichtigungen")) {
 
 $sql = "UPDATE kern_nutzereinstellungen SET notifikationsmail = [?], postmail = [?], oeffentlichertermin = [?], oeffentlicherblog = [?], oeffentlichegalerie = [?] WHERE person = ?";
 $anfrage = $DBS->anfrage($sql, "sssssi", $notifikationen, $nachrichten, $termin, $blog, $galerie, $id);
-
-Anfrage::setTyp("Meldung");
-Anfrage::setRueck("Meldung", new UI\Meldung("Änderungen erfolgreich!", "Die Änderungen der Benachrichtigungseinstellungen wurden vorgenomen.", "Erfolg"));
 ?>

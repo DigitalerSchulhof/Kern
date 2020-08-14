@@ -82,7 +82,4 @@ $text .= "<p>Wenn die Aktion bewusst ausgelöst wurde, muss auf diese Nachricht 
 
 $brief = new Kern\Mail();
 $brief->senden($empfaenger, $mailalt, $betreff, $text);
-
-Anfrage::setTyp("Meldung");
-Anfrage::setRueck("Meldung", new UI\Meldung("Änderungen erfolgreich!", "Die Änderungen der Nutzerkonto-Informationen wurden vorgenomen.", "Erfolg"));
 ?>

@@ -113,10 +113,4 @@ if ($id == $DSH_BENUTZER->getId()) {
   $DSH_BENUTZER->setVorname($vorname);
   $DSH_BENUTZER->setNachname($nachname);
 }
-
-$knopf = new UI\Knopf("OK");
-$knopf->addFunktion("onclick", "core.neuladen()");
-Anfrage::setTyp("Meldung");
-Anfrage::setRueck("Meldung", new UI\Meldung("Änderungen erfolgreich!", "Die Änderungen der persönlichen Informationen wurden vorgenomen.", "Erfolg"));
-Anfrage::setRueck("Knöpfe", [$knopf]);
 ?>
