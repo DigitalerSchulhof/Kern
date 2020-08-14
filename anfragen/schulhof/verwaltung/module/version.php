@@ -63,6 +63,5 @@ $fenstertitel = (new UI\Icon("fas fa-puzzle-piece"))." Modulversionen";
 $code = new UI\Fenster($fensterid, $fenstertitel, $letzteVersion);
 $code->addFensteraktion(UI\Knopf::schliessen($fensterid));
 
-Anfrage::setTyp("Code");
 Anfrage::setRueck("Code", (string) $code);
 ?>

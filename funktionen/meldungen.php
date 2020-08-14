@@ -125,5 +125,26 @@ switch ($meldeid) {
   case 17:
     Anfrage::setRueck("Meldung", new UI\Meldung("Erfolg!", "Die Session wurde verlängert!", "Erfolg"));
     break;
+  case 18:
+    Anfrage::setRueck("Meldung", new UI\Meldung("Änderungen erfolgreich!", "Die Änderungen der Konfiguration wurden vorgenomen.", "Erfolg"));
+    break;
+  case 19:
+    Anfrage::setRueck("Meldung", new UI\Meldung("Änderungen erfolgreich!", "Die Änderungen an den LDAP-Einstellungen wurden vorgenomen.", "Erfolg"));
+    break;
+  case 20:
+    Anfrage::setRueck("Meldung", new UI\Meldung("Änderungen erfolgreich!", "Die Änderungen an der eMailadresse des Schulhofs wurden vorgenomen.", "Erfolg"));
+    break;
+  case 21:
+    Anfrage::setRueck("Meldung", new UI\Meldung("Testmail verschickt!", "Eine Testmail wurden an die neuen Zugansdaten versendet. Wenn diese eMail angekommen ist, können die neuen Zugansdaten verwendet werden.", "Information"));
+    break;
+  case 22:
+    Anfrage::setRueck("Meldung", new UI\Meldung("Änderungen erfolgreich!", "Die Änderungen am Aktionslog wurden vorgenomen.", "Erfolg"));
+    break;
+  case 23:
+    Anfrage::setRueck("Meldung", new UI\Meldung("Änderungen erfolgreich!", "Die Änderungen der Schuldaten wurden vorgenomen.", "Erfolg"));
+    break;
+  case 24:
+    Anfrage::setRueck("Meldung", new UI\Meldung("Änderungen erfolgreich!", "Die Änderungen der Vertreter wurden vorgenomen.", "Erfolg"));
+    break;
 }
 ?>

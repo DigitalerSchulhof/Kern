@@ -37,7 +37,4 @@ $werte[] = [$ldappass,  "LDAP-Passwort"];
 $werte[] = [$ldaphost,  "LDAP-Host"];
 $werte[] = [$ldapport,  "LDAP-Port"];
 $anfrage = $DBS->anfrage($sql, "ss", $werte);
-
-Anfrage::setTyp("Meldung");
-Anfrage::setRueck("Meldung", new UI\Meldung("Änderungen erfolgreich!", "Die Änderungen an den LDAP-Einstellungen wurden vorgenomen.", "Erfolg"));
 ?>

@@ -107,7 +107,4 @@ fwrite($config, $txt);
 fclose($config);
 
 $DBS->logZugriff("Datei", "/core/", "config.php", "Überschreiben - $art");
-
-Anfrage::setTyp("Meldung");
-Anfrage::setRueck("Meldung", new UI\Meldung("Änderungen erfolgreich!", "Die Änderungen der Konfiguration wurden vorgenomen.", "Erfolg"));
 ?>

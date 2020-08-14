@@ -42,7 +42,4 @@ $werte[] = [$fax,       "Schulfaxnummer"];
 $werte[] = [$mail,      "Schulmail"];
 $werte[] = [$domain,    "Schuldomain"];
 $anfrage = $DBS->anfrage($sql, "ss", $werte);
-
-Anfrage::setTyp("Meldung");
-Anfrage::setRueck("Meldung", new UI\Meldung("Änderungen erfolgreich!", "Die Änderungen der Schuldaten wurden vorgenomen.", "Erfolg"));
 ?>

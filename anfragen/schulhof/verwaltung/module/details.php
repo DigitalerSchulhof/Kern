@@ -40,6 +40,5 @@ $inhalt .= new UI\Notiz("Version $modulversion - Autor: $modulautor");
 $code = new UI\Fenster("dshVerwaltungModuleModulinfo$modulname", $fenstertitel, $inhalt);
 $code->addFensteraktion(UI\Knopf::schliessen("dshVerwaltungModuleModulinfo$modulname"));
 
-Anfrage::setTyp("Code");
 Anfrage::setRueck("Code", (string) $code);
 ?>

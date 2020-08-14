@@ -48,7 +48,4 @@ $werte[] = [$wemail, "Webmaster Mail"];
 $werte[] = [$adname, "Administration Name"];
 $werte[] = [$admail, "Administration Mail"];
 $anfrage = $DBS->anfrage($sql, "ss", $werte);
-
-Anfrage::setTyp("Meldung");
-Anfrage::setRueck("Meldung", new UI\Meldung("Änderungen erfolgreich!", "Die Änderungen der Vertreter wurden vorgenomen.", "Erfolg"));
 ?>

@@ -50,7 +50,4 @@ $text .= "<p>Diese eMail dient dem Test der neuen Zugansdaten zum Absender der e
 $brief = new Kern\Mail();
 $brief->setAttribute($mailhost, $mailport, $mailtitel, $mailauth, $mailadresse, $mailuser, $mailpass, $mailsigp, $mailsigh);
 $brief->senden($empfaenger, $mail, $betreff, $text);
-
-Anfrage::setTyp("Meldung");
-Anfrage::setRueck("Meldung", new UI\Meldung("Testmail verschickt!", "Eine Testmail wurden an die neuen Zugansdaten versendet. Wenn diese eMail angekommen ist, können die neuen Zugansdaten verwendet werden.", "Information"));
 ?>

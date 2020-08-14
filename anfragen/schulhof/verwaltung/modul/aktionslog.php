@@ -17,7 +17,4 @@ Anfrage::checkFehler();
 
 $sql = "UPDATE kern_einstellungen SET wert = [?] WHERE inhalt = [?]";
 $anfrage = $DBS->anfrage($sql, "ss", $aktionslog, "Aktionslog");
-
-Anfrage::setTyp("Meldung");
-Anfrage::setRueck("Meldung", new UI\Meldung("Änderungen erfolgreich!", "Die Änderungen am Aktionslog wurden vorgenomen.", "Erfolg"));
 ?>

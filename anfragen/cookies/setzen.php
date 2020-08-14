@@ -13,7 +13,6 @@ if(!isset($_COOKIE["Einwilligung{$typ}"])) {
   Anfrage::addFehler(11, true);
 }
 
-
 if ($aktiv == '1') {
   $_COOKIE["Einwilligung{$typ}"] = "ja";
   setcookie("Einwilligung$typ", "ja", time()+30*24*60*60, "/");

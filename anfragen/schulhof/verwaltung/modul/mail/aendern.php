@@ -47,7 +47,4 @@ $werte[] = [$mailauth, "MailSmtpAuthentifizierung"];
 $werte[] = [$mailsigp, "MailSignaturPlain"];
 $werte[] = [$mailsigh, "MailSignaturHTML"];
 $anfrage = $DBS->anfrage($sql, "ss", $werte);
-
-Anfrage::setTyp("Meldung");
-Anfrage::setRueck("Meldung", new UI\Meldung("Änderungen erfolgreich!", "Die Änderungen an der eMailadresse des Schulhofs wurden vorgenomen.", "Erfolg"));
 ?>
