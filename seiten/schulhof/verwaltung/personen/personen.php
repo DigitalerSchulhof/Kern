@@ -4,7 +4,11 @@ $SEITE = new Kern\Seite("Personen", "kern.personen.sehen");
 $spalte = new UI\Spalte("A1", new UI\SeitenUeberschrift("Personen"));
 
 
-$spalte[] = new Kern\Personenfilter("dshPersonenFilter", "kern.verwaltung.personen.suche()");
+$spalte[] = new Kern\Personenfilter("dshPersonenFilter", "kern.schulhof.verwaltung.personen.suche()");
+
+$tabelle = new UI\Tabelle("dshVerwaltungModule", new UI\Icon(UI\Konstanten::MODUL), "Titel", "Vorname", "Nachname", "Status");
+
+$spalte[] = $tabelle;
 
 $knoepfe = [];
 if ($DSH_BENUTZER->hatRecht("kern.personen.anlegen")) {

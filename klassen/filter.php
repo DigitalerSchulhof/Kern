@@ -31,16 +31,33 @@ class Personenfilter extends UI\Eingabe {
     $code = new UI\Absatz($this->knopf->addFunktion("onclick", "kern.filter.anzeigen('{$this->id}')"));
 
     $arten = new UI\Multitoggle("dshPersonenFilterArten");
-    $arten->add(new UI\Toggle("dshPersonenFilterSchueler", "Schüler"));
-    $arten->add(new UI\Toggle("dshPersonenFilterLehrer", "Lehrer"));
-    $arten->add(new UI\Toggle("dshPersonenFilterErziehungsberechtigte", "Erziehungsberechtigte"));
-    $arten->add(new UI\Toggle("dshPersonenFilterVerwaltungsangestellte", "Verwaltungsangestellte"));
-    $arten->add(new UI\Toggle("dshPersonenFilterExterne", "Externe"));
+    $schueler = new UI\Toggle("dshPersonenFilterSchueler", "Schüler");
+    $lehrer = new UI\Toggle("dshPersonenFilterLehrer", "Lehrer");
+    $erziehungsberechtigte = new UI\Toggle("dshPersonenFilterErziehungsberechtigte", "Erziehungsberechtigte");
+    $verwaltungsangestellte = new UI\Toggle("dshPersonenFilterVerwaltungsangestellte", "Verwaltungsangestellte");
+    $externe = new UI\Toggle("dshPersonenFilterExterne", "Externe");
 
     $formular         = new UI\FormularTabelle();
     $vorname          = new UI\Textfeld("dshPersonenFilterVorname");
     $nachname         = new UI\Textfeld("dshPersonenFilterNachname");
     $klasse           = new UI\Textfeld("dshPersonenFilterKlasse");
+
+    if ($this->autoaktualisierung) {
+      $vorname->addFunktion("onkeyup", $this->ziel);
+      $nachname->addFunktion("onkeyup", $this->ziel);
+      $klasse->addFunktion("onkeyup", $this->ziel);
+      $schueler->addFunktion("onkeyup", $this->ziel);
+      $lehrer->addFunktion("onkeyup", $this->ziel);
+      $erziehungsberechtigte->addFunktion("onkeyup", $this->ziel);
+      $verwaltungsangestellte->addFunktion("onkeyup", $this->ziel);
+      $externe->addFunktion("onkeyup", $this->ziel);
+    }
+
+    $arten->add($schueler);
+    $arten->add($lehrer);
+    $arten->add($erziehungsberechtigte);
+    $arten->add($verwaltungsangestellte);
+    $arten->add($externe);
 
     $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Vorname:"),              $vorname);
     $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Nachname:"),             $nachname);

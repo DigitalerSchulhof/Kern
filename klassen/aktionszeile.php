@@ -74,7 +74,7 @@ class Aktionszeile extends UI\Element {
             $brotkrumen .= " / ";
           }
           $el = new UI\InhaltElement("$segment");
-          $el->getAktionen()->addFunktion("href", "$pfad$segment");
+          $el->addFunktion("href", "$pfad$segment");
           $el->setTag("a");
           $el->setAttribut("tabindex", "0");
           $brotkrumen .= $el;
@@ -87,7 +87,7 @@ class Aktionszeile extends UI\Element {
             $brotkrumen .= " / ";
           }
           $el = new UI\InhaltElement("$text");
-          $el->getAktionen()->addFunktion("href", "$href");
+          $el->addFunktion("href", "$href");
           $el->setTag("a");
           $el->setAttribut("tabindex", "0");
           $brotkrumen .= $el;

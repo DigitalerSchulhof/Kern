@@ -198,7 +198,7 @@ class Profil {
       $tagwahl->add((new UI\Datum($datum))->kurz("WM"), $datum);
     }
     $tagwahl->setWert(mktime(0, 0, 0, $monat, $tag, $jahr));
-    $tagwahl->getAktionen()->addFunktion("onchange", "kern.schulhof.nutzerkonto.aktionslog.laden('{$this->person->getId()}')");
+    $tagwahl->addFunktion("onchange", "kern.schulhof.nutzerkonto.aktionslog.laden('{$this->person->getId()}')");
     $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Datum:"),      $tagwahl);
     $formular[]       = (new UI\Knopf("Suchen"))  ->setSubmit(true);
     $formular         ->addSubmit("kern.schulhof.nutzerkonto.aktionslog.laden('{$this->person->getId()}')");
