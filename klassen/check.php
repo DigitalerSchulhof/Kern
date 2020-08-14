@@ -77,14 +77,9 @@ class Check {
    * @param string $recht :)
    */
   public static function verboten($recht) {
-    global $DSH_BENUTZER, $DSH_TITEL, $CODE;
+    global $DSH_BENUTZER;
     if (!$DSH_BENUTZER->hatRecht($recht)) {
-      einbinden("Fehler/403");
-      \Anfrage::setTyp("Seite");
-      \Anfrage::setRueck("Titel",  $DSH_TITEL);
-      \Anfrage::setRueck("Code",   $CODE);
-      \Anfrage::ausgeben();
-      die();
+      \Seite::seiteAus("Fehler/404");
     }
   }
 

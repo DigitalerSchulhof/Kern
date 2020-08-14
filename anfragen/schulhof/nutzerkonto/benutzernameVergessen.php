@@ -32,12 +32,4 @@ $brief->senden($empfaenger, $mail, $betreff, $text);
 if (!$brief) {
   Anfrage::addFehler(10, true);
 }
-
-$schulhof = new UI\Knopf("Zurück zur Anmeldung");
-$schulhof->addFunktion("href", "Schulhof/Anmeldung");
-$schulhof->addFunktion("onclick", "ui.laden.aus()");
-$knoepfe = [$schulhof];
-Anfrage::setTyp("Meldung");
-Anfrage::setRueck("Meldung", new UI\Meldung("Benutzername verschickt!", "Die Benutzernamen aller Benutzer, die mit dieser Mailadresse verknüpft sind, wurden per eMail verschickt.", "Information", new UI\Icon(UI\Konstanten::VERSCHICKEN)));
-Anfrage::setRueck("Knöpfe", $knoepfe);
 ?>

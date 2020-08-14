@@ -25,7 +25,6 @@ class Seite implements \ArrayAccess {
    * @param bool    $aktionszeile true = Aktionszeile ausgeben, false sonst
    */
   public function __construct($titel, $recht = false, $aktionszeile = true) {
-    global $DSH_TITEL, $CODE;
     $this->titel = $titel;
     $this->recht = $recht;
     $this->zeilen = [];
@@ -34,12 +33,7 @@ class Seite implements \ArrayAccess {
 
     if ($recht !== false) {
       if(!Check::angemeldet()) {
-        einbinden("Schulhof/Anmeldung");
-        \Anfrage::setTyp("Seite");
-        \Anfrage::setRueck("Titel",  $DSH_TITEL);
-        \Anfrage::setRueck("Code",   $CODE);
-        \Anfrage::ausgeben();
-        die;
+        \Seite::seiteAus("Schulhof/Anmeldung");
       }
 
       if ($recht !== null) {

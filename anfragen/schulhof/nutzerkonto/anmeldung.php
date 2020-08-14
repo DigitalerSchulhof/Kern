@@ -65,6 +65,4 @@ $sessiontimeout = time() + $inaktivitaetszeit*60;
 $DSH_BENUTZER->setSession($sessionid, $sessiontimeout, $inaktivitaetszeit);
 
 $DSH_BENUTZER->anmelden();
-
-Anfrage::setTyp("Neuladen");
 ?>

@@ -2,21 +2,19 @@ kern.schulhof.nutzerkonto = {
   anmelden: () => {
     var benutzer = $("#dshAnmeldungBenutzer").getWert();
     var passwort = $("#dshAnmeldungPasswort").getWert();
-    core.ajax("Kern", 0, ["Anmeldung", "Anmeldedaten werden überprüft"], {benutzer: benutzer, passwort: passwort});
+    core.ajax("Kern", 0, ["Anmeldung", "Anmeldedaten werden überprüft"], {benutzer: benutzer, passwort: passwort}).then(() => core.neuladen());
   },
   abmelden: {
     fragen: () => {
       ui.laden.meldung("Kern", 0, "Abmeldung");
     },
     ausfuehren: () => {
-      core.ajax("Kern", 1, ["Abmeldung", "Die Abmeldung wird durchgeführt"]);
+      core.ajax("Kern", 1, ["Abmeldung", "Die Abmeldung wird durchgeführt"]).then(() => ui.laden.meldung("Kern", 1, "Abmeldung"));
     }
   },
   session: {
     verlaengern: () => {
-      core.ajax("Kern", 2, ["Session verlängern", "Die Verlängerung wird durchgeführt"]).then((r) => {
-        kern.schulhof.nutzerkonto.session.aktualisieren(r.Limit, r.Ende);
-      });
+      core.ajax("Kern", 2, ["Session verlängern", "Die Verlängerung wird durchgeführt"]).then((r) => kern.schulhof.nutzerkonto.session.aktualisieren(r.Limit, r.Ende));
     },
     aktualisieren: (limit, ende) => {
       var orte = ["dshAktivitaetNutzerkonto"];
