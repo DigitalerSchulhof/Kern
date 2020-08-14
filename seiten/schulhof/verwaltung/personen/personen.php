@@ -3,10 +3,8 @@ $SEITE = new Kern\Seite("Personen", "kern.personen.sehen");
 
 $spalte = new UI\Spalte("A1", new UI\SeitenUeberschrift("Personen"));
 
-$reiter = new UI\Reiter("dshKonfiguration");
 
-global $EINSTELLUNGEN;
-
+$spalte[] = new Kern\Personenfilter("dshPersonenFilter", "kern.verwaltung.personen.suche()");
 
 $knoepfe = [];
 if ($DSH_BENUTZER->hatRecht("kern.personen.anlegen")) {
@@ -14,13 +12,13 @@ if ($DSH_BENUTZER->hatRecht("kern.personen.anlegen")) {
   $knopf      ->addFunktion("href", "Schulhof/Verwaltung/Personen/Neue_Person");
   $knoepfe[]   = $knopf;
 }
-if ($DSH_BENUTZER->hatRecht("kern.personen.importieren.(|konten,ids)")) {
+if ($DSH_BENUTZER->hatRecht("kern.personen.importieren.[|konten,ids]")) {
   $knopf      = new UI\IconKnopf(new UI\Icon ("fas fa-file-import"), "Importieren");
   $knopf      ->addFunktion("onclick", "kern.personen.importieren.auswahl()");
   $knoepfe[]   = $knopf;
 }
-if ($DSH_BENUTZER->hatRecht("kern.personen.kurszuordnung.(|ausDatei,ausKlasse,zuruecksetzen)")) {
-  $knopf      = new UI\IconKnopf(new UI\Icon ("fas fa-file-import"), "Kurszuordnung");
+if ($DSH_BENUTZER->hatRecht("kern.personen.kurszuordnung.[|ausDatei,ausKlasse,zuruecksetzen]")) {
+  $knopf      = new UI\IconKnopf(new UI\Icon ("fas fa-chalkboard"), "Kurszuordnung");
   $knopf      ->addFunktion("onclick", "kern.personen.kurszuordnung.auswahl()");
   $knoepfe[]   = $knopf;
 }

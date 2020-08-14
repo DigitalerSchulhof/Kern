@@ -11,11 +11,11 @@ class Einstellungen {
    */
   public static function laden($modul, $wert) : string {
     // Falsches Modul
-    $modul = strtolower($modul);
     if (!Check::istModul($modul)) {
-      throw new \Exception("Ungültiges Modul");
+      throw new \Exception("Ungültiges Modul: $modul");
     }
 
+    $modul = strtolower($modul);
     global $DBS;
     $anfrage = $DBS->anfrage("SELECT {wert} AS wert FROM {$modul}_einstellungen WHERE inhalt = [?]", "s", $wert);
     $anfrage->werte($r);
@@ -29,11 +29,11 @@ class Einstellungen {
    */
   public static function ladenAlle($modul) : array {
     // Falsches Modul
-    $modul = strtolower($modul);
     if (!Check::istModul($modul)) {
       throw new \Exception("Ungültiges Modul");
     }
-
+    
+    $modul = strtolower($modul);
     global $DBS;
     $anfrage = $DBS->anfrage("SELECT {inhalt} AS inhalt, {wert} AS wert FROM {$modul}_einstellungen");
     $arr = [];

@@ -10,6 +10,7 @@ include_once("$KLASSEN/mail.php");
 include_once("$KLASSEN/rechtehelfer.php");
 include_once("$KLASSEN/person.php");
 include_once("$KLASSEN/profil.php");
+include_once("$KLASSEN/filter.php");
 
 use \Kern\DB;
 
