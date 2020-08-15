@@ -1,6 +1,10 @@
 seiten:
-  "Fehler/404"                               : "fehler/404.php"
+  "Fehler"                                   : "fehler/liste.php"
+  "Fehler/301"                               : "fehler/301.php"
+  "Fehler/302"                               : "fehler/302.php"
   "Fehler/403"                               : "fehler/403.php"
+  "Fehler/404"                               : "fehler/404.php"
+  "Fehler/500"                               : "fehler/500.php"
   "Schulhof"                                 : "schulhof/nutzerkonto/nutzerkonto.php"
   "Schulhof/Anmeldung"                       : "schulhof/nutzerkonto/anmeldung.php"
   "Schulhof/Zugangsdaten_vergessen"          : "schulhof/nutzerkonto/zugangsdatenvergessen.php"
