@@ -259,3 +259,6 @@
 87:
   ort: anfragen/schulhof/verwaltung/personen/suche.php
   beschreibung: Die <b>Klasse</b> ist ungültig.
+88:
+  ort: anfragen/schulhof/verwaltung/personen/loeschen.php
+  beschreibung: Der <b>letzte Administrator</b> kann nicht gelöscht werden.

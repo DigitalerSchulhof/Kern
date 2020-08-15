@@ -134,7 +134,7 @@ while ($anfrage->werte($id, $art, $tit, $vor, $nach, $nutzer, $anmeldung)) {
 
   if ($darfprofil) {
     $knopf = new UI\MiniIconKnopf(new UI\Icon("fas fa-address-card"), "Profil öffnen");
-    $knopf->addFunktion("onclick", "kern.schulhof.verwaltung.personen.profil($id)");
+    $knopf->addFunktion("onclick", "kern.schulhof.verwaltung.personen.profil('$id')");
     $zeile->addAktion($knopf);
   }
   if ($darfaufenthalt) {
@@ -151,6 +151,7 @@ while ($anfrage->werte($id, $art, $tit, $vor, $nach, $nutzer, $anmeldung)) {
   }
   if ($darfloeschen) {
     $knopf = new UI\MiniIconKnopf(new UI\Icon(UI\Konstanten::LOESCHEN), "Nutzerkonto oder Person löschen", "Warnung");
+    $knopf->addFunktion("onclick", "kern.schulhof.verwaltung.personen.loeschen.fragen('$id', '1')");
     $zeile->addAktion($knopf);
   }
 

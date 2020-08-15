@@ -72,6 +72,20 @@ kern.schulhof.verwaltung = {
       core.ajax("Kern", 32, null, {id:id}).then((r) => {
         ui.fenster.anzeigen(r.Code, r.Fensterid);
       });
+    },
+    loeschen: {
+      fragen: (id, laden) => {
+        var laden = laden || false;
+        ui.laden.meldung("Kern", 25, "Person löschen", {id:id, laden:laden});
+      },
+      ausfuehren: (id, art, laden) => {
+        core.ajax("Kern", 33, "Person löschen", {id:id, art:art}).then(() => {
+          ui.laden.meldung("Kern", 26, null, {art:art});
+          if (laden == '1') {
+            kern.schulhof.verwaltung.personen.suche();
+          }
+        });
+      }
     }
   }
 };

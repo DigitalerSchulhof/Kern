@@ -1,7 +1,7 @@
 <?php
 switch ($meldeid) {
   case 0:
-    Anfrage::setRueck("Meldung", new UI\Meldung("Wirklich abmelden", "Bitte die Abmeldung bestätigen, um ein Versehen auszuschließen", "Warnung"));
+    Anfrage::setRueck("Meldung", new UI\Meldung("Wirklich abmelden", "Bitte die Abmeldung bestätigen, um ein Versehen auszuschließen.", "Warnung"));
     $knoepfe[] = new UI\Knopf("Abmelden", "Warnung", "kern.schulhof.nutzerkonto.abmelden.ausfuehren()");
     $knoepfe[] = UI\Knopf::abbrechen();
     Anfrage::setRueck("Knöpfe", $knoepfe);
@@ -145,6 +145,20 @@ switch ($meldeid) {
     break;
   case 24:
     Anfrage::setRueck("Meldung", new UI\Meldung("Änderungen erfolgreich!", "Die Änderungen der Vertreter wurden vorgenomen.", "Erfolg"));
+    break;
+  case 25:
+    parameter("id", "laden");
+    Anfrage::setRueck("Meldung", new UI\Meldung("Diese Person wirklich löschen", "Soll die Person wirklich gelöscht werden? Wenn ja, nur das Nutzerkonto oder die gesamte Person?", "Warnung"));
+    $knoepfe[] = new UI\Knopf("Person löschen", "Fehler", "kern.schulhof.verwaltung.personen.loeschen.ausfuehren('$id', 'person', '$laden')");
+    $knoepfe[] = new UI\Knopf("Nutzerkonto löschen", "Warnung", "kern.schulhof.verwaltung.personen.loeschen.ausfuehren('$id', 'nutzerkonto', '$laden')");
+    $knoepfe[] = UI\Knopf::abbrechen();
+    Anfrage::setRueck("Knöpfe", $knoepfe);
+    break;
+  case 26:
+    parameter("art");
+    if ($art == "person") {$art = "Person";}
+    else {$art = "Nutzerkonto";}
+    Anfrage::setRueck("Meldung", new UI\Meldung("$art gelöscht!", "Die $art wurde gelöscht.", "Erfolg"));
     break;
 }
 ?>
