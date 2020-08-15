@@ -41,5 +41,9 @@ if(!UI\Check::istZahl($aport,0,65535)) {
 Anfrage::checkFehler();
 
 $sql = "UPDATE kern_nutzereinstellungen SET emailaktiv = [?], emailadresse = [?], emailname = [?], einganghost = [?], eingangport = [?], eingangnutzer = [?], eingangpasswort = [?], ausganghost = [?], ausgangport = [?], ausgangnutzer = [?], ausgangpasswort = [?] WHERE person = ?";
-$anfrage = $DBS->anfrage($sql, "sssssssssssi", $aktiv, $adresse, $name, $ehost, $eport, $enutzer, $epasswort, $ahost, $aport, $anutzer, $apasswort, $id);
+$anfrage = $DBS->silentanfrage($sql, "sssssssssssi", $aktiv, $adresse, $name, $ehost, $eport, $enutzer, $epasswort, $ahost, $aport, $anutzer, $apasswort, $id);
+
+$logwerte = [[$aktiv, $adresse, $name, "*****", "*****", "*****", "*****", "*****", "*****", "*****", "*****", $id]];
+
+$DBS->logZugriff("DB", "kern_nutzereinstellungen", "UPDATE kern_nutzereinstellungen SET emailaktiv = ?, emailadresse = ?, emailname = ?, einganghost = ?, eingangport = ?, eingangnutzer = ?, eingangpasswort = ?, ausganghost = ?, ausgangport = ?, ausgangnutzer = ?, ausgangpasswort = ? WHERE person = ?", "Änderung", $logwerte);
 ?>
