@@ -8,7 +8,7 @@ $spalte[] = new Kern\Personenfilter("dshPersonenFilter", "kern.schulhof.verwaltu
 
 $tabelle = new UI\Tabelle("dshVerwaltungModule", new UI\Icon(UI\Konstanten::MODUL), "Titel", "Vorname", "Nachname", "Status");
 
-$spalte[] = $tabelle;
+$spalte[] = "<div id=\"dshPersonenLadebereich\">".$tabelle."</div>";
 
 $knoepfe = [];
 if ($DSH_BENUTZER->hatRecht("kern.personen.anlegen")) {

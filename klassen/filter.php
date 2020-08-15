@@ -46,11 +46,11 @@ class Personenfilter extends UI\Eingabe {
       $vorname->addFunktion("onkeyup", $this->ziel);
       $nachname->addFunktion("onkeyup", $this->ziel);
       $klasse->addFunktion("onkeyup", $this->ziel);
-      $schueler->addFunktion("onkeyup", $this->ziel);
-      $lehrer->addFunktion("onkeyup", $this->ziel);
-      $erziehungsberechtigte->addFunktion("onkeyup", $this->ziel);
-      $verwaltungsangestellte->addFunktion("onkeyup", $this->ziel);
-      $externe->addFunktion("onkeyup", $this->ziel);
+      $schueler->addFunktion("onclick", $this->ziel);
+      $lehrer->addFunktion("onclick", $this->ziel);
+      $erziehungsberechtigte->addFunktion("onclick", $this->ziel);
+      $verwaltungsangestellte->addFunktion("onclick", $this->ziel);
+      $externe->addFunktion("onclick", $this->ziel);
     }
 
     $arten->add($schueler);

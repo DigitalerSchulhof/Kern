@@ -53,7 +53,20 @@ kern.schulhof.verwaltung = {
   },
   personen: {
     suche: () => {
-      alert(1);
+      var vorname = $("#dshPersonenFilterVorname").getWert();
+      var nachname = $("#dshPersonenFilterNachname").getWert();
+      var klasse = $("#dshPersonenFilterKlasse").getWert();
+      var schueler = $("#dshPersonenFilterSchueler").getWert();
+      var lehrer = $("#dshPersonenFilterLehrer").getWert();
+      var erzieher = $("#dshPersonenFilterErziehungsberechtigte").getWert();
+      var verwaltung = $("#dshPersonenFilterVerwaltungsangestellte").getWert();
+      var externe = $("#dshPersonenFilterExterne").getWert();
+      var feld = $("#dshPersonenLadebereich").setHTML(ui.generieren.laden.icon("Personenliste wird geladen"));
+      core.ajax("Kern", 31, null, {vorname:vorname, nachname:nachname, klasse:klasse, schueler:schueler, lehrer:lehrer, erzieher:erzieher, verwaltung:verwaltung, externe:externe}).then((r) => {
+        if (r.Code) {
+          feld.setHTML(r.Code);
+        }
+      });
     }
   }
 };
