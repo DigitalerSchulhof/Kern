@@ -36,9 +36,10 @@ $fenstertitel = (new UI\Icon("fas fa-puzzle-piece"))." Moduldetails";
 $inhalt  = new UI\Ueberschrift(3, "Moduldetails des Moduls »{$modultitel}«");
 $inhalt .= new UI\Absatz($modulbeschreibung);
 $inhalt .= new UI\Notiz("Version $modulversion - Autor: $modulautor");
-
-$code = new UI\Fenster("dshVerwaltungModuleModulinfo$modulname", $fenstertitel, $inhalt);
+$fensterid = "dshVerwaltungModuleModulinfo$modulname";
+$code = new UI\Fenster($fensterid, $fenstertitel, $inhalt);
 $code->addFensteraktion(UI\Knopf::schliessen("dshVerwaltungModuleModulinfo$modulname"));
 
 Anfrage::setRueck("Code", (string) $code);
+Anfrage::setRueck("Fensterid", $fensterid);
 ?>

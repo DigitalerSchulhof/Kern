@@ -38,7 +38,6 @@ kern:
         nutzerkonto: Einstellungen des Nutzerkontos ändern
         benachrichtigungen: Einstellungen zu Benachrichtigungen ändern
         postfach: Einstellungen zum internen Postfach ändern
-        email: Einstellungen zum eMail-Postfach ändern
       sessionprotokoll:
         sehen: Sessionprotokoll sehen
         löschen: Sessionprotokoll löschen
@@ -46,8 +45,12 @@ kern:
         sehen: Aktionsprotokoll sehen
         details: Details ansehen
         löschen: Aktionsprotokoll löschen
-    anlegen: Personen anlegen
-    loeschen: Personen löschen
+    anlegen:
+      person: Personen anlegen
+      nutzerkonto: Nutzerkonto anlegen
+    loeschen:
+      person: Person löschen
+      nutzerkonto: löschen
     importieren:
       konten: Personen importieren
       ids: IDs importieren
@@ -55,6 +58,8 @@ kern:
       ausDatei: Kurszuordnung aus einer Datei importieren
       ausKlassen: Kursen alle Schüler aus zugeordneten Klassen zuordnen
       zuruecksetzen: Kurszuordnung zurücksetzen
+    aufenthalt: Aufenthaltsort anzeigen
+    zweifaktor: Zwei-Faktor-Authentifizierungsschlüssel erzeugen
   verwaltung: Verwaltungsbereich sehen
   module:
     sehen: Module sehen

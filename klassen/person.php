@@ -186,7 +186,7 @@ class Person {
    * @return string :)
    */
   public function __toString () : string {
-    return "KOMMT NOCH";
+    return $this->getName();
   }
 
   /**
@@ -325,7 +325,7 @@ class Nutzerkonto extends Person {
    * Benutzername laden
    * @return string Benutzername
    */
-  public function getBenutzer() : string {
+  public function getBenutzer() {
     return $this->benutzer;
   }
 

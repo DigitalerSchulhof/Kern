@@ -31,4 +31,5 @@ $ZIELE[28] = "schulhof/nutzerkonto/profil/identitaetsdiebstahl.php";
 $ZIELE[29] = "schulhof/verwaltung/konfiguration.php";
 $ZIELE[30] = "fehlermeldung.php";
 $ZIELE[31] = "schulhof/verwaltung/personen/suche.php";
+$ZIELE[32] = "schulhof/verwaltung/personen/profil.php";
 ?>

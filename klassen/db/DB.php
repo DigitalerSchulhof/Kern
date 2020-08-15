@@ -89,6 +89,9 @@ class DB {
       if (is_array($zwerte) && count($zwerte) == 0) {
         $werte[] = [];
       }
+      else if (is_array($zwerte) && is_array($zwerte[0]) && count($zwerte[0]) == 0) {
+        $werte[] = [];
+      }
       // Einfache Anfrage - es wurden einzelne Werte übergeben
       else if (is_array($zwerte) && count($zwerte) > 0 && !is_array($zwerte[0])) {
         $werte[] = $zwerte;

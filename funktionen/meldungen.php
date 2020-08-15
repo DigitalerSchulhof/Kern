@@ -21,26 +21,26 @@ switch ($meldeid) {
     Anfrage::setRueck("Knöpfe", $knoepfe);
     break;
   case 2:
-    parameter("sessionid");
+    parameter("nutzerid", "sessionid");
     if ($sessionid == "alle") {
       $titel = "Wirklich alle Sessions löschen?";
     } else {
       $titel = "Wirklich diese Session löschen?";
     }
     Anfrage::setRueck("Meldung", new UI\Meldung($titel, "Bitte die Löschung bestätigen, um ein Versehen auszuschließen.", "Warnung"));
-    $knoepfe[] = new UI\Knopf("Löschen", "Warnung", "kern.schulhof.nutzerkonto.sessions.loeschen.ausfuehren('$sessionid')");
+    $knoepfe[] = new UI\Knopf("Löschen", "Warnung", "kern.schulhof.nutzerkonto.sessions.loeschen.ausfuehren('$nutzerid', '$sessionid')");
     $knoepfe[] = UI\Knopf::abbrechen();
     Anfrage::setRueck("Knöpfe", $knoepfe);
     break;
   case 3:
-    parameter("logid");
+    parameter("nutzerid", "logid");
     if ($logid == "alle") {
       $titel = "Wirklich alle Aktionslog-Einträge löschen?";
     } else {
       $titel = "Wirklich diesen Aktionslog-Eintrag löschen?";
     }
     Anfrage::setRueck("Meldung", new UI\Meldung($titel, "Bitte die Löschung bestätigen, um ein Versehen auszuschließen.", "Warnung"));
-    $knoepfe[] = new UI\Knopf("Löschen", "Warnung", "kern.schulhof.nutzerkonto.aktionslog.loeschen.ausfuehren('$logid')");
+    $knoepfe[] = new UI\Knopf("Löschen", "Warnung", "kern.schulhof.nutzerkonto.aktionslog.loeschen.ausfuehren('$nutzerid', '$logid')");
     $knoepfe[] = UI\Knopf::abbrechen();
     Anfrage::setRueck("Knöpfe", $knoepfe);
     break;
@@ -99,11 +99,11 @@ switch ($meldeid) {
     Anfrage::setRueck("Meldung", new UI\Meldung("Änderungen erfolgreich!", "Der Identitätsdiebstahl wurde gemeldet. Das Passwort wurde geändert. Aus Sicherheitsgründen wird eine Benachrichtigung per eMail verschickt.", "Erfolg"));
     break;
   case 15:
-    parameter("sessionid");
+    parameter("nutzerid", "sessionid");
     if ($sessionid != "alle") {
       Anfrage::setRueck("Meldung", new UI\Meldung("Session gelöscht!", "Die Session wurde entfernt.", "Erfolg"));
     } else {
-      if ($id == "alle") {
+      if ($nutzerid == "alle") {
         Anfrage::setRueck("Meldung", new UI\Meldung("Session gelöscht!", "Alle Sessions wurden entfernt. Damit geht die Abmeldung dieses Nutzerkontos einher.", "Erfolg"));
       } else {
         Anfrage::setRueck("Meldung", new UI\Meldung("Session gelöscht!", "Alle Sessions dieses Nutzers wurden entfernt.", "Erfolg"));
@@ -111,11 +111,11 @@ switch ($meldeid) {
     }
     break;
   case 16:
-    parameter("logid");
+    parameter("nutzerid", "logid");
     if ($logid != "alle") {
       Anfrage::setRueck("Meldung", new UI\Meldung("Aktionslog gelöscht!", "Die aufgezeichnete Aktion wurde entfernt.", "Erfolg"));
     } else {
-      if ($id == "alle") {
+      if ($nutzerid == "alle") {
         Anfrage::setRueck("Meldung", new UI\Meldung("Aktionslog gelöscht!", "Alle aufgezeichneten Aktionen wurden entfernt.", "Erfolg"));
       } else {
         Anfrage::setRueck("Meldung", new UI\Meldung("Aktionslog gelöscht!", "Alle aufgezeichneten Aktionen dieses Nutzers wurden entfernt.", "Erfolg"));

@@ -1,5 +1,5 @@
 <?php
-Anfrage::post("logid");
+Anfrage::post("nutzerid", "logid");
 
 if(!Kern\Check::angemeldet()) {
   Anfrage::addFehler(-2, true);
@@ -10,9 +10,9 @@ if (!UI\Check::istZahl($logid,0) && $logid != 'alle') {
 }
 
 // Logeintrag laden
-$sql = "SELECT nutzer, {titel}, {vorname}, {nachname}, {benutzername}, {kern_nutzeraktionslog.art}, {tabellepfad}, {datensatzdatei}, {aktion}, zeitpunkt FROM kern_nutzeraktionslog JOIN kern_personen ON kern_personen.id = kern_nutzeraktionslog.nutzer LEFT JOIN kern_nutzerkonten ON kern_personen.id = kern_nutzerkonten.id WHERE kern_nutzeraktionslog.id = ?";
-$anfrage = $DBS->anfrage($sql, "i", $logid);
-$anfrage->werte($nutzerid, $titel, $vorname, $nachname, $benutzername, $logart, $tabellepfad, $datensatzdatei, $aktion, $zeitpunkt);
+$sql = "SELECT {titel}, {vorname}, {nachname}, {benutzername}, {kern_nutzeraktionslog.art}, {tabellepfad}, {datensatzdatei}, {aktion}, zeitpunkt FROM kern_nutzeraktionslog JOIN kern_personen ON kern_personen.id = kern_nutzeraktionslog.nutzer LEFT JOIN kern_nutzerkonten ON kern_personen.id = kern_nutzerkonten.id WHERE kern_nutzeraktionslog.id = ? AND nutzer = ?";
+$anfrage = $DBS->anfrage($sql, "ii", $logid, $nutzerid);
+$anfrage->werte($titel, $vorname, $nachname, $benutzername, $logart, $tabellepfad, $datensatzdatei, $aktion, $zeitpunkt);
 
 $person = new Kern\Nutzerkonto($nutzerid, $titel, $vorname, $nachname);
 
@@ -43,8 +43,10 @@ if ($benutzername === null) {
 }
 $inhalt .= new UI\Code($datensatzdatei);
 
-$code = new UI\Fenster("dshProfilFensterLoginfo$logid", $fenstertitel, $inhalt);
-$code->addFensteraktion(UI\Knopf::schliessen("dshProfilFensterLoginfo$logid"));
+$fensterid = "dshProfil{$nutzerid}FensterLoginfo$logid";
+$code = new UI\Fenster("dshProfil{$nutzerid}FensterLoginfo$logid", $fenstertitel, $inhalt);
+$code->addFensteraktion(UI\Knopf::schliessen("dshProfil{$nutzerid}FensterLoginfo$logid"));
 
 Anfrage::setRueck("Code", (string) $code);
+Anfrage::setRueck("Fensterid", $fensterid);
 ?>
