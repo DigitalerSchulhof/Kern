@@ -17,3 +17,4 @@ seiten:
   "Schulhof/Verwaltung/Module/Kern"          : "schulhof/verwaltung/module/einstellungen.php"
   "Schulhof/Verwaltung/Konfiguration"        : "schulhof/verwaltung/konfiguration.php"
   "Schulhof/Verwaltung/Personen"             : "schulhof/verwaltung/personen/personen.php"
+  "Schulhof/Verwaltung/Personen/Neue_Person" : "schulhof/verwaltung/personen/personneu.php"

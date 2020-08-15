@@ -262,3 +262,33 @@
 88:
   ort: anfragen/schulhof/verwaltung/personen/loeschen.php
   beschreibung: Der <b>letzte Administrator</b> kann nicht gelöscht werden.
+89:
+  ort: anfragen/schulhof/verwaltung/personen/neuperson.php
+  beschreibung: Die <b>Art der Person</b> ist ungültig.
+90:
+  ort: anfragen/schulhof/verwaltung/personen/neuperson.php
+  beschreibung: Das <b>Geschlecht</b> ist ungültig.
+91:
+  ort: anfragen/schulhof/verwaltung/personen/neuperson.php
+  beschreibung: Der <b>Titel</b> ist ungültig.
+92:
+  ort: anfragen/schulhof/verwaltung/personen/neuperson.php
+  beschreibung: Der <b>Vorname</b> ist ungültig.
+93:
+  ort: anfragen/schulhof/verwaltung/personen/neuperson.php
+  beschreibung: Der <b>Nachname</b> ist ungültig.
+94:
+  ort: anfragen/schulhof/verwaltung/personen/neuperson.php
+  beschreibung: Das <b>Kürzel</b> ist ungültig.
+95:
+  ort: anfragen/schulhof/verwaltung/personen/neuperson.php
+  beschreibung: Das <b>Kürzel</b> ist bereits vergeben.
+96:
+  ort: anfragen/schulhof/verwaltung/personen/neunutzerkonto.php
+  beschreibung: Der <b>Benutzername</b> ist ungültig.
+97:
+  ort: anfragen/schulhof/verwaltung/personen/neunutzerkonto.php
+  beschreibung: Die <b>eMail-Adresse</b> ist ungültig.
+98:
+  ort: anfragen/schulhof/verwaltung/personen/neunutzerkonto.php
+  beschreibung: Der <b>Benutzername</b> ist bereits vergeben.

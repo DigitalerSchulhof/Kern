@@ -20,7 +20,7 @@ class Dateisystem {
             unlink($pfad."/".$v);
           }
           if (is_dir($pfad."/".$v)) {
-            ordnerLoeschen($pfad."/".$v);
+            Dateisystem::ordnerLoeschen($pfad."/".$v);
           }
         }
       }

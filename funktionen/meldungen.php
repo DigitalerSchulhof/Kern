@@ -147,10 +147,12 @@ switch ($meldeid) {
     Anfrage::setRueck("Meldung", new UI\Meldung("Änderungen erfolgreich!", "Die Änderungen der Vertreter wurden vorgenomen.", "Erfolg"));
     break;
   case 25:
-    parameter("id", "laden");
+    parameter("id", "laden", "nutzerkonto");
     Anfrage::setRueck("Meldung", new UI\Meldung("Diese Person wirklich löschen", "Soll die Person wirklich gelöscht werden? Wenn ja, nur das Nutzerkonto oder die gesamte Person?", "Warnung"));
     $knoepfe[] = new UI\Knopf("Person löschen", "Fehler", "kern.schulhof.verwaltung.personen.loeschen.ausfuehren('$id', 'person', '$laden')");
-    $knoepfe[] = new UI\Knopf("Nutzerkonto löschen", "Warnung", "kern.schulhof.verwaltung.personen.loeschen.ausfuehren('$id', 'nutzerkonto', '$laden')");
+    if ($nutzerkonto == "1") {
+      $knoepfe[] = new UI\Knopf("Nutzerkonto löschen", "Warnung", "kern.schulhof.verwaltung.personen.loeschen.ausfuehren('$id', 'nutzerkonto', '$laden')");
+    }
     $knoepfe[] = UI\Knopf::abbrechen();
     Anfrage::setRueck("Knöpfe", $knoepfe);
     break;
@@ -159,6 +161,15 @@ switch ($meldeid) {
     if ($art == "person") {$art = "Person";}
     else {$art = "Nutzerkonto";}
     Anfrage::setRueck("Meldung", new UI\Meldung("$art gelöscht!", "Die $art wurde gelöscht.", "Erfolg"));
+    break;
+  case 27:
+    Anfrage::setRueck("Meldung", new UI\Meldung("Person erstellt", "Die Person wurde angelegt.", "Erfolg"));
+    break;
+  case 28:
+    Anfrage::setRueck("Meldung", new UI\Meldung("Nutzerkonto erstellt", "Das Nutzerkonto wurde angelegt. An die angegebene eMailadresse wurde ein Kennwort verschickt, das nun 24 Stunden gültig ist.", "Erfolg"));
+    break;
+  case 29:
+    Anfrage::setRueck("Meldung", new UI\Meldung("Person und Nutzerkonto erstellt", "Die Person und das Nutzerkonto wurden angelegt. An die angegebene eMailadresse wurde ein Kennwort verschickt, das nun 24 Stunden gültig ist.", "Erfolg"));
     break;
 }
 ?>

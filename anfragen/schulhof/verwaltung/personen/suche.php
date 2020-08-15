@@ -151,7 +151,12 @@ while ($anfrage->werte($id, $art, $tit, $vor, $nach, $nutzer, $anmeldung)) {
   }
   if ($darfloeschen) {
     $knopf = new UI\MiniIconKnopf(new UI\Icon(UI\Konstanten::LOESCHEN), "Nutzerkonto oder Person löschen", "Warnung");
-    $knopf->addFunktion("onclick", "kern.schulhof.verwaltung.personen.loeschen.fragen('$id', '1')");
+    if ($nutzer !== null) {
+      $nk = "1";
+    } else {
+      $nk = "0";
+    }
+    $knopf->addFunktion("onclick", "kern.schulhof.verwaltung.personen.loeschen.fragen('$id', '1', '$nk')");
     $zeile->addAktion($knopf);
   }
 

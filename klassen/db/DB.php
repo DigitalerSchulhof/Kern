@@ -123,7 +123,7 @@ class DB {
     }
 
     if ($paramfehler) {
-      throw new \Exception("Übergebene Paramter passen nich tzu übergebenen Parametertypen");
+      throw new \Exception("Übergebene Paramter passen nicht zu übergebenen Parametertypen");
     }
 
     // Referenzen für bind auf die Werte erstellen
@@ -150,6 +150,7 @@ class DB {
     $anfrage = str_replace("]", ", '$this->schluessel')", $anfrage);
 
     // Stelle Anfrage
+    $anzahl = 0;
     $sql = $this->db->prepare($anfrage);
     if ($sql) {
       foreach ($ref as $r) {

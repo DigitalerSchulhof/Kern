@@ -74,9 +74,9 @@ kern.schulhof.verwaltung = {
       });
     },
     loeschen: {
-      fragen: (id, laden) => {
+      fragen: (id, laden, nutzerkonto) => {
         var laden = laden || false;
-        ui.laden.meldung("Kern", 25, "Person löschen", {id:id, laden:laden});
+        ui.laden.meldung("Kern", 25, "Person löschen", {id:id, laden:laden, nutzerkonto:nutzerkonto});
       },
       ausfuehren: (id, art, laden) => {
         core.ajax("Kern", 33, "Person löschen", {id:id, art:art}).then(() => {
@@ -86,6 +86,42 @@ kern.schulhof.verwaltung = {
           }
         });
       }
+    },
+    neu: () => {
+      var art = $("#dshNeuePersonArt").getWert();
+      var geschlecht = $("#dshNeuePersonGeschlecht").getWert();
+      var titel = $("#dshNeuePersonTitel").getWert();
+      var vorname = $("#dshNeuePersonVorname").getWert();
+      var nachname = $("#dshNeuePersonNachname").getWert();
+      var kuerzel = $("#dshNeuePersonKuerzel").getWert();
+      var nutzerkonto = $("#dshNeuePersonNutzerkonto").getWert();
+      var benutzername = $("#dshNeuePersonBenutzername").getWert();
+      var mail = $("#dshNeuePersonMail").getWert();
+      core.ajax("Kern", 34, "Neue Person erstellen", {art:art, geschlecht:geschlecht, titel:titel, vorname:vorname, nachname:nachname, kuerzel:kuerzel, nutzerkonto:nutzerkonto, benutzername:benutzername, mail:mail}).then((r) => {
+        if (nutzerkonto == "1") {
+          var id = r.ID;
+          core.ajax("Kern", 35, "Neues Nutzerkonto erstellen", {id:id, benutzername:benutzername, mail:mail}).then((r) => {
+            ui.laden.meldung("Kern", 29, null);
+          });
+        } else {
+          ui.laden.meldung("Kern", 27, null);
+        }
+      });
+    },
+    benutzername: () => {
+      var art = $("#dshNeuePersonArt").getWert();
+      var feld = $("#dshNeuePersonBenutzername");
+      var vorname = $("#dshNeuePersonVorname").getWert();
+      var nachname = $("#dshNeuePersonNachname").getWert();
+      vorname = vorname.replace(/ /g, "");
+      nachname = nachname.replace(/ /g, "");
+
+      if (art == "l") {
+        feld.setWert(vorname.substr(0,1)+nachname.substr(0,7)+"-"+art.toUpperCase());
+      } else {
+        feld.setWert(nachname.substr(0,8)+vorname.substr(0,3)+"-"+art.toUpperCase());
+      }
+
     }
   }
 };
