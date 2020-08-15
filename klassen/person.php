@@ -538,7 +538,9 @@ class Nutzerkonto extends Person {
 
     // Neues Passwort setzen
     $sql = "UPDATE kern_nutzerkonten SET passwort = SHA1(?), passworttimeout = ? WHERE id = ?";
-    $DBS->anfrage($sql, "sii", $passwort.$salt, $passworttimeout, $this->id);
+    $DBS->silentanfrage($sql, "sii", $passwort.$salt, $passworttimeout, $this->id);
+
+    $DBS->logZugriff("DB", "kern_nutzerkonten", "UPDATE kern_nutzerkonten SET passwort = SHA1(?), passworttimeout = ? WHERE id = ?", "Änderung", [["*****", $passworttimeout, $this->id]]);
 
     // Nachricht verschicken
   	$betreff = "Passwort vergessen";
