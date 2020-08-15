@@ -76,6 +76,17 @@ class Person {
     return $this;
   }
 
+  public function generiereBenutzername() {
+    $vor = str_replace(" ", "", $this->vorname);
+    $nach = str_replace(" ", "", $this->nachname);
+
+    if ($this->art == "l") {
+      return substr($vor,0,1).substr($nach,0,7)."-".strtoupper($this->art);
+    } else {
+      return substr($nach,0,8).substr($vor,0,3)."-".strtoupper($this->art);
+    }
+  }
+
   /**
    * Titel setzen
    * @param  string $titel :)

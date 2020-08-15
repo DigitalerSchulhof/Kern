@@ -35,4 +35,5 @@ $ZIELE[32] = "schulhof/verwaltung/personen/profil.php";
 $ZIELE[33] = "schulhof/verwaltung/personen/loeschen.php";
 $ZIELE[34] = "schulhof/verwaltung/personen/neuperson.php";
 $ZIELE[35] = "schulhof/verwaltung/personen/neunutzerkonto.php";
+$ZIELE[36] = "schulhof/verwaltung/personen/fensternutzerkonto.php";
 ?>

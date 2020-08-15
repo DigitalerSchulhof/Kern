@@ -41,7 +41,7 @@ if ($darfnutzerkonto) {
 }
 
 $formular[]       = (new UI\Knopf("Neue Person anlegen", "Erfolg"))  ->setSubmit(true);
-$formular         ->addSubmit("kern.schulhof.verwaltung.personen.neu()");
+$formular         ->addSubmit("kern.schulhof.verwaltung.personen.neu.person()");
 $spalte[]         = $formular;
 
 $SEITE[] = new UI\Zeile($spalte);

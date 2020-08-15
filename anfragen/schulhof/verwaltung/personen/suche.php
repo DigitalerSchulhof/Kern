@@ -143,6 +143,7 @@ while ($anfrage->werte($id, $art, $tit, $vor, $nach, $nutzer, $anmeldung)) {
   }
   if ($darfanlegen && $nutzer === null) {
     $knopf = new UI\MiniIconKnopf(new UI\Icon("fas fa-arrow-alt-circle-up"), "Nutzerkonto erstellen", "Erfolg");
+    $knopf->addFunktion("onclick", "kern.schulhof.verwaltung.personen.neu.nutzerkonto.anzeigen('$id', '1')");
     $zeile->addAktion($knopf);
   }
   if ($darfzfa) {
@@ -156,7 +157,7 @@ while ($anfrage->werte($id, $art, $tit, $vor, $nach, $nutzer, $anmeldung)) {
     } else {
       $nk = "0";
     }
-    $knopf->addFunktion("onclick", "kern.schulhof.verwaltung.personen.loeschen.fragen('$id', '1', '$nk')");
+    $knopf->addFunktion("onclick", "kern.schulhof.verwaltung.personen.loeschen.fragen('$id', '$nk', '1')");
     $zeile->addAktion($knopf);
   }
 
