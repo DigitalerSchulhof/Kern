@@ -58,7 +58,11 @@ $erstellt = time();
 $passworttimeout = $erstellt + 24*60*60;
 
 $sql = "INSERT INTO kern_nutzerkonten (id, benutzername, passwort, passworttimeout, salt, email, erstellt, letztenotifikation) VALUES (?, [?], SHA1(?), ?, [?], [?], ?, ?)";
-$DBS->anfrage($sql, "ississii", $id, $benutzername, $passwort.$salt, $passworttimeout, $salt, $mail, $erstellt, $erstellt);
+$DBS->silentanfrage($sql, "ississii", $id, $benutzername, $passwort.$salt, $passworttimeout, $salt, $mail, $erstellt, $erstellt);
+
+$DBS->logZugriff("DB", "kern_nutzerkonten", "INSERT INTO kern_nutzerkonten (id, benutzername, passwort, passworttimeout, salt, email, erstellt, letztenotifikation) VALUES (?, ?, SHA1(?), ?, ?, ?, ?, ?)", "Änderung", [$id, $benutzername, "*****", $passworttimeout, "*****", $mail, $erstellt, $erstellt]);
+
+
 
 // Zugansdaten verschicken
 $betreff = "Neues Nutzerkonto";
