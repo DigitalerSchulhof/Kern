@@ -101,7 +101,7 @@ $darfanlegen = $DSH_BENUTZER->hatRecht("kern.personen.anlegen.nutzerkonto");
 $darfloeschen = $DSH_BENUTZER->hatRecht("kern.personen.löschen.[|person,nutzerkonto]");
 
 while ($anfrage->werte($id, $art, $tit, $vor, $nach, $nutzer, $anmeldung)) {
-  $zeile  = new UI\Tabelle\Zeile();
+  $zeile  = new UI\Tabelle\Zeile($id);
 
   if($art == "s") {$zeile->setIcon(new UI\Icon(UI\Konstanten::SCHUELER));}
   else if($art == "l") {$zeile->setIcon(new UI\Icon(UI\Konstanten::LEHRER));}
