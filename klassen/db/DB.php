@@ -172,7 +172,7 @@ class DB {
       $sql->close();
     }
     else {
-      throw new \Exception("Ungültige Anfrage\nFehler: ".mysqli_error($this->db));
+      throw new \Exception("Ungültige Anfrage\nFehler: ".mysqli_error($this->db)."<br>\n".$anfrage);
     }
 
     // Aus Anfrage Logeintrag basteln

@@ -27,11 +27,14 @@ if (!UI\Check::istText($klasse,0)) {
 
 // @TODO: Klassensuche einbauen
 
-
-
-$spalten = [["kern_personen.id AS kid"], ["{art} AS art"], ["{titel} AS titel"], ["{vorname} AS vorname"], ["{nachname} AS nachname"], ["kern_nutzerkonten.id", "anmeldung AS nid"]];
+$spalten = [["kern_personen.id AS kid"], ["{art}"], ["{titel} AS titel"], ["{vorname} AS vorname"], ["{nachname} AS nachname"], ["kern_nutzerkonten.id", "anmeldung AS nid"]];
 
 $sql = "SELECT ?? FROM kern_personen LEFT JOIN kern_nutzerkonten ON kern_personen.id = kern_nutzerkonten.id LEFT JOIN ((SELECT nutzer, MAX(anmeldezeit) AS anmeldung FROM kern_nutzersessions GROUP BY nutzer) AS sessions) ON kern_personen.id = sessions.nutzer";
+
+$ta = new Kern\Tabellenanfrage($sql, $spalten);
+$ta->anfrage($DBS, $parameterarten, $parameter);
+
+$sql = "SELECT kern_personen.id AS kid, {art}, {titel} AS titel, {vorname} AS vorname, {nachname} AS nachname, kern_nutzerkonten.id, anmeldung AS nid FROM kern_personen LEFT JOIN kern_nutzerkonten ON kern_personen.id = kern_nutzerkonten.id LEFT JOIN ((SELECT nutzer, MAX(anmeldezeit) AS anmeldung FROM kern_nutzersessions GROUP BY nutzer) AS sessions) ON kern_personen.id = sessions.nutzer";
 
 $parameter = [];
 $parameterarten = "";
@@ -88,8 +91,9 @@ if (count($postfilter) > 0) {
   $sql .= " WHERE ".join(" AND ", $postfilter);
 }
 
-$ta = new Kern\Tabellenanfrage($sql, $spalten);
-$anfrage = $ta->anfrage($DBS, $parameterarten, $parameter);
+$sql .= " ORDER BY nachname, vorname, titel";
+
+$anfrage = $DBS->anfrage($sql, $parameterarten, $parameter);
 
 $tabelle = new UI\Tabelle("dshVerwaltungModule", new UI\Icon(UI\Konstanten::SCHUELER), "Titel", "Vorname", "Nachname", "Status");
 
