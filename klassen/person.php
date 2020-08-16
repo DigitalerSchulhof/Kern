@@ -694,6 +694,7 @@ class Nutzerkonto extends Person {
       $rechte[] = $recht;
     }
     $this->rechte = Rechtehelfer::array2Baum($rechte);
+    $this->rechte = Rechtehelfer::baumSortieren($this->rechte);
     $this->rechtecache = [];
   }
 
