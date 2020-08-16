@@ -14,6 +14,7 @@ seiten:
   "Schulhof/Nutzerkonto/Identitätsdiebstahl" : "schulhof/nutzerkonto/identitaetsdiebstahl.php"
   "Schulhof/Verwaltung"                      : "schulhof/verwaltung/uebersicht.php"
   "Schulhof/Verwaltung/Module"               : "schulhof/verwaltung/module/module.php"
-  "Schulhof/Verwaltung/Module/Kern"          : "schulhof/verwaltung/module/einstellungen.php"
+  "/Schulhof\/Verwaltung\/Module\/.+/"       : "schulhof/verwaltung/module/einstellungen.php"
   "Schulhof/Verwaltung/Konfiguration"        : "schulhof/verwaltung/konfiguration.php"
   "Schulhof/Verwaltung/Personen"             : "schulhof/verwaltung/personen/personen.php"
+  "/Schulhof\/.*/"                           : ">Fehler/404"
