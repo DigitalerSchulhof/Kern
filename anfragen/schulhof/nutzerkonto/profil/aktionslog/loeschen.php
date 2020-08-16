@@ -10,13 +10,13 @@ if ((!UI\Check::istZahl($nutzerid,0) && $nutzerid != 'alle') || (!UI\Check::istZ
 }
 
 if ($nutzerid == "alle") {
-  if (!$DSH_BENUTZER->hatRecht("kern.personen.profil.aktionslog.loeschen")) {
+  if (!$DSH_BENUTZER->hatRecht("kern.personen.profil.aktionslog.löschen")) {
     Anfrage::addFehler(-4, true);
   }
 } else {
   $profil = new Kern\Profil(new Kern\Nutzerkonto($nutzerid));
   $recht = $profil->istFremdzugriff();
-  if (!$DSH_BENUTZER->hatRecht("$recht.aktionslog.loeschen")) {
+  if (!$DSH_BENUTZER->hatRecht("$recht.aktionslog.löschen")) {
     Anfrage::addFehler(-4, true);
   }
 }

@@ -48,9 +48,9 @@ kern:
     anlegen:
       person: Personen anlegen
       nutzerkonto: Nutzerkonto anlegen
-    loeschen:
+    löschen:
       person: Person löschen
-      nutzerkonto: löschen
+      nutzerkonto: Nutzerkonto löschen
     importieren:
       konten: Personen importieren
       ids: IDs importieren
@@ -68,3 +68,11 @@ kern:
     entfernen: Module entfernen
     einstellungen: Einstellungen an Modulen vornehmen
   konfiguration: Konfiguration ändern
+  rechte:
+    vergeben: Rechte vergeben
+    rollen:
+      sehen: Rollen sehen
+      zuordnen: Rollen Nutzerkonten zuordnen
+      anlegen: Rollen anlegen
+      bearbeiten: Rollen bearbeiten
+      löschen: Rollen löschen

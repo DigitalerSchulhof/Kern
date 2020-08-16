@@ -5,8 +5,6 @@ $spalte = new UI\Spalte("A1", new UI\SeitenUeberschrift("Konfiguration"));
 
 $reiter = new UI\Reiter("dshKonfiguration");
 
-global $EINSTELLUNGEN;
-
 $meldung  = new UI\Meldung("Ende der Spielewiese", "<p>Falsche Daten in dieser Tabelle können die Funktionsfähigkeit des Digitalen Schulhofs nachhaltig beschädigen!</p>", "Warnung", new UI\Icon("fas fa-exclamation-triangle"));
 $formular = new UI\FormularTabelle();
 $basisver = (new UI\Textfeld("dshKonfigBasis"))                     ->setWert($EINSTELLUNGEN["Base"]);
