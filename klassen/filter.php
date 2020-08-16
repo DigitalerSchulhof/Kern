@@ -59,9 +59,9 @@ class Personenfilter extends UI\Eingabe {
     $klasse           = new UI\Textfeld("dshPersonenFilterKlasse");
 
     if ($this->autoaktualisierung) {
-      $vorname->addFunktion("onkeyup", $this->ziel);
-      $nachname->addFunktion("onkeyup", $this->ziel);
-      $klasse->addFunktion("onkeyup", $this->ziel);
+      $vorname->addFunktion("oninput", $this->ziel);
+      $nachname->addFunktion("oninput", $this->ziel);
+      $klasse->addFunktion("oninput", $this->ziel);
       $schueler->addFunktion("onclick", $this->ziel);
       $lehrer->addFunktion("onclick", $this->ziel);
       $erziehungsberechtigte->addFunktion("onclick", $this->ziel);

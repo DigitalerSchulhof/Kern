@@ -13,8 +13,7 @@ $artwahl          ->add("Erziehungsberechtigte(r)", "e");
 $artwahl          ->add("Lehrkraft", "l");
 $artwahl          ->add("Verwaltung", "v");
 $artwahl          ->add("Externe(r)", "x");
-$artwahl          ->addFunktion("onkeyup", "kern.schulhof.verwaltung.personen.benutzername()");
-$artwahl          ->addFunktion("onchange", "kern.schulhof.verwaltung.personen.benutzername()");
+$artwahl          ->addFunktion("oninput", "kern.schulhof.verwaltung.personen.benutzername()");
 $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Art des Person:"),      $artwahl);
 
 $geschlechtswahl  = new UI\Auswahl("dshNeuePersonGeschlecht");
@@ -26,11 +25,11 @@ $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Geschlecht:"),    
 $formular[]       = (new UI\FormularFeld(new UI\InhaltElement("Titel:"),                    (new UI\Textfeld("dshNeuePersonTitel"))    ->setAutocomplete("honorific-prefix")))->setOptional(true);
 $vorname = new UI\Textfeld("dshNeuePersonVorname");
 $vorname->setAutocomplete("given-name");
-$vorname->addFunktion("onkeyup", "kern.schulhof.verwaltung.personen.benutzername()");
+$vorname->addFunktion("oninput", "kern.schulhof.verwaltung.personen.benutzername()");
 $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Vorname:"),  $vorname);
 $nachname = new UI\Textfeld("dshNeuePersonNachname");
 $nachname->setAutocomplete("family-name");
-$nachname->addFunktion("onkeyup", "kern.schulhof.verwaltung.personen.benutzername()");
+$nachname->addFunktion("oninput", "kern.schulhof.verwaltung.personen.benutzername()");
 $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Nachname:"), $nachname);
 $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Kürzel:"),              new UI\Textfeld("dshNeuePersonKuerzel"));
 
