@@ -10,11 +10,11 @@ if (($art != "nutzerkonto" && $art != "person") || !UI\Check::istZahl($id)) {
 }
 
 if ($art == "nutzerkonto") {
-  if (!$DSH_BENUTZER->hatRecht("kern.personen.loeschen.nutzerkonto")) {
+  if (!$DSH_BENUTZER->hatRecht("kern.personen.löschen.nutzerkonto")) {
     Anfrage::addFehler(-4, true);
   }
 } else {
-  if (!$DSH_BENUTZER->hatRecht("kern.personen.loeschen.person")) {
+  if (!$DSH_BENUTZER->hatRecht("kern.personen.löschen.person")) {
     Anfrage::addFehler(-4, true);
   }
 }

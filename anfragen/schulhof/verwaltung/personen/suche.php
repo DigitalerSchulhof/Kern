@@ -98,7 +98,7 @@ $darfprofil = $DSH_BENUTZER->hatRecht("kern.personen.profil.sehen");
 $darfaufenthalt = $DSH_BENUTZER->hatRecht("kern.personen.aufenthalt");
 $darfzfa = $DSH_BENUTZER->hatRecht("kern.personen.zweifaktor");
 $darfanlegen = $DSH_BENUTZER->hatRecht("kern.personen.anlegen.nutzerkonto");
-$darfloeschen = $DSH_BENUTZER->hatRecht("kern.personen.loeschen.[|person,nutzerkonto]");
+$darfloeschen = $DSH_BENUTZER->hatRecht("kern.personen.löschen.[|person,nutzerkonto]");
 
 while ($anfrage->werte($id, $art, $tit, $vor, $nach, $nutzer, $anmeldung)) {
   $zeile  = new UI\Tabelle\Zeile();

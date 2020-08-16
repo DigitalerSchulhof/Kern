@@ -26,7 +26,7 @@ if ($DSH_BENUTZER->hatRecht("kern.personen.kurszuordnung.[|ausDatei,ausKlasse,zu
   $knopf      ->addFunktion("onclick", "kern.personen.kurszuordnung.auswahl()");
   $knoepfe[]   = $knopf;
 }
-if ($DSH_BENUTZER->hatRecht("kern.personen.loeschen.person")) {
+if ($DSH_BENUTZER->hatRecht("kern.personen.löschen.person")) {
   $knopf      = new UI\IconKnopf(new UI\Icon (UI\Konstanten::LOESCHEN), "Nicht zugeordnete Personen löschen", "Warnung");
   $knopf      ->addFunktion("onclick", "kern.personen.loeschen.nichtzugeornet.fragen()");
   $knoepfe[]   = $knopf;

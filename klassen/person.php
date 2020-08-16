@@ -245,6 +245,8 @@ class Nutzerkonto extends Person {
 
   /** @var mixed Rechtebaum des Nutzers */
   private $rechte;
+  /** @var bool[] Rechtecache des Nutzers - Zuordnung [Recht => hatRecht]*/
+  private $rechtecache;
 
   /**
    * Erstellt eine neues Nutzerkonto
@@ -266,6 +268,7 @@ class Nutzerkonto extends Person {
     $this->uebersichtszahl = null;
 
     $this->rechteLaden();
+    $this->rechtecache = [];
   }
 
   /**
@@ -678,9 +681,8 @@ class Nutzerkonto extends Person {
     return $anfrage->getAnzahl() > 0;
   }
 
-
   /**
-   * Lädt die Rechte aus der Datenbank
+   * Lädt die Rechte aus der Datenbank und setzt den Rechtecache zurück
    * Die Definition eines Rechts findet sich hier: <a href="https://gist.github.com/jeengbe/b78d01fb68972e51335ba9696206aa50">https://gist.github.com</a>
    * @link https://gist.github.com/jeengbe/b78d01fb68972e51335ba9696206aa50
    */
@@ -692,6 +694,7 @@ class Nutzerkonto extends Person {
       $rechte[] = $recht;
     }
     $this->rechte = Rechtehelfer::array2Baum($rechte);
+    $this->rechtecache = [];
   }
 
   /**
@@ -709,9 +712,16 @@ class Nutzerkonto extends Person {
    * Die Definition eines Rechts findet sich hier: <a href="https://gist.github.com/jeengbe/b78d01fb68972e51335ba9696206aa50">https://gist.github.com</a>
    * @link https://gist.github.com/jeengbe/b78d01fb68972e51335ba9696206aa50
    * @param  string $recht Das Recht
+   * @param  bool   $cache Ob der Rechtecache verwendet werden darf
    * @return bool   true, wenn das Recht vorhanden ist, false sonst
    */
-  public function hatRecht($recht) : bool {
+  public function hatRecht($recht, $cache = true) : bool {
+    if($cache) {
+      if(!isset($this->rechtecache[$recht])) {
+        $this->rechtecache[$recht] = Rechtehelfer::hatRecht($this->rechte, $recht);
+      }
+      return $this->rechtecache[$recht];
+    }
     return Rechtehelfer::hatRecht($this->rechte, $recht);
   }
 }

@@ -4,7 +4,7 @@ $SEITE = new Kern\Seite("Module", "kern.module.sehen");
 include_once("$ROOT/yaml.php");
 use Async\YAML;
 
-$darflo = $DSH_BENUTZER->hatRecht("kern.module.loeschen");
+$darflo = $DSH_BENUTZER->hatRecht("kern.module.löschen");
 $darfei = $DSH_BENUTZER->hatRecht("kern.module.einstellungen");
 $darfve = $DSH_BENUTZER->hatRecht("kern.module.versionshistorie");
 
