@@ -8,13 +8,18 @@ $tabelle = new UI\Tabelle("dshVerwaltungRollen", new UI\Icon("fas fa-tag"), "Rol
 $sql = $DBS->anfrage("SELECT id, {bezeichnung} FROM kern_rollen");
 while($sql->werte($id, $bezeichung)) {
   $zeile = new UI\Tabelle\Zeile($id);
+
+  if($id === 0) {
+    $zeile->setIcon(new UI\Icon("fas fa-star"));
+  }
+
   $zeile["Rolle"]     = $bezeichung;
 
   if($DSH_BENUTZER->hatRecht("kern.rechte.rollen.bearbeiten")) {
     $zeile->addAktion(new UI\MiniIconKnopf(new UI\Icon(UI\Konstanten::BEARBEITEN), "Rolle bearbeiten"));
   }
   if($DSH_BENUTZER->hatRecht("kern.rechte.rollen.löschen")) {
-    $zeile->addAktion(new UI\MiniIconKnopf(new UI\Icon(UI\Konstanten::BEARBEITEN), "Rolle bearbeiten"));
+    $zeile->addAktion(new UI\MiniIconKnopf(new UI\Icon(UI\Konstanten::LOESCHEN), "Rolle löschen", "Warnung"));
   }
 
   $tabelle[] = $zeile;

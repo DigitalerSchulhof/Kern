@@ -12,8 +12,8 @@ class Rechtehelfer {
    * Prüft, ob das Recht in der übergebenen Rechteliste vorhanden ist.
    * Die Definition eines Rechts findet sich hier: <a href="https://gist.github.com/jeengbe/b78d01fb68972e51335ba9696206aa50">https://gist.github.com</a>
    * @link https://gist.github.com/jeengbe/b78d01fb68972e51335ba9696206aa50
-   * @param mixed   $rechte Rechtebaum der Rechte, die vergeben sind
-   * @param  string $recht  Das Recht
+   * @param array|bool   $rechte Rechtebaum der Rechte, die vergeben sind
+   * @param string $recht  Das Recht
    * @return bool   true, wenn das Recht vorhanden ist, false sonst
    */
   public static function hatRecht($rechte, $recht) : bool {
@@ -106,6 +106,35 @@ class Rechtehelfer {
       }
     }
     return $baum;
+  }
+
+  /**
+   * Nimmt einen Rechtebaum und sortiert diesen so, dass weniger komplexe Rechte (Pfade, die früh mit .* enden) weiter oben sind
+   * @param  array $baum :)
+   * @return array|bool Sortierter Rechtebaum
+   */
+  public static function baumSortieren($baum) {
+    if($baum === true || $baum === false) {
+      return $baum;
+    }
+
+    $sort = function(&$baum) use (&$sort) {
+      uasort($baum, function($a, $b) use (&$sort) {
+        if($a === true) {
+          return -1;
+        }
+        if($b === true) {
+          return 1;
+        }
+        $sort($a);
+        $sort($b);
+        return $a <=> $b;
+      });
+    };
+
+    $sort($baum);
+
+    die();
   }
 }
 

@@ -18,5 +18,6 @@ seiten:
   "Schulhof/Verwaltung/Konfiguration"        : "schulhof/verwaltung/konfiguration.php"
   "Schulhof/Verwaltung/Personen"             : "schulhof/verwaltung/personen/personen.php"
   "Schulhof/Verwaltung/Personen/Neue_Person" : "schulhof/verwaltung/personen/personneu.php"
-  "Schulhof/Verwaltung/Rollen"               : "schulhof/verwaltung/rollen/rollen.php"
+  "Schulhof/Verwaltung/Personen/Rechte_und_Rollen" : "schulhof/verwaltung/rechte/rechteundrollen.php"
+  "Schulhof/Verwaltung/Rollen"               : "schulhof/verwaltung/rechte/rollen/rollen.php"
   "/Schulhof\/.*/"                           : ">Fehler/404"
