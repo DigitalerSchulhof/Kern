@@ -6,9 +6,10 @@ $spalte = new UI\Spalte("A1", new UI\SeitenUeberschrift("Personen"));
 $filter = new Kern\Personenfilter("dshPersonenFilter", "kern.schulhof.verwaltung.personen.suche()");
 $spalte[] = $filter->setAnzeigen(true);
 
-$tabelle = new UI\Tabelle("dshVerwaltungModule", new UI\Icon(UI\Konstanten::SCHUELER), "Titel", "Vorname", "Nachname", "Status");
+$tabelle = new UI\Tabelle("dshVerwaltungPersonen", new UI\Icon(UI\Konstanten::SCHUELER), "Titel", "Vorname", "Nachname", "Status");
 
 $spalte[] = "<div id=\"dshPersonenLadebereich\">".$tabelle."</div>";
+$spalte[] = "<script>kern.schulhof.verwaltung.personen.suche()</script>";
 
 $knoepfe = [];
 if ($DSH_BENUTZER->hatRecht("kern.personen.anlegen.person")) {

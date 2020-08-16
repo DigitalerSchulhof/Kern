@@ -2,7 +2,7 @@
 namespace Kern;
 
 /**
-* Eine Datenbankanfrage
+* Eine Datenbankanfrage für Tabellen
 */
 class Tabellenanfrage {
   /** @var string Anfrage in SQL ?? steht für die Spalten */
@@ -52,12 +52,19 @@ class Tabellenanfrage {
     $sql .= join(", ", $sortierspalten);
 
     // SQL-Code Seite
-    $beginn = $this->datenproseite*($this->seite-1);
-    $sql .= " LIMIT $beginn, {$this->datenproseite}";
+    if ($this->datenproseite != "alle") {
+      $beginn = $this->datenproseite*($this->seite-1);
+      $sql .= " LIMIT $beginn, {$this->datenproseite}";
+    }
 
     return $DB->anfrage($sql, $parameterarten, ...$werte);
   }
 
+  /**
+   * Ändert Spaltennamen so ab, dass im Falle einer Umbenennung der richtige Spaltentitel angegeben wird
+   * @param  string $s spaltenname
+   * @return string    spaltenname hinter AS oder ohne [] und {}
+   */
   private function sortiervorbereitung($s) {
     $s = str_replace(" as ", " AS ", $s);
     $s = explode(" AS ", $s);
