@@ -102,7 +102,7 @@
   beschreibung: Das <b>alte Passwort</b> ist zu kurz. Es muss aus mindestens 6 Zeichen bestehen.
 35:
   ort: anfragen/schulhof/nutzerkonto/profil/passwort.php
-  beschreibung: Das <b>neu Passwort</b> ist zu kurz. Es muss aus mindestens 6 Zeichen bestehen.
+  beschreibung: Das <b>neue Passwort</b> ist zu kurz. Es muss aus mindestens 6 Zeichen bestehen.
 36:
   ort: anfragen/schulhof/nutzerkonto/profil/passwort.php
   beschreibung: Die <b>neuen Passworte</b> stimmen nicht überein.
@@ -207,7 +207,7 @@
   beschreibung: Das <b>alte Passwort</b> ist zu kurz. Es muss aus mindestens 6 Zeichen bestehen.
 70:
   ort: anfragen/schulhof/nutzerkonto/profil/identitaetsdiebstahl.php
-  beschreibung: Das <b>neu Passwort</b> ist zu kurz. Es muss aus mindestens 6 Zeichen bestehen.
+  beschreibung: Das <b>neue Passwort</b> ist zu kurz. Es muss aus mindestens 6 Zeichen bestehen.
 71:
   ort: anfragen/schulhof/nutzerkonto/profil/identitaetsdiebstahl.php
   beschreibung: Die <b>neuen Passworte</b> stimmen nicht überein.
@@ -250,3 +250,45 @@
 84:
   ort: anfragen/schulhof/verwaltung/konfiguration.php
   beschreibung: Der <b>Personen-Schlüssel</b> ist ungültig.
+85:
+  ort: anfragen/schulhof/verwaltung/personen/suche.php
+  beschreibung: Der <b>Vorname</b> ist ungültig.
+86:
+  ort: anfragen/schulhof/verwaltung/personen/suche.php
+  beschreibung: Der <b>Nachname</b> ist ungültig.
+87:
+  ort: anfragen/schulhof/verwaltung/personen/suche.php
+  beschreibung: Die <b>Klasse</b> ist ungültig.
+88:
+  ort: anfragen/schulhof/verwaltung/personen/loeschen.php
+  beschreibung: Der <b>letzte Administrator</b> kann nicht gelöscht werden.
+89:
+  ort: anfragen/schulhof/verwaltung/personen/neuperson.php
+  beschreibung: Die <b>Art der Person</b> ist ungültig.
+90:
+  ort: anfragen/schulhof/verwaltung/personen/neuperson.php
+  beschreibung: Das <b>Geschlecht</b> ist ungültig.
+91:
+  ort: anfragen/schulhof/verwaltung/personen/neuperson.php
+  beschreibung: Der <b>Titel</b> ist ungültig.
+92:
+  ort: anfragen/schulhof/verwaltung/personen/neuperson.php
+  beschreibung: Der <b>Vorname</b> ist ungültig.
+93:
+  ort: anfragen/schulhof/verwaltung/personen/neuperson.php
+  beschreibung: Der <b>Nachname</b> ist ungültig.
+94:
+  ort: anfragen/schulhof/verwaltung/personen/neuperson.php
+  beschreibung: Das <b>Kürzel</b> ist ungültig.
+95:
+  ort: anfragen/schulhof/verwaltung/personen/neuperson.php
+  beschreibung: Das <b>Kürzel</b> ist bereits vergeben.
+96:
+  ort: anfragen/schulhof/verwaltung/personen/neunutzerkonto.php
+  beschreibung: Der <b>Benutzername</b> ist ungültig.
+97:
+  ort: anfragen/schulhof/verwaltung/personen/neunutzerkonto.php
+  beschreibung: Die <b>eMail-Adresse</b> ist ungültig.
+98:
+  ort: anfragen/schulhof/verwaltung/personen/neunutzerkonto.php
+  beschreibung: Der <b>Benutzername</b> ist bereits vergeben.

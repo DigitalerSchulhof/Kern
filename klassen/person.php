@@ -76,6 +76,17 @@ class Person {
     return $this;
   }
 
+  public function generiereBenutzername() {
+    $vor = str_replace(" ", "", $this->vorname);
+    $nach = str_replace(" ", "", $this->nachname);
+
+    if ($this->art == "l") {
+      return substr($vor,0,1).substr($nach,0,7)."-".strtoupper($this->art);
+    } else {
+      return substr($nach,0,8).substr($vor,0,3)."-".strtoupper($this->art);
+    }
+  }
+
   /**
    * Titel setzen
    * @param  string $titel :)
@@ -186,7 +197,7 @@ class Person {
    * @return string :)
    */
   public function __toString () : string {
-    return "KOMMT NOCH";
+    return $this->getName();
   }
 
   /**
@@ -325,7 +336,7 @@ class Nutzerkonto extends Person {
    * Benutzername laden
    * @return string Benutzername
    */
-  public function getBenutzer() : string {
+  public function getBenutzer() {
     return $this->benutzer;
   }
 
@@ -538,7 +549,9 @@ class Nutzerkonto extends Person {
 
     // Neues Passwort setzen
     $sql = "UPDATE kern_nutzerkonten SET passwort = SHA1(?), passworttimeout = ? WHERE id = ?";
-    $DBS->anfrage($sql, "sii", $passwort.$salt, $passworttimeout, $this->id);
+    $DBS->silentanfrage($sql, "sii", $passwort.$salt, $passworttimeout, $this->id);
+
+    $DBS->logZugriff("DB", "kern_nutzerkonten", "UPDATE kern_nutzerkonten SET passwort = SHA1(?), passworttimeout = ? WHERE id = ?", "Änderung", [["*****", $passworttimeout, $this->id]]);
 
     // Nachricht verschicken
   	$betreff = "Passwort vergessen";

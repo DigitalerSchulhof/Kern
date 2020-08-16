@@ -8,6 +8,7 @@ class Personenfilter extends UI\Eingabe {
   protected $ziel;
   protected $autoaktualisierung;
   protected $knopf;
+  protected $anzeigen;
 
   /**
    * Erstellt einen neuen Filter
@@ -24,11 +25,26 @@ class Personenfilter extends UI\Eingabe {
       $this->knopf = new UI\MiniIconToggle("{$this->id}Anzeigen", "Hinzufügen", new UI\Icon(UI\Konstanten::NEU));
     } else {
       $this->knopf = new UI\Toggle("{$this->id}Anzeigen", "Filter");
+      $this->knopf->addFunktion("onclick", "kern.filter.anzeigen('{$this->id}')");
     }
+    $this->anzeigen = false;
+  }
+
+  /**
+   * Setzt den Wert Anzeigen
+   * @param  bool $anzeigen :)
+   * @return self           :)
+   */
+  public function setAnzeigen($anzeigen) : self {
+    $this->anzeigen = $anzeigen;
+    return $this;
   }
 
   public function __toString() : string {
-    $code = new UI\Absatz($this->knopf->addFunktion("onclick", "kern.filter.anzeigen('{$this->id}')"));
+    if ($this->anzeigen) {
+      $this->knopf->setWert("1");
+    }
+    $code = new UI\Absatz($this->knopf);
 
     $arten = new UI\Multitoggle("dshPersonenFilterArten");
     $schueler = new UI\Toggle("dshPersonenFilterSchueler", "Schüler");
@@ -68,7 +84,9 @@ class Personenfilter extends UI\Eingabe {
     $formular[]       = (new UI\Knopf("Suchen", "Erfolg"))  ->setSubmit(true);
     $formular         -> addSubmit($this->ziel);
     $formular         -> setID("{$this->id}A");
-    $formular         -> addKlasse("dshUnsichtbar");
+    if (!$this->anzeigen) {
+      $formular       -> addKlasse("dshUiUnsichtbar");
+    }
 
     $code            .= $formular;
     return $code;

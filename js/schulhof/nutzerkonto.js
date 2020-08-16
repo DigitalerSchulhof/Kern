@@ -53,80 +53,72 @@ kern.schulhof.nutzerkonto = {
     core.ajax("Kern", 6, ["Registrieren", "Die Registrierung wird geprüft"], {art: art, geschlecht:geschlecht, titel:titel, vorname:vorname, nachname:nachname, klasse:klasse, passwort:passwort, passwort2:passwort2, mail:mail, datenschutz:datenschutz, entscheidung:entscheidung, korrektheit:korrektheit, spamschutz:spamschutz, spamid:spamid}, 6);
   },
   aendern: {
-    persoenliches: () => {
-      var id          = $("#dshProfilId").getWert();
-      var art         = $("#dshProfilArt").getWert();
-      var geschlecht  = $("#dshProfilGeschlecht").getWert();
-      var titel       = $("#dshProfilTitel").getWert();
-      var vorname     = $("#dshProfilVorname").getWert();
-      var nachname    = $("#dshProfilNachname").getWert();
-      var kuerzel     = $("#dshProfilKuerzel").getWert();
+    persoenliches: (id) => {
+      var art         = $("#dshProfil"+id+"Art").getWert();
+      var geschlecht  = $("#dshProfil"+id+"Geschlecht").getWert();
+      var titel       = $("#dshProfil"+id+"Titel").getWert();
+      var vorname     = $("#dshProfil"+id+"Vorname").getWert();
+      var nachname    = $("#dshProfil"+id+"Nachname").getWert();
+      var kuerzel     = $("#dshProfil"+id+"Kuerzel").getWert();
       core.ajax("Kern", 7, "Profil ändern", {id:id, art:art, geschlecht:geschlecht, titel:titel, vorname:vorname, nachname:nachname, kuerzel:kuerzel}, 7);
     },
-    kontodaten: () => {
-      var id          = $("#dshProfilId").getWert();
-      var benutzer    = $("#dshProfilBenutzer").getWert();
-      var email       = $("#dshProfilMail").getWert();
+    kontodaten: (id) => {
+      var benutzer    = $("#dshProfil"+id+"Benutzer").getWert();
+      var email       = $("#dshProfil"+id+"Mail").getWert();
       core.ajax("Kern", 8, "Profil ändern", {id:id, benutzer:benutzer, email:email}, 8);
     },
-    passwort: () => {
-      var id           = $("#dshProfilId").getWert();
-      var passwortalt  = $("#dshProfilPasswortAlt").getWert();
-      var passwortneu  = $("#dshProfilPasswortNeu").getWert();
-      var passwortneu2 = $("#dshProfilPasswortNeu2").getWert();
+    passwort: (id) => {
+      var passwortalt  = $("#dshProfil"+id+"PasswortAlt").getWert();
+      var passwortneu  = $("#dshProfil"+id+"PasswortNeu").getWert();
+      var passwortneu2 = $("#dshProfil"+id+"PasswortNeu2").getWert();
       core.ajax("Kern", 9, "Profil ändern", {id:id, passwortalt:passwortalt, passwortneu:passwortneu, passwortneu2:passwortneu2}, 9);
     },
     einstellungen: {
-      nutzerkonto: () => {
-        var id                  = $("#dshProfilId").getWert();
-        var inaktivitaetszeit   = $("#dshProfilInaktivitaetszeit").getWert();
-        var uebersichtselemente = $("#dshProfilElementeProUebersicht").getWert();
-        var wiki                = $("#dshProfilWiki").getWert();
+      nutzerkonto: (id) => {
+        var inaktivitaetszeit   = $("#dshProfil"+id+"Inaktivitaetszeit").getWert();
+        var uebersichtselemente = $("#dshProfil"+id+"ElementeProUebersicht").getWert();
+        var wiki                = $("#dshProfil"+id+"Wiki").getWert();
         core.ajax("Kern", 10, "Profileinstellungen ändern", {id:id, inaktivitaetszeit:inaktivitaetszeit, uebersichtselemente:uebersichtselemente, wiki:wiki}, 10);
       },
-      benachrichtigungen: () => {
-        var id             = $("#dshProfilId").getWert();
-        var nachrichten    = $("#dshProfilNachrichtenmails").getWert();
-        var notifikationen = $("#dshProfilNotifikationsmails").getWert();
-        var blog           = $("#dshProfilOeffentlichBlog").getWert();
-        var termin         = $("#dshProfilOeffentlichTermine").getWert();
-        var galerie        = $("#dshProfilOeffentlichGalerien").getWert();
+      benachrichtigungen: (id) => {
+        var nachrichten    = $("#dshProfil"+id+"Nachrichtenmails").getWert();
+        var notifikationen = $("#dshProfil"+id+"Notifikationsmails").getWert();
+        var blog           = $("#dshProfil"+id+"OeffentlichBlog").getWert();
+        var termin         = $("#dshProfil"+id+"OeffentlichTermine").getWert();
+        var galerie        = $("#dshProfil"+id+"OeffentlichGalerien").getWert();
         core.ajax("Kern", 11, "Profileinstellungen ändern", {id:id, nachrichten:nachrichten, notifikationen:notifikationen, blog:blog, termin:termin, galerie:galerie}, 11);
       },
-      postfach: () => {
-        var id         = $("#dshProfilId").getWert();
-        var postfach   = $("#dshProfilPostfachLoeschfrist").getWert();
-        var papierkorb = $("#dshProfilPapierkorbLoeschfrist").getWert();
+      postfach: (id) => {
+        var postfach   = $("#dshProfil"+id+"PostfachLoeschfrist").getWert();
+        var papierkorb = $("#dshProfil"+id+"PapierkorbLoeschfrist").getWert();
         core.ajax("Kern", 12, "Profileinstellungen ändern", {id:id, postfach:postfach, papierkorb:papierkorb}, 12);
       },
-      email: () => {
-        var id        = $("#dshProfilId").getWert();
-        var aktiv     = $("#dshProfilEmailAktiv").getWert();
-        var adresse   = $("#dshProfilEmailAdresse").getWert();
-        var name      = $("#dshProfilEmailName").getWert();
-        var ehost     = $("#dshProfilEmailEingangHost").getWert();
-        var eport     = $("#dshProfilEmailEingangPort").getWert();
-        var enutzer   = $("#dshProfilEmailEingangNutzer").getWert();
-        var epasswort = $("#dshProfilEmailEingangPasswort").getWert();
-        var ahost     = $("#dshProfilEmailAusgangHost").getWert();
-        var aport     = $("#dshProfilEmailAusgangPort").getWert();
-        var anutzer   = $("#dshProfilEmailAusgangNutzer").getWert();
-        var apasswort = $("#dshProfilEmailAusgangPasswort").getWert();
+      email: (id) => {
+        var aktiv     = $("#dshProfil"+id+"EmailAktiv").getWert();
+        var adresse   = $("#dshProfil"+id+"EmailAdresse").getWert();
+        var name      = $("#dshProfil"+id+"EmailName").getWert();
+        var ehost     = $("#dshProfil"+id+"EmailEingangHost").getWert();
+        var eport     = $("#dshProfil"+id+"EmailEingangPort").getWert();
+        var enutzer   = $("#dshProfil"+id+"EmailEingangNutzer").getWert();
+        var epasswort = $("#dshProfil"+id+"EmailEingangPasswort").getWert();
+        var ahost     = $("#dshProfil"+id+"EmailAusgangHost").getWert();
+        var aport     = $("#dshProfil"+id+"EmailAusgangPort").getWert();
+        var anutzer   = $("#dshProfil"+id+"EmailAusgangNutzer").getWert();
+        var apasswort = $("#dshProfil"+id+"EmailAusgangPasswort").getWert();
         core.ajax("Kern", 13, "Profileinstellungen ändern", {id:id, aktiv:aktiv, adresse:adresse, name:name, ehost:ehost, eport:eport, enutzer:enutzer, epasswort:epasswort, ahost:ahost, aport:aport, anutzer:anutzer, apasswort:apasswort}, 13);
       }
     }
   },
   sessions: {
     loeschen: {
-      fragen: (sessionid) => {
-        ui.laden.meldung("Kern", 2, "Sessions löschen", {sessionid: sessionid});
+      fragen: (nutzerid, sessionid) => {
+        ui.laden.meldung("Kern", 2, "Sessions löschen", {nutzerid:nutzerid, sessionid:sessionid});
       },
-      ausfuehren: (sessionid) => {
-        var id         = $("#dshProfilId").getWert();
-        core.ajax("Kern", 14, "Sessions löschen", {id:id, sessionid:sessionid}).then(() => {
-          ui.laden.meldung("Kern", 15, null, {id:id, sessionid:sessionid});
+      ausfuehren: (nutzerid, sessionid) => {
+        core.ajax("Kern", 14, "Sessions löschen", {nutzerid:nutzerid, sessionid:sessionid}).then(() => {
+          ui.laden.meldung("Kern", 15, null, {nutzerid:nutzerid, sessionid:sessionid});
           if (sessionid != 'alle') {
-            kern.schulhof.nutzerkonto.sessions.laden(id);
+            kern.schulhof.nutzerkonto.sessions.laden(nutzerid);
           }
         });
       }
@@ -146,27 +138,26 @@ kern.schulhof.nutzerkonto = {
   },
   aktionslog: {
     loeschen: {
-      fragen: (logid) => {
-        ui.laden.meldung("Kern", 3, "Aktionslog löschen", {logid: logid});
+      fragen: (nutzerid, logid) => {
+        ui.laden.meldung("Kern", 3, "Aktionslog löschen", {nutzerid:nutzerid, logid: logid});
       },
-      ausfuehren: (logid) => {
-        var id         = $("#dshProfilId").getWert();
-        core.ajax("Kern", 16, "Aktionslog löschen", {id:id, logid:logid}).then(() => {
-          ui.laden.meldung("Kern", 16, null, {id:id, logid:logid});
-          kern.schulhof.nutzerkonto.aktionslog.laden(id);
+      ausfuehren: (nutzerid, logid) => {
+        core.ajax("Kern", 16, "Aktionslog löschen", {nutzerid:nutzerid, logid:logid}).then(() => {
+          ui.laden.meldung("Kern", 16, null, {nutzerid:nutzerid, logid:logid});
+          kern.schulhof.nutzerkonto.aktionslog.laden(nutzerid);
         });
       }
     },
-    details: (logid) => {
-      core.ajax("Kern", 17, null, {logid:logid}).then((r) => {
-        ui.fenster.anzeigen(r.Code);
+    details: (nutzerid, logid) => {
+      core.ajax("Kern", 17, null, {nutzerid:nutzerid, logid:logid}).then((r) => {
+        ui.fenster.anzeigen(r.Code, r.Fensterid);
       });
     },
     laden: (id) => {
       if (id == "alle") {
         // @TODO: Filter laden
       } else {
-        var datum = $("#dshNutzerkontoAktivitaetsdatum").getWert();
+        var datum = $("#dshProfil"+id+"NutzerkontoAktivitaetsdatum").getWert();
       }
       var feld = $("#dshProfilAktionslogLadebereich").setHTML(ui.generieren.laden.icon("Aktionslog wird geladen"));
       core.ajax("Kern", 18, null, {id:id, datum:datum}).then((r) => {

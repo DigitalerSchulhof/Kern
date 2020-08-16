@@ -32,7 +32,7 @@ class Mail {
    * Erstellt eine neue Mailverbindung
    */
   public function __construct() {
-    $einstellungen  = Einstellungen::ladenAlle("kern");
+    $einstellungen  = Einstellungen::ladenAlle("Kern");
     $this->host     = $einstellungen["MailSmtpServer"];
     $this->port     = $einstellungen["MailSmtpPort"];
     $this->titel    = $einstellungen["MailTitel"];

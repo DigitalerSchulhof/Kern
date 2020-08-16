@@ -41,7 +41,9 @@ if ($anzahl !== 1) {
 
 $neuessalt = Kern\Nutzerkonto::generiereSalt();
 $sql = "UPDATE kern_nutzerkonten SET salt = [?], passwort = SHA1(?), passworttimeout = null WHERE id = ?";
-$DBS->anfrage($sql, "ssi", $neuessalt, $passwortneu.$neuessalt, $id);
+$DBS->silentanfrage($sql, "ssi", $neuessalt, $passwortneu.$neuessalt, $id);
+
+$DBS->logZugriff("DB", "kern_nutzerkonten", "UPDATE kern_nutzerkonten SET salt = ?, passwort = SHA1(?), passworttimeout = null WHERE id = ?", "Änderung", [["*****", "*****", $id]]);
 
 // Benutzer ändern
 $DSH_BENUTZER->setPassworttimeout(null);
