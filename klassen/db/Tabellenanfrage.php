@@ -67,7 +67,7 @@ class Tabellenanfrage {
       $sanfrage = $DB->anfrage($sqlanzahl, $parameterarten, ...$werte);
       $sanfrage->werte($datensaetze);
 
-      $seitenanzahl = ceil($datensaetze / $this->datenproseite);
+      $seitenanzahl = max(1, ceil($datensaetze / $this->datenproseite));
       $rueck["DatenProSeite"] = $this->datenproseite;
       $rueck["Seitenanzahl"] = $seitenanzahl;
       if ($this->seite > $seitenanzahl) {

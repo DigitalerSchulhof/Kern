@@ -153,14 +153,14 @@ kern.schulhof.nutzerkonto = {
         ui.fenster.anzeigen(r.Code, r.Fensterid);
       });
     },
-    laden: (id) => {
+    laden: (feld, id, sortieren) => {
       if (id == "alle") {
         // @TODO: Filter laden
       } else {
-        var datum = $("#dshProfil"+id+"NutzerkontoAktivitaetsdatum").getWert();
+        var datum = $("#"+id+"Datum").getWert();
       }
-      var feld = $("#dshProfilAktionslogLadebereich").setHTML(ui.generieren.laden.icon("Aktionslog wird geladen"));
-      core.ajax("Kern", 18, null, {id:id, datum:datum}).then((r) => {
+      feld.setHTML(ui.generieren.laden.icon("Aktionslog wird geladen"));
+      core.ajax("Kern", 18, null, {id:id, datum:datum, ...sortieren}).then((r) => {
         if (r.Code) {
           feld.setHTML(r.Code);
         }

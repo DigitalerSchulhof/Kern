@@ -52,7 +52,7 @@ kern.schulhof.verwaltung = {
     }
   },
   personen: {
-    suche: (feld, sortieren) => {
+    suche: (feld, id, sortieren) => {
       var vorname = $("#dshPersonenFilterVorname").getWert();
       var nachname = $("#dshPersonenFilterNachname").getWert();
       var klasse = $("#dshPersonenFilterKlasse").getWert();

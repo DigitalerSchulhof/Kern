@@ -87,7 +87,7 @@ if (count($postfilter) > 0) {
   $sql .= " WHERE ".join(" AND ", $postfilter);
 }
 
-$ta = new Kern\Tabellenanfrage($sql, $spalten, $sortSeite, $sortDatenproseite,$sortSpalte, $sortRichtung);
+$ta = new Kern\Tabellenanfrage($sql, $spalten, $sortSeite, $sortDatenproseite, $sortSpalte, $sortRichtung);
 $tanfrage = $ta->anfrage($DBS, $parameterarten, $parameter);
 $anfrage = $tanfrage["Anfrage"];
 
