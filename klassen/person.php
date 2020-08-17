@@ -683,8 +683,6 @@ class Nutzerkonto extends Person {
 
   /**
    * Lädt die Rechte aus der Datenbank und setzt den Rechtecache zurück
-   * Die Definition eines Rechts findet sich hier: <a href="https://gist.github.com/jeengbe/b78d01fb68972e51335ba9696206aa50">https://gist.github.com</a>
-   * @link https://gist.github.com/jeengbe/b78d01fb68972e51335ba9696206aa50
    */
   public function rechteLaden() {
     global $DBS;
@@ -700,8 +698,6 @@ class Nutzerkonto extends Person {
 
   /**
    * Gibt den Rechtebaum des Nutzers zurück
-   * Die Definition eines Rechts findet sich hier: <a href="https://gist.github.com/jeengbe/b78d01fb68972e51335ba9696206aa50">https://gist.github.com</a>
-   * @link https://gist.github.com/jeengbe/b78d01fb68972e51335ba9696206aa50
    * @return string[]
    */
   public function getRechte() {
@@ -710,8 +706,6 @@ class Nutzerkonto extends Person {
 
   /**
    * Prüft, ob der Benutzer das Recht hat, die Spezifizierte Aktion auszuführen
-   * Die Definition eines Rechts findet sich hier: <a href="https://gist.github.com/jeengbe/b78d01fb68972e51335ba9696206aa50">https://gist.github.com</a>
-   * @link https://gist.github.com/jeengbe/b78d01fb68972e51335ba9696206aa50
    * @param  string $recht Das Recht
    * @param  bool   $cache Ob der Rechtecache verwendet werden darf
    * @return bool   true, wenn das Recht vorhanden ist, false sonst
