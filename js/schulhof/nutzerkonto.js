@@ -133,7 +133,6 @@ kern.schulhof.nutzerkonto = {
       }
       feld.setHTML(ui.generieren.laden.icon("Offene Sessions werden ermittelt"));
       core.ajax("Kern", 15, null, {id:id, ...sortieren}).then((r) => {
-        console.log(r);
         if (r.Code) {
           feld.setHTML(r.Code);
         }

@@ -14,6 +14,7 @@ $artwahl          ->add("Lehrkraft", "l");
 $artwahl          ->add("Verwaltung", "v");
 $artwahl          ->add("Externe(r)", "x");
 $artwahl          ->addFunktion("oninput", "kern.schulhof.verwaltung.personen.benutzername()");
+$artwahl          ->addFunktion("oninput", "ui.formular.anzeigenwenn('dshNeuePersonArt', 'l', 'dshNeuePersonKuerzelFeld')");
 $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Art des Person:"),      $artwahl);
 
 $geschlechtswahl  = new UI\Auswahl("dshNeuePersonGeschlecht");
@@ -31,12 +32,20 @@ $nachname = new UI\Textfeld("dshNeuePersonNachname");
 $nachname->setAutocomplete("family-name");
 $nachname->addFunktion("oninput", "kern.schulhof.verwaltung.personen.benutzername()");
 $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Nachname:"), $nachname);
-$formular[]       = new UI\FormularFeld(new UI\InhaltElement("Kürzel:"),              new UI\Textfeld("dshNeuePersonKuerzel"));
+$kuerzelF         = new UI\FormularFeld(new UI\InhaltElement("Kürzel:"),              new UI\Textfeld("dshNeuePersonKuerzel"));
+$kuerzelF         ->addKlasse("dshUiUnsichtbar", "dshNeuePersonKuerzelFeld");
+$formular[]       = $kuerzelF;
 
 if ($darfnutzerkonto) {
-  $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Nutzerkonto hinzufügen:"),  (new UI\IconToggle("dshNeuePersonNutzerkonto", "Gleichzeitig auch ein Nutzerkonto anlegen", (new UI\Icon(UI\Konstanten::HAKEN)))));
-  $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Benutzername:"),                  (new UI\Textfeld("dshNeuePersonBenutzername")) ->setAutocomplete("username"));
-  $formular[]       = new UI\FormularFeld(new UI\InhaltElement("eMail-Adresse:"),             (new UI\Mailfeld("dshNeuePersonMail"))     ->setAutocomplete("email"));
+  $nutzerkontoknopf = new UI\IconToggle("dshNeuePersonNutzerkonto", "Gleichzeitig auch ein Nutzerkonto anlegen", (new UI\Icon(UI\Konstanten::HAKEN)));
+  $nutzerkontoknopf ->addFunktion("onclick", "ui.formular.anzeigenwenn('dshNeuePersonNutzerkonto', '1', 'dshNeuePersonNutzerkontoFelder')");
+  $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Nutzerkonto hinzufügen:"),  $nutzerkontoknopf);
+  $benutzernameF    = new UI\FormularFeld(new UI\InhaltElement("Benutzername:"),                  (new UI\Textfeld("dshNeuePersonBenutzername")) ->setAutocomplete("username"));
+  $benutzernameF    ->addKlasse("dshUiUnsichtbar", "dshNeuePersonNutzerkontoFelder");
+  $formular[]       = $benutzernameF;
+  $benutzeremailF   = new UI\FormularFeld(new UI\InhaltElement("eMail-Adresse:"),             (new UI\Mailfeld("dshNeuePersonMail"))     ->setAutocomplete("email"));
+  $benutzeremailF   ->addKlasse("dshUiUnsichtbar", "dshNeuePersonNutzerkontoFelder");
+  $formular[]       = $benutzeremailF;
 }
 
 $formular[]       = (new UI\Knopf("Neue Person anlegen", "Erfolg"))  ->setSubmit(true);

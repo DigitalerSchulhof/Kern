@@ -18,7 +18,7 @@ if(!UI\Check::istName($vorname)) {
 if(!UI\Check::istName($nachname)) {
   Anfrage::addFehler(28);
 }
-if($DSH_BENUTZER->getArt() == "l" && !UI\Check::istText($kuerzel,0)) {
+if($art == "l" && !UI\Check::istText($kuerzel,0)) {
   Anfrage::addFehler(28);
 }
 
@@ -46,8 +46,8 @@ Anfrage::checkFehler();
 
 // Falls die Art zum Lehrer wird
 if ($art == "l" && $alteart != "l") {
-  $sql = "INSERT INTO kern_lehrer (id, kuerzel) VALUES (?, null)";
-  $DBS->anfrage($sql, "i", $id);
+  $sql = "INSERT INTO kern_lehrer (id, kuerzel) VALUES (?, [?])";
+  $DBS->anfrage($sql, "is", $id, $kuerzel);
 }
 if ($art != "l" && $alteart == "l") {
   $sql = "DELETE FROM kern_lehrer WHERE id = ?";
@@ -98,7 +98,7 @@ if ($ausfuehren) {
 }
 
 if ($DSH_BENUTZER->hatRecht("$recht.kuerzel")) {
-  // Prüfen, ob neues Kürzel schon vergeben ist
+  // Kürzel ändern
   if ($art == "l" && $alteart == "l") {
     $sql = "UPDATE kern_lehrer SET kuerzel = [?] WHERE id = ?";
     $anfrage = $DBS->anfrage($sql, "si", $kuerzel, $id);
