@@ -306,6 +306,16 @@ class Nutzerkonto extends Person {
   }
 
   /**
+   * Inaktivitätszeit setzen
+   * @param  int $inaktivitaetszeit :)
+   * @return self              :)
+   */
+  public function setInaktivitaetszeit($inaktivitaetszeit) : self {
+    $this->inaktivitaetszeit = $inaktivitaetszeit;
+    return $this;
+  }
+
+  /**
    * Schuljahr setzen
    * @param  int  $schuljahr ID des aktiven Schuljahres
    * @return self            :)
@@ -474,7 +484,7 @@ class Nutzerkonto extends Person {
    * Erneuert die Session, wenn angemeldet
    * @return bool true, wenn angemeldet, sonst false
    */
-  public function angemeldet() : bool {
+  public function angemeldet($verlaengern = true) : bool {
     $angemeldet = false;
     global $DBS;
 
@@ -484,7 +494,7 @@ class Nutzerkonto extends Person {
       $angemeldet = true;
     }
 
-    if ($angemeldet) {
+    if ($angemeldet && $verlaengern) {
       $this->sessionVerlaengern();
     }
     return $angemeldet;

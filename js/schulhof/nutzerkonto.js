@@ -14,13 +14,10 @@ kern.schulhof.nutzerkonto = {
   },
   session: {
     verlaengern: () => {
-      core.ajax("Kern", 2, ["Session verlängern", "Die Verlängerung wird durchgeführt"], null, 1).then((r) => kern.schulhof.nutzerkonto.session.aktualisieren(r.Limit, r.Ende));
-    },
-    aktualisieren: (limit, ende) => {
-      var orte = ["dshAktivitaetNutzerkonto"];
-      for (var i=0; i<= orte.length; i++) {
-        // @TODO: Orte
-      }
+      core.ajax("Kern", 2, ["Session verlängern", "Die Verlängerung wird durchgeführt"], null, 1).then((r) => {
+        kern.schulhof.nutzerkonto.aktivitaetsanzeige.limit = r.Limit;
+        kern.schulhof.nutzerkonto.aktivitaetsanzeige.timeout = r.Ende;
+      });
     }
   },
   vergessen: {
@@ -176,5 +173,79 @@ kern.schulhof.nutzerkonto = {
     var passwortneu2 = $("#dshIdentitaetPasswortNeu2").getWert();
     var hinweise     = $("#dshIdentitaetHinweise").getWert();
     core.ajax("Kern", 28, "Identitätsdiebstahl melden", {passwortalt:passwortalt, passwortneu:passwortneu, passwortneu2:passwortneu2, hinweise:hinweise}, 14);
+  },
+  aktivitaetsanzeige: {
+    limit: 0,
+    timeout: 0,
+    ids: [],
+    hinzufuegen: (id) => {
+      if (kern.schulhof.nutzerkonto.aktivitaetsanzeige.ids.indexOf(id) == -1) {
+        kern.schulhof.nutzerkonto.aktivitaetsanzeige.ids.push(id);
+      }
+    },
+    aktualisieren: () => {
+      var jetzt = (new Date()).getTime();
+      var timeout = kern.schulhof.nutzerkonto.aktivitaetsanzeige.timeout;
+      var limit = kern.schulhof.nutzerkonto.aktivitaetsanzeige.limit;
+      var freiezeit = timeout*1000 - jetzt;
+      var minuten = ui.generieren.minuten(freiezeit);
+      var prozent = ui.generieren.prozent(freiezeit, limit*1000*60);
+
+      for (var i = 0; i<kern.schulhof.nutzerkonto.aktivitaetsanzeige.ids.length; i++) {
+        var balken = $("#"+kern.schulhof.nutzerkonto.aktivitaetsanzeige.ids[i]+"I");
+        var uebrig = $("#"+kern.schulhof.nutzerkonto.aktivitaetsanzeige.ids[i]+"UebrigAbs");
+        if (balken) {
+          balken.setCss("width", prozent+"%");
+        }
+        if (uebrig) {
+          if (minuten == 1) {
+            uebrig.setHTML("etwa eine Minute");
+          } else if (minuten == 0) {
+            uebrig.setHTML("weniger als eine Minute");
+          } else {
+            uebrig.setHTML(minuten+" Minuten");
+          }
+        }
+      }
+
+      if (minuten < 0) {
+        kern.schulhof.nutzerkonto.abmelden.ausfuehren();
+        return;
+      } else if (minuten < 2) {
+        ui.laden.meldung("Kern", 30, "Session verlängern?");
+
+        core.ajax("Kern", 37, null, null).then((r) => {
+          kern.schulhof.nutzerkonto.aktivitaetsanzeige.limit = r.Limit;
+          kern.schulhof.nutzerkonto.aktivitaetsanzeige.timeout = r.Ende;
+          var ende = new Date (r.Ende*1000);
+
+          // Text neu schreiben
+          var datum = ui.generieren.fuehrendeNull(ende.getDate())+".";
+          datum += ui.generieren.fuehrendeNull(ende.getMonth()+1)+"."+ende.getFullYear();
+          var zeit = ui.generieren.fuehrendeNull(ende.getHours())+":";
+          zeit += ui.generieren.fuehrendeNull(ende.getMinutes());
+
+          var minuten = ui.generieren.minuten(ende.getTime() - jetzt);
+
+          var text = "Aktiv bis "+datum+" um "+zeit+" Uhr - noch ";
+          text += "<span id=\""+kern.schulhof.nutzerkonto.aktivitaetsanzeige.ids[i]+"Infotext"+"\">";
+          if (minuten == 1) {
+            text += "etwa eine Minute";
+          } else if (minuten == 0) {
+            text += "weniger als eine Minute";
+          } else {
+            text += minuten+" Minuten";
+          }
+          text += "</span>.";
+
+          for (var i = 0; i<kern.schulhof.nutzerkonto.aktivitaetsanzeige.ids.length; i++) {
+            $("#"+kern.schulhof.nutzerkonto.aktivitaetsanzeige.ids[i]+"Infotext").setHTML(text);
+          }
+        });
+        setTimeout(() => {kern.schulhof.nutzerkonto.aktivitaetsanzeige.aktualisieren()}, 10000);
+      } else {
+        setTimeout(() => {kern.schulhof.nutzerkonto.aktivitaetsanzeige.aktualisieren()}, 45000);
+      }
+    }
   }
 };

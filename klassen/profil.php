@@ -27,13 +27,16 @@ class Profil {
     $balken = new UI\Balken("Zeit", time(), $this->person->getSessiontimeout(), $this->person->getInaktivitaetszeit());
     $balken->setID($id);
     $code  = $balken;
+
+    $skript = "<script>kern.schulhof.nutzerkonto.aktivitaetsanzeige.hinzufuegen('$id');</script>";
+
     $verlaengern = new UI\Knopf("Verlängern", "Erfolg");
     $verlaengern->addFunktion("onclick", "kern.schulhof.nutzerkonto.session.verlaengern()");
     $bearbeiten = new UI\Knopf("Mein Profil");
     $bearbeiten->addFunktion("href", "Schulhof/Nutzerkonto/Profil");
     $abmelden = new UI\Knopf("Abmelden", "Warnung");
     $abmelden->addFunktion("onclick", "kern.schulhof.nutzerkonto.abmelden.fragen()");
-    $absatz = new UI\Absatz("{$verlaengern} {$bearbeiten} {$abmelden}");
+    $absatz = new UI\Absatz("{$verlaengern} {$bearbeiten} {$abmelden} {$skript}");
     $code .= $absatz;
     return $code;
   }

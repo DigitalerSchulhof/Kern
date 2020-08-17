@@ -1,9 +1,6 @@
 <?php
-
-if(!Kern\Check::angemeldet()) {
-  Anfrage::addFehler(-2, true);
+try {
+  // Benutzer abmelden
+  $DSH_BENUTZER->abmelden();
 }
-
-// Benutzer abmelden
-$DSH_BENUTZER->abmelden();
 ?>

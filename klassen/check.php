@@ -105,7 +105,7 @@ class Check {
    * Prüft ob die Person im Session-Cookie angemeldet ist
    * @return bool true wenn angemeldet, false sonst
    */
-  public static function angemeldet() : bool {
+  public static function angemeldet($verlaengern = true) : bool {
     global $DSH_BENUTZER;
     if(session_status() === PHP_SESSION_NONE) {
       session_start();
@@ -113,7 +113,7 @@ class Check {
     $angemeldet = false;
     if (isset($_SESSION["Benutzer"])) {
       $DSH_BENUTZER = $_SESSION["Benutzer"];
-      $angemeldet = $DSH_BENUTZER->angemeldet();
+      $angemeldet = $DSH_BENUTZER->angemeldet($verlaengern);
     }
     return $angemeldet;
   }

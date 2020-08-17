@@ -26,4 +26,6 @@ Anfrage::checkFehler();
 
 $sql = "UPDATE kern_nutzereinstellungen SET uebersichtsanzahl = [?], inaktivitaetszeit = [?], wikiknopf = [?] WHERE person = ?";
 $anfrage = $DBS->anfrage($sql, "sssi", $uebersichtselemente, $inaktivitaetszeit, $wiki, $id);
+
+$DSH_BENUTZER->setInaktivitaetszeit($inaktivitaetszeit);
 ?>
