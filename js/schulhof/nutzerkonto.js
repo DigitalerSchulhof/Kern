@@ -60,7 +60,11 @@ kern.schulhof.nutzerkonto = {
       var vorname     = $("#dshProfil"+id+"Vorname").getWert();
       var nachname    = $("#dshProfil"+id+"Nachname").getWert();
       var kuerzel     = $("#dshProfil"+id+"Kuerzel").getWert();
-      core.ajax("Kern", 7, "Profil ändern", {id:id, art:art, geschlecht:geschlecht, titel:titel, vorname:vorname, nachname:nachname, kuerzel:kuerzel}, 7);
+      core.ajax("Kern", 7, "Profil ändern", {id:id, art:art, geschlecht:geschlecht, titel:titel, vorname:vorname, nachname:nachname, kuerzel:kuerzel}, 7).then((r) => {
+        if ($("#dshVerwaltungPersonen") !== null) {
+          ui.tabelle.sortieren(kern.schulhof.verwaltung.personen.suche, 'dshVerwaltungPersonen');
+        }
+      });
     },
     kontodaten: (id) => {
       var benutzer    = $("#dshProfil"+id+"Benutzer").getWert();

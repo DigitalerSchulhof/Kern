@@ -82,7 +82,7 @@ kern.schulhof.verwaltung = {
         core.ajax("Kern", 33, "Person löschen", {id:id, art:art}).then(() => {
           ui.laden.meldung("Kern", 26, null, {art:art});
           if (laden == '1') {
-            kern.schulhof.verwaltung.personen.suche();
+            ui.tabelle.sortieren(kern.schulhof.verwaltung.personen.suche, 'dshVerwaltungPersonen');
           }
         });
       }
