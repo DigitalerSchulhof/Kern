@@ -1,5 +1,6 @@
 <?php
 Anfrage::post("vorname", "nachname", "klasse", "schueler", "lehrer", "erzieher", "verwaltung", "externe");
+Anfrage::postSort();
 
 if(!Kern\Check::angemeldet()) {
   Anfrage::addFehler(-2, true);
@@ -27,9 +28,7 @@ if (!UI\Check::istText($klasse,0)) {
 
 // @TODO: Klassensuche einbauen
 
-
-
-$spalten = [["kern_personen.id AS kid"], ["{art} AS art"], ["{titel} AS titel"], ["{vorname} AS vorname"], ["{nachname} AS nachname"], ["kern_nutzerkonten.id", "anmeldung AS nid"]];
+$spalten = [["{titel} AS titel"], ["{vorname} AS vorname"], ["{nachname} AS nachname"], ["kern_nutzerkonten.id AS konto", "anmeldung AS nid"], ["kern_personen.id AS kid"], ["{art} AS art"]];
 
 $sql = "SELECT ?? FROM kern_personen LEFT JOIN kern_nutzerkonten ON kern_personen.id = kern_nutzerkonten.id LEFT JOIN ((SELECT nutzer, MAX(anmeldezeit) AS anmeldung FROM kern_nutzersessions GROUP BY nutzer) AS sessions) ON kern_personen.id = sessions.nutzer";
 
@@ -88,13 +87,22 @@ if (count($postfilter) > 0) {
   $sql .= " WHERE ".join(" AND ", $postfilter);
 }
 
-$ta = new Kern\Tabellenanfrage($sql, $spalten);
-$anfrage = $ta->anfrage($DBS, $parameterarten, $parameter);
+$ta = new Kern\Tabellenanfrage($sql, $spalten, $sortSeite, $sortDatenproseite, $sortSpalte, $sortRichtung);
+$tanfrage = $ta->anfrage($DBS, $parameterarten, $parameter);
+$anfrage = $tanfrage["Anfrage"];
 
-$tabelle = new UI\Tabelle("dshVerwaltungModule", new UI\Icon(UI\Konstanten::SCHUELER), "Titel", "Vorname", "Nachname", "Status");
+$tabelle = new UI\Tabelle("dshVerwaltungPersonen", new UI\Icon(UI\Konstanten::SCHUELER), "Titel", "Vorname", "Nachname", "Status");
+$tabelle->setSeiten($tanfrage, "kern.schulhof.verwaltung.personen.suche");
 
+$darfsession = $DSH_BENUTZER->hatRecht("kern.personen.profil.sessionprotokoll.sehen");
+$darfprofil = $DSH_BENUTZER->hatRecht("kern.personen.profil.sehen");
+$darfaufenthalt = $DSH_BENUTZER->hatRecht("kern.personen.aufenthalt");
+$darfzfa = $DSH_BENUTZER->hatRecht("kern.personen.zweifaktor");
+$darfanlegen = $DSH_BENUTZER->hatRecht("kern.personen.anlegen.nutzerkonto");
+$darfrechte = $DSH_BENUTZER->hatRecht("kern.rechte.vergeben || kern.rechte.rollen.zuordnen");
+$darfloeschen = $DSH_BENUTZER->hatRecht("kern.personen.loeschen.[|person,nutzerkonto]");
 
-while ($anfrage->werte($id, $art, $tit, $vor, $nach, $nutzer, $anmeldung)) {
+while ($anfrage->werte($tit, $vor, $nach, $nutzer, $anmeldung, $id, $art)) {
   $zeile  = new UI\Tabelle\Zeile($id);
 
   if($art == "s") {$zeile->setIcon(new UI\Icon(UI\Konstanten::SCHUELER));}
@@ -107,7 +115,7 @@ while ($anfrage->werte($id, $art, $tit, $vor, $nach, $nutzer, $anmeldung)) {
   $zeile["Vorname"]  = $vor;
   $zeile["Nachname"] = $nach;
 
-  if ($DSH_BENUTZER->hatRecht("kern.personen.profil.sessionprotokoll.sehen")) {
+  if ($darfsession) {
     if ($nutzer === null) {
       $zeile["Status"]    = new UI\IconKnopf(new UI\Icon("fas fa-user-slash"), "kein Nutzerkonto", "Fehler");
     } else {
@@ -129,30 +137,30 @@ while ($anfrage->werte($id, $art, $tit, $vor, $nach, $nutzer, $anmeldung)) {
     }
   }
 
-  if ($DSH_BENUTZER->hatRecht("kern.personen.profil.sehen")) {
+  if ($darfprofil) {
     $knopf = new UI\MiniIconKnopf(new UI\Icon("fas fa-address-card"), "Profil öffnen");
     $knopf->addFunktion("onclick", "kern.schulhof.verwaltung.personen.profil('$id')");
     $zeile->addAktion($knopf);
   }
-  if ($DSH_BENUTZER->hatRecht("kern.personen.aufenthalt")) {
+  if ($darfaufenthalt) {
     $knopf = new UI\MiniIconKnopf(new UI\Icon("fas fa-location-arrow"), "Aufenthaltsort bestimmen");
     $zeile->addAktion($knopf);
   }
-  if ($nutzer === null && $DSH_BENUTZER->hatRecht("kern.personen.anlegen.nutzerkonto")) {
+  if ($nutzer === null && $darfanlegen) {
     $knopf = new UI\MiniIconKnopf(new UI\Icon("fas fa-arrow-alt-circle-up"), "Nutzerkonto erstellen", "Erfolg");
     $knopf->addFunktion("onclick", "kern.schulhof.verwaltung.personen.neu.nutzerkonto.anzeigen('$id', '1')");
     $zeile->addAktion($knopf);
   }
-  if ($DSH_BENUTZER->hatRecht("kern.personen.zweifaktor")) {
+  if ($darfzfa) {
     $knopf = new UI\MiniIconKnopf(new UI\Icon("fas fa-qrcode"), "Zwei-Faktor-Schlüssel", "Warnung");
     $zeile->addAktion($knopf);
   }
-  if ($DSH_BENUTZER->hatRecht("kern.rechte.vergeben || kern.rechte.rollen.zuordnen")) {
+  if ($darfrechte) {
     $knopf = new UI\MiniIconKnopf(new UI\Icon("fas fa-user-lock"), "Rechte und Rollen vergeben", "Warnung");
     $knopf->addFunktion("onclick", "kern.schulhof.verwaltung.personen.rechteundrollen('$id')");
     $zeile->addAktion($knopf);
   }
-  if ($DSH_BENUTZER->hatRecht("kern.personen.löschen.[|person,nutzerkonto]")) {
+  if ($darfloeschen) {
     $knopf = new UI\MiniIconKnopf(new UI\Icon(UI\Konstanten::LOESCHEN), "Nutzerkonto oder Person löschen", "Warnung");
     if ($nutzer !== null) {
       $nk = "1";

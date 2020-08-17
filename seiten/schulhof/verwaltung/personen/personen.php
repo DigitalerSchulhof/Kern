@@ -3,12 +3,15 @@ $SEITE = new Kern\Seite("Personen", "kern.personen.sehen");
 
 $spalte = new UI\Spalte("A1", new UI\SeitenUeberschrift("Personen"));
 
-$filter = new Kern\Personenfilter("dshPersonenFilter", "kern.schulhof.verwaltung.personen.suche()");
+$tabellenid = "dshVerwaltungPersonen";
+$filter = new Kern\Personenfilter("dshPersonenFilter", "ui.tabelle.sortieren(kern.schulhof.verwaltung.personen.suche, '$tabellenid')");
 $spalte[] = $filter->setAnzeigen(true);
 
-$tabelle = new UI\Tabelle("dshVerwaltungModule", new UI\Icon(UI\Konstanten::SCHUELER), "Titel", "Vorname", "Nachname", "Status");
+$tabelle = new UI\Tabelle($tabellenid, new UI\Icon(UI\Konstanten::SCHUELER), "Titel", "Vorname", "Nachname", "Status");
+$tabelle->setAutoladen(true);
+$tabelle->setSortierfunktion("kern.schulhof.verwaltung.personen.suche");
 
-$spalte[] = "<div id=\"dshPersonenLadebereich\">".$tabelle."</div>";
+$spalte[] = $tabelle;
 
 $knoepfe = [];
 if ($DSH_BENUTZER->hatRecht("kern.personen.anlegen.person")) {

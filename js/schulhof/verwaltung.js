@@ -52,7 +52,7 @@ kern.schulhof.verwaltung = {
     }
   },
   personen: {
-    suche: () => {
+    suche: (feld, id, sortieren) => {
       var vorname = $("#dshPersonenFilterVorname").getWert();
       var nachname = $("#dshPersonenFilterNachname").getWert();
       var klasse = $("#dshPersonenFilterKlasse").getWert();
@@ -61,8 +61,8 @@ kern.schulhof.verwaltung = {
       var erzieher = $("#dshPersonenFilterErziehungsberechtigte").getWert();
       var verwaltung = $("#dshPersonenFilterVerwaltungsangestellte").getWert();
       var externe = $("#dshPersonenFilterExterne").getWert();
-      var feld = $("#dshPersonenLadebereich").setHTML(ui.generieren.laden.icon("Personenliste wird geladen"));
-      core.ajax("Kern", 31, null, {vorname:vorname, nachname:nachname, klasse:klasse, schueler:schueler, lehrer:lehrer, erzieher:erzieher, verwaltung:verwaltung, externe:externe}).then((r) => {
+      feld.setHTML(ui.generieren.laden.icon("Personenliste wird geladen"));
+      core.ajax("Kern", 31, null, {vorname:vorname, nachname:nachname, klasse:klasse, schueler:schueler, lehrer:lehrer, erzieher:erzieher, verwaltung:verwaltung, externe:externe, ...sortieren}).then((r) => {
         if (r.Code) {
           feld.setHTML(r.Code);
         }

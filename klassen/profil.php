@@ -56,20 +56,30 @@ class Profil {
     return $recht;
   }
 
-  public function getSessionprotokollTabelle() : UI\Tabelle {
+  public function getSessionprotokollTabelle($autoladen, $sortSeite, $sortDatenproseite, $sortSpalte, $sortRichtung) : UI\Tabelle {
     global $DSH_BENUTZER, $DBS;
 
     $profilid = $this->person->getId();
 
     $recht = $this->istFremdzugriff();
-    $sql = "SELECT id, {sessionid}, {browser}, sessiontimeout, anmeldezeit FROM kern_nutzersessions WHERE nutzer = ? ORDER BY anmeldezeit DESC";
-    $anfrage = $DBS->anfrage($sql, "i", $this->person->getId());
     $darflo = $DSH_BENUTZER->hatRecht("$recht.sessionprotokoll.löschen");
 
-    $tabelle = new UI\Tabelle("dshProfil{$profilid}Sessionprotokoll", new UI\Icon("fas fa-history"), "Sessionstatus", "Browser", "Sessiontimeout", "Anmeldezeit");
+    $spalten = [["{sessionid} AS sessionid"], ["{browser} AS browser"], ["sessiontimeout"], ["anmeldezeit"], ["id"]];
+    $sql = "SELECT ?? FROM kern_nutzersessions WHERE nutzer = ? ORDER BY anmeldezeit DESC";
 
+    $ta = new Tabellenanfrage($sql, $spalten, $sortSeite, $sortDatenproseite, $sortSpalte, $sortRichtung);
+    $tanfrage = $ta->anfrage($DBS, "i", $this->person->getId());
+    $anfrage = $tanfrage["Anfrage"];
 
-    while ($anfrage->werte($id, $sessionid, $browser, $sessiontimeout, $anmeldezeit)) {
+    $tabellenid = "dshProfil{$profilid}Sessionprotokoll";
+    $tabelle = new UI\Tabelle($tabellenid, null, "Sessionstatus", "Browser", "Sessiontimeout", "Anmeldezeit");
+    $tabelle->setSeiten($tanfrage, "kern.schulhof.nutzerkonto.sessions.laden");
+
+    if ($autoladen) {
+      $tabelle->setAutoladen(true);
+    }
+
+    while ($anfrage->werte($sessionid, $browser, $sessiontimeout, $anmeldezeit, $id)) {
       $zeile = new UI\Tabelle\Zeile();
       if ($sessionid != null) {
         $zeile["Sessionstatus"] = "gültig";
@@ -105,7 +115,7 @@ class Profil {
    * Gibt das Sessionprotokoll für den Benutzer aus
    * @return array Elemente, die bei der Ausgabe erzeugt werden
    */
-  public function getSessionprotokoll() : array{
+  public function getSessionprotokoll($autoladen = false, $sortSeite = 1, $sortDatenproseite = 25, $sortSpalte = 0, $sortRichtung = "ASC") : array{
     global $DSH_BENUTZER;
     $recht = $this->istFremdzugriff();
     $darfloeschen = $DSH_BENUTZER->hatRecht("$recht.sessionprotokoll.löschen");
@@ -115,7 +125,8 @@ class Profil {
     $rueck = [];
     $rueck[] = new UI\Meldung("Speicherdauer und Aufzeichnungserklärung", "<p>Sessions werden nach zwei Tagen automatisch gelöscht.</p><p>Sessions verwalten die Zugriffe auf dieses Nutzerkonto und entstehen mit jeder Anmeldung. Von hieraus können alte oder widerrechtliche Sessions geschlossen werden. Die letzten beiden Sessions werden bei der Anmeldung angezeigt, um mögliche Indentitätsdiebstähle zu identifizieren.</p>", "Information");
 
-    $rueck[] = "<div id=\"dshProfilSessionprotokollLadebereich\">".$this->getSessionprotokollTabelle()."</div>";
+
+    $rueck[] = $this->getSessionprotokollTabelle($autoladen, $sortSeite, $sortDatenproseite, $sortSpalte, $sortRichtung);
 
     if ($darfloeschen) {
       $rueck[] = new UI\Absatz(new UI\Knopf("Alle Sessions löschen", "Warnung", "kern.schulhof.nutzerkonto.sessions.loeschen.fragen('$profilid', 'alle')"));
@@ -128,7 +139,7 @@ class Profil {
    * @param  int       $datum Timestamp des Tages von dem das Aktionsprotokoll stammen soll
    * @return UI\Tabelle        :)
    */
-  public function getAktionsportokollTag($datum) : UI\Tabelle {
+  public function getAktionsportokollTag($datum, $autoladen, $sortSeite, $sortDatenproseite, $sortSpalte, $sortRichtung) : UI\Tabelle {
     global $DBS, $DSH_BENUTZER;
     $recht = $this->istFremdzugriff();
 
@@ -144,12 +155,21 @@ class Profil {
     $darfdetails = $DSH_BENUTZER->hatRecht("$recht.aktionsprotokoll.details");
     $darfaktionen = $darfloeschen || $darfdetails;
 
-    $tabelle = new UI\Tabelle("dshProfil{$profilid}Aktionsprotokoll", null, "Datenbank / Pfad", "Aktion", "Zeit");
+    $spalten = [["{tabellepfad} AS tabellenpfad"], ["{aktion} AS aktion"], ["zeitpunkt"], ["{art} AS art"], ["id"]];
+    $sql = "SELECT ?? FROM kern_nutzeraktionslog WHERE nutzer = ? AND (zeitpunkt BETWEEN ? AND ?) ORDER BY zeitpunkt DESC";
+    $ta = new Tabellenanfrage($sql, $spalten, $sortSeite, $sortDatenproseite, $sortSpalte, $sortRichtung);
+    $tanfrage = $ta->anfrage($DBS, "iii", $this->person->getId(), $anfang, $ende);
+    $anfrage = $tanfrage["Anfrage"];
 
-    $sql = "SELECT id, {art}, {tabellepfad}, {aktion}, zeitpunkt FROM kern_nutzeraktionslog WHERE nutzer = ? AND (zeitpunkt BETWEEN ? AND ?) ORDER BY zeitpunkt DESC";
-    $anfrage = $DBS->anfrage($sql, "iii", $this->person->getId(), $anfang, $ende);
+    $tabellenid = "dshProfil{$profilid}Aktionsprotokoll";
+    $tabelle = new UI\Tabelle($tabellenid, null, "Datenbank / Pfad", "Aktion", "Zeit");
+    $tabelle->setSeiten($tanfrage, "kern.schulhof.nutzerkonto.aktionslog.laden");
 
-    while ($anfrage->werte($id, $art, $tabellepfad, $aktion, $zeitpunkt)) {
+    if ($autoladen) {
+      $tabelle->setAutoladen(true);
+    }
+
+    while ($anfrage->werte($tabellepfad, $aktion, $zeitpunkt, $id, $art)) {
       $zeile = new UI\Tabelle\Zeile();
 
       if ($art == "DB") {
@@ -183,7 +203,7 @@ class Profil {
    * Gibt das Aktionsporokoll für den Benutzer aus
    * @return array Elemente, die bei der Ausgabe erzeugt werden
    */
-  public function getAktionsprotokoll() : array{
+  public function getAktionsprotokoll($autoladen = false, $sortSeite = 1, $sortDatenproseite = 25, $sortSpalte = 0, $sortRichtung = "ASC") : array{
     global $DSH_BENUTZER;
     $recht = $this->istFremdzugriff();
 
@@ -196,25 +216,26 @@ class Profil {
       $rueck[] = new UI\Meldung("Aktionsprotokoll deaktiviert", "<p>Die Aufzeichnung von Aktionen im Digitalen Schulhof ist.</p>", "Information");
     }
 
+    $tabelleid = "dshProfil{$profilid}Aktionsprotokoll";
+
     $heute = time();
     $tag = date("d", $heute);
     $monat = date("m", $heute);
     $jahr = date("Y", $heute);
     $formular         = new UI\FormularTabelle();
-    $tagwahl          = new UI\Auswahl("dshProfil{$profilid}NutzerkontoAktivitaetsdatum");
+    $tagwahl          = new UI\Auswahl("{$tabelleid}Datum");
     for ($i=0; $i<31; $i++) {
       $datum = mktime(0, 0, 0, $monat, $tag-$i, $jahr);
       $tagwahl->add((new UI\Datum($datum))->kurz("WM"), $datum);
     }
     $tagwahl->setWert(mktime(0, 0, 0, $monat, $tag, $jahr));
-    $tagwahl->addFunktion("oninput", "kern.schulhof.nutzerkonto.aktionslog.laden('$profilid')");
+    $tagwahl->addFunktion("oninput", "ui.tabelle.sortieren(kern.schulhof.nutzerkonto.aktionslog.laden, '$tabelleid')");
     $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Datum:"),      $tagwahl);
     $formular[]       = (new UI\Knopf("Suchen"))  ->setSubmit(true);
-    $formular         ->addSubmit("kern.schulhof.nutzerkonto.aktionslog.laden('$profilid')");
+    $formular         ->addSubmit("ui.tabelle.sortieren(kern.schulhof.nutzerkonto.aktionslog.laden, '$tabelleid')");
     $rueck[]         = $formular;
 
-
-    $rueck[] = "<div id=\"dshProfilAktionslogLadebereich\">".$this->getAktionsportokollTag($heute)."</div>";
+    $rueck[] = $this->getAktionsportokollTag($heute, $autoladen, $sortSeite, $sortDatenproseite, $sortSpalte, $sortRichtung);
 
     if ($DSH_BENUTZER->hatRecht("$recht.aktionsprotokoll.löschen")) {
       $rueck[] = new UI\Absatz(new UI\Knopf("Alle Aktionen löschen", "Warnung", "kern.schulhof.nutzerkonto.aktionslog.loeschen.fragen('$profilid', 'alle')"));
@@ -422,7 +443,7 @@ class Profil {
 
       if ($DSH_BENUTZER->hatRecht("$recht.sessionprotokoll.sehen")) {
         $reiterspalte     = new UI\Spalte("A1");
-        $sessionprotokoll = $this->getSessionprotokoll();
+        $sessionprotokoll = $this->getSessionprotokoll(true, 1, 25, 2, "DESC");
         foreach ($sessionprotokoll as $s) {
           $reiterspalte[]   = $s;
         }
@@ -433,7 +454,7 @@ class Profil {
 
       if ($DSH_BENUTZER->hatRecht("$recht.aktionsprotokoll.sehen")) {
         $reiterspalte     = new UI\Spalte("A1");
-        $aktionsprotokoll = $this->getAktionsprotokoll();
+        $aktionsprotokoll = $this->getAktionsprotokoll(true, 2, 25, 2, "DESC");
         foreach ($aktionsprotokoll as $a) {
           $reiterspalte[]   = $a;
         }

@@ -711,6 +711,7 @@ class Nutzerkonto extends Person {
    * @return bool   true, wenn das Recht vorhanden ist, false sonst
    */
   public function hatRecht($recht, $cache = true) : bool {
+    return true;
     if($cache) {
       if(!isset($this->rechtecache[$recht])) {
         $this->rechtecache[$recht] = Rechtehelfer::hatRecht($this->rechte, $recht);
