@@ -7,9 +7,10 @@ $filter = new Kern\Personenfilter("dshPersonenFilter", "kern.schulhof.verwaltung
 $spalte[] = $filter->setAnzeigen(true);
 
 $tabelle = new UI\Tabelle("dshVerwaltungPersonen", new UI\Icon(UI\Konstanten::SCHUELER), "Titel", "Vorname", "Nachname", "Status");
+$tabelle->setAutoladen(true);
+$tabelle->setSortierfunktion("kern.schulhof.verwaltung.personen.suche");
 
-$spalte[] = "<div id=\"dshPersonenLadebereich\">".$tabelle."</div>";
-$spalte[] = "<script>kern.schulhof.verwaltung.personen.suche()</script>";
+$spalte[] = $tabelle;
 
 $knoepfe = [];
 if ($DSH_BENUTZER->hatRecht("kern.personen.anlegen.person")) {
