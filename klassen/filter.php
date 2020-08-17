@@ -41,6 +41,7 @@ class Personenfilter extends UI\Eingabe {
   }
 
   public function __toString() : string {
+    global $DSH_ALLEMODULE;
     if ($this->anzeigen) {
       $this->knopf->setWert("1");
     }
@@ -77,7 +78,11 @@ class Personenfilter extends UI\Eingabe {
 
     $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Vorname:"),              $vorname);
     $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Nachname:"),             $nachname);
-    $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Klasse:"),               $klasse);
+    $klasseF          = new UI\FormularFeld(new UI\InhaltElement("Klasse:"),               $klasse);
+    if (!in_array("Gruppen", array_keys($DSH_ALLEMODULE))) {
+      $klasseF->addKlasse("dshUiUnsichtbar");
+    }
+    $formular[]       = $klasseF;
     $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Art des Nutzerkontos:"), $arten);
 
 
