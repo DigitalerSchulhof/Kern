@@ -37,7 +37,7 @@ class Person {
     $this->titel = $titel;
     $this->vorname = $vorname;
     $this->nachname = $nachname;
-    $this->geschelecht = null;
+    $this->geschlecht = null;
   }
 
   /**
