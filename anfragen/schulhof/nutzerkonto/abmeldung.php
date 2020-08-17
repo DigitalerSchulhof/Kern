@@ -1,6 +1,7 @@
 <?php
-try {
-  // Benutzer abmelden
-  $DSH_BENUTZER->abmelden();
+if (isset($DSH_BENUTZER)) {
+  if ($DSH_BENUTZER !== null) {
+    $DSH_BENUTZER->abmelden();
+  }
 }
 ?>

@@ -227,18 +227,17 @@ kern.schulhof.nutzerkonto = {
 
           var minuten = ui.generieren.minuten(ende.getTime() - jetzt);
 
-          var text = "Aktiv bis "+datum+" um "+zeit+" Uhr - noch ";
-          text += "<span id=\""+kern.schulhof.nutzerkonto.aktivitaetsanzeige.ids[i]+"Infotext"+"\">";
-          if (minuten == 1) {
-            text += "etwa eine Minute";
-          } else if (minuten == 0) {
-            text += "weniger als eine Minute";
-          } else {
-            text += minuten+" Minuten";
-          }
-          text += "</span>.";
-
           for (var i = 0; i<kern.schulhof.nutzerkonto.aktivitaetsanzeige.ids.length; i++) {
+            var text = "Aktiv bis "+datum+" um "+zeit+" Uhr - noch ";
+            text += "<span id=\""+kern.schulhof.nutzerkonto.aktivitaetsanzeige.ids[i]+"Infotext"+"\">";
+            if (minuten == 1) {
+              text += "etwa eine Minute";
+            } else if (minuten == 0) {
+              text += "weniger als eine Minute";
+            } else {
+              text += minuten+" Minuten";
+            }
+            text += "</span>.";
             $("#"+kern.schulhof.nutzerkonto.aktivitaetsanzeige.ids[i]+"Infotext").setHTML(text);
           }
         });
