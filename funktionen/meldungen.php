@@ -164,12 +164,21 @@ switch ($meldeid) {
     break;
   case 27:
     Anfrage::setRueck("Meldung", new UI\Meldung("Person erstellt", "Die Person wurde angelegt.", "Erfolg"));
+    $knoepfe = [UI\Knopf::ok()];
+    $knoepfe[0]->addFunktion("onclick", "window.history.back()");
+    Anfrage::setRueck("Knöpfe", $knoepfe);
     break;
   case 28:
     Anfrage::setRueck("Meldung", new UI\Meldung("Nutzerkonto erstellt", "Das Nutzerkonto wurde angelegt. An die angegebene eMailadresse wurde ein Kennwort verschickt, das nun 24 Stunden gültig ist.", "Erfolg"));
+    $knoepfe = [UI\Knopf::ok()];
+    $knoepfe[0]->addFunktion("onclick", "window.history.back()");
+    Anfrage::setRueck("Knöpfe", $knoepfe);
     break;
   case 29:
     Anfrage::setRueck("Meldung", new UI\Meldung("Person und Nutzerkonto erstellt", "Die Person und das Nutzerkonto wurden angelegt. An die angegebene eMailadresse wurde ein Kennwort verschickt, das nun 24 Stunden gültig ist.", "Erfolg"));
+    $knoepfe = [UI\Knopf::ok()];
+    $knoepfe[0]->addFunktion("onclick", "window.history.back()");
+    Anfrage::setRueck("Knöpfe", $knoepfe);
     break;
 }
 ?>

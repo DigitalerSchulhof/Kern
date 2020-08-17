@@ -150,7 +150,7 @@ class Rechtehelfer {
         }
       }
       if($lc === 1000) {
-        throw new \Exception("Das Prüfen eines Rechts brauchte mehr als 1,000 Iterationen der Schleife!\n\tRecht: »{$ur}«\n\t\$Rechte (JSON): ".json_encode($rechte));
+        throw new \Exception("Das Prüfen eines Rechts braucht mindestens 1,000 Iterationen der Schleife!\n\tRecht: »{$ur}«\n\t\$rechte (JSON): ".json_encode($rechte));
         return false;
       }
       return $rechte[0];
@@ -221,8 +221,6 @@ class Rechtehelfer {
     };
 
     $sort($baum);
-
-    die();
   }
 }
 
