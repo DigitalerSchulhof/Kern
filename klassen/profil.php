@@ -256,7 +256,7 @@ class Profil {
 
     $profilid = $this->person->getId();
 
-    $sql = "SELECT {email}, {notifikationsmail}, {postmail}, {postalletage}, {postpapierkorbtage}, {uebersichtsanzahl}, {oeffentlichertermin}, {oeffentlicherblog}, {oeffentlichegalerie}, {inaktivitaetszeit}, {wikiknopf}, {kuerzel}, kern_nutzerkonten.id, {emailaktiv}, {emailadresse}, {emailname}, {einganghost}, {eingangport}, {eingangnutzer}, {eingangpasswort}, {ausganghost}, {ausgangport}, {ausgangnutzer}, {ausgangpasswort} FROM kern_nutzerkonten JOIN kern_nutzereinstellungen ON kern_nutzerkonten.id = kern_nutzereinstellungen.person LEFT JOIN kern_lehrer ON kern_nutzerkonten.id = kern_lehrer.id WHERE kern_nutzerkonten.id = ?";
+    $sql = "SELECT {email}, {notifikationsmail}, {postmail}, {postalletage}, {postpapierkorbtage}, {uebersichtsanzahl}, {oeffentlichertermin}, {oeffentlicherblog}, {oeffentlichegalerie}, {inaktivitaetszeit}, {wikiknopf}, {kuerzel}, kern_nutzerkonten.id, {emailaktiv}, {emailadresse}, {emailname}, {einganghost}, {eingangport}, {eingangnutzer}, {eingangpasswort}, {ausganghost}, {ausgangport}, {ausgangnutzer}, {ausgangpasswort} FROM kern_nutzerkonten LEFT JOIN kern_nutzereinstellungen ON kern_nutzerkonten.id = kern_nutzereinstellungen.person LEFT JOIN kern_lehrer ON kern_nutzerkonten.id = kern_lehrer.id WHERE kern_nutzerkonten.id = ?";
     $anfrage = $DBS->anfrage($sql, "i", $this->person->getId());
     $anfrage->werte($mail, $notifikationsmail, $postmail, $posttage, $papierkorbtage, $uebersicht, $oetermin, $oeblog, $oegalerie, $inaktiv, $wiki, $kuerzel, $nutzerkonto, $mailaktiv, $mailadresse, $mailname, $mailehost, $maileport, $mailenutzer, $mailepasswort, $mailahost, $mailaport, $mailanutzer, $mailapasswort);
 
@@ -270,6 +270,7 @@ class Profil {
     $artF          ->add("Lehrkraft", "l");
     $artF          ->add("Verwaltung", "v");
     $artF          ->add("Externe(r)", "x");
+    $artF          ->addFunktion("oninput", "ui.formular.anzeigenwenn('dshProfil{$profilid}Art', 'l', 'dshProfil{$profilid}KuerzelFeld')");
     if (!$DSH_BENUTZER->hatRecht("$recht.art")) {
       $artF->setAttribut("disabled", "disabled");
     }
@@ -303,11 +304,9 @@ class Profil {
       $nachnameF->setAttribut("disabled", "disabled");
     }
 
-    if ($this->person->getArt() == "l") {
-      $kuerzelF = (new UI\Textfeld("dshProfil{$profilid}Kuerzel"))->setWert($kuerzel);
-      if (!$DSH_BENUTZER->hatRecht("$recht.kuerzel")) {
-        $kuerzelF->setAttribut("disabled", "disabled");
-      }
+    $kuerzelF = (new UI\Textfeld("dshProfil{$profilid}Kuerzel"))->setWert($kuerzel);
+    if (!$DSH_BENUTZER->hatRecht("$recht.kuerzel")) {
+      $kuerzelF->setAttribut("disabled", "disabled");
     }
 
     $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Art:"),                      $artF);
@@ -315,9 +314,13 @@ class Profil {
     $formular[]       = (new UI\FormularFeld(new UI\InhaltElement("Titel:"),                   $titelF))->setOptional(true);
     $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Vorname:"),                  $vornameF);
     $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Nachname:"),                 $nachnameF);
-    if ($this->person->getArt() == "l") {
-      $formular[]       = (new UI\FormularFeld(new UI\InhaltElement("Kürzel:"),                      $kuerzelF))->setOptional(true);
+    $kuerzel = new UI\FormularFeld(new UI\InhaltElement("Kürzel:"),                      $kuerzelF);
+    $kuerzel->setOptional(true);
+    $kuerzel->addKlasse("dshProfil{$profilid}KuerzelFeld");
+    if ($this->person->getArt() != "l") {
+      $kuerzel->addKlasse("dshUiUnsichtbar");
     }
+    $formular[]       = $kuerzel;
 
     $formular[]       = (new UI\Knopf("Änderungen speichern", "Erfolg"))  ->setSubmit(true);
     $formular         ->addSubmit("kern.schulhof.nutzerkonto.aendern.persoenliches('{$profilid}')");
@@ -325,6 +328,7 @@ class Profil {
     $reiterspalte = new UI\Spalte("A1", $formular);
     $reiterkoerper = new UI\Reiterkoerper($reiterspalte->addKlasse("dshUiOhnePadding"));
     $reiter->addReitersegment(new UI\Reitersegment($reiterkopf, $reiterkoerper));
+
 
     if ($nutzerkonto !== null) {
       $formular         = new UI\FormularTabelle();
