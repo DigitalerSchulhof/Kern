@@ -102,6 +102,7 @@ class Tabellenanfrage {
     }
 
     $rueck["Anfrage"] = $anfrage;
+
     return $rueck;
   }
 

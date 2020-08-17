@@ -1,5 +1,4 @@
 <?php
-//print_r($_POST);
 Anfrage::post("id", "datum");
 Anfrage::postSort();
 
