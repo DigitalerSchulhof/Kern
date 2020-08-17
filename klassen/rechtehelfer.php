@@ -3,15 +3,13 @@ namespace Kern;
 
 class Rechtehelfer {
   /** @var bool Sollen Rechte geprüft und bei ungültigen Rechten Fehler ausgegeben werden? */
-  public const CHECK = true;
+  public const CHECK = false;
 
   // Instanziierung unterbinden
   private function __construct() { }
 
   /**
    * Prüft, ob das Recht in der übergebenen Rechteliste vorhanden ist.
-   * Die Definition eines Rechts findet sich hier: <a href="https://gist.github.com/jeengbe/b78d01fb68972e51335ba9696206aa50">https://gist.github.com</a>
-   * @link https://gist.github.com/jeengbe/b78d01fb68972e51335ba9696206aa50
    * @param array|bool   $rechte Rechtebaum der Rechte, die vergeben sind
    * @param string $recht  Das Recht
    * @return bool   true, wenn das Recht vorhanden ist, false sonst
@@ -23,16 +21,11 @@ class Rechtehelfer {
       }
     }
 
-    if($rechte === true || $rechte === false) {
-      return $rechte;
-    }
-    if(!count($rechte)) {
-      return false;
-    }
-
-    $recht = explode(".", $recht);
-
+    /**
+     * Prüft, ob ein einzelnes Recht gegeben ist
+     */
     $checkRecht = function($rechte, $recht) use (&$checkRecht) {
+      $recht = explode(".", $recht);
       $rest = $recht;
       foreach($recht as $i => $ebene) {
         if(preg_match("/^[a-zäöüß]+$/i", $ebene) === 1) {
@@ -43,6 +36,9 @@ class Rechtehelfer {
             }
           } else {
             // Recht definitiv nicht gesetzt
+            return false;
+          }
+          if($rechte[$ebene] === false) {
             return false;
           }
           $rechte = $rechte[$ebene];
@@ -72,10 +68,102 @@ class Rechtehelfer {
           }
         }
       }
-      throw new Exception("Rechtecheck weiter fortgeschritten als eigentlich mögich");
+      throw new \Exception("Rechtecheck weiter fortgeschritten als eigentlich mögich. Recht: »".join(".", $recht)."«");
     };
 
-    return $checkRecht($rechte, $recht);
+    $checkLogik = function($allerechte, $rechte) use (&$checkLogik, $checkRecht) {
+      $ur = $rechte;
+      // 1,50m Abstand
+      $rechte = preg_replace("/(?:\\s*(\\(|\\)|\\&\\&|\\|\\|)\\s*)/", ' $1 ', $rechte);
+      $rechte = explode(" ", $rechte);
+      // Leere Einträge entfernen
+      $rechte = array_diff($rechte, [""]);
+      foreach($rechte as $i => $r) {
+        if(preg_match("/^(?:(?:[a-zäöüß]+|\\[[\\|&](?:[a-zäöüß]+,)+[a-zäöüß]+\\])\\.)*(?:[a-zäöüß]+|\\[[\\|&](?:[a-zäöüß]+,)+[a-zäöüß]+\\])$/i", $r) === 1) {
+          $rechte[$i] = $checkRecht($allerechte, $r);
+        }
+      };
+
+      // Infinite-Loop Check
+      $lc = 0;
+      while(++$lc < 1000 && count(($rechte = array_values($rechte))) !== 1) {
+        for($i = 0; $i < count($rechte); $i++) {
+          if(!isset($rechte[$i])) {
+            continue;
+          }
+          $r = $rechte[$i];
+          switch($r) {
+            case "(":
+              $c = true;
+              if(isset($rechte[$i+1]) && ($rechte[$i+1] === true || $rechte[$i+1] === false)) {
+                if(isset($rechte[$i+2]) && ($rechte[$i+2] === "||" || $rechte[$i+2] === "&&")) {
+                  if(isset($rechte[$i+3]) && ($rechte[$i+3] === true || $rechte[$i+3] === false)) {
+                    if(isset($rechte[$i+4]) && ($rechte[$i+4] === ")")) {
+                      if($rechte[$i+2] === "||") {
+                        $rechte[$i+2] = $rechte[$i+1] || $rechte[$i+3];
+                      } else if($rechte[$i+2] === "&&") {
+                        $rechte[$i+2] = $rechte[$i+1] && $rechte[$i+3];
+                      }
+                      unset($rechte[$i  ]);
+                      unset($rechte[$i+1]);
+                      unset($rechte[$i+3]);
+                      unset($rechte[$i+4]);
+                      $c = false;
+                      $i+=4;
+                    }
+                  }
+                } else if(isset($rechte[$i+2]) && $rechte[$i+2] === ")") {
+                  $rechte[$i] = $rechte[$i+1];
+                  unset($rechte[$i  ]);
+                  unset($rechte[$i+2]);
+                }
+              }
+              if($c) {
+                continue 2;
+              }
+              break;
+            case "||":
+              if(isset($rechte[$i-1]) && ($rechte[$i-1] !== true || $rechte[$i-1] !== false)) {
+                continue 2;
+              }
+              if(isset($rechte[$i+1]) && ($rechte[$i+1] !== true || $rechte[$i+1] !== false)) {
+                continue 2;
+              }
+              $rechte[$i] = $rechte[$i-1] || $rechte[$i+1];
+              unset($rechte[$i-1]);
+              unset($rechte[$i+1]);
+              $i+=1;
+              break;
+            case "&&":
+              if(!isset($rechte[$i-1]) || $rechte[$i-1] !== true || $rechte[$i-1] !== false) {
+                continue 2;
+              }
+              if(!isset($rechte[$i+1]) || $rechte[$i+1] !== true || $rechte[$i+1] !== false) {
+                continue 2;
+              }
+              $rechte[$i] = $rechte[$i-1] && $rechte[$i+1];
+              unset($rechte[$i-1]);
+              unset($rechte[$i+1]);
+              $i+=1;
+              break;
+          }
+        }
+      }
+      if($lc === 1000) {
+        throw new \Exception("Das Prüfen eines Rechts brauchte mehr als 1,000 Iterationen der Schleife!\n\tRecht: »{$ur}«\n\t\$Rechte (JSON): ".json_encode($rechte));
+        return false;
+      }
+      return $rechte[0];
+    };
+
+    if($rechte === true || $rechte === false) {
+      return $rechte;
+    }
+    if(!count($rechte)) {
+      return false;
+    }
+
+    return $checkLogik($rechte, $recht);
   }
 
   /**
