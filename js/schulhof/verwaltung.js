@@ -147,6 +147,14 @@ kern.schulhof.verwaltung = {
       core.ajax("Kern", 38, null, {id:id}).then((r) => {
         ui.fenster.anzeigen(r.Code);
       });
+    },
+    rolle: (id, rolle) => {
+      let wert = $("#dshVerwaltungRechteUndRollen"+id+"Rolle"+rolle).getWert();
+      let aktion = "nehmen";
+      if(wert == "1") {
+        aktion = "vergeben";
+      }
+      core.ajax("Kern", 39, "Rolle "+aktion, {id: id, rolle: rolle, wert: wert}).then(() => ui.laden.aus());
     }
   }
 };

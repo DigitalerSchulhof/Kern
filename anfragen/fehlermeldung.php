@@ -44,8 +44,10 @@ foreach($fehlercodes as $fc) {
 
   $beschreibung = ($fehlercodesyml[$modul][$code] ?? array("beschreibung" => "Unbekannter Fehlercode. <b>Bitte melden!</b>"))["beschreibung"];
 
-  $code = strtoupper(dechex($code));
-  $code = str_pad($code, 3, '0', STR_PAD_LEFT);
+  if($code > 0) {
+    $code = strtoupper(dechex($code));
+    $code = str_pad($code, 3, '0', STR_PAD_LEFT);
+  }
   $fehlerCode  .= new UI\Absatz("$beschreibung <span class=\"dshFehlercode\" title=\"$modul\">$code</span>");
 }
 

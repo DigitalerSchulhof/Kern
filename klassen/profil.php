@@ -172,7 +172,7 @@ class Profil {
       $tabelle->setAutoladen(true);
     }
 
-    while ($anfrage->werte($tabellepfad, $aktion, $zeitpunkt, $id, $art)) {
+    while ($anfrage->werte($tabellepfad, $aktion, $zeitpunkt, $art, $id)) {
       $zeile = new UI\Tabelle\Zeile();
 
       if ($art == "DB") {

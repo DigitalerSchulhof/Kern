@@ -15,10 +15,6 @@ if (!UI\Check::istZahl($id)) {
 
 $fensterid = "dshVerwaltungRechteUndRollen{$id}";
 
-$sql = "SELECT rolle FROM kern_rollenzuordnung WHERE nutzer = ?";
-$anfrage = $DBS->anfrage($sql, "i", $id);
-$anfrage->werte($rolle);
-
 $person = Kern\Nutzerkonto::vonID($id);
 $fenstertitel = (new UI\Icon("fas fa-user-lock"))." Rechte und Rollen von $person";
 
@@ -29,6 +25,15 @@ $spalteRechte   = new UI\Spalte();
 $spalteRollen[] = new UI\Ueberschrift("3", "Rollen");
 $spalteRechte[] = new UI\Ueberschrift("3", "Rechte");
 
+$sql = "SELECT r.id, {r.bezeichnung}, IF(EXISTS(SELECT nutzer FROM kern_rollenzuordnung as rz WHERE rz.nutzer = ? AND rz.rolle = r.id), '1', '0') FROM kern_rollen as r";
+$anfrage = $DBS->anfrage($sql, "i", $id);
+
+while($anfrage->werte($rolle, $bezeichnung, $hat)) {
+  $tog = new UI\Toggle("dshVerwaltungRechteUndRollen{$id}Rolle$rolle", $bezeichnung);
+  $tog ->setWert($hat);
+  $tog ->addFunktion("onclick", "kern.schulhof.verwaltung.personen.rolle('$id', '$rolle')");
+  $spalteRollen[] = $tog." ";
+}
 
 $zeile[]        = $spalteRollen;
 $zeile[]        = $spalteRechte;

@@ -211,7 +211,7 @@ kern.schulhof.nutzerkonto = {
       }
 
       if (minuten < 0) {
-        kern.schulhof.nutzerkonto.abmelden.ausfuehren();
+        kern.schulhof.nutzerkonto.abmelden.ausfuehren(true);
         return;
       } else if (minuten < 2) {
         ui.laden.meldung("Kern", 30, "Session verlängern?");
