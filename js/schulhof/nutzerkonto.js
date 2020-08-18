@@ -128,7 +128,6 @@ kern.schulhof.nutzerkonto = {
       if (id == "alle") {
         // @TODO: Filter laden
       }
-      feld.setHTML(ui.generieren.laden.icon("Offene Sessions werden ermittelt"));
       core.ajax("Kern", 15, null, {id:id, ...sortieren}).then((r) => {
         if (r.Code) {
           feld.setHTML(r.Code);
@@ -159,7 +158,6 @@ kern.schulhof.nutzerkonto = {
       } else {
         var datum = $("#"+id+"Datum").getWert();
       }
-      feld.setHTML(ui.generieren.laden.icon("Aktionslog wird geladen"));
       core.ajax("Kern", 18, null, {id:id, datum:datum, ...sortieren}).then((r) => {
         if (r.Code) {
           feld.setHTML(r.Code);
