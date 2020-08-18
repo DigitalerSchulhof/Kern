@@ -13,6 +13,10 @@ if (!$DSH_BENUTZER->hatRecht("kern.rechte.rollen.zuordnen")) {
   Anfrage::addFehler(-4, true);
 }
 
+if(($person = Kern\Nutzerkonto::vonID($id)) === null) {
+  Anfrage::addFehler(-3, true);
+}
+
 $sql = "SELECT COUNT(*) FROM kern_rollen WHERE id = ?";
 $sql = $DBS->anfrage($sql, "i", $rolle);
 if(!$sql->werte($anz)) {
@@ -24,7 +28,7 @@ if($wert == "0") {
   $sql = "SELECT COUNT(*) FROM kern_rollenzuordnung WHERE rolle = 0";
   $anfrage = $DBS->anfrage($sql);
   if ($anfrage->werte($anzahl)) {
-    if ($anzahl == 0) {
+    if ($anzahl == 1) {
       Anfrage::addFehler(88, true);
     }
   } else {
@@ -37,5 +41,21 @@ if($wert == "0") {
   $sql = "INSERT INTO kern_rollenzuordnung (nutzer, rolle) VALUES (?, ?)";
   $anfrage = $DBS->anfrage($sql, "ii", $id, $rolle);
 }
+
+$sessid = session_id();
+
+$sql = "SELECT {sessionid} FROM kern_nutzersessions WHERE nutzer = ? AND sessionid IS NOT NULL AND sessiontimeout > ".time();
+$sql = $DBS->anfrage($sql, "i", $id);
+session_commit();
+while($sql->werte($sid)) {
+  session_id($sid);
+  Kern\Check::angemeldet();
+  $DSH_BENUTZER->rechteLaden();
+  $_SESSION["Benutzer"] = $DSH_BENUTZER;
+  session_commit();
+}
+
+session_id($sessid);
+Kern\Check::angemeldet();
 
 ?>

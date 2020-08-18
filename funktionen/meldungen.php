@@ -200,5 +200,8 @@ switch ($meldeid) {
     Anfrage::setRueck("Meldung", new UI\Meldung("Automatische Abmeldung", "Aufgrund von Inaktivität ist automatisch eine Abmeldung durchgeführt worden.", "Information", new UI\Icon("fas fa-clock")));
     Anfrage::setRueck("Knöpfe", $knoepfe);
     break;
+  case 32:
+    Anfrage::setRueck("Meldung", new UI\Meldung("Rechte aktualisiert", "Die Rechte der Person wurden aktualisiert.", "Erfolg"));
+    break;
 }
 ?>

@@ -297,7 +297,9 @@ class Nutzerkonto extends Person {
     global $DBS;
     $sql = "SELECT {art}, {geschlecht}, {vorname}, {nachname}, {titel} FROM kern_personen WHERE id = ?";
     $anfrage = $DBS->anfrage($sql, "i", $id);
-    $anfrage->werte($art, $geschlecht, $vorname, $nachname, $titel);
+    if(!$anfrage->werte($art, $geschlecht, $vorname, $nachname, $titel)) {
+      return null;
+    }
 
     $person = new Nutzerkonto($id, $titel, $vorname, $nachname);
     $person->setArt($art);
@@ -755,7 +757,6 @@ class Nutzerkonto extends Person {
    * @return bool   true, wenn das Recht vorhanden ist, false sonst
    */
   public function hatRecht($recht, $cache = true) : bool {
-    return true;
     if($cache) {
       if(!isset($this->rechtecache[$recht])) {
         $this->rechtecache[$recht] = Rechtehelfer::hatRecht($this->rechte, $recht);

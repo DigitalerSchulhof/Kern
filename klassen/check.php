@@ -79,7 +79,7 @@ class Check {
   public static function verboten($recht) {
     global $DSH_BENUTZER;
     if (!$DSH_BENUTZER->hatRecht($recht)) {
-      \Seite::seiteAus("Fehler/404");
+      \Seite::seiteAus("Fehler/403");
     }
   }
 

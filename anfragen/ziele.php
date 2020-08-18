@@ -39,4 +39,5 @@ $ZIELE[36] = "schulhof/verwaltung/personen/fensternutzerkonto.php";
 $ZIELE[37] = "schulhof/nutzerkonto/sessionstand.php";
 $ZIELE[38] = "schulhof/verwaltung/personen/rechteundrollen.php";
 $ZIELE[39] = "schulhof/verwaltung/personen/rechte/rollesetzen.php";
+$ZIELE[41] = "schulhof/verwaltung/personen/rechte/neuladen.php";
 ?>

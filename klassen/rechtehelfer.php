@@ -163,7 +163,7 @@ class Rechtehelfer {
       return false;
     }
 
-    return $checkLogik($rechte, $recht);
+    return $checkLogik($rechte, "($recht)");
   }
 
   /**
@@ -191,6 +191,9 @@ class Rechtehelfer {
         } else {
           $baumTeil = &$baumTeil[$recht[$i]];
         }
+      }
+      if($baum === true || $baum === false) {
+        break;
       }
     }
     return $baum;
@@ -221,6 +224,7 @@ class Rechtehelfer {
     };
 
     $sort($baum);
+    return $baum;
   }
 }
 
