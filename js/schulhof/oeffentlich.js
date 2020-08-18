@@ -71,9 +71,12 @@ kern.schulhof.oeffentlich = {
         http.open("HEAD", "ping.php", true);
         http.send(null);
       }).then((ms) => {
-        if(ms !== null && ms > 100) {
-          $("#dshBrowsercheckInternet").einblenden();
-          $("#dshBrowsercheckInternet").setAttr("title", "Antwortzeit: " + ms + "ms");
+        if(ms !== null) {
+          if(ms > 1000) {
+            $("#dshBrowsercheckInternetL").einblenden().setAttr("title", "Antwortzeit: " + ms + "ms");
+          } else if(ms > 100) {
+            $("#dshBrowsercheckInternetM").einblenden().setAttr("title", "Antwortzeit: " + ms + "ms");
+          }
         }
         $("#dshBrowsercheckLaden").ausblenden();
         if(unterstuetzt === true) {

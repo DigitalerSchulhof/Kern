@@ -8,8 +8,12 @@ kern.schulhof.nutzerkonto = {
     fragen: () => {
       ui.laden.meldung("Kern", 0, "Abmeldung");
     },
-    ausfuehren: () => {
-      core.ajax("Kern", 1, ["Abmeldung", "Die Abmeldung wird durchgeführt"], null, 1);
+    ausfuehren: (auto) => {
+      if(auto) {
+        core.ajax("Kern", 1, ["Abmeldung", "Die Abmeldung wird durchgeführt"], null, 31);
+      } else {
+        core.ajax("Kern", 1, ["Abmeldung", "Die Abmeldung wird durchgeführt"], null, 1);
+      }
     }
   },
   session: {

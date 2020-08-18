@@ -186,5 +186,19 @@ switch ($meldeid) {
     $knoepfe[] = new UI\Knopf("Verlängern!", "Erfolg", "kern.schulhof.nutzerkonto.session.verlaengern()");
     Anfrage::setRueck("Knöpfe", $knoepfe);
     break;
+  case 31:
+    $website = new UI\Knopf("Zurück zur Website");
+    $website ->addFunktion("href", "Website");
+    $website ->addFunktion("onclick", "ui.laden.aus()");
+
+    $schulhof = new UI\Knopf("Wieder anmelden");
+    $schulhof ->addFunktion("href", "Schulhof/Anmeldung");
+    $schulhof ->addFunktion("onclick", "ui.laden.aus()");
+
+    $knoepfe = [$website, $schulhof];
+
+    Anfrage::setRueck("Meldung", new UI\Meldung("Automatische Abmeldung", "Aufgrund von Inaktivität ist automatisch eine Abmeldung durchgeführt worden.", "Information", new UI\Icon("fas fa-clock")));
+    Anfrage::setRueck("Knöpfe", $knoepfe);
+    break;
 }
 ?>

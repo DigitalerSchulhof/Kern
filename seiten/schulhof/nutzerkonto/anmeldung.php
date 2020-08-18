@@ -12,21 +12,24 @@ $SEITE[]                = UI\Zeile::standard(new UI\SeitenUeberschrift("Schulhof
 $spalteAnmeldung        = new UI\Spalte("A2");
 $spalteAnmeldung[]      = new UI\Ueberschrift(2, "Anmeldung");
 
-$meldungBrowserLaden    = new UI\Meldung("Kompatibilität prüfen",       "Es wird geprüft, ob Ihr Browser unterstützt wird...", "Arbeit");
-$meldungBrowserErfolg   = new UI\Meldung("Kompatibilität prüfen",       "Dieser Browser unterstützt alle Funktionen des Digitalen Schulhofs.", "Erfolg", new UI\Icon(""));
-$meldungBrowserFehler   = new UI\Meldung("Kompatibilität prüfen",       "<b>Dieser Browser unterstützt möglicherweise nicht alle Funktionen des Digitalen Schulhofs!</b>", "Fehler", new UI\Icon(""));
-$meldungBrowserUnsicher = new UI\Meldung("Kompatibilität prüfen",       "Dieser Browser konnte nicht erkannt werden! Um sicherzustellen, dass alle Funktionen des Digitalen Schulhofs verwendet werden können, muss ein aktueller Browser verwendet werden. <a href=\"https://digitaler-schulhof.de/Wiki/Browser\" class=\"dshExtern\">Hier</a> finden Sie eine Liste an Browsern, die offiziell unterstützt werden.", "Warnung"); // @TODO: Browserliste
-$meldungBrowserInternet = new UI\Meldung("Langsame Internetverbindung", "Es wurde eine langsame Internetverbindung festgestellt. Für ein bestmögliches Erlebnis ist eine schnelle Internetverbindung notwendig.", "Warnung", new UI\Icon("fas fa-wifi"));
-$meldungBrowserLaden    ->setID("dshBrowsercheckLaden");
-$meldungBrowserErfolg   ->setID("dshBrowsercheckErfolg")  ->setStyle("display", "none");
-$meldungBrowserFehler   ->setID("dshBrowsercheckFehler")  ->setStyle("display", "none");
-$meldungBrowserUnsicher ->setID("dshBrowsercheckUnsicher")->setStyle("display", "none")->setAttribut("title", "Fehlt Ihr Browser? Lassen Sie es uns über GitHub wissen! :)");
-$meldungBrowserInternet ->setID("dshBrowsercheckInternet")->setStyle("display", "none");
-$spalteAnmeldung[]      = $meldungBrowserLaden;
-$spalteAnmeldung[]      = $meldungBrowserErfolg;
-$spalteAnmeldung[]      = $meldungBrowserFehler;
-$spalteAnmeldung[]      = $meldungBrowserUnsicher;
-$spalteAnmeldung[]      = $meldungBrowserInternet;
+$meldungBrowserLaden      = new UI\Meldung("Kompatibilität prüfen",       "Es wird geprüft, ob Ihr Browser unterstützt wird...", "Arbeit");
+$meldungBrowserErfolg     = new UI\Meldung("Kompatibilität prüfen",       "Dieser Browser unterstützt alle Funktionen des Digitalen Schulhofs.", "Erfolg", new UI\Icon(""));
+$meldungBrowserFehler     = new UI\Meldung("Kompatibilität prüfen",       "<b>Dieser Browser unterstützt möglicherweise nicht alle Funktionen des Digitalen Schulhofs!</b>", "Fehler", new UI\Icon(""));
+$meldungBrowserUnsicher   = new UI\Meldung("Kompatibilität prüfen",       "Dieser Browser konnte nicht erkannt werden! Um sicherzustellen, dass alle Funktionen des Digitalen Schulhofs verwendet werden können, muss ein aktueller Browser verwendet werden. <a href=\"https://digitaler-schulhof.de/Wiki/Browser\" class=\"dshExtern\">Hier</a> finden Sie eine Liste an Browsern, die offiziell unterstützt werden.", "Warnung"); // @TODO: Browserliste
+$meldungBrowserInternetM  = new UI\Meldung("Langsame Internetverbindung",       "Es wurde eine langsame Internetverbindung festgestellt. Für ein bestmögliches Erlebnis ist eine schnelle Internetverbindung notwendig.", "Warnung", new UI\Icon("fas fa-wifi"));
+$meldungBrowserInternetL  = new UI\Meldung("Sehr langsame Internetverbindung",  "Es wurde eine sehr langsame Internetverbindung festgestellt. Gewisse Bereiche des Digitalen Schulhofs", "Fehler", new UI\Icon("fas fa-wifi"));
+$meldungBrowserLaden      ->setID("dshBrowsercheckLaden");
+$meldungBrowserErfolg     ->setID("dshBrowsercheckErfolg")    ->setStyle("display", "none");
+$meldungBrowserFehler     ->setID("dshBrowsercheckFehler")    ->setStyle("display", "none");
+$meldungBrowserUnsicher   ->setID("dshBrowsercheckUnsicher")  ->setStyle("display", "none")->setAttribut("title", "Fehlt Ihr Browser? Lassen Sie es uns über GitHub wissen! :)");
+$meldungBrowserInternetM  ->setID("dshBrowsercheckInternetM") ->setStyle("display", "none");
+$meldungBrowserInternetL  ->setID("dshBrowsercheckInternetL") ->setStyle("display", "none");
+$spalteAnmeldung[]        = $meldungBrowserLaden;
+$spalteAnmeldung[]        = $meldungBrowserErfolg;
+$spalteAnmeldung[]        = $meldungBrowserFehler;
+$spalteAnmeldung[]        = $meldungBrowserUnsicher;
+$spalteAnmeldung[]        = $meldungBrowserInternetM;
+$spalteAnmeldung[]        = $meldungBrowserInternetL;
 
 $anmeldungFormular      = new UI\FormularTabelle();
 

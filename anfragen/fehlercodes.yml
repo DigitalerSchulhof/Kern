@@ -260,7 +260,9 @@
   ort: anfragen/schulhof/verwaltung/personen/suche.php
   beschreibung: Die <b>Klasse</b> ist ungültig.
 88:
-  ort: anfragen/schulhof/verwaltung/personen/loeschen.php
+  ort:
+    - anfragen/schulhof/verwaltung/personen/loeschen.php
+    - anfragen/schulhof/verwaltung/personen/rechte/rollesetzen.php
   beschreibung: Der <b>letzte Administrator</b> kann nicht gelöscht werden.
 89:
   ort: anfragen/schulhof/verwaltung/personen/neuperson.php
