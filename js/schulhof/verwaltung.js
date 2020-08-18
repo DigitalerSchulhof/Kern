@@ -33,12 +33,12 @@ kern.schulhof.verwaltung = {
     },
     details: (modulname) => {
       core.ajax("Kern", 19, null, {modulname:modulname}).then((r) => {
-        ui.fenster.anzeigen(r.Code, r.Fensterid);
+        ui.fenster.anzeigen(r.Code);
       });
     },
     version: (modulname) => {
       core.ajax("Kern", 20, null, {modulname:modulname}).then((r) => {
-        ui.fenster.anzeigen(r.Code, r.Fensterid);
+        ui.fenster.anzeigen(r.Code);
       });
     },
     alteEinblenden: (id) => {
@@ -69,7 +69,7 @@ kern.schulhof.verwaltung = {
     },
     profil: (id) => {
       core.ajax("Kern", 32, null, {id:id}).then((r) => {
-        ui.fenster.anzeigen(r.Code, r.Fensterid);
+        ui.fenster.anzeigen(r.Code);
       });
     },
     loeschen: {
@@ -112,7 +112,7 @@ kern.schulhof.verwaltung = {
         anzeigen: (id, laden) => {
           var laden = laden || '0';
           core.ajax("Kern", 36, null, {id:id, laden:laden}).then((r) => {
-            ui.fenster.anzeigen(r.Code, r.Fensterid);
+            ui.fenster.anzeigen(r.Code);
           });
         },
         erstellen: (id, laden) => {
@@ -145,7 +145,7 @@ kern.schulhof.verwaltung = {
     },
     rechteundrollen: (id) => {
       core.ajax("Kern", 38, null, {id:id}).then((r) => {
-        ui.fenster.anzeigen(r.Code, r.Fensterid);
+        ui.fenster.anzeigen(r.Code);
       });
     }
   }

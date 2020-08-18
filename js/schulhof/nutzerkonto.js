@@ -149,7 +149,7 @@ kern.schulhof.nutzerkonto = {
     },
     details: (nutzerid, logid) => {
       core.ajax("Kern", 17, null, {nutzerid:nutzerid, logid:logid}).then((r) => {
-        ui.fenster.anzeigen(r.Code, r.Fensterid);
+        ui.fenster.anzeigen(r.Code);
       });
     },
     laden: (feld, id, sortieren) => {

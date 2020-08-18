@@ -48,5 +48,4 @@ $code = new UI\Fenster("dshProfil{$nutzerid}FensterLoginfo$logid", $fenstertitel
 $code->addFensteraktion(UI\Knopf::schliessen("dshProfil{$nutzerid}FensterLoginfo$logid"));
 
 Anfrage::setRueck("Code", (string) $code);
-Anfrage::setRueck("Fensterid", $fensterid);
 ?>

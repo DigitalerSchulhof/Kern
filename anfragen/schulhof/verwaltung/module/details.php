@@ -41,5 +41,4 @@ $code = new UI\Fenster($fensterid, $fenstertitel, $inhalt);
 $code->addFensteraktion(UI\Knopf::schliessen("dshVerwaltungModuleModulinfo$modulname"));
 
 Anfrage::setRueck("Code", (string) $code);
-Anfrage::setRueck("Fensterid", $fensterid);
 ?>

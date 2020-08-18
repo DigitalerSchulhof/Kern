@@ -26,5 +26,4 @@ $code = new UI\Fenster($fensterid, $fenstertitel, $fensterinhalt, true);
 $code->addFensteraktion(UI\Knopf::schliessen($fensterid));
 
 Anfrage::setRueck("Code", (string) $code);
-Anfrage::setRueck("Fensterid", $fensterid);
 ?>
