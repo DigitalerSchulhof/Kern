@@ -41,6 +41,23 @@ class Person {
   }
 
   /**
+   * Erzeugt aus der ID eine vollständige Person
+   * @param  int $id Die Personenid
+   * @return Person Die Person mit allen Variablen korrekt gesetzt
+   */
+  public static function vonID($id) : Person {
+    global $DBS;
+    $sql = "SELECT {art}, {geschlecht}, {vorname}, {nachname}, {titel} FROM kern_personen WHERE id = ?";
+    $anfrage = $DBS->anfrage($sql, "i", $id);
+    $anfrage->werte($art, $geschlecht, $vorname, $nachname, $titel);
+
+    $person = new Person($id, $titel, $vorname, $nachname);
+    $person->setArt($art);
+    $person->setGeschlecht($geschlecht);
+    return $person;
+  }
+
+  /**
    * ID setzen
    * @param  int $id :)
    * @return self             :)
@@ -269,6 +286,23 @@ class Nutzerkonto extends Person {
 
     $this->rechteLaden();
     $this->rechtecache = [];
+  }
+
+  /**
+   * Erzeugt aus der ID ein vollständiges Nutzerkonto
+   * @param  int $id Die Personenid
+   * @return Nutzerkonto Das Nutzerkonto mit allen Variablen korrekt gesetzt
+   */
+  public static function vonID($id) : Nutzerkonto {
+    global $DBS;
+    $sql = "SELECT {art}, {geschlecht}, {vorname}, {nachname}, {titel} FROM kern_personen WHERE id = ?";
+    $anfrage = $DBS->anfrage($sql, "i", $id);
+    $anfrage->werte($art, $geschlecht, $vorname, $nachname, $titel);
+
+    $person = new Nutzerkonto($id, $titel, $vorname, $nachname);
+    $person->setArt($art);
+    $person->setGeschlecht($geschlecht);
+    return $person;
   }
 
   /**

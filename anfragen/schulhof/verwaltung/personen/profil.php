@@ -15,13 +15,8 @@ if (!UI\Check::istZahl($id)) {
 
 $fensterid = "dshVerwaltungProfil{$id}";
 
-$sql = "SELECT {art}, {geschlecht}, {vorname}, {nachname}, {titel} FROM kern_personen WHERE id = ?";
-$anfrage = $DBS->anfrage($sql, "i", $id);
-$anfrage->werte($art, $geschlecht, $vorname, $nachname, $titel);
+$person = Kern\Nutzerkonto::vonID($id);
 
-$person = new Kern\Nutzerkonto($id, $titel, $vorname, $nachname);
-$person->setArt($art);
-$person->setGeschlecht($geschlecht);
 $fenstertitel = (new UI\Icon("fas fa-address-card"))." Profil von $person";
 $profil = new Kern\Profil($person);
 

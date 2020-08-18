@@ -8,7 +8,6 @@ $personen   = Liste::getKategorie("personen");
 $technik    = Liste::getKategorie("technik");
 
 $personen[] = new Element("Personen",         "Benutzerdaten",      new Icon("fas fa-users"),           "Schulhof/Verwaltung/Personen");
-$personen[] = new Element("Rechte vergeben",  "Rechte",             new Icon("fas fa-user-lock"),       "Schulhof/Verwaltung/Rechte");
 $personen[] = new Element("Rollen",           "Rechte",             new Icon("fas fa-tag"),             "Schulhof/Verwaltung/Rollen");
 $personen[] = new Element("Rollen zuordnen",  "Rechte",             new Icon("fas fa-user-tag"),        "Schulhof/Verwaltung/Rollen/Zuordnen");
 

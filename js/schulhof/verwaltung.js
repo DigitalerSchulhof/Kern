@@ -142,6 +142,11 @@ kern.schulhof.verwaltung = {
         feld.setWert(nachname.substr(0,8)+vorname.substr(0,3)+"-"+art.toUpperCase());
       }
 
+    },
+    rechteundrollen: (id) => {
+      core.ajax("Kern", 37, null, {id:id}).then((r) => {
+        ui.fenster.anzeigen(r.Code, r.Fensterid);
+      });
     }
   }
 };

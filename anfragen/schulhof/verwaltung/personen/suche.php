@@ -151,13 +151,13 @@ while ($anfrage->werte($tit, $vor, $nach, $nutzer, $anmeldung, $id, $art)) {
     $knopf->addFunktion("onclick", "kern.schulhof.verwaltung.personen.neu.nutzerkonto.anzeigen('$id', '1')");
     $zeile->addAktion($knopf);
   }
-  if ($darfzfa) {
-    $knopf = new UI\MiniIconKnopf(new UI\Icon("fas fa-qrcode"), "Zwei-Faktor-Schlüssel", "Warnung");
-    $zeile->addAktion($knopf);
-  }
-  if ($darfrechte) {
+  if ($nutzer !== null && $darfrechte) {
     $knopf = new UI\MiniIconKnopf(new UI\Icon("fas fa-user-lock"), "Rechte und Rollen vergeben", "Warnung");
     $knopf->addFunktion("onclick", "kern.schulhof.verwaltung.personen.rechteundrollen('$id')");
+    $zeile->addAktion($knopf);
+  }
+  if ($nutzer !== null && $darfzfa) {
+    $knopf = new UI\MiniIconKnopf(new UI\Icon("fas fa-qrcode"), "Zwei-Faktor-Schlüssel", "Warnung");
     $zeile->addAktion($knopf);
   }
   if ($darfloeschen) {
