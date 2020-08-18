@@ -180,5 +180,11 @@ switch ($meldeid) {
     $knoepfe[0]->addFunktion("onclick", "window.history.back()");
     Anfrage::setRueck("Knöpfe", $knoepfe);
     break;
+  case 30:
+    Anfrage::setRueck("Meldung", new UI\Meldung("Session endet bald", "Die Session endet bald und die Abmeldung droht. Soll diese Session verlängert werden?", "Warnung"));
+    $knoepfe[] = UI\Knopf::abbrechen();
+    $knoepfe[] = new UI\Knopf("Verlängern!", "Erfolg", "kern.schulhof.nutzerkonto.session.verlaengern()");
+    Anfrage::setRueck("Knöpfe", $knoepfe);
+    break;
 }
 ?>

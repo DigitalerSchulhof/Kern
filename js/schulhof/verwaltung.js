@@ -144,7 +144,7 @@ kern.schulhof.verwaltung = {
 
     },
     rechteundrollen: (id) => {
-      core.ajax("Kern", 37, null, {id:id}).then((r) => {
+      core.ajax("Kern", 38, null, {id:id}).then((r) => {
         ui.fenster.anzeigen(r.Code, r.Fensterid);
       });
     }

@@ -22,11 +22,11 @@
       http.send(null);
     }).then((ms) => {
       $("#dshNetzcheck").removeKlasse("offline");
-      setTimeout(netzcheck, 5000);
+      setTimeout(netzcheck, 60000);
     },
     (ms) => {
       $("#dshNetzcheck").addKlasse("offline");
-      setTimeout(netzcheck, 5000);
+      setTimeout(netzcheck, 60000);
     });
   };
   netzcheck();
