@@ -15,27 +15,39 @@ if (!$DSH_BENUTZER->hatRecht("$recht.einstellungen.email")) {
   Anfrage::addFehler(-4, true);
 }
 
-if(!UI\Check::istMail($adresse)) {
-  Anfrage::addFehler(41);
-}
-if(!UI\Check::istText($name)) {
-  Anfrage::addFehler(42);
-}
-if(!UI\Check::istText($ehost)) {
-  Anfrage::addFehler(43);
-}
-if(!UI\Check::istZahl($eport,0,65535)) {
-  Anfrage::addFehler(44);
-}
-if(!UI\Check::istText($enutzer)) {
-  Anfrage::addFehler(45);
-}
+if ($aktiv == "1") {
+  if(!UI\Check::istMail($adresse)) {
+    Anfrage::addFehler(41);
+  }
+  if(!UI\Check::istText($name)) {
+    Anfrage::addFehler(42);
+  }
+  if(!UI\Check::istText($ehost)) {
+    Anfrage::addFehler(43);
+  }
+  if(!UI\Check::istZahl($eport,0,65535)) {
+    Anfrage::addFehler(44);
+  }
+  if(!UI\Check::istText($enutzer)) {
+    Anfrage::addFehler(45);
+  }
 
-if(!UI\Check::istText($ahost)) {
-  Anfrage::addFehler(46);
-}
-if(!UI\Check::istZahl($aport,0,65535)) {
-  Anfrage::addFehler(47);
+  if(!UI\Check::istText($ahost)) {
+    Anfrage::addFehler(46);
+  }
+  if(!UI\Check::istZahl($aport,0,65535)) {
+    Anfrage::addFehler(47);
+  }
+} else {
+  $adresse = "";
+  $name = "";
+  $eport = "";
+  $enutzer = "";
+  $epasswort = "";
+  $ahost = "";
+  $aport = "";
+  $anutzer = "";
+  $apasswort = "";
 }
 
 Anfrage::checkFehler();
