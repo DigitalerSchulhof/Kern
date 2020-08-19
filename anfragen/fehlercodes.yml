@@ -12,7 +12,7 @@
   beschreibung: Der <b>Benutzername</b> oder das <b>Passwort</b> ist falsch.
 5:
   ort: anfragen/schulhof/nutzerkonto/anmeldung.php
-  beschreibung: Der <b>Benutzer</b> wurde unter diesem Benutzernamen nicht gefunden. Möglicherweise ist das Konto inaktiv, weil das Passwort abgelaufen ist. In diesem Fall kann ein neues Kennwort über »Passwort vergessen« angefordert werden.
+  beschreibung: Der <b>Benutzer</b> wurde unter diesem Benutzernamen nicht gefunden. Möglicherweise ist das Konto inaktiv, weil das Passwort abgelaufen ist. In diesem Fall kann ein neues Kennwort über »Zugangsdaten vergessen« angefordert werden.
 6:
   ort: anfragen/schulhof/nutzerkonto/passwortVergessen.php
   beschreibung: Der <b>Benutzername</b> ist ungültig.

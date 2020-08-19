@@ -43,6 +43,21 @@ if($DSH_BENUTZER->hatRecht("kern.rechte.rollen.zuordnen")) {
 
 if($DSH_BENUTZER->hatRecht("kern.rechte.vergeben")) {
   $spalteRechte[] = new UI\Ueberschrift("3", "Rechte");
+  include "$DIR/klassen/rechtebaum.php";
+
+  $anfrage = $DBS->anfrage("SELECT {recht} FROM kern_nutzerrechte as nr WHERE person = ?", "i", $id);
+  $nutzerrechte = [];
+  while($anfrage->werte($recht)) {
+    $nutzerrechte[] = $recht;
+  }
+
+  $anfrage = $DBS->anfrage("SELECT {recht} FROM kern_rollenrechte as rr JOIN kern_rollenzuordnung as rz ON rz.rolle = rr.rolle WHERE rz.nutzer = ?", "i", $id);
+  $rollenrechte = [];
+  while($anfrage->werte($recht)) {
+    $rollenrechte[] = $recht;
+  }
+
+  $spalteRechte[] = new Kern\Rechtebaum("dshVerwaltungRechte$id", Kern\Rechtehelfer::array2Baum($nutzerrechte), Kern\Rechtehelfer::array2Baum($rollenrechte));
 
   $zeile[]        = $spalteRechte;
 }
