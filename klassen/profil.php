@@ -259,9 +259,9 @@ class Profil {
 
     $profilid = $this->person->getId();
 
-    $sql = "SELECT {email}, {notifikationsmail}, {postmail}, {postalletage}, {postpapierkorbtage}, {uebersichtsanzahl}, {oeffentlichertermin}, {oeffentlicherblog}, {oeffentlichegalerie}, {inaktivitaetszeit}, {wikiknopf}, kern_nutzerkonten.id, {emailaktiv}, {emailadresse}, {emailname}, {einganghost}, {eingangport}, {eingangnutzer}, {eingangpasswort}, {ausganghost}, {ausgangport}, {ausgangnutzer}, {ausgangpasswort} FROM kern_nutzerkonten LEFT JOIN kern_nutzereinstellungen ON kern_nutzerkonten.id = kern_nutzereinstellungen.person WHERE kern_nutzerkonten.id = ?";
+    $sql = "SELECT {benutzername}, {email}, {notifikationsmail}, {postmail}, {postalletage}, {postpapierkorbtage}, {uebersichtsanzahl}, {oeffentlichertermin}, {oeffentlicherblog}, {oeffentlichegalerie}, {inaktivitaetszeit}, {wikiknopf}, kern_nutzerkonten.id, {emailaktiv}, {emailadresse}, {emailname}, {einganghost}, {eingangport}, {eingangnutzer}, {eingangpasswort}, {ausganghost}, {ausgangport}, {ausgangnutzer}, {ausgangpasswort} FROM kern_nutzerkonten LEFT JOIN kern_nutzereinstellungen ON kern_nutzerkonten.id = kern_nutzereinstellungen.person WHERE kern_nutzerkonten.id = ?";
     $anfrage = $DBS->anfrage($sql, "i", $this->person->getId());
-    $anfrage->werte($mail, $notifikationsmail, $postmail, $posttage, $papierkorbtage, $uebersicht, $oetermin, $oeblog, $oegalerie, $inaktiv, $wiki, $nutzerkonto, $mailaktiv, $mailadresse, $mailname, $mailehost, $maileport, $mailenutzer, $mailepasswort, $mailahost, $mailaport, $mailanutzer, $mailapasswort);
+    $anfrage->werte($benutzername, $mail, $notifikationsmail, $postmail, $posttage, $papierkorbtage, $uebersicht, $oetermin, $oeblog, $oegalerie, $inaktiv, $wiki, $nutzerkonto, $mailaktiv, $mailadresse, $mailname, $mailehost, $maileport, $mailenutzer, $mailepasswort, $mailahost, $mailaport, $mailanutzer, $mailapasswort);
 
     $sql = "SELECT {kuerzel} FROM kern_lehrer WHERE id = ?";
     $anfrage = $DBS->anfrage($sql, "i", $this->person->getId());
@@ -346,7 +346,7 @@ class Profil {
         $mailF->setAttribut("disabled", "disabled");
       }
 
-      $benutzerF = (new UI\Textfeld("dshProfil{$profilid}Benutzer"))->setWert($this->person->getBenutzer());
+      $benutzerF = (new UI\Textfeld("dshProfil{$profilid}Benutzer"))->setWert($benutzername);
       if ($DSH_BENUTZER->hatRecht("$recht.benutzer")) {
         $benutzerF->setAutocomplete("username");
       } else {
