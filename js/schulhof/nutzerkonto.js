@@ -107,7 +107,7 @@ kern.schulhof.nutzerkonto = {
         core.ajax("Kern", 14, "Sessions löschen", {nutzerid:nutzerid, sessionid:sessionid}).then(() => {
           ui.laden.meldung("Kern", 15, null, {nutzerid:nutzerid, sessionid:sessionid});
           if (sessionid != 'alle') {
-            kern.schulhof.nutzerkonto.sessions.laden(nutzerid);
+            ui.tabelle.sortieren(kern.schulhof.nutzerkonto.sessions.laden, "dshProfil"+nutzerid+"Sessionprotokoll");
           }
         });
       }
@@ -131,7 +131,7 @@ kern.schulhof.nutzerkonto = {
       ausfuehren: (nutzerid, logid) => {
         core.ajax("Kern", 16, "Aktionslog löschen", {nutzerid:nutzerid, logid:logid}).then(() => {
           ui.laden.meldung("Kern", 16, null, {nutzerid:nutzerid, logid:logid});
-          kern.schulhof.nutzerkonto.aktionslog.laden(nutzerid);
+          ui.tabelle.sortieren(kern.schulhof.nutzerkonto.aktionslog.laden, "dshProfil"+nutzerid+"Aktionsprotokoll");
         });
       }
     },
