@@ -452,7 +452,7 @@ class Profil {
 
       new Wurmloch("funktionen/einstellungen.php", array("recht" => $recht, "profilid" => $profilid), function($r) use ($reiter) {
         $reiter->addReitersegment(...$r);
-      });
+      }, true);
 
       $angbote = \Core\Angebote::finden("Kern/Einstellungen");
       foreach($angbote as $a) {

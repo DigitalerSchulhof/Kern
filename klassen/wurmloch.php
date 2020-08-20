@@ -9,14 +9,15 @@ class Wurmloch {
    *  [Name => Wert, Name2 => Wert]
    *  Die Variablen würden mit <code>$Name</code> und <code>$Name2</code> benutzt werden
    * @param  callback $callback Eine Funktion, die als ersten Parameter die Rückgabe der Einbindung und als zweiten Parameter das Modul erhält
+   * @param bool $scripts Ob die Scripts der geladenen Module ausgegeben werden sollen
    * @return
    */
-  public function __construct($datei, $parameter = array(), $callback = null) {
+  public function __construct($datei, $parameter = array(), $callback = null, $scripts = false) {
     global $DSH_ALLEMODULE, $DSH_BENUTZER, $ROOT, $DBS;
     $dateien = [];
     foreach($DSH_ALLEMODULE as $modul => $pfad) {
       if(is_file("$pfad/$datei")) {
-        \Core\Einbinden::modulLaden($modul, true, false);
+        \Core\Einbinden::modulLaden($modul, true, false, $scripts);
         DB::datenbankenLaden();
         $dateien[$modul] = "$pfad/$datei";
       }
