@@ -732,7 +732,7 @@ class Nutzerkonto extends Person {
    */
   public function rechteLaden() {
     global $DBS;
-    $anfrage = $DBS->anfrage("SELECT {recht} FROM kern_nutzerrechte as nr WHERE person = ? UNION SELECT {recht} FROM kern_rollenrechte as rr JOIN kern_rollenzuordnung as rz ON rz.rolle = rr.rolle WHERE rz.nutzer = ?", "ii", $this->id, $this->id);
+    $anfrage = $DBS->anfrage("SELECT {recht} FROM kern_nutzerrechte as nr WHERE person = ? UNION SELECT {recht} FROM kern_rollenrechte as rr JOIN kern_rollenzuordnung as rz ON rz.rolle = rr.rolle WHERE rz.person = ?", "ii", $this->id, $this->id);
     $rechte = [];
     while($anfrage->werte($recht)) {
       $rechte[] = $recht;
