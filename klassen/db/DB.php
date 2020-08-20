@@ -267,7 +267,6 @@ class DB {
    */
   public function neuerDatensatz($tabelle, $anonym = false, $silent = false) {
     $fehler = false;
-    $id = '-';
 
     if($anonym) {
       $sql = $this->db->prepare("SELECT MAX(id) FROM kern_nutzerkonten");
@@ -321,6 +320,10 @@ class DB {
     if (!$silent) {
       global $DBS;
       $DBS->logZugriff("DB", $tabelle, $id, "Neuer Datensatz");
+    }
+
+    if($id === null) {
+      throw new \Exception("Es konnte kein neuer Datensatz angelegt werden");
     }
 
     return $id;

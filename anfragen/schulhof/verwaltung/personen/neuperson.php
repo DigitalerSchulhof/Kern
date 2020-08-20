@@ -79,5 +79,13 @@ if (is_dir("$ROOT/dateien/Kern/personen/$id")) {
 mkdir("$ROOT/dateien/Kern/personen/$id");
 mkdir("$ROOT/dateien/Kern/personen/$id/dateien");
 
+(function($PERSONID) use (&$DSH_BENUTZER, &$ROOT){
+  foreach($DSH_ALLEMODULE as $pfad) {
+    if(is_file("$pfad/funktionen/events/personAnlegen.php")) {
+      include "$pfad/funktionen/events/personAnlegen.php";
+    }
+  }
+})($id);
+
 Anfrage::setRueck("ID", $id);
 ?>

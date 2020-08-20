@@ -1,8 +1,8 @@
 <?php
 include_once("$KLASSEN/check.php");
-include_once("$KLASSEN/db/Anfrage.php");
-include_once("$KLASSEN/db/Tabellenanfrage.php");
-include_once("$KLASSEN/db/DB.php");
+include_once("$KLASSEN/db/anfrage.php");
+include_once("$KLASSEN/db/tabellenanfrage.php");
+include_once("$KLASSEN/db/db.php");
 include_once("$KLASSEN/aktionszeile.php");
 include_once("$KLASSEN/seite.php");
 include_once("$KLASSEN/einstellungen.php");
