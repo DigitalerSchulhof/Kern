@@ -37,7 +37,7 @@ if ($art == "person") {
   $DBS->anfrage($sql, "i", $id);
 
   // Dateien dieses Benutzers löschen
-  Kern\Dateisystem::ordnerLoeschen("$ROOT/dateien/Kern/personen/$id");
+  Kern\Dateisystem::ordnerLoeschen("$ROOT/dateien/personen/$id");
   (function($PERSONID) use (&$DSH_BENUTZER, &$ROOT){
     foreach($DSH_ALLEMODULE as $pfad) {
       if(is_file("$pfad/funktionen/events/personLoeschen.php")) {
