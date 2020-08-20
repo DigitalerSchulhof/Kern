@@ -85,32 +85,12 @@ kern.schulhof.nutzerkonto = {
         var wiki                = $("#dshProfil"+id+"Wiki").getWert();
         core.ajax("Kern", 10, "Profileinstellungen ändern", {id:id, inaktivitaetszeit:inaktivitaetszeit, uebersichtselemente:uebersichtselemente, wiki:wiki}, 10);
       },
-      benachrichtigungen: (id) => {
-        var nachrichten    = $("#dshProfil"+id+"Nachrichtenmails").getWert();
+      notifikationen: (id) => {
         var notifikationen = $("#dshProfil"+id+"Notifikationsmails").getWert();
         var blog           = $("#dshProfil"+id+"OeffentlichBlog").getWert();
         var termin         = $("#dshProfil"+id+"OeffentlichTermine").getWert();
         var galerie        = $("#dshProfil"+id+"OeffentlichGalerien").getWert();
-        core.ajax("Kern", 11, "Profileinstellungen ändern", {id:id, nachrichten:nachrichten, notifikationen:notifikationen, blog:blog, termin:termin, galerie:galerie}, 11);
-      },
-      postfach: (id) => {
-        var postfach   = $("#dshProfil"+id+"PostfachLoeschfrist").getWert();
-        var papierkorb = $("#dshProfil"+id+"PapierkorbLoeschfrist").getWert();
-        core.ajax("Kern", 12, "Profileinstellungen ändern", {id:id, postfach:postfach, papierkorb:papierkorb}, 12);
-      },
-      email: (id) => {
-        var aktiv     = $("#dshProfil"+id+"EmailAktiv").getWert();
-        var adresse   = $("#dshProfil"+id+"EmailAdresse").getWert();
-        var name      = $("#dshProfil"+id+"EmailName").getWert();
-        var ehost     = $("#dshProfil"+id+"EmailEingangHost").getWert();
-        var eport     = $("#dshProfil"+id+"EmailEingangPort").getWert();
-        var enutzer   = $("#dshProfil"+id+"EmailEingangNutzer").getWert();
-        var epasswort = $("#dshProfil"+id+"EmailEingangPasswort").getWert();
-        var ahost     = $("#dshProfil"+id+"EmailAusgangHost").getWert();
-        var aport     = $("#dshProfil"+id+"EmailAusgangPort").getWert();
-        var anutzer   = $("#dshProfil"+id+"EmailAusgangNutzer").getWert();
-        var apasswort = $("#dshProfil"+id+"EmailAusgangPasswort").getWert();
-        core.ajax("Kern", 13, "Profileinstellungen ändern", {id:id, aktiv:aktiv, adresse:adresse, name:name, ehost:ehost, eport:eport, enutzer:enutzer, epasswort:epasswort, ahost:ahost, aport:aport, anutzer:anutzer, apasswort:apasswort}, 13);
+        core.ajax("Kern", 11, "Notifikationseinstellungen ändern", {id:id, nachrichten:nachrichten, notifikationen:notifikationen, blog:blog, termin:termin, galerie:galerie}, 11);
       }
     }
   },
