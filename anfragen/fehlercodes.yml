@@ -1,3 +1,4 @@
+# Fehlerids 37, 38, 41-47 frei
 1:
   ort: anfragen/schulhof/nutzerkonto/anmeldung.php
   beschreibung: Der <b>Benutzername</b> ist ungültig.
@@ -106,39 +107,12 @@
 36:
   ort: anfragen/schulhof/nutzerkonto/profil/passwort.php
   beschreibung: Die <b>neuen Passworte</b> stimmen nicht überein.
-37:
-  ort: anfragen/schulhof/nutzerkonto/profil/passwort.php
-  beschreibung: Das <b>alte Passwort</b> ist nicht korrekt.
-38:
-  ort: anfragen/schulhof/nutzerkonto/profil/einstellungen/nutzerkonto.php
-  beschreibung: Die Anzahl an <b>Elementen pro Übersicht</b> ist ungültig. Sie muss zwischen 1 und 10 betragen.
 39:
   ort: anfragen/schulhof/nutzerkonto/profil/einstellungen/postfach.php
   beschreibung: Die Anzahl an <b>Tagen bis zur Löschung im Postfach</b> ist ungültig. Sie muss zwischen 1 und 10 betragen.
 40:
   ort: anfragen/schulhof/nutzerkonto/profil/einstellungen/postfach.php
   beschreibung: Die Anzahl an <b>Elementen pro Übersicht</b> ist ungültig. Sie muss zwischen 1 und 10 betragen.
-41:
-  ort: anfragen/schulhof/nutzerkonto/profil/einstellungen/email.php
-  beschreibung: Die <b>eMail-Adresse</b> ist ungültig.
-42:
-  ort: anfragen/schulhof/nutzerkonto/profil/einstellungen/email.php
-  beschreibung: Der <b>Anzeigename</b> ist ungültig.
-43:
-  ort: anfragen/schulhof/nutzerkonto/profil/einstellungen/email.php
-  beschreibung: Der <b>IMAP-Host (Posteingang)</b> ist ungültig.
-44:
-  ort: anfragen/schulhof/nutzerkonto/profil/einstellungen/email.php
-  beschreibung: Der <b>IMAP-Port (Posteingang)</b> ist ungültig.
-45:
-  ort: anfragen/schulhof/nutzerkonto/profil/einstellungen/email.php
-  beschreibung: Der <b>Benutzername (Posteingang)</b> ist ungültig.
-46:
-  ort: anfragen/schulhof/nutzerkonto/profil/einstellungen/email.php
-  beschreibung: Der <b>SMTP-Host (Postausgang)</b> ist ungültig.
-47:
-  ort: anfragen/schulhof/nutzerkonto/profil/einstellungen/email.php
-  beschreibung: Der <b>SMTP-Port (Postausgang)</b> ist ungültig.
 48:
   ort: anfragen/schulhof/verwaltung/modul/schuldaten.php
   beschreibung: Der <b>Schulname</b> ist ungültig.

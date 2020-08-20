@@ -1,5 +1,5 @@
 <?php
-// MELDUNG 12 FREI
+// MELDUNGEN 12 und 13 FREI
 
 switch ($meldeid) {
   case 0:
@@ -93,7 +93,6 @@ switch ($meldeid) {
   case 12:
     break;
   case 13:
-    Anfrage::setRueck("Meldung", new UI\Meldung("Änderungen erfolgreich!", "Die Änderungen der eMail-Einstellungen wurden vorgenomen.", "Erfolg"));
     break;
   case 14:
     Anfrage::setRueck("Meldung", new UI\Meldung("Änderungen erfolgreich!", "Der Identitätsdiebstahl wurde gemeldet. Das Passwort wurde geändert. Aus Sicherheitsgründen wird eine Benachrichtigung per eMail verschickt.", "Erfolg"));
