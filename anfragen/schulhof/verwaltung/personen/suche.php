@@ -30,7 +30,7 @@ if (!UI\Check::istText($klasse,0)) {
 
 $spalten = [["{titel} AS titel"], ["{vorname} AS vorname"], ["{nachname} AS nachname"], ["kern_nutzerkonten.id AS konto", "anmeldung AS nid"], ["kern_personen.id AS kid"], ["{art} AS art"]];
 
-$sql = "SELECT ?? FROM kern_personen LEFT JOIN kern_nutzerkonten ON kern_personen.id = kern_nutzerkonten.id LEFT JOIN ((SELECT nutzer, MAX(anmeldezeit) AS anmeldung FROM kern_nutzersessions GROUP BY nutzer) AS sessions) ON kern_personen.id = sessions.nutzer";
+$sql = "SELECT ?? FROM kern_personen LEFT JOIN kern_nutzerkonten ON kern_personen.id = kern_nutzerkonten.person LEFT JOIN ((SELECT nutzer, MAX(anmeldezeit) AS anmeldung FROM kern_nutzersessions GROUP BY nutzer) AS sessions) ON kern_personen.id = sessions.person";
 
 $parameter = [];
 $parameterarten = "";

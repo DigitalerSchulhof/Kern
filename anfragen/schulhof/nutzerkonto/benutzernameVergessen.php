@@ -8,7 +8,7 @@ if(!UI\Check::istMail($mail)) {
 Anfrage::checkFehler();
 
 $jetzt = time();
-$sql = "SELECT * FROM (SELECT {benutzername} AS nutzer FROM kern_nutzerkonten WHERE email = [?]) AS n ORDER BY nutzer ASC;";
+$sql = "SELECT * FROM (SELECT {benutzername} AS person FROM kern_nutzerkonten WHERE email = [?]) AS n ORDER BY person ASC;";
 $anfrage = $DBS->anfrage($sql, "s", $mail);
 
 if ($anfrage->getAnzahl() == 0) {

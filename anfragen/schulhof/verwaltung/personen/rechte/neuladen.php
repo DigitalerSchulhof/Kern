@@ -19,7 +19,7 @@ if(($person = Kern\Nutzerkonto::vonID($id)) === null) {
 
 $sessid = session_id();
 
-$sql = "SELECT {sessionid} FROM kern_nutzersessions WHERE nutzer = ? AND sessionid IS NOT NULL AND sessiontimeout > ".time();
+$sql = "SELECT {sessionid} FROM kern_nutzersessions WHERE person = ? AND sessionid IS NOT NULL AND sessiontimeout > ".time();
 $sql = $DBS->anfrage($sql, "i", $id);
 session_commit();
 while($sql->werte($sid)) {

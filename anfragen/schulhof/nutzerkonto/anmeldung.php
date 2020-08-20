@@ -23,7 +23,7 @@ if ($ldap["LDAP"] == "1") {
 
 
   // LDAP Benutzerid
-  $sql = "SELECT kern_personen.id AS id, {salt}, {art}, {titel}, {vorname}, {nachname}, {geschlecht}, schuljahr, {uebersichtsanzahl}, {inaktivitaetszeit}, passworttimeout FROM kern_personen JOIN kern_nutzerkonten ON kern_personen.id = kern_nutzerkonten.id JOIN kern_nutzereinstellungen ON kern_nutzerkonten.id = kern_nutzereinstellungen.person WHERE ldapid = ?";
+  $sql = "SELECT kern_personen.id AS id, {salt}, {art}, {titel}, {vorname}, {nachname}, {geschlecht}, schuljahr, {uebersichtsanzahl}, {inaktivitaetszeit}, passworttimeout FROM kern_personen JOIN kern_nutzerkonten ON kern_personen.id = kern_nutzerkonten.person JOIN kern_nutzereinstellungen ON kern_nutzerkonten.person = kern_nutzereinstellungen.person WHERE ldapid = ?";
   $anfrage = $DBS->anfrage($sql, "si", $ldapbenuzterid);
 
 }
@@ -31,7 +31,7 @@ if ($ldap["LDAP"] == "1") {
 else {
   $jetzt = time();
   // Benutzer suchen
-  $sql = "SELECT kern_personen.id AS id, {salt}, {art}, {titel}, {vorname}, {nachname}, {geschlecht}, schuljahr, {uebersichtsanzahl}, {inaktivitaetszeit}, passworttimeout FROM kern_personen JOIN kern_nutzerkonten ON kern_personen.id = kern_nutzerkonten.id JOIN kern_nutzereinstellungen ON kern_nutzerkonten.id = kern_nutzereinstellungen.person WHERE benutzername = [?] AND (passworttimeout IS null OR passworttimeout > ?)";
+  $sql = "SELECT kern_personen.id AS id, {salt}, {art}, {titel}, {vorname}, {nachname}, {geschlecht}, schuljahr, {uebersichtsanzahl}, {inaktivitaetszeit}, passworttimeout FROM kern_personen JOIN kern_nutzerkonten ON kern_personen.id = kern_nutzerkonten.person JOIN kern_nutzereinstellungen ON kern_nutzerkonten.person = kern_nutzereinstellungen.person WHERE benutzername = [?] AND (passworttimeout IS null OR passworttimeout > ?)";
   $anfrage = $DBS->anfrage($sql, "si", $benutzer, $jetzt);
 }
 

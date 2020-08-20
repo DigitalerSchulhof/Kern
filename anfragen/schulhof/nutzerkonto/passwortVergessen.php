@@ -11,7 +11,7 @@ if(!UI\Check::istMail($mail)) {
 Anfrage::checkFehler();
 
 $jetzt = time();
-$sql = "SELECT kern_personen.id AS id, {art}, {titel}, {vorname}, {nachname}, {geschlecht}, {salt} FROM kern_personen JOIN kern_nutzerkonten ON kern_personen.id = kern_nutzerkonten.id WHERE benutzername = [?] AND email = [?];";
+$sql = "SELECT kern_personen.id AS id, {art}, {titel}, {vorname}, {nachname}, {geschlecht}, {salt} FROM kern_personen JOIN kern_nutzerkonten ON kern_personen.id = kern_nutzerkonten.person WHERE benutzername = [?] AND email = [?];";
 $anfrage = $DBS->anfrage($sql, "ss", $benutzer, $mail);
 
 if ($anfrage->getAnzahl() == 0) {

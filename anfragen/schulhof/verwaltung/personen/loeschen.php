@@ -19,7 +19,7 @@ if ($art == "nutzerkonto") {
   }
 }
 
-$sql = "SELECT COUNT(*) FROM kern_rollenzuordnung WHERE nutzer != ? AND rolle = 0";
+$sql = "SELECT COUNT(*) FROM kern_rollenzuordnung WHERE person != ? AND rolle = 0";
 $anfrage = $DBS->anfrage($sql, "i", $id);
 if ($anfrage->werte($anzahl)) {
  if ($anzahl == 0) {

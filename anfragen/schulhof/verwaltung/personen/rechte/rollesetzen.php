@@ -25,7 +25,7 @@ if(!$sql->werte($anz)) {
 
 if($wert == "0") {
   // Prüfen, ob es noch einen Administrator gibt
-  $sql = "SELECT COUNT(*) FROM kern_rollenzuordnung WHERE nutzer != ? AND rolle = 0";
+  $sql = "SELECT COUNT(*) FROM kern_rollenzuordnung WHERE person != ? AND rolle = 0";
   $anfrage = $DBS->anfrage($sql, "i", $id);
   if ($anfrage->werte($anzahl)) {
     if ($anzahl == 0) {
@@ -35,7 +35,7 @@ if($wert == "0") {
     Anfrage::addFehler(88, true);
   }
 
-  $sql = "DELETE FROM kern_rollenzuordnung WHERE nutzer = ? AND rolle = ?";
+  $sql = "DELETE FROM kern_rollenzuordnung WHERE person = ? AND rolle = ?";
   $anfrage = $DBS->anfrage($sql, "ii", $id, $rolle);
 } else {
   $sql = "INSERT INTO kern_rollenzuordnung (nutzer, rolle) VALUES (?, ?)";
@@ -44,7 +44,7 @@ if($wert == "0") {
 
 $sessid = session_id();
 
-$sql = "SELECT {sessionid} FROM kern_nutzersessions WHERE nutzer = ? AND sessionid IS NOT NULL AND sessiontimeout > ".time();
+$sql = "SELECT {sessionid} FROM kern_nutzersessions WHERE person = ? AND sessionid IS NOT NULL AND sessiontimeout > ".time();
 $sql = $DBS->anfrage($sql, "i", $id);
 session_commit();
 while($sql->werte($sid)) {
