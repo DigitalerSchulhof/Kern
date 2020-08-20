@@ -28,11 +28,11 @@ if($passwortneu != $passwortneu2) {
 
 Anfrage::checkFehler();
 
-$sql = "SELECT {salt}, {email}, {titel}, {vorname}, {nachname}, {benutzername} FROM kern_nutzerkonten JOIN kern_personen ON kern_nutzerkonten.id = kern_personen.id WHERE kern_nutzerkonten.id = ?";
+$sql = "SELECT {salt}, {email}, {titel}, {vorname}, {nachname}, {benutzername} FROM kern_nutzerkonten JOIN kern_personen ON kern_nutzerkonten.person = kern_personen.id WHERE kern_nutzerkonten.person = ?";
 $anfrage = $DBS->anfrage($sql, "i", $id);
 $anfrage->werte($salt, $mail, $titel, $vorname, $nachname, $benutzername);
 
-$sql = "SELECT COUNT(*) FROM kern_nutzerkonten WHERE id = ? AND passwort = SHA1(?)";
+$sql = "SELECT COUNT(*) FROM kern_nutzerkonten WHERE person = ? AND passwort = SHA1(?)";
 $anfrage = $DBS->anfrage($sql, "is", $id, $passwortalt.$salt);
 $anfrage->werte($anzahl);
 if ($anzahl !== 1) {
@@ -40,10 +40,10 @@ if ($anzahl !== 1) {
 }
 
 $neuessalt = Kern\Nutzerkonto::generiereSalt();
-$sql = "UPDATE kern_nutzerkonten SET salt = [?], passwort = SHA1(?), passworttimeout = null WHERE id = ?";
+$sql = "UPDATE kern_nutzerkonten SET salt = [?], passwort = SHA1(?), passworttimeout = null WHERE person = ?";
 $DBS->silentanfrage($sql, "ssi", $neuessalt, $passwortneu.$neuessalt, $id);
 
-$DBS->logZugriff("DB", "kern_nutzerkonten", "UPDATE kern_nutzerkonten SET salt = ?, passwort = SHA1(?), passworttimeout = null WHERE id = ?", "Änderung", [["*****", "*****", $id]]);
+$DBS->logZugriff("DB", "kern_nutzerkonten", "UPDATE kern_nutzerkonten SET salt = ?, passwort = SHA1(?), passworttimeout = null WHERE person = ?", "Änderung", [["*****", "*****", $id]]);
 
 // Benutzer ändern
 $DSH_BENUTZER->setPassworttimeout(null);

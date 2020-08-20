@@ -31,10 +31,10 @@ if ($nutzerid == 'alle') {
   }
 } else {
   if ($logid == 'alle') {
-    $sql = "DELETE FROM kern_nutzeraktionslog WHERE nutzer = ?";
+    $sql = "DELETE FROM kern_nutzeraktionslog WHERE person = ?";
     $anfrage = $DBS->anfrage($sql, "i", $nutzerid);
   } else {
-    $sql = "DELETE FROM kern_nutzeraktionslog WHERE nutzer = ? AND id = ?";
+    $sql = "DELETE FROM kern_nutzeraktionslog WHERE person = ? AND id = ?";
     $anfrage = $DBS->anfrage($sql, "ii", $nutzerid, $logid);
   }
 }

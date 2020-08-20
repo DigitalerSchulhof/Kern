@@ -94,7 +94,7 @@ class Profil {
     $darflo = $DSH_BENUTZER->hatRecht("$recht.sessionprotokoll.löschen");
 
     $spalten = [["{sessionid} AS sessionid"], ["{browser} AS browser"], ["sessiontimeout"], ["anmeldezeit"], ["id"]];
-    $sql = "SELECT ?? FROM kern_nutzersessions WHERE nutzer = ? ORDER BY anmeldezeit DESC";
+    $sql = "SELECT ?? FROM kern_nutzersessions WHERE person = ? ORDER BY anmeldezeit DESC";
 
     $ta = new Tabellenanfrage($sql, $spalten, $sortSeite, $sortDatenproseite, $sortSpalte, $sortRichtung);
     $tanfrage = $ta->anfrage($DBS, "i", $this->person->getId());
@@ -185,7 +185,7 @@ class Profil {
     $darfaktionen = $darfloeschen || $darfdetails;
 
     $spalten = [["{tabellepfad} AS tabellenpfad"], ["{aktion} AS aktion"], ["zeitpunkt"], ["{art} AS art"], ["id"]];
-    $sql = "SELECT ?? FROM kern_nutzeraktionslog WHERE nutzer = ? AND (zeitpunkt BETWEEN ? AND ?) ORDER BY zeitpunkt DESC";
+    $sql = "SELECT ?? FROM kern_nutzeraktionslog WHERE person = ? AND (zeitpunkt BETWEEN ? AND ?) ORDER BY zeitpunkt DESC";
     $ta = new Tabellenanfrage($sql, $spalten, $sortSeite, $sortDatenproseite, $sortSpalte, $sortRichtung);
     $tanfrage = $ta->anfrage($DBS, "iii", $this->person->getId(), $anfang, $ende);
     $anfrage = $tanfrage["Anfrage"];
@@ -285,7 +285,7 @@ class Profil {
 
     $profilid = $this->person->getId();
 
-    $sql = "SELECT {benutzername}, {email}, {notifikationsmail}, {uebersichtsanzahl}, {oeffentlichertermin}, {oeffentlicherblog}, {oeffentlichegalerie}, {inaktivitaetszeit}, {wikiknopf}, kern_nutzerkonten.id  FROM kern_nutzerkonten LEFT JOIN kern_nutzereinstellungen ON kern_nutzerkonten.id = kern_nutzereinstellungen.person WHERE kern_nutzerkonten.id = ?";
+    $sql = "SELECT {benutzername}, {email}, {notifikationsmail}, {uebersichtsanzahl}, {oeffentlichertermin}, {oeffentlicherblog}, {oeffentlichegalerie}, {inaktivitaetszeit}, {wikiknopf}, kern_nutzerkonten.person FROM kern_nutzerkonten LEFT JOIN kern_nutzereinstellungen ON kern_nutzerkonten.person = kern_nutzereinstellungen.person WHERE kern_nutzerkonten.person = ?";
     $anfrage = $DBS->anfrage($sql, "i", $this->person->getId());
     $anfrage->werte($benutzername, $mail, $notifikationsmail, $uebersicht, $oetermin, $oeblog, $oegalerie, $inaktiv, $wiki, $nutzerkonto);
 

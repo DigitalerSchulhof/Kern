@@ -35,14 +35,15 @@ $neuessalt = Kern\Nutzerkonto::generiereSalt();
 $sql = "UPDATE kern_nutzerkonten SET salt = [?], passwort = SHA1(?), passworttimeout = null WHERE id = ?";
 $DBS->silentanfrage($sql, "ssi", $neuessalt, $passwortneu.$neuessalt, $DSH_BENUTZER->getId());
 
-$DBS->logZugriff("DB", "kern_nutzerkonten", "UPDATE kern_nutzerkonten SET salt = ?, passwort = SHA1(?), passworttimeout = null WHERE id = ?", "Änderung", [["*****", "*****", $DSH_BENUTZER->getId()]]);
+$DBS->logZugriff("DB", "kern_nutzerkonten", "UPDATE kern_nutzerkonten SET salt = ?, passwort = SHA1(?), passworttimeout = null WHERE person = ?", "Änderung", [["*****", "*****", $DSH_BENUTZER->getId()]]);
 
 // Benutzer ändern
 $DSH_BENUTZER->setPassworttimeout(null);
 
 // Identitätsdiebstahl eintragen
-$sql = "INSERT INTO kern_identitaetsdiebstahl (id, zeit, hinweise) VALUES (?,?,[?])";
-$DBS->anfrage($sql, "iis", $DSH_BENUTZER->getId(), time(), $hinweise);
+$iid = $DBS->neuerDatensatz("kern_identitaetsdiebstahl");
+$sql = "UPDATE kern_identitaetsdiebstahl SET person = ?, zeit = ?, hinweise = [?] WHERE id = ?";
+$DBS->anfrage($sql, "iisi", $DSH_BENUTZER->getId(), time(), $hinweise, $iid);
 
 // Nachricht verschicken
 $betreff = "Identitätsdiebstahl";

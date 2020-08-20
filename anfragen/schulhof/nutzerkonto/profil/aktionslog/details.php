@@ -10,7 +10,7 @@ if (!UI\Check::istZahl($logid,0) && $logid != 'alle') {
 }
 
 // Logeintrag laden
-$sql = "SELECT {titel}, {vorname}, {nachname}, {benutzername}, {kern_nutzeraktionslog.art}, {tabellepfad}, {datensatzdatei}, {aktion}, zeitpunkt FROM kern_nutzeraktionslog JOIN kern_personen ON kern_personen.id = kern_nutzeraktionslog.nutzer LEFT JOIN kern_nutzerkonten ON kern_personen.id = kern_nutzerkonten.id WHERE kern_nutzeraktionslog.id = ? AND nutzer = ?";
+$sql = "SELECT {titel}, {vorname}, {nachname}, {benutzername}, {kern_nutzeraktionslog.art}, {tabellepfad}, {datensatzdatei}, {aktion}, zeitpunkt FROM kern_nutzeraktionslog JOIN kern_personen ON kern_personen.id = kern_nutzeraktionslog.person LEFT JOIN kern_nutzerkonten ON kern_personen.id = kern_nutzerkonten.person WHERE kern_nutzeraktionslog.id = ? AND kern_nutzeraktionslog.person = ?";
 $anfrage = $DBS->anfrage($sql, "ii", $logid, $nutzerid);
 $anfrage->werte($titel, $vorname, $nachname, $benutzername, $logart, $tabellepfad, $datensatzdatei, $aktion, $zeitpunkt);
 

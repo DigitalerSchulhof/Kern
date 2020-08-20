@@ -468,7 +468,7 @@ class Nutzerkonto extends Person {
     $sql = "UPDATE kern_nutzersessions SET sessionid = null WHERE sessionid = [?]";
     $anfrage = $DBS->silentanfrage($sql, "s", $this->sessionid);
 
-    $sql = "SELECT id FROM kern_nutzersessions WHERE nutzer = ? ORDER BY sessiontimeout LIMIT 2";
+    $sql = "SELECT id FROM kern_nutzersessions WHERE person = ? ORDER BY sessiontimeout LIMIT 2";
     $anfrage = $DBS->anfrage($sql, "i", $this->id);
     $sicheresessions = [];
     while ($anfrage->werte($sid)) {
@@ -476,7 +476,7 @@ class Nutzerkonto extends Person {
     }
     if (count($sicheresessions) > 0) {
       $sicheresessionssql = implode(",", $sicheresessions);
-      $sql = "DELETE FROM kern_nutzersessions WHERE id NOT IN ($sicheresessionssql) AND nutzer = ? AND sessiontimeout < ?";
+      $sql = "DELETE FROM kern_nutzersessions WHERE id NOT IN ($sicheresessionssql) AND person = ? AND sessiontimeout < ?";
       $timeoutlimit = time() - 60*60*24*2;
       $anfrage = $DBS->silentanfrage($sql, "ii", $this->id, $timeoutlimit);
     }
@@ -490,7 +490,7 @@ class Nutzerkonto extends Person {
 
     // Neue Session eintragen
     $sessiondbid = $DBS->neuerDatensatz("kern_nutzersessions", false, true);
-    $sql = "UPDATE kern_nutzersessions SET sessionid = [?], browser = [?], nutzer = ?, sessiontimeout = ?, anmeldezeit = ? WHERE id = ?";
+    $sql = "UPDATE kern_nutzersessions SET sessionid = [?], browser = [?], person = ?, sessiontimeout = ?, anmeldezeit = ? WHERE id = ?";
     $anfrage = $DBS->silentanfrage($sql, "ssiiii", $this->sessionid, $browser, $this->id, $this->sessiontimeout, time(), $sessiondbid);
 
     // Postfachordner verwalten
@@ -506,7 +506,7 @@ class Nutzerkonto extends Person {
   public function sessionVerlaengern() : bool {
     global $DBS;
     $zeit = time() + $this->inaktivitaetszeit*60;
-    $sql = "UPDATE kern_nutzersessions SET sessiontimeout = ? WHERE nutzer = ? AND sessionid = [?]";
+    $sql = "UPDATE kern_nutzersessions SET sessiontimeout = ? WHERE person = ? AND sessionid = [?]";
     $anfrage = $DBS->silentanfrage($sql, "iis", $zeit, $this->id, $this->sessionid);
     if ($anfrage->getAnzahl() > 0) {
       $this->sessiontimeout = $zeit;
@@ -524,7 +524,7 @@ class Nutzerkonto extends Person {
     $angemeldet = false;
     global $DBS;
 
-    $sql = "SELECT id FROM kern_nutzersessions WHERE nutzer = ? AND sessionid = [?] AND sessiontimeout > ?";
+    $sql = "SELECT id FROM kern_nutzersessions WHERE person = ? AND sessionid = [?] AND sessiontimeout > ?";
     $anfrage = $DBS->anfrage($sql, "isi", $this->id, $this->sessionid, time());
     if ($anfrage->getAnzahl() > 0) {
       $angemeldet = true;
@@ -559,7 +559,7 @@ class Nutzerkonto extends Person {
   public function sessiontimeoutVerlaengern() {
     global $DBS;
     $this->sessiontimeout = time()+60*$this->inaktivitaetszeit;
-    $sql = "UPDATE kern_nutzersessions SET sessiontimeout = ? WHERE sessionid = [?] AND nutzer = ?";
+    $sql = "UPDATE kern_nutzersessions SET sessiontimeout = ? WHERE sessionid = [?] AND person = ?";
     $anfrage = $DBS->anfrage($sql, "isi", $this->sessiontimeout, $this->sessionid, $this->id);
     $param = [];
     $param["Limit"] = $this->inaktivitaetszeit;
@@ -573,7 +573,7 @@ class Nutzerkonto extends Person {
    */
   public function abmelden() : bool {
     global $DBS;
-    $sql = "UPDATE kern_nutzersessions SET sessiontimeout = 0 WHERE sessionid = [?] AND nutzer = ?";
+    $sql = "UPDATE kern_nutzersessions SET sessiontimeout = 0 WHERE sessionid = [?] AND person = ?";
     $anfrage = $DBS->silentanfrage($sql, "si", $this->sessionid, $this->id);
     $this->postfachOrdnerAufraeumen();
     if ($anfrage->getAnzahl() == 0) {
@@ -659,7 +659,7 @@ class Nutzerkonto extends Person {
     global $DBS;
     $anmeldungen = [];
 
-    $sql = "SELECT anmeldezeit FROM kern_nutzersessions WHERE nutzer = ? ORDER BY anmeldezeit DESC";
+    $sql = "SELECT anmeldezeit FROM kern_nutzersessions WHERE person = ? ORDER BY anmeldezeit DESC";
     if ($anzahl !== null) {
       $anzahl ++;
       $sql .= " LIMIT ?";
@@ -690,13 +690,13 @@ class Nutzerkonto extends Person {
     if ($id === null) {
       // 2 Tage-Frist
       $frist = time()-2*60*60*24;
-      $sql = "DELETE FROM kern_nutzersessions WHERE sessiontimeout < ? AND nutzer = ?";
+      $sql = "DELETE FROM kern_nutzersessions WHERE sessiontimeout < ? AND person = ?";
       $anfrage = $DBS->silentanfrage($sql, "ii", $frist, $this->id);
     } else if ($id === -1) {
-      $sql = "DELETE FROM kern_nutzersessions WHERE nutzer = ?";
+      $sql = "DELETE FROM kern_nutzersessions WHERE person = ?";
       $anfrage = $DBS->anfrage($sql, "i", $this->id);
     } else {
-      $sql = "DELETE FROM kern_nutzersessions WHERE nutzer = ? AND id = ?";
+      $sql = "DELETE FROM kern_nutzersessions WHERE person = ? AND id = ?";
       $anfrage = $DBS->anfrage($sql, "ii", $this->id, $id);
     }
 
@@ -717,10 +717,10 @@ class Nutzerkonto extends Person {
       $sql = "DELETE FROM kern_nutzeraktionslog WHERE zeitpunkt < ?";
       $anfrage = $DBS->silentanfrage($sql, "i", $frist);
     } else if ($id === -1) {
-      $sql = "DELETE FROM kern_nutzeraktionslog WHERE nutzer = ?";
+      $sql = "DELETE FROM kern_nutzeraktionslog WHERE person = ?";
       $anfrage = $DBS->anfrage($sql, "i", $this->id);
     } else {
-      $sql = "DELETE FROM kern_nutzeraktionslog WHERE nutzer = ? AND id = ?";
+      $sql = "DELETE FROM kern_nutzeraktionslog WHERE person = ? AND id = ?";
       $anfrage = $DBS->anfrage($sql, "ii", $this->id, $id);
     }
 

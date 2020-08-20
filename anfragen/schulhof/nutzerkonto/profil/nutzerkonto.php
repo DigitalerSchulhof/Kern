@@ -21,7 +21,7 @@ $recht = $profil->istFremdzugriff();
 
 // Prüfen, ob der neue Benutzernameschon vergeben ist
 if ($DSH_BENUTZER->hatRecht("$recht.benutzer")) {
-  $sql = "SELECT COUNT(*) FROM kern_nutzerkonten WHERE benutzername = [?] AND id != ?";
+  $sql = "SELECT COUNT(*) FROM kern_nutzerkonten WHERE benutzername = [?] AND person != ?";
   $anfrage = $DBS->anfrage($sql, "si", $benutzer, $id);
   $anfrage->werte($anzahl);
   if ($anzahl !== 0) {
@@ -31,7 +31,7 @@ if ($DSH_BENUTZER->hatRecht("$recht.benutzer")) {
 
 Anfrage::checkFehler();
 
-$sql = "SELECT {email}, {titel}, {vorname}, {nachname}, {benutzername} FROM kern_nutzerkonten JOIN kern_personen ON kern_nutzerkonten.id = kern_personen.id WHERE kern_nutzerkonten.id = ?";
+$sql = "SELECT {email}, {titel}, {vorname}, {nachname}, {benutzername} FROM kern_nutzerkonten JOIN kern_personen ON kern_nutzerkonten.person = kern_personen.id WHERE kern_nutzerkonten.person = ?";
 $anfrage = $DBS->anfrage($sql, "i", $id);
 $anfrage->werte($mailalt, $titel, $vorname, $nachname, $benutzernamealt);
 
@@ -54,7 +54,7 @@ if ($DSH_BENUTZER->hatRecht("$recht.email")) {
 
 if ($ausfuehren) {
   $sql = substr($sql, 0, -2);
-  $sql .= " WHERE id = ?";
+  $sql .= " WHERE person = ?";
   $felder[] = $id;
   $feldertypen .= "i";
   $DBS->anfrage($sql, $feldertypen, ...$felder);

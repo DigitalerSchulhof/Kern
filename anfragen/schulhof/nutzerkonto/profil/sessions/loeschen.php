@@ -31,10 +31,10 @@ if ($nutzerid == 'alle') {
   }
 } else {
   if ($sessionid == 'alle') {
-    $sql = "DELETE FROM kern_nutzersessions WHERE nutzer = ?";
+    $sql = "DELETE FROM kern_nutzersessions WHERE person = ?";
     $anfrage = $DBS->anfrage($sql, "i", $nutzerid);
   } else {
-    $sql = "DELETE FROM kern_nutzersessions WHERE nutzer = ? AND id = ?";
+    $sql = "DELETE FROM kern_nutzersessions WHERE person = ? AND id = ?";
     $anfrage = $DBS->anfrage($sql, "ii", $nutzerid, $sessionid);
   }
 }
