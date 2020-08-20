@@ -11,7 +11,7 @@ if(!UI\Check::istZahl($id,0) || !UI\Check::istToggle($notifikationen) || !UI\Che
 
 $profil = new Kern\Profil(new Kern\Nutzerkonto($id));
 $recht = $profil->istFremdzugriff();
-if (!$DSH_BENUTZER->hatRecht("$recht.einstellungen.benachrichtigungen")) {
+if (!$DSH_BENUTZER->hatRecht("$recht.einstellungen.notifikationen")) {
   Anfrage::addFehler(-4, true);
 }
 
