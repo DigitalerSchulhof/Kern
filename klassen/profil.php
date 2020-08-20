@@ -24,19 +24,45 @@ class Profil {
    * @return string     HTML-Code der Aktivitätsanzeige
    */
   public function aktivitaetsanzeige($id) {
+    global $DSH_ALLEMODULE;
+    $module = array_keys($DSH_ALLEMODULE);
     $balken = new UI\Balken("Zeit", time(), $this->person->getSessiontimeout(), $this->person->getInaktivitaetszeit());
     $balken->setID($id);
     $code  = $balken;
 
     $skript = "<script>kern.schulhof.nutzerkonto.aktivitaetsanzeige.hinzufuegen('$id');</script>";
 
-    $verlaengern = new UI\Knopf("Verlängern", "Erfolg");
-    $verlaengern->addFunktion("onclick", "kern.schulhof.nutzerkonto.session.verlaengern()");
-    $bearbeiten = new UI\Knopf("Mein Profil");
-    $bearbeiten->addFunktion("href", "Schulhof/Nutzerkonto/Profil");
-    $abmelden = new UI\Knopf("Abmelden", "Warnung");
-    $abmelden->addFunktion("onclick", "kern.schulhof.nutzerkonto.abmelden.fragen()");
-    $absatz = new UI\Absatz("{$verlaengern} {$bearbeiten} {$abmelden} {$skript}");
+    $knoepfe = [];
+
+    $knopf = new UI\Knopf("Verlängern", "Erfolg");
+    $knopf->addFunktion("onclick", "kern.schulhof.nutzerkonto.session.verlaengern()");
+    $knoepfe[] = $knopf;
+    $knopf = new UI\Knopf("Mein Profil");
+    $knopf->addFunktion("href", "Schulhof/Nutzerkonto/Profil");
+    $knoepfe[] = $knopf;
+
+    if (in_array("Postfach", $module)) {
+      global $DBP;
+
+      $knopf = new UI\Knopf("Postfach");
+      $knopf->addFunktion("href", "Schulhof/Nutzerkonto/Postfach");
+      $knoepfe[] = $knopf;
+    }
+    if (in_array("Kalender", $module)) {
+      $knopf = new UI\Knopf("Kalender");
+      $knopf->addFunktion("href", "Schulhof/Nutzerkonto/Kalender");
+      $knoepfe[] = $knopf;
+    }
+    if (in_array("Stundenplanung", $module)) {
+      $knopf = new UI\Knopf("Stundenplan");
+      $knopf->addFunktion("href", "Schulhof/Nutzerkonto/Stundenplan");
+      $knoepfe[] = $knopf;
+    }
+
+    $knopf = new UI\Knopf("Abmelden", "Warnung");
+    $knopf->addFunktion("onclick", "kern.schulhof.nutzerkonto.abmelden.fragen()");
+    $knoepfe[] = $knopf;
+    $absatz = new UI\Absatz(join(" ", $knoepfe));
     $code .= $absatz;
     return $code;
   }

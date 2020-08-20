@@ -77,15 +77,6 @@ if (is_dir("$ROOT/dateien/Kern/personen/$id")) {
   Kern\Dateisystem::ordnerLoeschen("$ROOT/dateien/Kern/personen/$id");
 }
 mkdir("$ROOT/dateien/Kern/personen/$id");
-mkdir("$ROOT/dateien/Kern/personen/$id/postfach");
-mkdir("$ROOT/dateien/Kern/personen/$id/postfach/temp");
-mkdir("$ROOT/dateien/Kern/personen/$id/postfach/eingang");
-mkdir("$ROOT/dateien/Kern/personen/$id/postfach/ausgang");
-mkdir("$ROOT/dateien/Kern/personen/$id/postfach/entwurf");
-mkdir("$ROOT/dateien/Kern/personen/$id/postfach/papierkorb");
-mkdir("$ROOT/dateien/Kern/personen/$id/postfach/papierkorb/eingang");
-mkdir("$ROOT/dateien/Kern/personen/$id/postfach/papierkorb/ausgang");
-mkdir("$ROOT/dateien/Kern/personen/$id/postfach/papierkorb/entwurf");
 mkdir("$ROOT/dateien/Kern/personen/$id/dateien");
 
 Anfrage::setRueck("ID", $id);
