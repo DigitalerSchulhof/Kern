@@ -94,7 +94,7 @@ kern.schulhof.nutzerkonto = {
         var blog           = $("#dshProfil"+id+"OeffentlichBlog").getWert();
         var termin         = $("#dshProfil"+id+"OeffentlichTermine").getWert();
         var galerie        = $("#dshProfil"+id+"OeffentlichGalerien").getWert();
-        core.ajax("Kern", 11, "Notifikationseinstellungen ändern", {id:id, nachrichten:nachrichten, notifikationen:notifikationen, blog:blog, termin:termin, galerie:galerie}, 11);
+        core.ajax("Kern", 11, "Notifikationseinstellungen ändern", {id:id, notifikationen:notifikationen, blog:blog, termin:termin, galerie:galerie}, 11);
       }
     }
   },

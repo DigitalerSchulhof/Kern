@@ -16,5 +16,5 @@ if (!$DSH_BENUTZER->hatRecht("$recht.einstellungen.notifikationen")) {
 }
 
 $sql = "UPDATE kern_nutzereinstellungen SET notifikationsmail = [?], oeffentlichertermin = [?], oeffentlicherblog = [?], oeffentlichegalerie = [?] WHERE person = ?";
-$anfrage = $DBS->anfrage($sql, "sssssi", $notifikationen, $nachrichten, $termin, $blog, $galerie, $id);
+$anfrage = $DBS->anfrage($sql, "ssssi", $notifikationen, $termin, $blog, $galerie, $id);
 ?>
