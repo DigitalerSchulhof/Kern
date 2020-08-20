@@ -10,7 +10,7 @@ if ((!UI\Check::istZahl($nutzerid,0) && $nutzerid != 'alle') || (!UI\Check::istZ
 }
 
 if ($nutzerid == "alle") {
-  if (!$DSH_BENUTZER->hatRecht("kern.personen.profil.aktionslog.löschen")) {
+  if (!$DSH_BENUTZER->hatRecht("personen.andere.profil.aktionslog.löschen")) {
     Anfrage::addFehler(-4, true);
   }
 } else {

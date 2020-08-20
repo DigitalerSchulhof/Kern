@@ -1,7 +1,7 @@
 <?php
 $SEITE = new Kern\Seite("Personen", "kern.personen.anlegen.person");
 
-$darfnutzerkonto = $DSH_BENUTZER->hatRecht("kern.personen.anlegen.nutzerkonto");
+$darfnutzerkonto = $DSH_BENUTZER->hatRecht("verwaltung.personen.anlegen.nutzerkonto");
 
 $spalte = new UI\Spalte("A1", new UI\SeitenUeberschrift("Neue Person anlegen"));
 

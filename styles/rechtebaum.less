@@ -1,0 +1,30 @@
+.dshRechtebaumBox:not(.dshRechtebaumUnterstes) {
+  background-image: url(../res/rechtebaum/leer.png);
+  background-repeat: repeat-y;
+}
+
+.dshRechtebaumBox>div[data-knoten] {
+  padding-left: 24px;
+  background-image: url(../res/rechtebaum/wert.png);
+  background-repeat: no-repeat;
+}
+
+.dshRechtebaumBox>div[data-knoten].dshRechtebaumHatKinder {
+  background-image: url(../res/rechtebaum/wert_k_c.png);
+}
+
+.dshRechtebaumBox>div[data-knoten].dshRechtebaumHatKinder.dshRechtebaumEingefahren {
+  background-image: url(../res/rechtebaum/wert_k.png);
+}
+
+.dshRechtebaumBox>div[data-knoten].dshRechtebaumUnterstes {
+  background-image: url(../res/rechtebaum/wert_u.png);
+}
+
+.dshRechtebaumBox>div[data-knoten].dshRechtebaumHatKinder.dshRechtebaumUnterstes {
+  background-image: url(../res/rechtebaum/wert_u_k_c.png);
+}
+
+.dshRechtebaumBox>div[data-knoten].dshRechtebaumHatKinder.dshRechtebaumUnterstes.dshRechtebaumEingefahren {
+  background-image: url(../res/rechtebaum/wert_u_k.png);
+}

@@ -51,14 +51,14 @@ class DB {
    * @return [type] [description]
    */
   public static function log() {
-    global $DBS, $DSH_DBS;
+    global $DBS, $DSH_DB;
     $log = Einstellungen::laden("Kern", "Aktionslog");
     if ($log == "1") {
       $log = true;
     } else {
       $log = false;
     }
-    foreach($DSH_DBS as $db) {
+    foreach($DSH_DB as $db) {
       $db->setLog($log);
     }
   }
@@ -327,6 +327,33 @@ class DB {
     }
 
     return $id;
+  }
+
+  /**
+   * Öffnet alle gefragten Datenbankenverbindungen und setzt die Variablen
+   */
+  public static function datenbankenLaden() {
+    global $DSH_DB, $DSH_DATENBANKEN;
+    $DSH_DB = array();
+
+    foreach($DSH_DATENBANKEN as $d) {
+      // Schon Geladene nicht nochmal laden
+      if(isset($DSH_DB[$d])) {
+        continue;
+      }
+    	if($d == "schulhof") {
+        global $DBS;
+        $e = $EINSTELLUNGEN["Datenbanken"]["Schulhof"];
+    		$DBS = new DB($e["Host"], $e["Port"], $e["Benutzer"], $e["Passwort"], $e["DB"], $e["Schluessel"]);
+        $DSH_DB[$d] = $DBS;
+    	}
+    	if($d == "personen") {
+        global $DBP;
+        $e = $EINSTELLUNGEN["Datenbanken"]["Personen"];
+    		$DBP = new DB($e["Host"], $e["Port"], $e["Benutzer"], $e["Passwort"], $e["DB"], $e["Schluessel"]);
+        $DSH_DB[$d] = $DBP;
+    	}
+    }
   }
 }
 ?>

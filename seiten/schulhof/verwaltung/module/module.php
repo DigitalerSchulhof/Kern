@@ -4,9 +4,9 @@ $SEITE = new Kern\Seite("Module", "kern.module.sehen");
 include_once("$ROOT/yaml.php");
 use Async\YAML;
 
-$darflo = $DSH_BENUTZER->hatRecht("kern.module.löschen");
-$darfei = $DSH_BENUTZER->hatRecht("kern.module.einstellungen");
-$darfve = $DSH_BENUTZER->hatRecht("kern.module.versionshistorie");
+$darflo = $DSH_BENUTZER->hatRecht("verwaltung.module.löschen");
+$darfei = $DSH_BENUTZER->hatRecht("verwaltung.module.einstellungen");
+$darfve = $DSH_BENUTZER->hatRecht("verwaltung.module.versionshistorie");
 
 $spalte = new UI\Spalte("A1", new UI\SeitenUeberschrift("Module"));
 $tabelle = new UI\Tabelle("dshVerwaltungModuleInstalliert", new UI\Icon(UI\Konstanten::MODUL), "Modul", "Version", "Status");
@@ -60,7 +60,7 @@ foreach($DSH_ALLEMODULE as $modul => $modulpfad) {
 
 $spalte[] = $tabelle;
 
-if ($DSH_BENUTZER->hatRecht("kern.module.installieren")) {
+if ($DSH_BENUTZER->hatRecht("verwaltung.module.installieren")) {
   // @TODO: Module installieren
 
   $spalte[] = new UI\Ueberschrift(2, "Verfügbar");

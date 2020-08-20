@@ -5,7 +5,7 @@ if(!Kern\Check::angemeldet()) {
   Anfrage::addFehler(-2, true);
 }
 
-if (!$DSH_BENUTZER->hatRecht("kern.personen.anlegen.person")) {
+if (!$DSH_BENUTZER->hatRecht("verwaltung.personen.anlegen.person")) {
   Anfrage::addFehler(-4, true);
 }
 
@@ -32,7 +32,7 @@ if($art == "l" && !UI\Check::istName($kuerzel)) {
   Anfrage::addFehler(94);
 }
 
-if ($nutzerkonto == "1" && $DSH_BENUTZER->hatRecht("kern.personen.anlegen.nutzerkonto")) {
+if ($nutzerkonto == "1" && $DSH_BENUTZER->hatRecht("verwaltung.personen.anlegen.nutzerkonto")) {
   if(!UI\Check::istText($benutzername)) {
     Anfrage::addFehler(96);
   }
@@ -79,13 +79,7 @@ if (is_dir("$ROOT/dateien/Kern/personen/$id")) {
 mkdir("$ROOT/dateien/Kern/personen/$id");
 mkdir("$ROOT/dateien/Kern/personen/$id/dateien");
 
-(function($PERSONID) use (&$DSH_BENUTZER, &$ROOT){
-  foreach($DSH_ALLEMODULE as $pfad) {
-    if(is_file("$pfad/funktionen/events/personAnlegen.php")) {
-      include "$pfad/funktionen/events/personAnlegen.php";
-    }
-  }
-})($id);
+new Kern\Wurmloch("funktionen/events/personAnlegen.php", array("PERSONID" => $id));
 
 Anfrage::setRueck("ID", $id);
 ?>

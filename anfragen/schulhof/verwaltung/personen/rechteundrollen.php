@@ -5,7 +5,7 @@ if(!Kern\Check::angemeldet()) {
   Anfrage::addFehler(-2, true);
 }
 
-if (!$DSH_BENUTZER->hatRecht("kern.rechte.vergeben || kern.rechte.rollen.zuordnen")) {
+if (!$DSH_BENUTZER->hatRecht("verwaltung.rechte.vergeben || kern.rechte.rollen.zuordnen")) {
   Anfrage::addFehler(-4, true);
 }
 
@@ -25,7 +25,7 @@ $fenstertitel = (new UI\Icon("fas fa-user-lock"))." Rechte und Rollen von $perso
 $zeile          = new UI\Zeile();
 $spalteRechte   = new UI\Spalte();
 
-if($DSH_BENUTZER->hatRecht("kern.rechte.rollen.zuordnen")) {
+if($DSH_BENUTZER->hatRecht("verwaltung.rechte.rollen.zuordnen")) {
   $spalteRollen   = new UI\Spalte();
   $spalteRollen[] = new UI\Ueberschrift("3", "Rollen");
   $sql = "SELECT r.id, {r.bezeichnung}, IF(EXISTS(SELECT nutzer FROM kern_rollenzuordnung as rz WHERE rz.nutzer = ? AND rz.rolle = r.id), '1', '0') FROM kern_rollen as r";
@@ -41,7 +41,7 @@ if($DSH_BENUTZER->hatRecht("kern.rechte.rollen.zuordnen")) {
   $zeile[]        = $spalteRollen;
 }
 
-if($DSH_BENUTZER->hatRecht("kern.rechte.vergeben")) {
+if($DSH_BENUTZER->hatRecht("verwaltung.rechte.vergeben")) {
   $spalteRechte[] = new UI\Ueberschrift("3", "Rechte");
   include "$DIR/klassen/rechtebaum.php";
 

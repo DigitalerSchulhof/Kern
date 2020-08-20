@@ -5,7 +5,7 @@ if(!Kern\Check::angemeldet()) {
   Anfrage::addFehler(-2, true);
 }
 
-if ($id != $DSH_BENUTZER->getId() && !$DSH_BENUTZER->hatRecht("kern.personen.profil.sehen")) {
+if ($id != $DSH_BENUTZER->getId() && !$DSH_BENUTZER->hatRecht("personen.andere.profil.sehen")) {
   Anfrage::addFehler(-4, true);
 }
 

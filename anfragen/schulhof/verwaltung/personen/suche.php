@@ -6,7 +6,7 @@ if(!Kern\Check::angemeldet()) {
   Anfrage::addFehler(-2, true);
 }
 
-if (!$DSH_BENUTZER->hatRecht("kern.personen.sehen")) {
+if (!$DSH_BENUTZER->hatRecht("verwaltung.personen.sehen")) {
   Anfrage::addFehler(-4, true);
 }
 
@@ -94,13 +94,13 @@ $anfrage = $tanfrage["Anfrage"];
 $tabelle = new UI\Tabelle("dshVerwaltungPersonen", new UI\Icon(UI\Konstanten::SCHUELER), "Titel", "Vorname", "Nachname", "Status");
 $tabelle->setSeiten($tanfrage, "kern.schulhof.verwaltung.personen.suche");
 
-$darfsession = $DSH_BENUTZER->hatRecht("kern.personen.profil.sessionprotokoll.sehen");
-$darfprofil = $DSH_BENUTZER->hatRecht("kern.personen.profil.sehen");
-$darfaufenthalt = $DSH_BENUTZER->hatRecht("kern.personen.aufenthalt");
-$darfzfa = $DSH_BENUTZER->hatRecht("kern.personen.zweifaktor");
-$darfanlegen = $DSH_BENUTZER->hatRecht("kern.personen.anlegen.nutzerkonto");
-$darfrechte = $DSH_BENUTZER->hatRecht("kern.rechte.vergeben || kern.rechte.rollen.zuordnen");
-$darfloeschen = $DSH_BENUTZER->hatRecht("kern.personen.loeschen.[|person,nutzerkonto]");
+$darfsession = $DSH_BENUTZER->hatRecht("personen.andere.profil.sessionprotokoll.sehen");
+$darfprofil = $DSH_BENUTZER->hatRecht("personen.andere.profil.sehen");
+$darfaufenthalt = $DSH_BENUTZER->hatRecht("verwaltung.personen.aufenthalt");
+$darfzfa = $DSH_BENUTZER->hatRecht("verwaltung.personen.zweifaktor");
+$darfanlegen = $DSH_BENUTZER->hatRecht("verwaltung.personen.anlegen.nutzerkonto");
+$darfrechte = $DSH_BENUTZER->hatRecht("verwaltung.rechte.vergeben || kern.rechte.rollen.zuordnen");
+$darfloeschen = $DSH_BENUTZER->hatRecht("verwaltung.personen.loeschen.[|person,nutzerkonto]");
 
 while ($anfrage->werte($tit, $vor, $nach, $nutzer, $anmeldung, $id, $art)) {
   $zeile  = new UI\Tabelle\Zeile($id);

@@ -9,7 +9,7 @@ if (!UI\Check::istZahl($id)) {
   Anfrage::addFehler(-3, true);
 }
 
-if (!$DSH_BENUTZER->hatRecht("kern.rechte.vergeben || kern.rechte.rollen.zuordnen")) {
+if (!$DSH_BENUTZER->hatRecht("verwaltung.rechte.vergeben || kern.rechte.rollen.zuordnen")) {
   Anfrage::addFehler(-4, true);
 }
 

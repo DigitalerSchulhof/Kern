@@ -5,7 +5,7 @@ if(!Kern\Check::angemeldet()) {
   Anfrage::addFehler(-2, true);
 }
 
-if (!$DSH_BENUTZER->hatRecht("kern.module.einstellungen")) {
+if (!$DSH_BENUTZER->hatRecht("verwaltung.module.einstellungen")) {
   Anfrage::addFehler(-4, true);
 }
 

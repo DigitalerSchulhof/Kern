@@ -10,9 +10,13 @@ kern.schulhof.nutzerkonto = {
     },
     ausfuehren: (auto) => {
       if(auto) {
-        core.ajax("Kern", 1, ["Abmeldung", "Die Abmeldung wird durchgeführt"], null, 31);
+        core.ajax("Kern", 1, ["Abmeldung", "Die Abmeldung wird durchgeführt"], null, 31).then(() => {
+          core.seiteLaden("Schulhof/Anmeldung");
+        });
       } else {
-        core.ajax("Kern", 1, ["Abmeldung", "Die Abmeldung wird durchgeführt"], null, 1);
+        core.ajax("Kern", 1, ["Abmeldung", "Die Abmeldung wird durchgeführt"], null, 1).then(() => {
+          core.seiteLaden("Schulhof/Anmeldung");
+        });
       }
     }
   },

@@ -22,7 +22,7 @@ $recht = $profil->istFremdzugriff();
 if (!$DSH_BENUTZER->hatRecht("$recht.aktionslog.details")) {
   Anfrage::addFehler(-4, true);
 }
-if ($DSH_BENUTZER !== $nutzerid && !$DSH_BENUTZER->hatRecht("kern.personen.profil.aktionslog.details")) {
+if ($DSH_BENUTZER !== $nutzerid && !$DSH_BENUTZER->hatRecht("personen.andere.profil.aktionslog.details")) {
   Anfrage::addFehler(-4, true);
 }
 

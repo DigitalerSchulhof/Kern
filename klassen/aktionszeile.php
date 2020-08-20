@@ -99,7 +99,7 @@ class Aktionszeile extends UI\Element {
 
     $aktionsicons = "";
     if($this->aktionsicons || true) {
-      $angebote = Core\Angebote::angeboteFinden("Kern/Aktionsicons");
+      $angebote = Core\Angebote::finden("Kern/Aktionsicons");
       foreach($angebote as $angebot){
         $aktionsicons .= $angebot;
       }

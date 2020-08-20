@@ -12,7 +12,6 @@ switch ($meldeid) {
     $website ->addFunktion("onclick", "ui.laden.aus()");
 
     $schulhof = new UI\Knopf("Zurück zur Anmeldung");
-    $schulhof ->addFunktion("href", "Schulhof/Anmeldung");
     $schulhof ->addFunktion("onclick", "ui.laden.aus()");
 
     $knoepfe = [$website, $schulhof];
@@ -192,7 +191,6 @@ switch ($meldeid) {
     $website ->addFunktion("onclick", "ui.laden.aus()");
 
     $schulhof = new UI\Knopf("Wieder anmelden");
-    $schulhof ->addFunktion("href", "Schulhof/Anmeldung");
     $schulhof ->addFunktion("onclick", "ui.laden.aus()");
 
     $knoepfe = [$website, $schulhof];

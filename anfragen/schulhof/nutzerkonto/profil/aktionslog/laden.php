@@ -14,7 +14,7 @@ if ((!UI\Check::istZahl($reinid,0) && $reinid != 'alle') || !UI\Check::istZahl($
 }
 
 if ($reinid == "alle") {
-  if (!$DSH_BENUTZER->hatRecht("kern.personen.profil.aktionslog.sehen")) {
+  if (!$DSH_BENUTZER->hatRecht("personen.andere.profil.aktionslog.sehen")) {
     Anfrage::addFehler(-4, true);
   }
   // @TODO: Filtereigenschaften laden

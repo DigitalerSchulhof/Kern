@@ -10,11 +10,11 @@ if (($art != "nutzerkonto" && $art != "person") || !UI\Check::istZahl($id)) {
 }
 
 if ($art == "nutzerkonto") {
-  if (!$DSH_BENUTZER->hatRecht("kern.personen.löschen.nutzerkonto")) {
+  if (!$DSH_BENUTZER->hatRecht("verwaltung.personen.löschen.nutzerkonto")) {
     Anfrage::addFehler(-4, true);
   }
 } else {
-  if (!$DSH_BENUTZER->hatRecht("kern.personen.löschen.person")) {
+  if (!$DSH_BENUTZER->hatRecht("verwaltung.personen.löschen.person")) {
     Anfrage::addFehler(-4, true);
   }
 }
@@ -38,13 +38,7 @@ if ($art == "person") {
 
   // Dateien dieses Benutzers löschen
   Kern\Dateisystem::ordnerLoeschen("$ROOT/dateien/Kern/personen/$id");
-  (function($PERSONID) use (&$DSH_BENUTZER, &$ROOT){
-    foreach($DSH_ALLEMODULE as $pfad) {
-      if(is_file("$pfad/funktionen/events/personLoeschen.php")) {
-        include "$pfad/funktionen/events/personLoeschen.php";
-      }
-    }
-  })($id);
+  new Kern\Wurmloch("funktionen/events/personLoeschen.php", array("PERSONID" => $id));
 }
 
 ?>

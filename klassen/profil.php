@@ -49,12 +49,12 @@ class Profil {
     global $DSH_BENUTZER;
     // Rechte Entscheidung:
     if ($DSH_BENUTZER->getId() != $this->person->getId()) {
-      $recht = "kern.personen.profil";
+      $recht = "personen.andere.profil";
       if (!$DSH_BENUTZER->hatRecht("$recht.sehen")) {
         throw new \Exception("Es liegt keine Berechitung für diese Funktion vor!");
       }
     } else {
-      $recht = "kern.nutzerkonto.profil";
+      $recht = "personen.selbst.profil";
     }
     return $recht;
   }
@@ -254,7 +254,7 @@ class Profil {
    * @return UI\Reiter :)
    */
   public function getProfil() : UI\Reiter {
-    global $DBS, $DSH_BENUTZER;
+    global $DBS, $DSH_BENUTZER, $DSH_ALLEMODULE;
     $recht = $this->istFremdzugriff();
 
     $profilid = $this->person->getId();
@@ -270,7 +270,10 @@ class Profil {
 
     $reiter = new UI\Reiter("dshProfil$profilid");
 
-    $formular         = new UI\FormularTabelle();
+    /*
+     * Persönliches
+     */
+    $formular      = new UI\FormularTabelle();
     $artF          = (new UI\Auswahl("dshProfil{$profilid}Art"))->setWert($this->person->getArt());
     $artF          ->add("Schüler", "s");
     $artF          ->add("Erziehungsberechtigte(r)", "e");
@@ -336,6 +339,9 @@ class Profil {
     $reiterkoerper = new UI\Reiterkoerper($reiterspalte->addKlasse("dshUiOhnePadding"));
     $reiter->addReitersegment(new UI\Reitersegment($reiterkopf, $reiterkoerper));
 
+    /*
+     * Nutzerkonto
+     */
 
     if ($nutzerkonto !== null) {
       $formular         = new UI\FormularTabelle();
@@ -365,9 +371,37 @@ class Profil {
         $reiterspalte[] = new UI\Meldung("LDAP wird verwendet", "Eine Änderung des Benutzernamens kann dazu führen, dass die verschiedenen Systeme, die dieses Nutzerkonto verwenden, nicht mehr optimal zusammen funktionieren.", "Warnung");
       }
       $reiterspalte[] = $formular;
+      if ($DSH_BENUTZER->hatRecht("$recht.einstellungen.nutzerkonto")) {
+        $reiterspalte[]   = new UI\Ueberschrift(3, "Nutzerkonto");
+        $formular         = new UI\FormularTabelle();
+        $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Inaktivitätszeit (min):"),       (new UI\Zahlenfeld("dshProfil{$profilid}Inaktivitaetszeit", 5, 300))->setWert($inaktiv));
+        $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Elemente pro Übersicht:"),       (new UI\Zahlenfeld("dshProfil{$profilid}ElementeProUebersicht", 1, 10))->setWert($uebersicht));
+        $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Wiki-Knopf:"),          (new UI\IconToggle("dshProfil{$profilid}Wiki", "Ich möchte angezeigt bekommen, wenn es zu einer Seite eine Anleitung gibt.", new UI\Icon(UI\Konstanten::HAKEN)))->setWert($wiki));
+
+        $formular[]       = (new UI\Knopf("Änderungen speichern", "Erfolg"))  ->setSubmit(true);
+        $formular         ->addSubmit("kern.schulhof.nutzerkonto.aendern.einstellungen.nutzerkonto('{$profilid}')");
+        $reiterspalte[]   = $formular;
+      }
+      if ($DSH_BENUTZER->hatRecht("$recht.einstellungen.benachrichtigungen")) {
+        $reiterspalte[]   = new UI\Ueberschrift(3, "Benachrichtigungen");
+        $formular         = new UI\FormularTabelle();
+        $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Nachrichten:"),          (new UI\IconToggle("dshProfil{$profilid}Nachrichtenmails", "Ich möchte eine eMail-Benachrichtugung erhalten, wenn ich eine Nachricht im Postfach erhalte.", new UI\Icon(UI\Konstanten::HAKEN)))->setWert($postmail));
+        $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Notifikationsmails:"),          (new UI\IconToggle("dshProfil{$profilid}Notifikationsmails", "Ich möchte eine eMail-Benachrichtugung erhalten, wenn ich eine Notifikation erhalte.", (new UI\Icon(UI\Konstanten::HAKEN))))->setWert($notifikationsmail));
+        $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Öffentliche Blogeinträge:"),          (new UI\IconToggle("dshProfil{$profilid}OeffentlichBlog", "Ich möchte bei Änderungen an öffentlichen Blogeinträgen eine Notifikation erhalten.", new UI\Icon(UI\Konstanten::HAKEN)))->setWert($oeblog));
+        $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Öffentliche Termine:"),          (new UI\IconToggle("dshProfil{$profilid}OeffentlichTermine", "Ich möchte bei Änderungen an öffentlichen Terminen eine Notifikation erhalten.", new UI\Icon(UI\Konstanten::HAKEN)))->setWert($oetermin));
+        $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Öffentliche Galerien:"),          (new UI\IconToggle("dshProfil{$profilid}OeffentlichGalerien", "Ich möchte bei Änderungen an öffentlichen Galerien eine Notifikation erhalten.", new UI\Icon(UI\Konstanten::HAKEN)))->setWert($oegalerie));
+
+        $formular[]       = (new UI\Knopf("Änderungen speichern", "Erfolg"))  ->setSubmit(true);
+        $formular         ->addSubmit("kern.schulhof.nutzerkonto.aendern.einstellungen.benachrichtigungen('{$profilid}')");
+        $reiterspalte[]   = $formular;
+      }
+
       $reiterkoerper = new UI\Reiterkoerper($reiterspalte->addKlasse("dshUiOhnePadding"));
       $reiter->addReitersegment(new UI\Reitersegment($reiterkopf, $reiterkoerper));
 
+      /*
+       * Passwort
+       */
 
       if ($DSH_BENUTZER->hatRecht("$recht.passwort")) {
         $formular         = new UI\FormularTabelle();
@@ -391,108 +425,22 @@ class Profil {
         $reiter->addReitersegment(new UI\Reitersegment($reiterkopf, $reiterkoerper));
       }
 
-      if ($DSH_BENUTZER->hatRecht("$recht.einstellungen")) {
-        $reiterspalte     = new UI\Spalte("A1");
-        if ($DSH_BENUTZER->hatRecht("$recht.einstellungen.nutzerkonto")) {
-          $reiterspalte[]   = new UI\Ueberschrift(3, "Nutzerkonto");
-          $formular         = new UI\FormularTabelle();
-          $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Inaktivitätszeit (min):"),       (new UI\Zahlenfeld("dshProfil{$profilid}Inaktivitaetszeit", 5, 300))->setWert($inaktiv));
-          $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Elemente pro Übersicht:"),       (new UI\Zahlenfeld("dshProfil{$profilid}ElementeProUebersicht", 1, 10))->setWert($uebersicht));
-          $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Wiki-Knopf:"),          (new UI\IconToggle("dshProfil{$profilid}Wiki", "Ich möchte angezeigt bekommen, wenn es zu einer Seite eine Anleitung gibt.", new UI\Icon(UI\Konstanten::HAKEN)))->setWert($wiki));
-
-          $formular[]       = (new UI\Knopf("Änderungen speichern", "Erfolg"))  ->setSubmit(true);
-          $formular         ->addSubmit("kern.schulhof.nutzerkonto.aendern.einstellungen.nutzerkonto('{$profilid}')");
-          $reiterspalte[]   = $formular;
-        }
-        if ($DSH_BENUTZER->hatRecht("$recht.einstellungen.benachrichtigungen")) {
-          $reiterspalte[]   = new UI\Ueberschrift(3, "Benachrichtigungen");
-          $formular         = new UI\FormularTabelle();
-          $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Nachrichten:"),          (new UI\IconToggle("dshProfil{$profilid}Nachrichtenmails", "Ich möchte eine eMail-Benachrichtugung erhalten, wenn ich eine Nachricht im Postfach erhalte.", new UI\Icon(UI\Konstanten::HAKEN)))->setWert($postmail));
-          $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Notifikationsmails:"),          (new UI\IconToggle("dshProfil{$profilid}Notifikationsmails", "Ich möchte eine eMail-Benachrichtugung erhalten, wenn ich eine Notifikation erhalte.", (new UI\Icon(UI\Konstanten::HAKEN))))->setWert($notifikationsmail));
-          $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Öffentliche Blogeinträge:"),          (new UI\IconToggle("dshProfil{$profilid}OeffentlichBlog", "Ich möchte bei Änderungen an öffentlichen Blogeinträgen eine Notifikation erhalten.", new UI\Icon(UI\Konstanten::HAKEN)))->setWert($oeblog));
-          $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Öffentliche Termine:"),          (new UI\IconToggle("dshProfil{$profilid}OeffentlichTermine", "Ich möchte bei Änderungen an öffentlichen Terminen eine Notifikation erhalten.", new UI\Icon(UI\Konstanten::HAKEN)))->setWert($oetermin));
-          $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Öffentliche Galerien:"),          (new UI\IconToggle("dshProfil{$profilid}OeffentlichGalerien", "Ich möchte bei Änderungen an öffentlichen Galerien eine Notifikation erhalten.", new UI\Icon(UI\Konstanten::HAKEN)))->setWert($oegalerie));
-
-          $formular[]       = (new UI\Knopf("Änderungen speichern", "Erfolg"))  ->setSubmit(true);
-          $formular         ->addSubmit("kern.schulhof.nutzerkonto.aendern.einstellungen.benachrichtigungen('{$profilid}')");
-          $reiterspalte[]   = $formular;
-        }
-        if ($DSH_BENUTZER->hatRecht("$recht.einstellungen.postfach")) {
-          $reiterspalte[]   = new UI\Ueberschrift(3, "Internes Postfach");
-          $formular         = new UI\FormularTabelle();
-          $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Löschfrist Postfach (Tage):"),          (new UI\Zahlenfeld("dshProfil{$profilid}PostfachLoeschfrist", 1, 1000))->setWert($posttage));
-          $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Löschfrist Papierkorb (Tage):"),        (new UI\Zahlenfeld("dshProfil{$profilid}PapierkorbLoeschfrist", 1, 1000))->setWert($papierkorbtage));
-
-          $formular[]       = (new UI\Knopf("Änderungen speichern", "Erfolg"))  ->setSubmit(true);
-          $formular         ->addSubmit("kern.schulhof.nutzerkonto.aendern.einstellungen.postfach('{$profilid}')");
-          $reiterspalte[]   = $formular;
-        }
-        if ($DSH_BENUTZER->getId() == $this->person->getId()) {
-          $reiterspalte[]   = new UI\Ueberschrift(3, "eMail-Postfach");
-          $reiterspalte[]   = new UI\Meldung("eMails im Schulhof empfangen", "Achtung! Damit eMails im Schulhof empfangen werden können, müssen Zugangsdaten gespeichert werden. Dies geschieht natürlich verschlüsselt.", "Information");
-          $formular         = new UI\FormularTabelle();
-          $mailaktivknopf   = new UI\IconToggle("dshProfil{$profilid}EmailAktiv", "eMails über den Schulhof verwalten", new UI\Icon(UI\Konstanten::HAKEN));
-          $mailaktivknopf   ->setWert($mailaktiv);
-          $mailaktivknopf   ->addFunktion("onclick", "ui.formular.anzeigenwenn('dshProfil{$profilid}EmailAktiv', '1', 'dshProfil{$profilid}EmailFelder')");
-          $mailaktivF       = new UI\FormularFeld(new UI\InhaltElement("Aktiv:"), $mailaktivknopf);
-          $formular[]       = $mailaktivF;
-
-          $mailadresseF     = new UI\FormularFeld(new UI\InhaltElement("eMail-Adresse:"),             (new UI\Mailfeld("dshProfil{$profilid}EmailAdresse"))->setWert($mailadresse));
-          $mailnameF        = new UI\FormularFeld(new UI\InhaltElement("Anzeigename:"),               (new UI\Textfeld("dshProfil{$profilid}EmailName"))->setWert($mailname));
-          $mailehostF       = new UI\FormularFeld(new UI\InhaltElement("IMAP-Host (Posteingang):"),   (new UI\Textfeld("dshProfil{$profilid}EmailEingangHost"))->setWert($mailehost));
-          $maileportF       = new UI\FormularFeld(new UI\InhaltElement("IMAP-Port (Posteingang):"),   (new UI\Zahlenfeld("dshProfil{$profilid}EmailEingangPort",0,65535))->setWert($maileport));
-          $mailenutzerF     = new UI\FormularFeld(new UI\InhaltElement("Benutzername (Posteingang):"),(new UI\Textfeld("dshProfil{$profilid}EmailEingangNutzer"))->setWert($mailenutzer));
-          $mailepasswortF   = new UI\FormularFeld(new UI\InhaltElement("Passwort (Posteingang):"),    (new UI\Passwortfeld("dshProfil{$profilid}EmailEingangPasswort"))->setWert($mailepasswort));
-          $mailepasswortF   ->setOptional(true);
-          $mailahostF       = new UI\FormularFeld(new UI\InhaltElement("SMTP-Host (Postausgang):"),   (new UI\Textfeld("dshProfil{$profilid}EmailAusgangHost"))->setWert($mailahost));
-          $mailaportF       = new UI\FormularFeld(new UI\InhaltElement("SMTP-Port (Postausgang):"),   (new UI\Zahlenfeld("dshProfil{$profilid}EmailAusgangPort",0,65535))->setWert($mailaport));
-          $mailanutzerF     = new UI\FormularFeld(new UI\InhaltElement("Benutzername (Posteingang):"),(new UI\Textfeld("dshProfil{$profilid}EmailEingangNutzer"))->setWert($mailanutzer));
-          $mailanutzerF     ->setOptional(true);
-          $mailapasswortF   = new UI\FormularFeld(new UI\InhaltElement("Passwort (Postausgang):"),    (new UI\Passwortfeld("dshProfil{$profilid}EmailAusgangPasswort"))->setWert($mailapasswort));
-          $mailapasswortF   ->setOptional(true);
-
-          if ($mailaktiv != 1) {
-            $mailadresseF     ->addKlasse("dshUiUnsichtbar");
-            $mailnameF        ->addKlasse("dshUiUnsichtbar");
-            $mailehostF       ->addKlasse("dshUiUnsichtbar");
-            $maileportF       ->addKlasse("dshUiUnsichtbar");
-            $mailenutzerF     ->addKlasse("dshUiUnsichtbar");
-            $mailepasswortF   ->addKlasse("dshUiUnsichtbar");
-            $mailahostF       ->addKlasse("dshUiUnsichtbar");
-            $mailaportF       ->addKlasse("dshUiUnsichtbar");
-            $mailanutzerF     ->addKlasse("dshUiUnsichtbar");
-            $mailapasswortF   ->addKlasse("dshUiUnsichtbar");
+      (function($recht, $profilid) use (&$DSH_ALLEMODULE, &$DSH_BENUTZER) {
+        foreach($DSH_ALLEMODULE as $modul) {
+          if(is_file("$modul/funktionen/einstellungen.php")) {
+            $reiter->addReitersegment(...(include("$modul/funktionen/einstellungen.php")));
           }
-          $mailadresseF     ->addKlasse("dshProfil{$profilid}EmailFelder");
-          $mailnameF        ->addKlasse("dshProfil{$profilid}EmailFelder");
-          $mailehostF       ->addKlasse("dshProfil{$profilid}EmailFelder");
-          $maileportF       ->addKlasse("dshProfil{$profilid}EmailFelder");
-          $mailenutzerF     ->addKlasse("dshProfil{$profilid}EmailFelder");
-          $mailepasswortF   ->addKlasse("dshProfil{$profilid}EmailFelder");
-          $mailahostF       ->addKlasse("dshProfil{$profilid}EmailFelder");
-          $mailaportF       ->addKlasse("dshProfil{$profilid}EmailFelder");
-          $mailanutzerF     ->addKlasse("dshProfil{$profilid}EmailFelder");
-          $mailapasswortF   ->addKlasse("dshProfil{$profilid}EmailFelder");
-
-          $formular[]       = $mailadresseF;
-          $formular[]       = $mailnameF;
-          $formular[]       = $mailehostF;
-          $formular[]       = $maileportF;
-          $formular[]       = $mailenutzerF;
-          $formular[]       = $mailepasswortF;
-          $formular[]       = $mailahostF;
-          $formular[]       = $mailaportF;
-          $formular[]       = $mailanutzerF;
-          $formular[]       = $mailapasswortF;
-
-          $formular[]       = (new UI\Knopf("Änderungen speichern", "Erfolg"))  ->setSubmit(true);
-          $formular         ->addSubmit("kern.schulhof.nutzerkonto.aendern.einstellungen.email('{$profilid}')");
-          $reiterspalte[]   = $formular;
         }
-        $reiterkopf = new UI\Reiterkopf("Einstellungen");
-        $reiterkoerper = new UI\Reiterkoerper($reiterspalte->addKlasse("dshUiOhnePadding"));
-        $reiter->addReitersegment(new UI\Reitersegment($reiterkopf, $reiterkoerper));
+      })($recht, $profilid);
+
+      $angbote = \Core\Angebote::finden("Kern/Einstellungen");
+      foreach($angbote as $a) {
+        $reiter->addReitersegment($a);
       }
+
+      /*
+       * Sessionprokoll
+       */
 
       if ($DSH_BENUTZER->hatRecht("$recht.sessionprotokoll.sehen")) {
         $reiterspalte     = new UI\Spalte("A1");
@@ -504,6 +452,10 @@ class Profil {
         $reiterkoerper = new UI\Reiterkoerper($reiterspalte->addKlasse("dshUiOhnePadding"));
         $reiter->addReitersegment(new UI\Reitersegment($reiterkopf, $reiterkoerper));
       }
+
+      /*
+       * Aktionsprotokoll
+       */
 
       if ($DSH_BENUTZER->hatRecht("$recht.aktionsprotokoll.sehen")) {
         $reiterspalte     = new UI\Spalte("A1");

@@ -14,7 +14,7 @@ if (!UI\Check::istZahl($reinid,0) && $reinid != 'alle') {
 }
 
 if ($reinid == "alle") {
-  if (!$DSH_BENUTZER->hatRecht("kern.personen.profil.sessionprotokoll.sehen")) {
+  if (!$DSH_BENUTZER->hatRecht("personen.andere.profil.sessionprotokoll.sehen")) {
     Anfrage::addFehler(-4, true);
   }
   // @TODO: Filtereigenschaften laden

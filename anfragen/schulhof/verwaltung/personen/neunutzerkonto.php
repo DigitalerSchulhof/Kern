@@ -5,7 +5,7 @@ if(!Kern\Check::angemeldet()) {
   Anfrage::addFehler(-2, true);
 }
 
-if (!$DSH_BENUTZER->hatRecht("kern.personen.anlegen.nutzerkonto")) {
+if (!$DSH_BENUTZER->hatRecht("verwaltung.personen.anlegen.nutzerkonto")) {
   Anfrage::addFehler(-4, true);
 }
 

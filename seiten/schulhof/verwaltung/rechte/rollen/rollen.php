@@ -15,10 +15,10 @@ while($sql->werte($id, $bezeichung)) {
 
   $zeile["Rolle"]     = $bezeichung;
 
-  if($DSH_BENUTZER->hatRecht("kern.rechte.rollen.bearbeiten")) {
+  if($DSH_BENUTZER->hatRecht("verwaltung.rechte.rollen.bearbeiten")) {
     $zeile->addAktion(new UI\MiniIconKnopf(new UI\Icon(UI\Konstanten::BEARBEITEN), "Rolle bearbeiten"));
   }
-  if($DSH_BENUTZER->hatRecht("kern.rechte.rollen.löschen")) {
+  if($DSH_BENUTZER->hatRecht("verwaltung.rechte.rollen.löschen")) {
     $zeile->addAktion(new UI\MiniIconKnopf(new UI\Icon(UI\Konstanten::LOESCHEN), "Rolle löschen", "Warnung"));
   }
 
@@ -26,13 +26,13 @@ while($sql->werte($id, $bezeichung)) {
 }
 $spalte[] = $tabelle;
 $knoepfe = [];
-if ($DSH_BENUTZER->hatRecht("kern.rechte.rollen.anlegen")) {
+if ($DSH_BENUTZER->hatRecht("verwaltung.rechte.rollen.anlegen")) {
   $knopf      = new UI\IconKnopf(new UI\Icon (UI\Konstanten::NEU), "Rolle anlegen", "Erfolg");
   $knopf      ->addFunktion("href", "Schulhof/Verwaltung/Rollen/Zuordnen");
   $knoepfe[]   = $knopf;
 }
 
-if ($DSH_BENUTZER->hatRecht("kern.rechte.rollen.zuordnen")) {
+if ($DSH_BENUTZER->hatRecht("verwaltung.rechte.rollen.zuordnen")) {
   $knopf      = new UI\IconKnopf(new UI\Icon ("fas fa-user-tag"), "Rollen zuordnen");
   $knopf      ->addFunktion("href", "Schulhof/Verwaltung/Rollen/Zuordnen");
   $knoepfe[]   = $knopf;

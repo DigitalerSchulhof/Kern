@@ -1,5 +1,5 @@
-kern:
-  nutzerkonto:
+personen:
+  selbst:
     profil:
       art: Art ändern
       geschlecht: Geschlecht ändern
@@ -21,8 +21,7 @@ kern:
       aktionslog:
         sehen: Aktionsprotokoll sehen
         löschen: Aktionsprotokoll löschen
-  personen:
-    sehen: Personen sehen
+  andere:
     profil:
       sehen: Profile sehen
       art: Art ändern
@@ -45,6 +44,9 @@ kern:
         sehen: Aktionsprotokoll sehen
         details: Details ansehen
         löschen: Aktionsprotokoll löschen
+verwaltung:
+  personen:
+    sehen: Personen sehen
     anlegen:
       person: Personen anlegen
       nutzerkonto: Nutzerkonto anlegen
@@ -60,7 +62,6 @@ kern:
       zuruecksetzen: Kurszuordnung zurücksetzen
     aufenthalt: Aufenthaltsort anzeigen
     zweifaktor: Zwei-Faktor-Authentifizierungsschlüssel erzeugen
-  verwaltung: Verwaltungsbereich sehen
   module:
     sehen: Module sehen
     installieren: Module installieren
