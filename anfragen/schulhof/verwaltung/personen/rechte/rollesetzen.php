@@ -38,7 +38,7 @@ if($wert == "0") {
   $sql = "DELETE FROM kern_rollenzuordnung WHERE person = ? AND rolle = ?";
   $anfrage = $DBS->anfrage($sql, "ii", $id, $rolle);
 } else {
-  $sql = "INSERT INTO kern_rollenzuordnung (nutzer, rolle) VALUES (?, ?)";
+  $sql = "INSERT INTO kern_rollenzuordnung (person, rolle) VALUES (?, ?)";
   $anfrage = $DBS->anfrage($sql, "ii", $id, $rolle);
 }
 
