@@ -409,16 +409,15 @@ class Profil {
         $reiterspalte[]   = $formular;
       }
       if ($DSH_BENUTZER->hatRecht("$recht.einstellungen.benachrichtigungen")) {
-        $reiterspalte[]   = new UI\Ueberschrift(3, "Benachrichtigungen");
+        $reiterspalte[]   = new UI\Ueberschrift(3, "Notifikationen");
         $formular         = new UI\FormularTabelle();
-        $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Nachrichten:"),          (new UI\IconToggle("dshProfil{$profilid}Nachrichtenmails", "Ich möchte eine eMail-Benachrichtugung erhalten, wenn ich eine Nachricht im Postfach erhalte.", new UI\Icon(UI\Konstanten::HAKEN)))->setWert($postmail));
         $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Notifikationsmails:"),          (new UI\IconToggle("dshProfil{$profilid}Notifikationsmails", "Ich möchte eine eMail-Benachrichtugung erhalten, wenn ich eine Notifikation erhalte.", (new UI\Icon(UI\Konstanten::HAKEN))))->setWert($notifikationsmail));
         $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Öffentliche Blogeinträge:"),          (new UI\IconToggle("dshProfil{$profilid}OeffentlichBlog", "Ich möchte bei Änderungen an öffentlichen Blogeinträgen eine Notifikation erhalten.", new UI\Icon(UI\Konstanten::HAKEN)))->setWert($oeblog));
         $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Öffentliche Termine:"),          (new UI\IconToggle("dshProfil{$profilid}OeffentlichTermine", "Ich möchte bei Änderungen an öffentlichen Terminen eine Notifikation erhalten.", new UI\Icon(UI\Konstanten::HAKEN)))->setWert($oetermin));
         $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Öffentliche Galerien:"),          (new UI\IconToggle("dshProfil{$profilid}OeffentlichGalerien", "Ich möchte bei Änderungen an öffentlichen Galerien eine Notifikation erhalten.", new UI\Icon(UI\Konstanten::HAKEN)))->setWert($oegalerie));
 
         $formular[]       = (new UI\Knopf("Änderungen speichern", "Erfolg"))  ->setSubmit(true);
-        $formular         ->addSubmit("kern.schulhof.nutzerkonto.aendern.einstellungen.benachrichtigungen('{$profilid}')");
+        $formular         ->addSubmit("kern.schulhof.nutzerkonto.aendern.einstellungen.notifikationen('{$profilid}')");
         $reiterspalte[]   = $formular;
       }
 
@@ -451,13 +450,9 @@ class Profil {
         $reiter->addReitersegment(new UI\Reitersegment($reiterkopf, $reiterkoerper));
       }
 
-      (function($recht, $profilid) use (&$DSH_ALLEMODULE, &$DSH_BENUTZER) {
-        foreach($DSH_ALLEMODULE as $modul) {
-          if(is_file("$modul/funktionen/einstellungen.php")) {
-            $reiter->addReitersegment(...(include("$modul/funktionen/einstellungen.php")));
-          }
-        }
-      })($recht, $profilid);
+      new Wurmloch("funktionen/einstellungen.php", array("recht" => $recht, "profilid" => $profilid), function($r) use ($reiter) {
+        $reiter->addReitersegment(...$r);
+      });
 
       $angbote = \Core\Angebote::finden("Kern/Einstellungen");
       foreach($angbote as $a) {

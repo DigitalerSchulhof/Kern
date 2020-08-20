@@ -12,9 +12,7 @@ personen:
       passwort: Passwort ändern
       einstellungen:
         nutzerkonto: Einstellungen des Nutzerkontos ändern
-        benachrichtigungen: Einstellungen zu Benachrichtigungen ändern
-        postfach: Einstellungen zum internen Postfach ändern
-        email: Einstellungen zum eMail-Postfach ändern
+        notifikationen: Einstellungen zu Notifikationen ändern
       sessionprotokoll:
         sehen: Sessionprotokoll sehen
         löschen: Sessionprotokoll löschen
@@ -35,8 +33,7 @@ personen:
       passwort: Passwort ändern
       einstellungen:
         nutzerkonto: Einstellungen des Nutzerkontos ändern
-        benachrichtigungen: Einstellungen zu Benachrichtigungen ändern
-        postfach: Einstellungen zum internen Postfach ändern
+        notifikationen: Einstellungen zu Notifikationen ändern
       sessionprotokoll:
         sehen: Sessionprotokoll sehen
         löschen: Sessionprotokoll löschen

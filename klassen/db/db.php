@@ -333,7 +333,7 @@ class DB {
    * Öffnet alle gefragten Datenbankenverbindungen und setzt die Variablen
    */
   public static function datenbankenLaden() {
-    global $DSH_DB, $DSH_DATENBANKEN;
+    global $DSH_DB, $DSH_DATENBANKEN, $EINSTELLUNGEN;
     $DSH_DB = array();
 
     foreach($DSH_DATENBANKEN as $d) {
