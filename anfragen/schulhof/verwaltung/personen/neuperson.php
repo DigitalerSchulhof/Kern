@@ -73,11 +73,10 @@ $sql = "INSERT INTO kern_nutzereinstellungen (person, notifikationsmail, postmai
 $DBS->anfrage($sql, "iiiiiiiiiiii", $id, "1", "1", "365", "30", "5", "1", "0", "0", "30", "1", "0");
 
 // Dateisystem des Benutzers anlegen
-if (is_dir("$ROOT/dateien/Kern/personen/$id")) {
-  Kern\Dateisystem::ordnerLoeschen("$ROOT/dateien/Kern/personen/$id");
+if (is_dir("$ROOT/dateien/personen/$id")) {
+  Kern\Dateisystem::ordnerLoeschen("$ROOT/dateien/personen/$id");
 }
-mkdir("$ROOT/dateien/Kern/personen/$id");
-mkdir("$ROOT/dateien/Kern/personen/$id/dateien");
+mkdir("$ROOT/dateien/personen/$id");
 
 (function($PERSONID) use (&$DSH_BENUTZER, &$ROOT){
   foreach($DSH_ALLEMODULE as $pfad) {
