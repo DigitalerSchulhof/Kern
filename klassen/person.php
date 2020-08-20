@@ -444,7 +444,7 @@ class Nutzerkonto extends Person {
    */
   public function passwortPruefen($passwort) : bool {
     global $DBS;
-    $sql = "SELECT COUNT(*) AS anzahl FROM kern_nutzerkonten WHERE passwort = SHA1(?) AND id = ?";
+    $sql = "SELECT COUNT(*) AS anzahl FROM kern_nutzerkonten WHERE passwort = SHA1(?) AND person = ?";
     $anfrage = $DBS->anfrage($sql, "si", $passwort, $this->id);
     if ($anfrage->getAnzahl() != 1) {
       return false;
