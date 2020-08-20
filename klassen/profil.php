@@ -24,19 +24,45 @@ class Profil {
    * @return string     HTML-Code der Aktivitätsanzeige
    */
   public function aktivitaetsanzeige($id) {
+    global $DSH_ALLEMODULE;
+    $module = array_keys($DSH_ALLEMODULE);
     $balken = new UI\Balken("Zeit", time(), $this->person->getSessiontimeout(), $this->person->getInaktivitaetszeit());
     $balken->setID($id);
     $code  = $balken;
 
     $skript = "<script>kern.schulhof.nutzerkonto.aktivitaetsanzeige.hinzufuegen('$id');</script>";
 
-    $verlaengern = new UI\Knopf("Verlängern", "Erfolg");
-    $verlaengern->addFunktion("onclick", "kern.schulhof.nutzerkonto.session.verlaengern()");
-    $bearbeiten = new UI\Knopf("Mein Profil");
-    $bearbeiten->addFunktion("href", "Schulhof/Nutzerkonto/Profil");
-    $abmelden = new UI\Knopf("Abmelden", "Warnung");
-    $abmelden->addFunktion("onclick", "kern.schulhof.nutzerkonto.abmelden.fragen()");
-    $absatz = new UI\Absatz("{$verlaengern} {$bearbeiten} {$abmelden} {$skript}");
+    $knoepfe = [];
+
+    $knopf = new UI\Knopf("Verlängern", "Erfolg");
+    $knopf->addFunktion("onclick", "kern.schulhof.nutzerkonto.session.verlaengern()");
+    $knoepfe[] = $knopf;
+    $knopf = new UI\Knopf("Mein Profil");
+    $knopf->addFunktion("href", "Schulhof/Nutzerkonto/Profil");
+    $knoepfe[] = $knopf;
+
+    if (in_array("Postfach", $module)) {
+      global $DBP;
+
+      $knopf = new UI\Knopf("Postfach");
+      $knopf->addFunktion("href", "Schulhof/Nutzerkonto/Postfach");
+      $knoepfe[] = $knopf;
+    }
+    if (in_array("Kalender", $module)) {
+      $knopf = new UI\Knopf("Kalender");
+      $knopf->addFunktion("href", "Schulhof/Nutzerkonto/Kalender");
+      $knoepfe[] = $knopf;
+    }
+    if (in_array("Stundenplanung", $module)) {
+      $knopf = new UI\Knopf("Stundenplan");
+      $knopf->addFunktion("href", "Schulhof/Nutzerkonto/Stundenplan");
+      $knoepfe[] = $knopf;
+    }
+
+    $knopf = new UI\Knopf("Abmelden", "Warnung");
+    $knopf->addFunktion("onclick", "kern.schulhof.nutzerkonto.abmelden.fragen()");
+    $knoepfe[] = $knopf;
+    $absatz = new UI\Absatz(join(" ", $knoepfe));
     $code .= $absatz;
     return $code;
   }
@@ -259,9 +285,9 @@ class Profil {
 
     $profilid = $this->person->getId();
 
-    $sql = "SELECT {benutzername}, {email}, {notifikationsmail}, {postmail}, {postalletage}, {postpapierkorbtage}, {uebersichtsanzahl}, {oeffentlichertermin}, {oeffentlicherblog}, {oeffentlichegalerie}, {inaktivitaetszeit}, {wikiknopf}, kern_nutzerkonten.id, {emailaktiv}, {emailadresse}, {emailname}, {einganghost}, {eingangport}, {eingangnutzer}, {eingangpasswort}, {ausganghost}, {ausgangport}, {ausgangnutzer}, {ausgangpasswort} FROM kern_nutzerkonten LEFT JOIN kern_nutzereinstellungen ON kern_nutzerkonten.id = kern_nutzereinstellungen.person WHERE kern_nutzerkonten.id = ?";
+    $sql = "SELECT {benutzername}, {email}, {notifikationsmail}, {uebersichtsanzahl}, {oeffentlichertermin}, {oeffentlicherblog}, {oeffentlichegalerie}, {inaktivitaetszeit}, {wikiknopf}, kern_nutzerkonten.id  FROM kern_nutzerkonten LEFT JOIN kern_nutzereinstellungen ON kern_nutzerkonten.id = kern_nutzereinstellungen.person WHERE kern_nutzerkonten.id = ?";
     $anfrage = $DBS->anfrage($sql, "i", $this->person->getId());
-    $anfrage->werte($benutzername, $mail, $notifikationsmail, $postmail, $posttage, $papierkorbtage, $uebersicht, $oetermin, $oeblog, $oegalerie, $inaktiv, $wiki, $nutzerkonto, $mailaktiv, $mailadresse, $mailname, $mailehost, $maileport, $mailenutzer, $mailepasswort, $mailahost, $mailaport, $mailanutzer, $mailapasswort);
+    $anfrage->werte($benutzername, $mail, $notifikationsmail, $uebersicht, $oetermin, $oeblog, $oegalerie, $inaktiv, $wiki, $nutzerkonto);
 
     $sql = "SELECT {kuerzel} FROM kern_lehrer WHERE id = ?";
     $anfrage = $DBS->anfrage($sql, "i", $this->person->getId());

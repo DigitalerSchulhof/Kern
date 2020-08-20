@@ -37,7 +37,7 @@ if ($art == "person") {
   $DBS->anfrage($sql, "i", $id);
 
   // Dateien dieses Benutzers löschen
-  Kern\Dateisystem::ordnerLoeschen("$ROOT/dateien/Kern/personen/$id");
+  Kern\Dateisystem::ordnerLoeschen("$ROOT/dateien/personen/$id");
   new Kern\Wurmloch("funktionen/events/personLoeschen.php", array("PERSONID" => $id));
 }
 
