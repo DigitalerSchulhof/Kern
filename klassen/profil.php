@@ -285,9 +285,9 @@ class Profil {
 
     $profilid = $this->person->getId();
 
-    $sql = "SELECT {benutzername}, {email}, {notifikationsmail}, {postmail}, {postalletage}, {postpapierkorbtage}, {uebersichtsanzahl}, {oeffentlichertermin}, {oeffentlicherblog}, {oeffentlichegalerie}, {inaktivitaetszeit}, {wikiknopf}, kern_nutzerkonten.id, {emailaktiv}, {emailadresse}, {emailname}, {einganghost}, {eingangport}, {eingangnutzer}, {eingangpasswort}, {ausganghost}, {ausgangport}, {ausgangnutzer}, {ausgangpasswort} FROM kern_nutzerkonten LEFT JOIN kern_nutzereinstellungen ON kern_nutzerkonten.id = kern_nutzereinstellungen.person WHERE kern_nutzerkonten.id = ?";
+    $sql = "SELECT {benutzername}, {email}, {notifikationsmail}, {uebersichtsanzahl}, {oeffentlichertermin}, {oeffentlicherblog}, {oeffentlichegalerie}, {inaktivitaetszeit}, {wikiknopf}, kern_nutzerkonten.id  FROM kern_nutzerkonten LEFT JOIN kern_nutzereinstellungen ON kern_nutzerkonten.id = kern_nutzereinstellungen.person WHERE kern_nutzerkonten.id = ?";
     $anfrage = $DBS->anfrage($sql, "i", $this->person->getId());
-    $anfrage->werte($benutzername, $mail, $notifikationsmail, $postmail, $posttage, $papierkorbtage, $uebersicht, $oetermin, $oeblog, $oegalerie, $inaktiv, $wiki, $nutzerkonto, $mailaktiv, $mailadresse, $mailname, $mailehost, $maileport, $mailenutzer, $mailepasswort, $mailahost, $mailaport, $mailanutzer, $mailapasswort);
+    $anfrage->werte($benutzername, $mail, $notifikationsmail, $uebersicht, $oetermin, $oeblog, $oegalerie, $inaktiv, $wiki, $nutzerkonto);
 
     $sql = "SELECT {kuerzel} FROM kern_lehrer WHERE id = ?";
     $anfrage = $DBS->anfrage($sql, "i", $this->person->getId());
