@@ -77,16 +77,15 @@ if (is_dir("$ROOT/dateien/Kern/personen/$id")) {
   Kern\Dateisystem::ordnerLoeschen("$ROOT/dateien/Kern/personen/$id");
 }
 mkdir("$ROOT/dateien/Kern/personen/$id");
-mkdir("$ROOT/dateien/Kern/personen/$id/postfach");
-mkdir("$ROOT/dateien/Kern/personen/$id/postfach/temp");
-mkdir("$ROOT/dateien/Kern/personen/$id/postfach/eingang");
-mkdir("$ROOT/dateien/Kern/personen/$id/postfach/ausgang");
-mkdir("$ROOT/dateien/Kern/personen/$id/postfach/entwurf");
-mkdir("$ROOT/dateien/Kern/personen/$id/postfach/papierkorb");
-mkdir("$ROOT/dateien/Kern/personen/$id/postfach/papierkorb/eingang");
-mkdir("$ROOT/dateien/Kern/personen/$id/postfach/papierkorb/ausgang");
-mkdir("$ROOT/dateien/Kern/personen/$id/postfach/papierkorb/entwurf");
 mkdir("$ROOT/dateien/Kern/personen/$id/dateien");
+
+(function($PERSONID) use (&$DSH_BENUTZER, &$ROOT){
+  foreach($DSH_ALLEMODULE as $pfad) {
+    if(is_file("$pfad/funktionen/events/personAnlegen.php")) {
+      include "$pfad/funktionen/events/personAnlegen.php";
+    }
+  }
+})($id);
 
 Anfrage::setRueck("ID", $id);
 ?>

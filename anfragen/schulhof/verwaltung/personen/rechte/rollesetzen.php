@@ -25,10 +25,10 @@ if(!$sql->werte($anz)) {
 
 if($wert == "0") {
   // Prüfen, ob es noch einen Administrator gibt
-  $sql = "SELECT COUNT(*) FROM kern_rollenzuordnung WHERE rolle = 0";
-  $anfrage = $DBS->anfrage($sql);
+  $sql = "SELECT COUNT(*) FROM kern_rollenzuordnung WHERE nutzer != ? AND rolle = 0";
+  $anfrage = $DBS->anfrage($sql, "i", $id);
   if ($anfrage->werte($anzahl)) {
-    if ($anzahl == 1) {
+    if ($anzahl == 0) {
       Anfrage::addFehler(88, true);
     }
   } else {

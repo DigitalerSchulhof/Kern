@@ -173,12 +173,14 @@ class Rechtehelfer {
    */
   public static function array2Baum($array) {
     $baum = array();
-    foreach($array as $recht) {
-      if(self::CHECK) {
+    if(self::CHECK) {
+      foreach($array as $recht) {
         if(preg_match("/^(?:[a-zäöüß]+\\.)*(?:[a-zäöüß]+|\\*)$/i", $recht) !== 1) {
           trigger_error("Das übergebene Recht »{$recht}« ist ungültig", E_USER_WARNING);
         }
       }
+    }
+    foreach($array as $recht) {
       $recht = explode(".", $recht);
       $baumTeil = &$baum;
       for($i = 0; $i < count($recht); $i++) {
@@ -192,9 +194,12 @@ class Rechtehelfer {
           $baumTeil = &$baumTeil[$recht[$i]];
         }
       }
-      if($baum === true || $baum === false) {
+      if($baum === true) {
         break;
       }
+    }
+    if($baum !== true && !count($baum)) {
+      $baum = false;
     }
     return $baum;
   }
@@ -227,6 +232,5 @@ class Rechtehelfer {
     return $baum;
   }
 }
-
 
 ?>

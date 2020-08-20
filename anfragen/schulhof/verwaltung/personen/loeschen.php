@@ -19,15 +19,13 @@ if ($art == "nutzerkonto") {
   }
 }
 
-// Prüfen, ob es noch einen Administrator gibt!
-// @TODO: ROLLEN
-// $sql = "SELECT COUNT(*) FROM kern_nutzerrollen WHERE id != ? AND rolle = 0";
-// $anfrage = $DBS->anfrage($sql, "i", $id);
-// if ($anfrage->werte($anzahl)) {
-//   if ($anzahl == 0) {
-//     Anfrage::addFehler(-4, true);
-//   }
-// }
+$sql = "SELECT COUNT(*) FROM kern_rollenzuordnung WHERE nutzer != ? AND rolle = 0";
+$anfrage = $DBS->anfrage($sql, "i", $id);
+if ($anfrage->werte($anzahl)) {
+ if ($anzahl == 0) {
+   Anfrage::addFehler(-4, true);
+ }
+}
 
 // Nutzerkonto immer löschen
 $sql = "DELETE FROM kern_nutzerkonten WHERE id = ?";
@@ -40,6 +38,13 @@ if ($art == "person") {
 
   // Dateien dieses Benutzers löschen
   Kern\Dateisystem::ordnerLoeschen("$ROOT/dateien/Kern/personen/$id");
+  (function($PERSONID) use (&$DSH_BENUTZER, &$ROOT){
+    foreach($DSH_ALLEMODULE as $pfad) {
+      if(is_file("$pfad/funktionen/events/personLoeschen.php")) {
+        include "$pfad/funktionen/events/personLoeschen.php";
+      }
+    }
+  })($id);
 }
 
 ?>
