@@ -28,7 +28,7 @@ $spalteRechte   = new UI\Spalte();
 if($DSH_BENUTZER->hatRecht("verwaltung.rechte.rollen.zuordnen")) {
   $spalteRollen   = new UI\Spalte();
   $spalteRollen[] = new UI\Ueberschrift("3", "Rollen");
-  $sql = "SELECT r.id, {r.bezeichnung}, IF(EXISTS(SELECT person FROM kern_rollenzuordnung as rz WHERE rz.nutzer = ? AND rz.rolle = r.id), '1', '0') FROM kern_rollen as r";
+  $sql = "SELECT r.id, {r.bezeichnung}, IF(EXISTS(SELECT person FROM kern_rollenzuordnung as rz WHERE rz.person = ? AND rz.rolle = r.id), '1', '0') FROM kern_rollen as r";
   $anfrage = $DBS->anfrage($sql, "i", $id);
 
   while($anfrage->werte($rolle, $bezeichnung, $hat)) {
@@ -51,7 +51,7 @@ if($DSH_BENUTZER->hatRecht("verwaltung.rechte.vergeben")) {
     $nutzerrechte[] = $recht;
   }
 
-  $anfrage = $DBS->anfrage("SELECT {recht} FROM kern_rollenrechte as rr JOIN kern_rollenzuordnung as rz ON rz.rolle = rr.rolle WHERE rz.nutzer = ?", "i", $id);
+  $anfrage = $DBS->anfrage("SELECT {recht} FROM kern_rollenrechte as rr JOIN kern_rollenzuordnung as rz ON rz.rolle = rr.rolle WHERE rz.person = ?", "i", $id);
   $rollenrechte = [];
   while($anfrage->werte($recht)) {
     $rollenrechte[] = $recht;
