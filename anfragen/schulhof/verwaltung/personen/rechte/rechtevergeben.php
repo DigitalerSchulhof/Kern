@@ -34,8 +34,9 @@ $werte = [];
 foreach($rechte as $r) {
   $werte[] = [$id, $r];
 }
-
-$DBS->anfrage("INSERT INTO kern_nutzerrechte (person, recht) VALUES (?, [?])", "is", $werte);
+if(count($werte) > 0) {
+  $DBS->anfrage("INSERT INTO kern_nutzerrechte (person, recht) VALUES (?, [?])", "is", $werte);
+}
 
 $sessid = session_id();
 
