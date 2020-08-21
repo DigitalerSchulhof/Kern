@@ -32,14 +32,10 @@ kern.schulhof.verwaltung = {
       }
     },
     details: (modulname) => {
-      core.ajax("Kern", 19, null, {modulname:modulname}).then((r) => {
-        ui.fenster.anzeigen(r.Code);
-      });
+      ui.fenster.laden("Kern", 19, null, {modulname:modulname});
     },
     version: (modulname) => {
-      core.ajax("Kern", 20, null, {modulname:modulname}).then((r) => {
-        ui.fenster.anzeigen(r.Code);
-      });
+      ui.fenster.laden("Kern", 20, null, {modulname:modulname});
     },
     alteEinblenden: (id) => {
       var wert = $("#"+id).getWert();
@@ -68,9 +64,7 @@ kern.schulhof.verwaltung = {
       });
     },
     profil: (id) => {
-      core.ajax("Kern", 32, null, {id:id}).then((r) => {
-        ui.fenster.anzeigen(r.Code);
-      });
+      ui.fenster.laden("Kern", 32, null, {id:id});
     },
     loeschen: {
       fragen: (id, nutzerkonto, laden) => {
@@ -111,9 +105,7 @@ kern.schulhof.verwaltung = {
       nutzerkonto: {
         anzeigen: (id, laden) => {
           var laden = laden || '0';
-          core.ajax("Kern", 36, null, {id:id, laden:laden}).then((r) => {
-            ui.fenster.anzeigen(r.Code);
-          });
+          ui.fenster.laden("Kern", 36, null, {id:id, laden:laden});
         },
         erstellen: (id, laden) => {
           var laden = laden || '0';
@@ -144,9 +136,7 @@ kern.schulhof.verwaltung = {
 
     },
     rechteundrollen: (id) => {
-      core.ajax("Kern", 38, null, {id:id}).then((r) => {
-        ui.fenster.anzeigen(r.Code);
-      });
+      ui.fenster.laden("Kern", 38, null, {id:id});
     },
     rechteneuladen: (id) => core.ajax("Kern", 41, "Rechte aktualisieren", {id: id}, 32),
     rolle: (id, rolle) => {
