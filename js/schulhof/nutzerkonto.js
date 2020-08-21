@@ -121,6 +121,16 @@ kern.schulhof.nutzerkonto = {
           feld.setHTML(r.Code);
         }
       });
+    },
+    beenden: {
+      fragen: () => {
+        ui.laden.meldung("Kern", 12, "Alle Sessions beenden");
+      },
+      ausfuehren: () => {
+        core.ajax("Kern", 12, "Alle Sessions beenden", null, 1).then(() => {
+          core.seiteLaden("Schulhof/Anmeldung");
+        });
+      }
     }
   },
   aktionslog: {
