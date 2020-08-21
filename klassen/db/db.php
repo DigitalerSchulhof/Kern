@@ -48,7 +48,6 @@ class DB {
 
   /**
    * Setzt in allen Datenbanken die LOG-Variable
-   * @return [type] [description]
    */
   public static function log() {
     global $DBS, $DSH_DB;

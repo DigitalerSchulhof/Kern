@@ -28,7 +28,7 @@ if ($anfrage->werte($anzahl)) {
 }
 
 // Nutzerkonto immer löschen
-$sql = "DELETE FROM kern_nutzerkonten WHERE id = ?";
+$sql = "DELETE FROM kern_nutzerkonten WHERE person = ?";
 $DBS->anfrage($sql, "i", $id);
 
 // Person nur löschen, wenn auch im Person-Modus

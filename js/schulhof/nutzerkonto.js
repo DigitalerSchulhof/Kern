@@ -107,7 +107,7 @@ kern.schulhof.nutzerkonto = {
         core.ajax("Kern", 14, "Sessions löschen", {nutzerid:nutzerid, sessionid:sessionid}).then(() => {
           ui.laden.meldung("Kern", 15, null, {nutzerid:nutzerid, sessionid:sessionid});
           if (sessionid != 'alle') {
-            kern.schulhof.nutzerkonto.sessions.laden(nutzerid);
+            ui.tabelle.sortieren(kern.schulhof.nutzerkonto.sessions.laden, "dshProfil"+nutzerid+"Sessionprotokoll");
           }
         });
       }
@@ -121,6 +121,16 @@ kern.schulhof.nutzerkonto = {
           feld.setHTML(r.Code);
         }
       });
+    },
+    beenden: {
+      fragen: () => {
+        ui.laden.meldung("Kern", 12, "Alle Sessions beenden");
+      },
+      ausfuehren: () => {
+        core.ajax("Kern", 12, "Alle Sessions beenden", null, 1).then(() => {
+          core.seiteLaden("Schulhof/Anmeldung");
+        });
+      }
     }
   },
   aktionslog: {
@@ -131,14 +141,12 @@ kern.schulhof.nutzerkonto = {
       ausfuehren: (nutzerid, logid) => {
         core.ajax("Kern", 16, "Aktionslog löschen", {nutzerid:nutzerid, logid:logid}).then(() => {
           ui.laden.meldung("Kern", 16, null, {nutzerid:nutzerid, logid:logid});
-          kern.schulhof.nutzerkonto.aktionslog.laden(nutzerid);
+          ui.tabelle.sortieren(kern.schulhof.nutzerkonto.aktionslog.laden, "dshProfil"+nutzerid+"Aktionsprotokoll");
         });
       }
     },
     details: (nutzerid, logid) => {
-      core.ajax("Kern", 17, null, {nutzerid:nutzerid, logid:logid}).then((r) => {
-        ui.fenster.anzeigen(r.Code);
-      });
+      ui.fenster.laden("Kern", 17, null, {nutzerid:nutzerid, logid:logid});
     },
     laden: (feld, id, sortieren) => {
       if (id == "alle") {

@@ -1,5 +1,5 @@
 <?php
-// MELDUNGEN 12 und 13 FREI
+// MELDUNGEN 13 FREI
 
 switch ($meldeid) {
   case 0:
@@ -91,6 +91,10 @@ switch ($meldeid) {
     Anfrage::setRueck("Meldung", new UI\Meldung("Änderungen erfolgreich!", "Die Änderungen der Notifikationseinstellungen wurden vorgenomen.", "Erfolg"));
     break;
   case 12:
+    Anfrage::setRueck("Meldung", new UI\Meldung("Alle Sessions beenden", "Sollen wirklich alle Sessions beendet werden?", "Warnung"));
+    $knoepfe[] = new UI\Knopf("Alle Beenden", "Warnung", "kern.schulhof.nutzerkonto.sessions.beenden.ausfuehren()");
+    $knoepfe[] = UI\Knopf::abbrechen();
+    Anfrage::setRueck("Knöpfe", $knoepfe);
     break;
   case 13:
     break;

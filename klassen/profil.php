@@ -153,12 +153,17 @@ class Profil {
 
     $rueck = [];
     $rueck[] = new UI\Meldung("Speicherdauer und Aufzeichnungserklärung", "<p>Sessions werden nach zwei Tagen automatisch gelöscht.</p><p>Sessions verwalten die Zugriffe auf dieses Nutzerkonto und entstehen mit jeder Anmeldung. Von hieraus können alte oder widerrechtliche Sessions geschlossen werden. Die letzten beiden Sessions werden bei der Anmeldung angezeigt, um mögliche Indentitätsdiebstähle zu identifizieren.</p>", "Information");
-
-
     $rueck[] = $this->getSessionprotokollTabelle($autoladen, $sortSeite, $sortDatenproseite, $sortSpalte, $sortRichtung);
-
+    $knoepfe = [];
     if ($darfloeschen) {
-      $rueck[] = new UI\Absatz(new UI\Knopf("Alle Sessions löschen", "Warnung", "kern.schulhof.nutzerkonto.sessions.loeschen.fragen('$profilid', 'alle')"));
+      $knoepfe[] = new UI\Knopf("Alle Sessions löschen", "Warnung", "kern.schulhof.nutzerkonto.sessions.loeschen.fragen('$profilid', 'alle')");
+    }
+    if ($profilid == $DSH_BENUTZER->getId()) {
+      $knoepfe[] = new UI\Knopf("Alle Sessions beenden", "Warnung", "kern.schulhof.nutzerkonto.sessions.beenden.fragen()");
+    }
+
+    if (count($knoepfe) > 0) {
+      $rueck[] = new UI\Absatz(join(" ", $knoepfe));
     }
     return $rueck;
   }
