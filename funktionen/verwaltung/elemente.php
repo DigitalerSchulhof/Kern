@@ -9,7 +9,6 @@ $technik    = Liste::getKategorie("technik");
 
 $personen[] = new Element("Personen",         "Benutzerdaten",      new Icon("fas fa-users"),           "Schulhof/Verwaltung/Personen");
 $personen[] = new Element("Rollen",           "Rechte",             new Icon("fas fa-tag"),             "Schulhof/Verwaltung/Rollen");
-$personen[] = new Element("Rollen zuordnen",  "Rechte",             new Icon("fas fa-user-tag"),        "Schulhof/Verwaltung/Rollen/Zuordnen");
 
 $technik[] = new Element("Konfiguration", "Konfiguration",  new Icon("fas fa-cogs"),            "Schulhof/Verwaltung/Konfiguration",        true);
 $technik[] = new Element("Module",        "Module",         new Icon(UI\Konstanten::MODUL),     "Schulhof/Verwaltung/Module",               true);

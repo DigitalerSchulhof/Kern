@@ -46,40 +46,35 @@ class Rechtebaum extends \UI\Element {
           } else {
             $anzeige = ucwords($k);
           }
+          $knoten = "*";
         }
 
-        $anzeige = new UI\Knopf("$anzeige");
-        $anzeige ->addKlasse("dshRechtebaumKnoten");
-        $hatKinder && $anzeige->setAttribut("data-knoten", "*");
+        $knopf = new UI\Knopf("$anzeige");
+        $knopf ->addFunktion("onclick", "kern.schulhof.verwaltung.personen.rechtgeben(this)");
 
-        $inh = $anzeige;
+        $anzeige = new UI\InhaltElement($knopf);
+        $anzeige ->setTag("div");
+        $anzeige->setAttribut("data-knoten", $knoten);
+
+        $box = new UI\InhaltElement();
+        $box ->setTag("div");
+        $box ->addKlasse("dshRechtebaumBox");
+        $unterstes && $box->addKlasse("dshRechtebaumUnterstes");
         if($hatKinder) {
-          $box = new UI\InhaltElement();
-          $box ->setTag("div");
-          $box ->setAttribut("a");
-          $box ->addKlasse("dshRechtebaumBox");
-          $box ->setInhalt($rechteAus($w));
-          $inh .= $box;
+          $box->setAttribut("data-knoten", $k);
         }
-        $k = new UI\InhaltElement($inh);
-        $k ->setTag("div");
-        $k ->setAttribut("b");
-        $hatKinder && $k->addKlasse("dshRechtebaumHatKinder");
-        $unterstes && $k->addKlasse("dshRechtebaumUnterstes");
-        $k ->setAttribut("data-knoten", $knoten);
-        $code .= $k;
+        $hatKinder && $anzeige->addKlasse("dshRechtebaumHatKinder");
+        if($hatKinder) {
+          $box ->setInhalt($anzeige.$rechteAus($w));
+        } else {
+          $box ->setInhalt($anzeige);
+        }
+
+        $code .= $box;
       }
       return $code;
     };
-    $r = array();
-    foreach($allerechte as $w) {
-      foreach($w as $k => $p) {
-        $r[$k] = $p;
-      }
-    }
-    $code .= "<div class=\"dshRechtebaumBox dshRechtebaumUnterstes\">";
-      $code .= $rechteAus($r, "");
-    $code .= "</div>";
+    $code .= $rechteAus($allerechte, "");
 
     $code .= $this->codeZu();
     return $code;

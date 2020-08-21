@@ -10,11 +10,7 @@ use Kern\Verwaltung\Kategorie;
 
 Liste::addKategorie(new Kategorie("personen", "Personen"), new Kategorie("technik", "Technik"));
 
-foreach($DSH_ALLEMODULE as $modul) {
-  if(is_file("$modul/funktionen/verwaltung/elemente.php")) {
-    include  "$modul/funktionen/verwaltung/elemente.php";
-  }
-}
+new Kern\Wurmloch("funktionen/verwaltung/elemente.php");
 
 $zeile = new UI\Zeile();
 

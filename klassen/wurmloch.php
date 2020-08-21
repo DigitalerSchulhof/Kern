@@ -4,7 +4,7 @@ namespace Kern;
 class Wurmloch {
   /**
    * Öffnet ein intermodulares Portal und bindet eine Datei ein, sofern es diese findet
-   * @param  string $datei     Die einzubindende Datei (<code>$DSH_MODUL/$datei</code>)
+   * @param string $datei  Die einzubindende Datei (<code>$DSH_MODUL/$datei</code>)
    * @param  array  $parameter Zusätzliche Parameter für die Datei
    *  [Name => Wert, Name2 => Wert]
    *  Die Variablen würden mit <code>$Name</code> und <code>$Name2</code> benutzt werden
