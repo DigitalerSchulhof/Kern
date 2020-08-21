@@ -333,9 +333,9 @@ class DB {
    */
   public static function datenbankenLaden() {
     global $DSH_DB, $DSH_DATENBANKEN, $EINSTELLUNGEN;
-    $DSH_DB = array();
-
-    print_r($DSH_DATENBANKEN);
+    if(!isset($DSH_DB)) {
+      $DSH_DB = array();
+    }
 
     foreach($DSH_DATENBANKEN as $d) {
       // Schon Geladene nicht nochmal laden
