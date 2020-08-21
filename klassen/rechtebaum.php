@@ -31,7 +31,7 @@ class Rechtebaum extends \UI\Element {
     $code  = $this->codeAuf();
     $allerechte = \unserialize(file_get_contents("$ROOT/core/rechte.core"));
 
-    $rechteAus = function($rechte) use (&$rechteAus) {
+    $rechteAus = function($rechte, $pfad = "") use (&$rechteAus) {
       $i = 0;
       $code = "";
       foreach($rechte as $k => $w) {
@@ -50,22 +50,18 @@ class Rechtebaum extends \UI\Element {
         }
 
         $knopf = new UI\Knopf("$anzeige");
-        $knopf ->addFunktion("onclick", "kern.schulhof.verwaltung.personen.rechtgeben(this)");
+        $knopf ->addFunktion("onclick", "kern.schulhof.verwaltung.personen.rechtgeben('$pfad.$knoten')");
 
         $anzeige = new UI\InhaltElement($knopf);
         $anzeige ->setTag("div");
-        $anzeige->setAttribut("data-knoten", $knoten);
 
         $box = new UI\InhaltElement();
         $box ->setTag("div");
         $box ->addKlasse("dshRechtebaumBox");
         $unterstes && $box->addKlasse("dshRechtebaumUnterstes");
-        if($hatKinder) {
-          $box->setAttribut("data-knoten", $k);
-        }
         $hatKinder && $anzeige->addKlasse("dshRechtebaumHatKinder");
         if($hatKinder) {
-          $box ->setInhalt($anzeige.$rechteAus($w));
+          $box ->setInhalt($anzeige.$rechteAus($w, "$pfad.$knoten"));
         } else {
           $box ->setInhalt($anzeige);
         }
@@ -74,7 +70,7 @@ class Rechtebaum extends \UI\Element {
       }
       return $code;
     };
-    $code .= $rechteAus($allerechte, "");
+    $code .= $rechteAus($allerechte);
 
     $code .= $this->codeZu();
     return $code;

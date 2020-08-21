@@ -1,5 +1,5 @@
 <?php
-$SEITE = new Kern\Seite("Personen", "kern.personen.sehen");
+$SEITE = new Kern\Seite("Personen", "verwaltung.personen.sehen");
 
 $spalte = new UI\Spalte("A1", new UI\SeitenUeberschrift("Personen"));
 

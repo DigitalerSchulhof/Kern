@@ -353,6 +353,10 @@ class DB {
         $DSH_DB[$d] = $DBP;
     	}
     }
+    global $DSH_DB;
+    foreach($DSH_DB AS $d) {
+      $d->log();
+    }
   }
 }
 ?>

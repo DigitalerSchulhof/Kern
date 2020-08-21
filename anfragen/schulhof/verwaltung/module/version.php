@@ -9,7 +9,7 @@ if (!isset($DSH_ALLEMODULE[$modulname])) {
   Anfrage::addFehler(-3, true);
 }
 
-if (!$DSH_BENUTZER->hatRecht("verwaltung.module.sehen")) {
+if (!$DSH_BENUTZER->hatRecht("module.sehen")) {
   Anfrage::addFehler(-4, true);
 }
 
@@ -39,7 +39,7 @@ if (is_file("{$DSH_ALLEMODULE[$modulname]}/version/versionen.yml")) {
 
   if (count($versionsinfo) > 0) {
     $toggle = new UI\Toggle("{$fensterid}Alt", "Ältere Versionen anzeigen");
-    $toggle->addFunktion("onclick", "kern.schulhof.verwaltung.module.alteEinblenden('{$fensterid}Alt')");
+    $toggle->addFunktion("onclick", "kern.schulhof.module.alteEinblenden('{$fensterid}Alt')");
     $alteversionen = (string) new UI\Absatz($toggle);
     $alteversionen .= "<div id=\"{$fensterid}AltFeld\" class=\"dshAlteVersionen\">";
     foreach ($versionsinfo["version"] as $v) {

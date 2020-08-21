@@ -1,5 +1,5 @@
 <?php
-$SEITE = new Kern\Seite("Kern", "kern.module.einstellungen");
+$SEITE = new Kern\Seite("Kern", "module.einstellungen");
 
 $spalte = new UI\Spalte("A1", new UI\SeitenUeberschrift("Kern"));
 

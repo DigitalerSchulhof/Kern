@@ -1,12 +1,12 @@
 <?php
-$SEITE = new Kern\Seite("Module", "kern.module.sehen");
+$SEITE = new Kern\Seite("Module", "module.sehen");
 
 include_once("$ROOT/yaml.php");
 use Async\YAML;
 
-$darflo = $DSH_BENUTZER->hatRecht("verwaltung.module.löschen");
-$darfei = $DSH_BENUTZER->hatRecht("verwaltung.module.einstellungen");
-$darfve = $DSH_BENUTZER->hatRecht("verwaltung.module.versionshistorie");
+$darflo = $DSH_BENUTZER->hatRecht("module.löschen");
+$darfei = $DSH_BENUTZER->hatRecht("module.einstellungen");
+$darfve = $DSH_BENUTZER->hatRecht("module.versionshistorie");
 
 $spalte = new UI\Spalte("A1", new UI\SeitenUeberschrift("Module"));
 $tabelle = new UI\Tabelle("dshVerwaltungModuleInstalliert", new UI\Icon(UI\Konstanten::MODUL), "Modul", "Version", "Status");
@@ -26,15 +26,15 @@ foreach($DSH_ALLEMODULE as $modul => $modulpfad) {
   $zeile["Modul"]   = $info["name"];
   $zeile["Version"] = $info["version"];
   $zeile["Status"]  = "<span id=\"dshVerwaltungModuleStatus$modul\">".(new UI\IconKnopf(new UI\Icon(UI\Konstanten::LADEN), "Nach neuer Version suchen..."))."</span>";
-  $zeile["Status"] .= "<script>kern.schulhof.verwaltung.module.status('$modul', '{$info["version"]}')</script>";
+  $zeile["Status"] .= "<script>kern.schulhof.module.status('$modul', '{$info["version"]}')</script>";
 
   $knopf = new UI\MiniIconKnopf(new UI\Icon(UI\Konstanten::DETAILS), "Details");
-  $knopf ->addFunktion("onclick", "kern.schulhof.verwaltung.module.details('$modul')");
+  $knopf ->addFunktion("onclick", "kern.schulhof.module.details('$modul')");
   $zeile ->addAktion($knopf);
 
   if($darfve) {
     $knopf = new UI\MiniIconKnopf(new UI\Icon("fas fa-code-branch"), "Versionshistorie");
-    $knopf ->addFunktion("onclick", "kern.schulhof.verwaltung.module.version('$modul')");
+    $knopf ->addFunktion("onclick", "kern.schulhof.module.version('$modul')");
     $zeile ->addAktion($knopf);
   }
 
@@ -50,7 +50,7 @@ foreach($DSH_ALLEMODULE as $modul => $modulpfad) {
     $knopf = UI\MiniIconKnopf::loeschen();
     if(!$istSystem) {
       // @TODO: Module deinstallieren
-      $knopf ->addFunktion("onclick", "kern.schulhof.verwaltung.module.loeschen.fragen('$modul')");
+      $knopf ->addFunktion("onclick", "kern.schulhof.module.loeschen.fragen('$modul')");
     }
     $zeile ->addAktion($knopf);
   }
@@ -60,7 +60,7 @@ foreach($DSH_ALLEMODULE as $modul => $modulpfad) {
 
 $spalte[] = $tabelle;
 
-if ($DSH_BENUTZER->hatRecht("verwaltung.module.installieren")) {
+if ($DSH_BENUTZER->hatRecht("module.installieren")) {
   // @TODO: Module installieren
 
   $spalte[] = new UI\Ueberschrift(2, "Verfügbar");

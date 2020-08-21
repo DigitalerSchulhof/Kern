@@ -1,5 +1,5 @@
 <?php
-$SEITE = new Kern\Seite("Konfiguration", "kern.konfiguration");
+$SEITE = new Kern\Seite("Konfiguration", "technik.konfiguration");
 
 $spalte = new UI\Spalte("A1", new UI\SeitenUeberschrift("Konfiguration"));
 

@@ -18,9 +18,9 @@ kern.schulhof.verwaltung = {
       var feld = $("#dshVerwaltungModuleStatus"+modulid);
       // TODO: Aktualität des Moduls prüfen und ggf. eine Aktualiseren-Knopf erzeugen
       var rueck = version;
-      if (kern.schulhof.verwaltung.module.versionNeuer(version, rueck)) {
+      if (kern.schulhof.module.versionNeuer(version, rueck)) {
         var inhalt = "Aktualisieren zu "+rueck;
-        var klick = "kern.schulhof.verwaltung.module.update('"+modulid+"')";
+        var klick = "kern.schulhof.module.update('"+modulid+"')";
         ui.laden.komponente({komponente:"IconKnopf", art:"Warnung", inhalt:inhalt, icon:"fas fa-sync-alt", klickaktion:klick}).then((r) => {
           feld.setHTML(r.Code);
         });

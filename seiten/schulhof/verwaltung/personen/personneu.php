@@ -1,5 +1,5 @@
 <?php
-$SEITE = new Kern\Seite("Personen", "kern.personen.anlegen.person");
+$SEITE = new Kern\Seite("Personen", "verwaltung.personen.anlegen.person");
 
 $darfnutzerkonto = $DSH_BENUTZER->hatRecht("verwaltung.personen.anlegen.nutzerkonto");
 

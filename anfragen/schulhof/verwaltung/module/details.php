@@ -9,7 +9,7 @@ if (!isset($DSH_ALLEMODULE[$modulname])) {
   Anfrage::addFehler(-3, true);
 }
 
-if (!$DSH_BENUTZER->hatRecht("verwaltung.module.sehen")) {
+if (!$DSH_BENUTZER->hatRecht("module.sehen")) {
   Anfrage::addFehler(-4, true);
 }
 

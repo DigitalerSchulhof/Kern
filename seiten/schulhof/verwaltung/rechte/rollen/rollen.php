@@ -1,5 +1,5 @@
 <?php
-$SEITE = new Kern\Seite("Rollen", "kern.rechte.rollen.sehen");
+$SEITE = new Kern\Seite("Rollen", "verwaltung.rechte.rollen.sehen");
 
 $spalte = new UI\Spalte("A1", new UI\SeitenUeberschrift("Rollen"));
 
@@ -34,7 +34,7 @@ if ($DSH_BENUTZER->hatRecht("verwaltung.rechte.rollen.anlegen")) {
 
 if ($DSH_BENUTZER->hatRecht("verwaltung.rechte.rollen.zuordnen")) {
   $knopf      = new UI\IconKnopf(new UI\Icon ("fas fa-user-tag"), "Rollen zuordnen");
-  $knopf      ->addFunktion("href", "Schulhof/Verwaltung/Rollen/Zuordnen");
+  $knopf      ->addFunktion("href", "Schulhof/Verwaltung/Personen");
   $knoepfe[]   = $knopf;
 }
 

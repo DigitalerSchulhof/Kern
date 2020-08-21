@@ -59,13 +59,6 @@ verwaltung:
       zuruecksetzen: Kurszuordnung zurücksetzen
     aufenthalt: Aufenthaltsort anzeigen
     zweifaktor: Zwei-Faktor-Authentifizierungsschlüssel erzeugen
-  module:
-    sehen: Module sehen
-    installieren: Module installieren
-    aktualisieren: Module aktualisieren
-    entfernen: Module entfernen
-    einstellungen: Einstellungen an Modulen vornehmen
-  konfiguration: Konfiguration ändern
   rechte:
     vergeben: Rechte vergeben
     rollen:
@@ -74,3 +67,11 @@ verwaltung:
       anlegen: Rollen anlegen
       bearbeiten: Rollen bearbeiten
       löschen: Rollen löschen
+module:
+  sehen: Module sehen
+  installieren: Module installieren
+  aktualisieren: Module aktualisieren
+  entfernen: Module entfernen
+  einstellungen: Einstellungen an Modulen vornehmen
+technik:
+  konfiguration: Konfiguration ändern
