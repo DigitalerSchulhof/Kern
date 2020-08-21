@@ -485,7 +485,7 @@ class Profil {
 
       if ($DSH_BENUTZER->hatRecht("$recht.aktionsprotokoll.sehen")) {
         $reiterspalte     = new UI\Spalte("A1");
-        $aktionsprotokoll = $this->getAktionsprotokoll(true, 2, 25, 2, "DESC");
+        $aktionsprotokoll = $this->getAktionsprotokoll(true, 1, 25, 2, "DESC");
         foreach ($aktionsprotokoll as $a) {
           $reiterspalte[]   = $a;
         }
