@@ -22,7 +22,9 @@ if($person === null) {
 
 $fenstertitel = (new UI\Icon("fas fa-user-lock"))." Rechte und Rollen von $person";
 
-$zeile          = new UI\Zeile();
+$zeileAktionen  = new UI\Zeile();
+$zeileKnoepfe   = new UI\Zeile();
+
 $spalteRechte   = new UI\Spalte();
 
 if($DSH_BENUTZER->hatRecht("verwaltung.rechte.rollen.zuordnen")) {
@@ -38,7 +40,7 @@ if($DSH_BENUTZER->hatRecht("verwaltung.rechte.rollen.zuordnen")) {
     $spalteRollen[] = $tog." ";
   }
 
-  $zeile[]        = $spalteRollen;
+  $zeileAktionen[]        = $spalteRollen;
 }
 
 if($DSH_BENUTZER->hatRecht("verwaltung.rechte.vergeben")) {
@@ -56,13 +58,15 @@ if($DSH_BENUTZER->hatRecht("verwaltung.rechte.vergeben")) {
   while($anfrage->werte($recht)) {
     $rollenrechte[] = $recht;
   }
-
   $spalteRechte[] = new Kern\Rechtebaum("dshVerwaltungRechte$id", Kern\Rechtehelfer::array2Baum($nutzerrechte), Kern\Rechtehelfer::array2Baum($rollenrechte));
 
-  $zeile[]        = $spalteRechte;
+  $zeileAktionen[]        = $spalteRechte;
 }
-$zeile[]        = new UI\Spalte("A1", new UI\Knopf("Rechte aktualisieren", null, "kern.schulhof.verwaltung.personen.rechteneuladen('$id')"));
-$fensterinhalt  = $zeile;
+$zeileKnoepfe[]          = new UI\Spalte(null, new UI\Knopf("Rechte aktualisieren", null, "kern.schulhof.verwaltung.personen.rechteneuladen('$id')"));
+if($DSH_BENUTZER->hatRecht("verwaltung.rechte.vergeben")) {
+  $zeileKnoepfe[]        = new UI\Spalte(null, new UI\Knopf("Speichern", "Erfolg", "kern.schulhof.verwaltung.personen.rechtespeichern('$id')"));
+}
+$fensterinhalt  = $zeileAktionen.$zeileKnoepfe;
 
 $code = new UI\Fenster($fensterid, $fenstertitel, $fensterinhalt, true, true);
 $code->addFensteraktion(UI\Knopf::schliessen($fensterid));

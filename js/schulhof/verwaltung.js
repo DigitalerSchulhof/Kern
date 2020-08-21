@@ -177,6 +177,30 @@ kern.schulhof.verwaltung = {
           recht.finde(".dshUiEingabefeld").setWert("0");
         }
       }
+    },
+    rechtespeichern: (id) => {
+      let rechte = [];
+      let rechtebaum = $("#dshVerwaltungRechte"+id);
+      let rechtecheck = (box, pfad) => {
+        box.each(b => {
+          b = $(b);
+          let recht = b.kinderSelector(".dshRechtebaumRecht");
+          kn = b.getAttr("data-knoten");
+          if(recht.finde(".dshUiToggled").existiert()) {
+            if(recht.ist(".dshRechtebaumHatKinder")) {
+              rechte.push((pfad+"."+kn+".*").substr(2));
+            } else {
+              rechte.push((pfad+"."+kn).substr(2))
+            }
+          } else {
+            if(recht.ist(".dshRechtebaumHatKinder")) {
+              rechtecheck(b.kinderSelector(".dshRechtebaumBox"), pfad+"."+kn);
+            }
+          }
+        });
+      };
+      rechtecheck(rechtebaum.kinderSelector(".dshRechtebaumBox"), "");
+      core.ajax("Kern", 42, "Rechte vergeben", {id: id, rechte: rechte}, 13);
     }
   }
 };
