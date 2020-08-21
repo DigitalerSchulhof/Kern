@@ -335,6 +335,8 @@ class DB {
     global $DSH_DB, $DSH_DATENBANKEN, $EINSTELLUNGEN;
     $DSH_DB = array();
 
+    print_r($DSH_DATENBANKEN);
+
     foreach($DSH_DATENBANKEN as $d) {
       // Schon Geladene nicht nochmal laden
       if(isset($DSH_DB[$d])) {
@@ -345,16 +347,16 @@ class DB {
         $e = $EINSTELLUNGEN["Datenbanken"]["Schulhof"];
     		$DBS = new DB($e["Host"], $e["Port"], $e["Benutzer"], $e["Passwort"], $e["DB"], $e["Schluessel"]);
         $DSH_DB[$d] = $DBS;
-        $DBS->log();
     	}
     	if($d == "personen") {
         global $DBP;
         $e = $EINSTELLUNGEN["Datenbanken"]["Personen"];
     		$DBP = new DB($e["Host"], $e["Port"], $e["Benutzer"], $e["Passwort"], $e["DB"], $e["Schluessel"]);
         $DSH_DB[$d] = $DBP;
-        $DBP->log();
     	}
     }
+
+    DB::log();
   }
 }
 ?>
