@@ -345,17 +345,15 @@ class DB {
         $e = $EINSTELLUNGEN["Datenbanken"]["Schulhof"];
     		$DBS = new DB($e["Host"], $e["Port"], $e["Benutzer"], $e["Passwort"], $e["DB"], $e["Schluessel"]);
         $DSH_DB[$d] = $DBS;
+        $DBS->log();
     	}
     	if($d == "personen") {
         global $DBP;
         $e = $EINSTELLUNGEN["Datenbanken"]["Personen"];
     		$DBP = new DB($e["Host"], $e["Port"], $e["Benutzer"], $e["Passwort"], $e["DB"], $e["Schluessel"]);
         $DSH_DB[$d] = $DBP;
+        $DBP->log();
     	}
-    }
-    global $DSH_DB;
-    foreach($DSH_DB AS $d) {
-      $d->log();
     }
   }
 }
