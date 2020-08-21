@@ -31,7 +31,7 @@ class Tabellenanfrage {
    * @param integer $sortierennach   Spaltennummer beginnend bei 0
    * @param string  $sortierrichtung "ASC" / "DESC"
    */
-  public function __construct($anfrage, $spalten, $seite = 1, $datenproseite = 50, $sortierennach = 1, $sortierrichtung = "ASC") {
+  public function __construct($anfrage, $spalten, $seite = 1, $datenproseite = 25, $sortierennach = 1, $sortierrichtung = "ASC") {
     $this->anfrage         = $anfrage;
     $this->spalten         = $spalten;
     $this->seite           = $seite;

@@ -11,6 +11,8 @@ class DB {
   private $schluessel;
   /** @var bool wenn true, wird in Aktionslog gespeichert, wenn die DB verändert wird, false sonst */
   private $log;
+  /** @var string Name der Datenbank*/
+  private $dbname;
 
 	/**
 	* @param string $host :)
@@ -25,6 +27,7 @@ class DB {
     $this->db = new \mysqli($host, $benutzer, $passwort, $datenbank, $port);
   	$this->db->set_charset("utf8");
     $this->schluessel = $schluessel;
+    $this->dbname = $datenbank;
     $this->log = false;
   }
 
@@ -44,6 +47,14 @@ class DB {
   public function setLog($log) : self {
     $this->log = $log;
     return $this;
+  }
+
+  /**
+   * Gibt den Namen der Datenbank zurück
+   * @return string Name der Datenbank
+   */
+  public function getDatenbankname() : string {
+    return $this->dbname;
   }
 
   /**
