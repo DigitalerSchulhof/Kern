@@ -14,5 +14,9 @@ include_once("$KLASSEN/person.php");
 include_once("$KLASSEN/profil.php");
 include_once("$KLASSEN/filter.php");
 include_once("$KLASSEN/wurmloch.php");
+global $DSH_DB;
+foreach($DSH_DB AS $d) {
+  $d->log();
+}
 
 ?>

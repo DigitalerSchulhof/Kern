@@ -247,10 +247,10 @@ class DB {
     $neueid = $DBS->neuerDatensatz("kern_nutzeraktionslog", true, true);
     if ($DSH_BENUTZER !== null) {
       $nutzerid = $DSH_BENUTZER->getId();
-      $sql = $this->db->prepare("UPDATE kern_nutzeraktionslog SET nutzer = ?, art = AES_ENCRYPT(?, '{$this->schluessel}'), tabellepfad = AES_ENCRYPT(?, '{$this->schluessel}'),  datensatzdatei = AES_ENCRYPT(?, '{$this->schluessel}'),  aktion = AES_ENCRYPT(?, '{$this->schluessel}'),  zeitpunkt = ? WHERE id = ?");
+      $sql = $this->db->prepare("UPDATE kern_nutzeraktionslog SET person = ?, art = AES_ENCRYPT(?, '{$this->schluessel}'), tabellepfad = AES_ENCRYPT(?, '{$this->schluessel}'),  datensatzdatei = AES_ENCRYPT(?, '{$this->schluessel}'), aktion = AES_ENCRYPT(?, '{$this->schluessel}'),  zeitpunkt = ? WHERE id = ?");
       $sql->bind_param("issssii", $nutzerid, $art, $tabellepfad, $datensatzdatei, $aktion, $zeitpunkt, $neueid);
     } else {
-      $sql = $this->db->prepare("UPDATE kern_nutzeraktionslog SET art = AES_ENCRYPT(?, '{$this->schluessel}'), tabellepfad = AES_ENCRYPT(?, '{$this->schluessel}'),  datensatzdatei = AES_ENCRYPT(?, '{$this->schluessel}'),  aktion = AES_ENCRYPT(?, '{$this->schluessel}'),  zeitpunkt = ? WHERE id = ?");
+      $sql = $this->db->prepare("UPDATE kern_nutzeraktionslog SET art = AES_ENCRYPT(?, '{$this->schluessel}'), tabellepfad = AES_ENCRYPT(?, '{$this->schluessel}'),  datensatzdatei = AES_ENCRYPT(?, '{$this->schluessel}'), aktion = AES_ENCRYPT(?, '{$this->schluessel}'),  zeitpunkt = ? WHERE id = ?");
       $sql->bind_param("ssssii", $art, $tabellepfad, $datensatzdatei, $aktion, $zeitpunkt, $neueid);
     }
     $sql->execute();
@@ -268,7 +268,7 @@ class DB {
     $fehler = false;
 
     if($anonym) {
-      $sql = $this->db->prepare("SELECT MAX(id) FROM kern_nutzerkonten");
+      $sql = $this->db->prepare("SELECT MAX(person) FROM kern_nutzerkonten");
       if ($sql->execute()) {
         $sql->bind_result($benutzer);
         $sql->fetch();

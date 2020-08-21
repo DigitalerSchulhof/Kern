@@ -13,12 +13,15 @@ class Wurmloch {
    * @return
    */
   public function __construct($datei, $parameter = array(), $callback = null, $scripts = false) {
-    global $DSH_ALLEMODULE, $DSH_BENUTZER, $ROOT, $DBS;
+    global $DSH_ALLEMODULE, $DSH_BENUTZER, $ROOT, $DBS, $DSH_DB;
     $dateien = [];
     foreach($DSH_ALLEMODULE as $modul => $pfad) {
       if(is_file("$pfad/$datei")) {
         \Core\Einbinden::modulLaden($modul, true, false, $scripts);
         DB::datenbankenLaden();
+        foreach($DSH_DB AS $d) {
+          $d->log();
+        }
         $dateien[$modul] = "$pfad/$datei";
       }
     }
