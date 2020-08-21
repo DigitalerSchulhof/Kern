@@ -3,10 +3,19 @@ namespace Kern;
 
 class Rechtehelfer {
   /** @var bool Sollen Rechte geprüft und bei ungültigen Rechten Fehler ausgegeben werden? */
-  public const CHECK = false;
+  public const CHECK = true;
 
   // Instanziierung unterbinden
   private function __construct() { }
+
+  /**
+   * Gibt zurück, ob das übergebene Recht ein gültiges Recht ist, welches vergeben werden kann
+   * @param  string $recht :)
+   * @return bool
+   */
+  public static function istRecht($recht) : bool {
+    return is_string($recht) && preg_match("/^(?:[a-zäöüß]+\\.)*(?:[a-zäöüß]+|\\*)$/i", $recht) === 1;
+  }
 
   /**
    * Prüft, ob das Recht in der übergebenen Rechteliste vorhanden ist.
@@ -16,9 +25,9 @@ class Rechtehelfer {
    */
   public static function hatRecht($rechte, $recht) : bool {
     if(self::CHECK) {
-      if(preg_match("/^(?:(?:[a-zäöüß]+|\\[[\\|&](?:[a-zäöüß]+,)+[a-zäöüß]+\\])\\.)*(?:[a-zäöüß]+|\\[[\\|&](?:[a-zäöüß]+,)+[a-zäöüß]+\\])$/i", $recht) !== 1) {
-        trigger_error("Das zu testende Recht »{$recht}« ist ungültig!", E_USER_WARNING);
-      }
+      // if(preg_match("/^(?:(?:[a-zäöüß]+|\\[[\\|&](?:[a-zäöüß]+,)+[a-zäöüß]+\\])\\.)*(?:[a-zäöüß]+|\\[[\\|&](?:[a-zäöüß]+,)+[a-zäöüß]+\\])$/i", $recht) !== 1) {
+      //   trigger_error("Das zu testende Recht »{$recht}« ist ungültig!", E_USER_WARNING);
+      // }
     }
 
     /**
@@ -175,7 +184,7 @@ class Rechtehelfer {
     $baum = array();
     if(self::CHECK) {
       foreach($array as $recht) {
-        if(preg_match("/^(?:[a-zäöüß]+\\.)*(?:[a-zäöüß]+|\\*)$/i", $recht) !== 1) {
+        if(!self::istRecht($recht)) {
           trigger_error("Das übergebene Recht »{$recht}« ist ungültig", E_USER_WARNING);
         }
       }

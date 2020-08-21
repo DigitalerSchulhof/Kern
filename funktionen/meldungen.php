@@ -1,6 +1,4 @@
 <?php
-// MELDUNGEN 13 FREI
-
 switch ($meldeid) {
   case 0:
     Anfrage::setRueck("Meldung", new UI\Meldung("Wirklich abmelden", "Bitte die Abmeldung bestätigen, um ein Versehen auszuschließen.", "Warnung"));
@@ -97,6 +95,7 @@ switch ($meldeid) {
     Anfrage::setRueck("Knöpfe", $knoepfe);
     break;
   case 13:
+    Anfrage::setRueck("Meldung", new UI\Meldung("Rechte vergeben", "Die Rechte wurden der Person vergeben.", "Erfolg"));
     break;
   case 14:
     Anfrage::setRueck("Meldung", new UI\Meldung("Änderungen erfolgreich!", "Der Identitätsdiebstahl wurde gemeldet. Das Passwort wurde geändert. Aus Sicherheitsgründen wird eine Benachrichtigung per eMail verschickt.", "Erfolg"));

@@ -32,19 +32,35 @@ class Rechtebaum extends \UI\Element {
     $allerechte = \unserialize(file_get_contents("$ROOT/core/rechte.core"));
 
     $istVergeben = function($rechte, $recht) {
-      if($recht === "*" && $rechte === true) {
-        return true;
+      if($recht === "*") {
+        return $rechte === true;
       }
       if($rechte === false) {
         return false;
       }
-
+      foreach(explode(".", $recht) as $i => $ebene) {
+        if(in_array($ebene, array_keys($rechte))) {
+          if($rechte[$ebene] === true) {
+            return true;
+          }
+        } else {
+          // Recht definitiv nicht gesetzt
+          return false;
+        }
+        if($rechte[$ebene] === false) {
+          return false;
+        }
+        $rechte = $rechte[$ebene];
+      }
+      return true;
     };
     $knopfid = 0;
     $rechteAus = function($rechte, $pfad = "", $vergeben = false) use (&$rechteAus, $istVergeben, &$knopfid) {
       $i = 0;
       $code = "";
+      $va = $vergeben;
       foreach($rechte as $k => $w) {
+        $vergeben = $va;
         $hatKinder  = is_array($w);
         $unterstes  = ++$i === count($rechte);
         $knoten     = $k;
@@ -86,10 +102,11 @@ class Rechtebaum extends \UI\Element {
         $anzeige = new UI\InhaltElement($knopf);
         $anzeige ->setTag("div");
         $anzeige ->addKlasse("dshRechtebaumRecht");
-        
+
         $box = new UI\InhaltElement();
         $box ->setTag("div");
         $box ->addKlasse("dshRechtebaumBox");
+        $box ->setAttribut("data-knoten", $k);
         $unterstes && $box->addKlasse("dshRechtebaumUnterstes");
         $hatKinder && $anzeige->addKlasse("dshRechtebaumHatKinder");
         if($hatKinder) {
