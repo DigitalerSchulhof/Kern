@@ -1,30 +1,46 @@
+div:not(.dshRechtebaumBox)>.dshRechtebaumBox {
+  margin-left: 0;
+}
+.dshRechtebaumBox {
+  margin-left: 30px;
+}
+
 .dshRechtebaumBox:not(.dshRechtebaumUnterstes) {
+  background-size: 30px;
   background-image: url(../res/rechtebaum/leer.png);
   background-repeat: repeat-y;
+  image-rendering: pixelated;
 }
 
-.dshRechtebaumBox>div[data-knoten] {
-  padding-left: 24px;
+.dshRechtebaumBox .dshUiKnopf {
+  margin: 2px;
+}
+.dshRechtebaumBox>div:not(.dshRechtebaumBox) {
+  padding-left: 30px;
+}
+
+.dshRechtebaumBox>div {
   background-image: url(../res/rechtebaum/wert.png);
   background-repeat: no-repeat;
+  image-rendering: pixelated;
 }
 
-.dshRechtebaumBox>div[data-knoten].dshRechtebaumHatKinder {
+.dshRechtebaumBox>div.dshRechtebaumHatKinder {
   background-image: url(../res/rechtebaum/wert_k_c.png);
 }
 
-.dshRechtebaumBox>div[data-knoten].dshRechtebaumHatKinder.dshRechtebaumEingefahren {
+.dshRechtebaumBox>div.dshRechtebaumHatKinder.dshRechtebaumEingefahren {
   background-image: url(../res/rechtebaum/wert_k.png);
 }
 
-.dshRechtebaumBox>div[data-knoten].dshRechtebaumUnterstes {
+.dshRechtebaumBox>div.dshRechtebaumUnterstes {
   background-image: url(../res/rechtebaum/wert_u.png);
 }
 
-.dshRechtebaumBox>div[data-knoten].dshRechtebaumHatKinder.dshRechtebaumUnterstes {
+.dshRechtebaumBox>div.dshRechtebaumHatKinder.dshRechtebaumUnterstes {
   background-image: url(../res/rechtebaum/wert_u_k_c.png);
 }
 
-.dshRechtebaumBox>div[data-knoten].dshRechtebaumHatKinder.dshRechtebaumUnterstes.dshRechtebaumEingefahren {
+.dshRechtebaumBox>div.dshRechtebaumHatKinder.dshRechtebaumUnterstes.dshRechtebaumEingefahren {
   background-image: url(../res/rechtebaum/wert_u_k.png);
 }

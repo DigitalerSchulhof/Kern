@@ -26,7 +26,6 @@ kern.schulhof.verwaltung = {
         });
       } else {
         ui.laden.komponente({komponente:"IconKnopf", art:"Erfolg", inhalt:"Aktuell", icon:"fas fa-check"}).then((r) => {
-          console.log(r);
           feld.setHTML(r.Code);
         });
       }
@@ -149,6 +148,20 @@ kern.schulhof.verwaltung = {
       });
     },
     rechteneuladen: (id) => core.ajax("Kern", 41, "Rechte aktualisieren", {id: id}, 32),
+    rechtgeben: (el) => {
+      let recht = "";
+      if(typeof el === "string") {
+        recht = el;
+      } else {
+        el = $(el);
+        let p = el;
+        while((p = p.parentSelector("[data-knoten]")).existiert()) {
+          recht = p.getAttr("data-knoten") + "." + recht;
+        }
+        recht = recht.substr(0, recht.length-1);
+      }
+      alert(recht);
+    },
     rolle: (id, rolle) => {
       let wert = $("#dshVerwaltungRechteUndRollen"+id+"Rolle"+rolle).getWert();
       let aktion = "nehmen";
