@@ -134,36 +134,49 @@ kern.schulhof.verwaltung = {
       }
 
     },
-    rechteundrollen: (id) => {
-      ui.fenster.laden("Kern", 38, null, {id:id});
+    rechteundrollen: (id, ueberschreiben) => {
+      return ui.fenster.laden("Kern", 38, null, {id:id}, null, null, ueberschreiben);
     },
     rechteneuladen: (id) => core.ajax("Kern", 41, "Rechte aktualisieren", {id: id}, 32),
-    rechtgeben: (el) => {
-      let recht = "";
-      if(typeof el === "string") {
-        recht = el;
-      } else {
-        el = $(el);
-        let p = el;
-        while((p = p.parentSelector("[data-knoten]")).existiert()) {
-          recht = p.getAttr("data-knoten") + "." + recht;
-        }
-        recht = recht.substr(0, recht.length-1);
-      }
-      alert(recht);
-    },
     rolle: (id, rolle) => {
       let wert = $("#dshVerwaltungRechteUndRollen"+id+"Rolle"+rolle).getWert();
       let aktion = "nehmen";
       if(wert == "1") {
         aktion = "vergeben";
       }
-      core.ajax("Kern", 39, "Rolle "+aktion, {id: id, rolle: rolle, wert: wert}).then(() => ui.laden.aus(), r => {
+      core.ajax("Kern", 39, "Rolle "+aktion, {id: id, rolle: rolle, wert: wert}).then(() => kern.schulhof.verwaltung.personen.rechteundrollen(id, true).then(() => ui.laden.aus()), r => {
         if(!r.Erfolg) {
           $("#dshVerwaltungRechteUndRollen"+id+"Rolle"+rolle+"Toggle").setKlasse(wert, "dshUiToggled");
           $("#dshVerwaltungRechteUndRollen"+id+"Rolle"+rolle).setWert(1-wert);
         }
       });
+    },
+    rechtclick: (el) => {
+      el = $(el);
+      let p = el.parent();
+      // Alle Kinder der Geschwister (Rechtebox) togglen
+      if(el.hatKlasse("dshUiToggled")) {
+        p.siblings().finde(".dshUiToggle").addKlasse("dshUiToggled");
+        p.siblings().finde(".dshUiEingabefeld").setWert("1");
+      } else {
+        p.siblings().finde(".dshUiToggle").removeKlasse("dshUiToggled");
+        p.siblings().finde(".dshUiEingabefeld").setWert("0");
+      }
+      // Eltern toggled geben/nehmen
+      // Rechtebaum hochgehen
+      while((p = p.parent()).ist(".dshRechtebaumBox")) {
+        let recht = p.parent().kinderSelector(".dshRechtebaumRecht");
+        // Alle benachbarten Rechte sind gesetzt?
+        if(p.siblingsSelector(".dshRechtebaumBox").kinderSelector(".dshRechtebaumRecht").finde(".dshUiToggle").hatKlasse("dshUiToggled") && p.kinderSelector(".dshRechtebaumRecht").finde(".dshUiToggle").hatKlasse("dshUiToggled")) {
+          // Elternteil Toggle setzen
+          recht.finde(".dshUiToggle").addKlasse("dshUiToggled");
+          recht.finde(".dshUiEingabefeld").setWert("1");
+        } else {
+          // Elternteil Toggle setzen
+          recht.finde(".dshUiToggle").removeKlasse("dshUiToggled");
+          recht.finde(".dshUiEingabefeld").setWert("0");
+        }
+      }
     }
   }
 };
