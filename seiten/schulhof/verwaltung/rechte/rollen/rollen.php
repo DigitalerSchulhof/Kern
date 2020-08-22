@@ -8,18 +8,17 @@ $tabelle = new UI\Tabelle("dshVerwaltungRollen", new UI\Icon("fas fa-tag"), "Rol
 $sql = $DBS->anfrage("SELECT id, {bezeichnung} FROM kern_rollen");
 while($sql->werte($id, $bezeichung)) {
   $zeile = new UI\Tabelle\Zeile($id);
+  $zeile["Rolle"]     = $bezeichung;
 
   if($id === 0) {
     $zeile->setIcon(new UI\Icon("fas fa-star"));
-  }
-
-  $zeile["Rolle"]     = $bezeichung;
-
-  if($DSH_BENUTZER->hatRecht("verwaltung.rechte.rollen.bearbeiten")) {
-    $zeile->addAktion(new UI\MiniIconKnopf(new UI\Icon(UI\Konstanten::BEARBEITEN), "Rolle bearbeiten"));
-  }
-  if($DSH_BENUTZER->hatRecht("verwaltung.rechte.rollen.löschen")) {
-    $zeile->addAktion(new UI\MiniIconKnopf(new UI\Icon(UI\Konstanten::LOESCHEN), "Rolle löschen", "Warnung"));
+  } else {
+    if($DSH_BENUTZER->hatRecht("verwaltung.rechte.rollen.bearbeiten")) {
+      $zeile->addAktion(new UI\MiniIconKnopf(new UI\Icon(UI\Konstanten::BEARBEITEN), "Rolle bearbeiten"));
+    }
+    if($DSH_BENUTZER->hatRecht("verwaltung.rechte.rollen.löschen")) {
+      $zeile->addAktion(new UI\MiniIconKnopf(new UI\Icon(UI\Konstanten::LOESCHEN), "Rolle löschen", "Warnung"));
+    }
   }
 
   $tabelle[] = $zeile;
@@ -28,7 +27,7 @@ $spalte[] = $tabelle;
 $knoepfe = [];
 if ($DSH_BENUTZER->hatRecht("verwaltung.rechte.rollen.anlegen")) {
   $knopf      = new UI\IconKnopf(new UI\Icon (UI\Konstanten::NEU), "Rolle anlegen", "Erfolg");
-  $knopf      ->addFunktion("href", "Schulhof/Verwaltung/Rollen/Zuordnen");
+  $knopf      ->addFunktion("href", "Schulhof/Verwaltung/Rollen/Neue_Rolle");
   $knoepfe[]   = $knopf;
 }
 

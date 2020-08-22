@@ -96,7 +96,7 @@ class Rechtebaum extends \UI\Element {
           ++$knopfid;
           $knopf = new UI\Toggle("dshRechtebaum{$this->id}$knopfid", "$anzeige");
           $knopf ->setToggled($vergeben !== false);
-          $knopf ->addFunktion("onclick", "kern.schulhof.verwaltung.personen.rechtclick(this)");
+          $knopf ->addFunktion("onclick", "kern.rechtebaum.click(this)");
         }
 
         $anzeige = new UI\InhaltElement($knopf);

@@ -1,0 +1,3 @@
+kern.schulhof.verwaltung.rechte = {
+
+};
