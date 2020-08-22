@@ -71,10 +71,7 @@ switch ($meldeid) {
     Anfrage::setRueck("Knöpfe", $knoepfe);
     break;
   case 7:
-    $knopf = new UI\Knopf("OK");
-    $knopf->addFunktion("onclick", "core.neuladen()");
     Anfrage::setRueck("Meldung", new UI\Meldung("Änderungen erfolgreich!", "Die Änderungen der persönlichen Informationen wurden vorgenomen.", "Erfolg"));
-    Anfrage::setRueck("Knöpfe", [$knopf]);
     break;
   case 8:
     Anfrage::setRueck("Meldung", new UI\Meldung("Änderungen erfolgreich!", "Die Änderungen der Nutzerkonto-Informationen wurden vorgenomen.", "Erfolg"));

@@ -84,12 +84,7 @@ kern.schulhof.verwaltung.personen = {
         var laden = laden || '0';
         var benutzername = $("#dshNeuesNutzerkonto"+id+"Benutzername").getWert();
         var mail = $("#dshNeuesNutzerkonto"+id+"Mail").getWert();
-        core.ajax("Kern", 35, "Neues Nutzerkonto erstellen", {id:id, benutzername:benutzername, mail:mail}).then((r) => {
-          ui.laden.meldung("Kern", 28, null);
-          if (laden == '1') {
-            kern.schulhof.verwaltung.personen.suche();
-          }
-        });
+        core.ajax("Kern", 35, "Neues Nutzerkonto erstellen", {id:id, benutzername:benutzername, mail:mail}, 28, "dshVerwaltungPersonen");
       }
     }
   },
