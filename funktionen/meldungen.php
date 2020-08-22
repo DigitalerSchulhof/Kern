@@ -204,5 +204,17 @@ switch ($meldeid) {
   case 32:
     Anfrage::setRueck("Meldung", new UI\Meldung("Rechte aktualisiert", "Die Rechte der Person wurden aktualisiert.", "Erfolg"));
     break;
+  case 33:
+    $ok = UI\Knopf::ok();
+    $ok ->addFunktion("href", "Schulhof/Verwaltung/Rollen");
+    Anfrage::setRueck("Meldung", new UI\Meldung("Rolle angelegt", "Die Rolle wurde angelegt.", "Erfolg"));
+    Anfrage::setRueck("Knöpfe", [$ok]);
+    break;
+  case 34:
+    $ok = UI\Knopf::ok();
+    $ok ->addFunktion("onclick", "ui.tabelle.sortieren(kern.schulhof.verwaltung.rollen, 'dshVerwaltungRollen')");
+    Anfrage::setRueck("Meldung", new UI\Meldung("Rolle löschen", "Die Rolle wurde gelöscht.", "Erfolg"));
+    Anfrage::setRueck("Knöpfe", [$ok]);
+    break;
 }
 ?>

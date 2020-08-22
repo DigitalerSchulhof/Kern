@@ -268,3 +268,12 @@
 98:
   ort: anfragen/schulhof/verwaltung/personen/neunutzerkonto.php
   beschreibung: Der <b>Benutzername</b> ist bereits vergeben.
+99:
+  ort: anfragen/schulhof/verwaltung/personen/rechte/rolleneu.php
+  beschreibung: Die <b>Bezeichnung</b> ist ungültig.
+100:
+  ort: anfragen/schulhof/verwaltung/personen/rechte/rolleneu.php
+  beschreibung: Eine Rolle mit der <b>Bezeichnung</b> ist bereits vorhanden.
+101:
+  ort: anfragen/schulhof/verwaltung/personen/rechte/rolleloeschen.php
+  beschreibung: Diese Rolle kann <b>nicht</b> gelöscht werden.

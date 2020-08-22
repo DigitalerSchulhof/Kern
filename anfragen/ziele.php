@@ -41,4 +41,7 @@ $ZIELE[38] = "schulhof/verwaltung/personen/rechteundrollen.php";
 $ZIELE[39] = "schulhof/verwaltung/personen/rechte/rollesetzen.php";
 $ZIELE[41] = "schulhof/verwaltung/personen/rechte/neuladen.php";
 $ZIELE[42] = "schulhof/verwaltung/personen/rechte/rechtevergeben.php";
+$ZIELE[43] = "schulhof/verwaltung/personen/rechte/rollensuche.php";
+$ZIELE[44] = "schulhof/verwaltung/personen/rechte/rolleneu.php";
+$ZIELE[45] = "schulhof/verwaltung/personen/rechte/rolleloeschen.php";
 ?>
