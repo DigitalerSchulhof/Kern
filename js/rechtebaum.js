@@ -46,13 +46,13 @@ kern.rechtebaum = {
         let recht = b.kinderSelector(".dshRechtebaumRecht");
         kn = b.getAttr("data-knoten");
         if(recht.finde(".dshUiToggled").existiert()) {
-          if(recht.ist(".dshRechtebaumHatKinder")) {
+          if(b.ist(".dshRechtebaumHatKinder")) {
             r.push((pfad+"."+kn+".*").substr(2));
           } else {
             r.push((pfad+"."+kn).substr(2))
           }
         } else {
-          if(recht.ist(".dshRechtebaumHatKinder")) {
+          if(b.ist(".dshRechtebaumHatKinder")) {
             rechtecheck(b.kinderSelector(".dshRechtebaumBox"), pfad+"."+kn);
           }
         }
