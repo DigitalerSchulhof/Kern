@@ -373,7 +373,11 @@ class DB {
       }
       $sql = substr($sql, 0, -2);
       $sql .= " WHERE id = ?";
-      $this->anfrage($sql, "{$parameterarten}i", array_merge($parameter, [$id]));
+      if($silent) {
+        $this->silentanfrage($sql, "{$parameterarten}i", array_merge($parameter, [$id]));
+      } else {
+        $this->anfrage($sql, "{$parameterarten}i", array_merge($parameter, [$id]));
+      }
     }
 
     return $id;
