@@ -59,7 +59,11 @@ if($DSH_BENUTZER->hatRecht("verwaltung.rechte.vergeben")) {
     $rollenrechte[] = $recht;
   }
   $spalteRechte[] = new Kern\Rechtebaum("dshVerwaltungRechte$id", Kern\Rechtehelfer::array2Baum($nutzerrechte), Kern\Rechtehelfer::array2Baum($rollenrechte));
-
+  $spalteRechte[] = "<br>";
+  $spalteRechte[] = new UI\Notiz("Das Vergeben eines Rechts vergibt zugleich alle untergeordneten Rechte.");
+  $spalteRechte[] = (new UI\Knopf("Nicht vergeben",  "Standard"))->addFunktion("onclick", null)." ";
+  $spalteRechte[] = (new UI\Knopf("Vergeben",        "Erfolg"))->addFunktion("onclick", null)." ";
+  $spalteRechte[] = new UI\Knopf("Rollenrecht",     "Information");
   $zeileAktionen[]        = $spalteRechte;
 }
 $zeileKnoepfe[]          = new UI\Spalte(null, new UI\Knopf("Rechte aktualisieren", null, "kern.schulhof.verwaltung.personen.rechteneuladen('$id')"));

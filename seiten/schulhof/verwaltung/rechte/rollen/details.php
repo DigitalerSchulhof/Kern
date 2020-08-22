@@ -34,10 +34,14 @@ function rollenDetails($id = null) : UI\Element {
     $rechte = Kern\Rechtehelfer::array2Baum($rechte);
   }
 
-  $formular[] = new UI\FormularFeld(new UI\InhaltElement("Bezeichnung:"), $bezeichung);
-  $rechtebaum = new Kern\Rechtebaum("{$rid}Rechtebaum", $rechte);
-
-  $formular[] = new UI\FormularFeld(new UI\InhaltElement("Rechte:"),  $rechtebaum);
+  $formular[]   = new UI\FormularFeld(new UI\InhaltElement("Bezeichnung:"), $bezeichung);
+  $rechtebox    = (new UI\Box())->setId("{$rid}Rechtebox");
+  $rechtebox[]  = new Kern\Rechtebaum("{$rid}Rechtebaum", $rechte);
+  $rechtebox[]  = "<br>";
+  $rechtebox[]  = new UI\Notiz("Das Vergeben eines Rechts vergibt zugleich alle untergeordneten Rechte.");
+  $rechtebox[]  = (new UI\Knopf("Nicht vergeben",  "Standard"))->addFunktion("onclick", null)." ";
+  $rechtebox[]  = (new UI\Knopf("Vergeben",        "Erfolg"))->addFunktion("onclick", null)." ";
+  $formular[]   = new UI\FormularFeld(new UI\InhaltElement("Rechte:"),  $rechtebox);
 
   if($id === null) {
     $formular[] = (new UI\Knopf("Neue Rolle anlegen", "Erfolg"))          ->setSubmit(true);
