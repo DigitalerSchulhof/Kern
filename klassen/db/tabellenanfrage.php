@@ -47,7 +47,7 @@ class Tabellenanfrage {
    * @param  string[] $werte          :)
    * @return array    ["Anfrage"] ["Seite"]
    */
-  public function anfrage($DB, $parameterarten, ...$werte) {
+  public function anfrage($DB, $parameterarten = "", ...$werte) {
     $rueck = [];
     $rueck["Richtung"] = $this->sortierrichtung;
     $rueck["Spalte"] = $this->sortierennach;
