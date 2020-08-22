@@ -385,15 +385,20 @@ class DB {
 
   /**
    * Ändert den Datensatz mit der ID <code>$id</code> um die Felder <code>$felder</code>.
-   * @param  string $tabelle       :)
-   * @param  integer $id            :)
+   * @param  string $tabelle      :)
+   * @param  integer|array $id
+   * Wenn <code>int</code>:  Die ID des Datensatzes (Wird zu <code>["id" => $id]</code>)
+   * Wenn <code>array/code>: [Index-Feld => Wert]
    * @param  array $felder        :)
-   * @param  string $paramterarten Siehe DB::anfrage() :)
+   * @param  string $parameterarten Siehe DB::anfrage() :)
    * @param  array $parameter     Siehe DB::anfrage() :)
    * Wenn mehr Parameter als Parameterarten übergeben werden, wird letze Parameter <code>$silent</code>
    * param  bool   $silent verzichtet auf den Aktionslog
    */
-  public function datensatzBearbeiten($tabelle, $id, $felder, $paramterarten, ...$parameter) {
+  public function datensatzBearbeiten($tabelle, $id, $felder, $parameterarten, ...$parameter) {
+    if(!is_array($id)) {
+      $id = array("id" => $id);
+    }
     $silent = false;
     if(count($parameter) > strlen($parameterarten)) {
       $silent = array_pop($parameter);
@@ -404,11 +409,30 @@ class DB {
       $sql .= "$feld = $wert, ";
     }
     $sql = substr($sql, 0, -2);
-    $sql .= " WHERE id = ?";
+    $sql .= " WHERE ".array_keys($id)[0]." = ?";
     if($silent) {
-      $this->silentanfrage($sql, "{$parameterarten}i", array_merge($parameter, [$id]));
+      $this->silentanfrage($sql, "{$parameterarten}i", array_merge($parameter, [array_values($id)[0]]));
     } else {
-      $this->anfrage($sql, "{$parameterarten}i", array_merge($parameter, [$id]));
+      $this->anfrage($sql, "{$parameterarten}i", array_merge($parameter, [array_values($id)[0]]));
+    }
+  }
+
+  /**
+   * Löscht den Datensatz mit der ID aus der Tabelle.
+   * @param  string  $tabelle :)
+   * @param  integer|array $id
+   * Wenn <code>int</code>:  Die ID des Datensatzes (Wird zu <code>["id" => $id]</code>)
+   * Wenn <code>array/code>: [Index-Feld => Wert]
+   * @param  boolean $silent  Verzicht auf den Aktionslog
+   */
+  public function datensatzLoeschen($tabelle, $id, $silent = false) {
+    if(!is_array($id)) {
+      $id = array("id" => $id);
+    }
+    if($silent) {
+      $this->silentanfrage("DELETE FROM $tabelle WHERE ".array_keys($id)[0]." = ?", "i", array_values($id)[0]);
+    } else {
+      $this->anfrage("DELETE FROM $tabelle WHERE ".array_keys($id)[0]." = ?", "i", array_values($id)[0]);
     }
   }
 
