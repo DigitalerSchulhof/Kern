@@ -9,9 +9,9 @@ if (!$DSH_BENUTZER->hatRecht("verwaltung.rechte.rollen.sehen")) {
   Anfrage::addFehler(-4, true);
 }
 
-$spalten = [["id"], ["{bezeichnung} AS bezeichnung"]];
+$spalten = [["kr.id as id"], ["{bezeichnung} AS bezeichnung"], ["GROUP_CONCAT(CONCAT({kp.titel}, ' ', {kp.vorname}, ' ', {kp.nachname}) SEPARATOR ', ') as personen"]];
 
-$sql = "SELECT ?? FROM kern_rollen";
+$sql = "SELECT ?? FROM kern_rollen as kr JOIN kern_rollenzuordnung as krz ON krz.rolle = kr.id JOIN kern_personen as kp ON krz.person = kp.id";
 
 $ta = new Kern\Tabellenanfrage($sql, $spalten, $sortSeite, $sortDatenproseite, $sortSpalte, $sortRichtung);
 $tanfrage = $ta->anfrage($DBS);
@@ -20,10 +20,10 @@ $anfrage = $tanfrage["Anfrage"];
 $tabelle = new UI\Tabelle("dshVerwaltungRollen", new UI\Icon("fas fa-tag"), "Rolle", "Personen");
 $tabelle->setSeiten($tanfrage, "kern.schulhof.verwaltung.rollen.suche");
 
-while($anfrage->werte($id, $bezeichung)) {
+while($anfrage->werte($id, $bezeichung, $personen)) {
   $zeile = new UI\Tabelle\Zeile($id);
   $zeile["Rolle"]     = $bezeichung;
-
+  $zeile["Personen"]  = $personen;
   if($id === 0) {
     $zeile->setIcon(new UI\Icon("fas fa-star"));
   } else {
