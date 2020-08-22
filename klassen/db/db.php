@@ -85,8 +85,9 @@ class DB {
   * Stellt eine Anfrage an die Datenbank
   * @param string $anfrage SQL-Anfrage {x} wird entschlüsselt, [y] wird verschlüsselt
 	* @param string $parameterarten Datentypen der übergebenen Werte für den Prepared-Request
+  * @param string $parameterarten :)
 	* @param array $werte Array mit den Werten, die übergeben werden
-  * @return array Ergebnis der Anfrage als indexiertes Array oder Anzahl betroffener Zeilen
+  * @return Anfrage Enstprechendes Anfrageobjekt
   */
   public function anfrage($anfrage, $parameterarten = "", ...$zwerte) : Anfrage {
     $ergebnis = [];
@@ -213,6 +214,21 @@ class DB {
     }
 
     return new Anfrage($anzahl, $ergebnis);
+  }
+
+  /**
+  * Prüft, ob ein Datensatz, welcher der Bedingung entspricht, schon in der übergeben Tabelle vorhanden ist
+  * @param string $tabelle Die Tabelle, in welcher geprüft wird
+	* @param string $bedingung Die SQL-Bedingung <b>ohne WHERE</b>, welche zu prüfen ist
+  * @param string $parameterarten :)
+	* @param array $werte Array mit den Werten, die übergeben werden
+  * @return bool
+  */
+  public function existiert($tabelle, $bedingung, $parameterarten = "", ...$werte) : bool {
+    $sql = "SELECT COUNT(*) FROM $tabelle WHERE $bedingung";
+    $sql = $this->anfrage($sql, $parameterarten, ...$werte);
+    $sql->werte($anzahl);
+    return $anzahl > 0;
   }
 
   /**
