@@ -9,7 +9,10 @@ kern.schulhof.verwaltung.rollen = {
       }
     });
   },
-  loeschen: (id) => core.ajax("Kern", 45, "Rolle löschen", {id: id}, 34),
+  loeschen: {
+    fragen: (id) => ui.laden.meldung("Kern", 35, "Rolle löschen", {id: id}),
+    ausfuehren: (id) => core.ajax("Kern", 45, "Rolle löschen", {id: id}, 34, ["dshVerwaltungRollen"]),
+  },
   daten: (id) => {
     let r = {};
     r.bezeichnung = $("#"+id+"Bezeichnung").getWert();

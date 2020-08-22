@@ -263,10 +263,10 @@ class Profil {
       $tagwahl->add((new UI\Datum($datum))->kurz("WM"), $datum);
     }
     $tagwahl->setWert(mktime(0, 0, 0, $monat, $tag, $jahr));
-    $tagwahl->addFunktion("oninput", "ui.tabelle.sortieren(kern.schulhof.nutzerkonto.aktionslog.laden, '$tabelleid')");
+    $tagwahl->addFunktion("oninput", "ui.tabelle.sortieren('$tabelleid')");
     $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Datum:"),      $tagwahl);
     $formular[]       = (new UI\Knopf("Suchen"))  ->setSubmit(true);
-    $formular         ->addSubmit("ui.tabelle.sortieren(kern.schulhof.nutzerkonto.aktionslog.laden, '$tabelleid')");
+    $formular         ->addSubmit("ui.tabelle.sortieren('$tabelleid')");
     $rueck[]         = $formular;
 
     $rueck[] = $this->getAktionsportokollTag($heute, $autoladen, $sortSeite, $sortDatenproseite, $sortSpalte, $sortRichtung);

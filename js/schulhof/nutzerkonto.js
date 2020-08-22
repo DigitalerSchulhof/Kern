@@ -67,7 +67,7 @@ kern.schulhof.nutzerkonto = {
       var kuerzel     = $("#dshProfil"+id+"Kuerzel").getWert();
       core.ajax("Kern", 7, "Profil ändern", {id:id, art:art, geschlecht:geschlecht, titel:titel, vorname:vorname, nachname:nachname, kuerzel:kuerzel}, 7).then((r) => {
         if (!$("#dshVerwaltungPersonen").existiert()) {
-          ui.tabelle.sortieren(kern.schulhof.verwaltung.personen.suche, 'dshVerwaltungPersonen');
+          ui.tabelle.sortieren('dshVerwaltungPersonen');
         }
       });
     },
@@ -107,7 +107,7 @@ kern.schulhof.nutzerkonto = {
         core.ajax("Kern", 14, "Sessions löschen", {nutzerid:nutzerid, sessionid:sessionid}).then(() => {
           ui.laden.meldung("Kern", 15, null, {nutzerid:nutzerid, sessionid:sessionid});
           if (sessionid != 'alle') {
-            ui.tabelle.sortieren(kern.schulhof.nutzerkonto.sessions.laden, "dshProfil"+nutzerid+"Sessionprotokoll");
+            ui.tabelle.sortieren("dshProfil"+nutzerid+"Sessionprotokoll");
           }
         });
       }
@@ -141,7 +141,7 @@ kern.schulhof.nutzerkonto = {
       ausfuehren: (nutzerid, logid) => {
         core.ajax("Kern", 16, "Aktionslog löschen", {nutzerid:nutzerid, logid:logid}).then(() => {
           ui.laden.meldung("Kern", 16, null, {nutzerid:nutzerid, logid:logid});
-          ui.tabelle.sortieren(kern.schulhof.nutzerkonto.aktionslog.laden, "dshProfil"+nutzerid+"Aktionsprotokoll");
+          ui.tabelle.sortieren("dshProfil"+nutzerid+"Aktionsprotokoll");
         });
       }
     },

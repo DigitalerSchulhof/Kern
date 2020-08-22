@@ -32,7 +32,7 @@ while($anfrage->werte($id, $bezeichung)) {
     }
     if($DSH_BENUTZER->hatRecht("verwaltung.rechte.rollen.löschen")) {
       $knopf = new UI\MiniIconKnopf(new UI\Icon(UI\Konstanten::LOESCHEN), "Rolle löschen", "Warnung");
-      $knopf ->addFunktion("onclick", "kern.schulhof.verwaltung.rollen.loeschen($id)");
+      $knopf ->addFunktion("onclick", "kern.schulhof.verwaltung.rollen.loeschen.fragen($id)");
       $zeile->addAktion($knopf);
     }
   }

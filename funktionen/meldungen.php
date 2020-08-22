@@ -211,10 +211,14 @@ switch ($meldeid) {
     Anfrage::setRueck("Knöpfe", [$ok]);
     break;
   case 34:
-    $ok = UI\Knopf::ok();
-    $ok ->addFunktion("onclick", "ui.tabelle.sortieren(kern.schulhof.verwaltung.rollen, 'dshVerwaltungRollen')");
     Anfrage::setRueck("Meldung", new UI\Meldung("Rolle löschen", "Die Rolle wurde gelöscht.", "Erfolg"));
-    Anfrage::setRueck("Knöpfe", [$ok]);
+    break;
+  case 35:
+    parameter("id");
+    Anfrage::setRueck("Meldung", new UI\Meldung("Diese Rolle wirklich löschen", "Soll die Rolle wirklich gelöscht werden? Dadurch verlieren alle Personen, die diese Rolle besitzen, sofort alle verbunden Rechte.", "Warnung"));
+    $knoepfe[] = new UI\Knopf("Rolle löschen", "Fehler", "kern.schulhof.verwaltung.rollen.loeschen.ausfuehren($id)");
+    $knoepfe[] = UI\Knopf::abbrechen();
+    Anfrage::setRueck("Knöpfe", $knoepfe);
     break;
 }
 ?>
