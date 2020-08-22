@@ -19,7 +19,7 @@ class Rechtebaum extends \UI\Element {
    * @param array $rechteS Sekundär vergebene Rechte
    *  Rechte werden als "Information"-Knopf ausgegeben.
    */
-  public function __construct($id, $rechteP, $rechteS) {
+  public function __construct($id, $rechteP = array(), $rechteS = array()) {
     parent::__construct();
     $this->id       = $id;
     $this->rechteP  = $rechteP;

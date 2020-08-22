@@ -50,7 +50,7 @@ Anfrage::checkFehler();
 
 unset($_SESSION["SPAMSCHUTZ_{$spamid}"]);
 
-$neueid = $DBS->neuerDatensatz("kern_nutzerregistrierung", true);
+$neueid = $DBS->neuerDatensatz("kern_nutzerregistrierung", array(), "", true);
 $sql = "UPDATE kern_nutzerregistrierung SET art = [?], geschlecht = [?], titel = [?], vorname = [?], nachname = [?], klasse = [?], email = [?], salt = [?], passwort = SHA1(?) WHERE id = ?";
 $salt = Kern\Nutzerkonto::generiereSalt();
 $DBS->anfrage($sql, "sssssssssi", $art, $geschlecht, $titel, $vorname, $nachname, $klasse, $mail, $salt, $passwort.$salt, $neueid);

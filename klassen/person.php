@@ -489,7 +489,7 @@ class Nutzerkonto extends Person {
     $browser = Check::systeminfo();
 
     // Neue Session eintragen
-    $sessiondbid = $DBS->neuerDatensatz("kern_nutzersessions", false, true);
+    $sessiondbid = $DBS->neuerDatensatz("kern_nutzersessions", array(), "", false, true);
     $sql = "UPDATE kern_nutzersessions SET sessionid = [?], browser = [?], person = ?, sessiontimeout = ?, anmeldezeit = ? WHERE id = ?";
     $anfrage = $DBS->silentanfrage($sql, "ssiiii", $this->sessionid, $browser, $this->id, $this->sessiontimeout, time(), $sessiondbid);
 

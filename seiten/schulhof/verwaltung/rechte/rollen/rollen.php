@@ -4,25 +4,9 @@ $SEITE = new Kern\Seite("Rollen", "verwaltung.rechte.rollen.sehen");
 $spalte = new UI\Spalte("A1", new UI\SeitenUeberschrift("Rollen"));
 
 $tabelle = new UI\Tabelle("dshVerwaltungRollen", new UI\Icon("fas fa-tag"), "Rolle", "Personen");
+$tabelle ->setAutoladen(true);
+$tabelle ->setSortierfunktion("kern.schulhof.verwaltung.rollen.suche");
 
-$sql = $DBS->anfrage("SELECT id, {bezeichnung} FROM kern_rollen");
-while($sql->werte($id, $bezeichung)) {
-  $zeile = new UI\Tabelle\Zeile($id);
-  $zeile["Rolle"]     = $bezeichung;
-
-  if($id === 0) {
-    $zeile->setIcon(new UI\Icon("fas fa-star"));
-  } else {
-    if($DSH_BENUTZER->hatRecht("verwaltung.rechte.rollen.bearbeiten")) {
-      $zeile->addAktion(new UI\MiniIconKnopf(new UI\Icon(UI\Konstanten::BEARBEITEN), "Rolle bearbeiten"));
-    }
-    if($DSH_BENUTZER->hatRecht("verwaltung.rechte.rollen.löschen")) {
-      $zeile->addAktion(new UI\MiniIconKnopf(new UI\Icon(UI\Konstanten::LOESCHEN), "Rolle löschen", "Warnung"));
-    }
-  }
-
-  $tabelle[] = $zeile;
-}
 $spalte[] = $tabelle;
 $knoepfe = [];
 if ($DSH_BENUTZER->hatRecht("verwaltung.rechte.rollen.anlegen")) {

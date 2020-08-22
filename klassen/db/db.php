@@ -271,7 +271,7 @@ class DB {
     }
 
     $zeitpunkt = time();
-    $neueid = $DBS->neuerDatensatz("kern_nutzeraktionslog", true, true);
+    $neueid = $DBS->neuerDatensatz("kern_nutzeraktionslog", array(), "", true, true);
     if ($DSH_BENUTZER !== null) {
       $nutzerid = $DSH_BENUTZER->getId();
       $sql = $this->db->prepare("UPDATE kern_nutzeraktionslog SET person = ?, art = AES_ENCRYPT(?, '{$this->schluessel}'), tabellepfad = AES_ENCRYPT(?, '{$this->schluessel}'),  datensatzdatei = AES_ENCRYPT(?, '{$this->schluessel}'), aktion = AES_ENCRYPT(?, '{$this->schluessel}'),  zeitpunkt = ? WHERE id = ?");
@@ -287,12 +287,26 @@ class DB {
   /**
    * Legt einen leeren Datensatz an
    * @param  string $tabelle :)
-   * @param  bool   $anonym Wenn true, wird der Datensatz ohne Nutzerverbindung angelegt
-   * @param  bool   $silent verzichtet auf den Aktionslog
+   * @param  array  $fehldr Auszufüllende Felder und deren Werte
+   * <code>["Feld1" => "Wert1", Feld2 => "[?]"]
+   * @param  string $parameterarten Für die Anfrage :)
+   * @param  mixed  ...$parameter Für die Anfrage :)
+   * Wenn mehr Parameter als Parameterarten übergeben werden, sind die jeweils letzen Parameter <code>$anonym</code> und <code>$silent</code>
+   * param  bool   $anonym Wenn true, wird der Datensatz ohne Nutzerverbindung angelegt
+   * param  bool   $silent verzichtet auf den Aktionslog
    * @return int    Wert der Spalte <code>id</code> des neuen Datensatzes
    */
-  public function neuerDatensatz($tabelle, $anonym = false, $silent = false) {
+  public function neuerDatensatz($tabelle, $felder = array(), $parameterarten = "", ...$parameter) {
     $fehler = false;
+
+    $anonym = false;
+    $silent = false;
+    if(count($parameter) > strlen($parameterarten)) {
+      $anonym = array_pop($parameter);
+    }
+    if(count($parameter) > strlen($parameterarten)) {
+      $silent = array_pop($parameter);
+    }
 
     if($anonym) {
       $sql = $this->db->prepare("SELECT MAX(person) FROM kern_nutzerkonten");
@@ -306,7 +320,7 @@ class DB {
       if (isset($_SESSION['Benutzer'])) {
         $benutzer = $_SESSION['Benutzer']->getId();
       } else {
-        throw new \Exception("Nicht identifizierter Benutzer versucht ");
+        throw new \Exception("Nicht identifizierter Benutzer versucht");
       }
     }
 
@@ -350,6 +364,16 @@ class DB {
 
     if($id === null) {
       throw new \Exception("Es konnte kein neuer Datensatz angelegt werden");
+    }
+
+    if(count($felder) > 0) {
+      $sql = "UPDATE $tabelle SET ";
+      foreach($felder as $feld => $wert) {
+        $sql .= "$feld = $wert, ";
+      }
+      $sql = substr($sql, 0, -2);
+      $sql .= " WHERE id = ?";
+      $this->anfrage($sql, "{$parameterarten}i", array_merge($parameter, [$id]));
     }
 
     return $id;
