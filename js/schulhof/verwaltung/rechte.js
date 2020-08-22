@@ -19,8 +19,9 @@ kern.schulhof.verwaltung.rollen = {
     r.rechte = kern.rechtebaum.rechte($("#"+id+"Rechtebaum"));
     return r;
   },
-  speichern: () => {
-
+  speichern: (id) => {
+    let daten = kern.schulhof.verwaltung.rollen.daten("dshBearbeitenRolle");
+    core.ajax("Kern", 46, "Rolle bearbeiten", {id: id, ...daten}, 36);
   },
   neu: () => {
     let daten = kern.schulhof.verwaltung.rollen.daten("dshNeueRolle");

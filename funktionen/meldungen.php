@@ -164,19 +164,19 @@ switch ($meldeid) {
   case 27:
     Anfrage::setRueck("Meldung", new UI\Meldung("Person erstellt", "Die Person wurde angelegt.", "Erfolg"));
     $knoepfe = [UI\Knopf::ok()];
-    $knoepfe[0]->addFunktion("onclick", "window.history.back()");
+    $knoepfe[0]->addFunktion("onclick", "core.rueck()");
     Anfrage::setRueck("Knöpfe", $knoepfe);
     break;
   case 28:
     Anfrage::setRueck("Meldung", new UI\Meldung("Nutzerkonto erstellt", "Das Nutzerkonto wurde angelegt. An die angegebene eMailadresse wurde ein Kennwort verschickt, das nun 24 Stunden gültig ist.", "Erfolg"));
     $knoepfe = [UI\Knopf::ok()];
-    $knoepfe[0]->addFunktion("onclick", "window.history.back()");
+    $knoepfe[0]->addFunktion("onclick", "core.rueck()");
     Anfrage::setRueck("Knöpfe", $knoepfe);
     break;
   case 29:
     Anfrage::setRueck("Meldung", new UI\Meldung("Person und Nutzerkonto erstellt", "Die Person und das Nutzerkonto wurden angelegt. An die angegebene eMailadresse wurde ein Kennwort verschickt, das nun 24 Stunden gültig ist.", "Erfolg"));
     $knoepfe = [UI\Knopf::ok()];
-    $knoepfe[0]->addFunktion("onclick", "window.history.back()");
+    $knoepfe[0]->addFunktion("onclick", "core.rueck()");
     Anfrage::setRueck("Knöpfe", $knoepfe);
     break;
   case 30:
@@ -204,7 +204,7 @@ switch ($meldeid) {
   case 33:
     $ok = UI\Knopf::ok();
     $ok ->addFunktion("href", "Schulhof/Verwaltung/Rollen");
-    Anfrage::setRueck("Meldung", new UI\Meldung("Rolle angelegt", "Die Rolle wurde angelegt.", "Erfolg"));
+    Anfrage::setRueck("Meldung", new UI\Meldung("Rolle anlegen", "Die Rolle wurde angelegt.", "Erfolg"));
     Anfrage::setRueck("Knöpfe", [$ok]);
     break;
   case 34:
@@ -216,6 +216,12 @@ switch ($meldeid) {
     $knoepfe[] = new UI\Knopf("Rolle löschen", "Fehler", "kern.schulhof.verwaltung.rollen.loeschen.ausfuehren($id)");
     $knoepfe[] = UI\Knopf::abbrechen();
     Anfrage::setRueck("Knöpfe", $knoepfe);
+    break;
+  case 36:
+    $ok = UI\Knopf::ok();
+    $ok ->addFunktion("href", "Schulhof/Verwaltung/Rollen");
+    Anfrage::setRueck("Meldung", new UI\Meldung("Rolle bearbeiten", "Die Rolle wurde bearbeitet.", "Erfolg"));
+    Anfrage::setRueck("Knöpfe", [$ok]);
     break;
 }
 ?>

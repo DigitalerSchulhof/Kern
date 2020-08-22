@@ -9,31 +9,34 @@ if (!$DSH_BENUTZER->hatRecht("verwaltung.rechte.rollen.sehen")) {
   Anfrage::addFehler(-4, true);
 }
 
-$spalten = [["kr.id as id"], ["{bezeichnung} AS bezeichnung"], ["GROUP_CONCAT(CONCAT({kp.titel}, ' ', {kp.vorname}, ' ', {kp.nachname}) SEPARATOR ', ') as personen"]];
+$spalten = [["kr.id as id"], ["{bezeichnung} AS bezeichnung"], ["(SELECT GROUP_CONCAT(CONCAT({kp.titel}, ' ', {kp.vorname}, ' ', {kp.nachname}) SEPARATOR ', ') FROM kern_personen as kp JOIN kern_rollenzuordnung as krz ON krz.person = kp.id WHERE krz.rolle = kr.id) as personen"], ["(SELECT GROUP_CONCAT({krr.recht} SEPARATOR ', ') FROM kern_rollenrechte as krr WHERE krr.rolle = kr.id) as rechte"]];
 
-$sql = "SELECT ?? FROM kern_rollen as kr JOIN kern_rollenzuordnung as krz ON krz.rolle = kr.id JOIN kern_personen as kp ON krz.person = kp.id";
+$sql = "SELECT ?? FROM kern_rollen as kr";
 
 $ta = new Kern\Tabellenanfrage($sql, $spalten, $sortSeite, $sortDatenproseite, $sortSpalte, $sortRichtung);
 $tanfrage = $ta->anfrage($DBS);
 $anfrage = $tanfrage["Anfrage"];
 
-$tabelle = new UI\Tabelle("dshVerwaltungRollen", new UI\Icon("fas fa-tag"), "Rolle", "Personen");
+$tabelle = new UI\Tabelle("dshVerwaltungRollen", new UI\Icon("fas fa-tag"), "Rolle", "Personen", "Rechte");
 $tabelle->setSeiten($tanfrage, "kern.schulhof.verwaltung.rollen.suche");
 
-while($anfrage->werte($id, $bezeichung, $personen)) {
+while($anfrage->werte($id, $bezeichung, $personen, $rechte)) {
   $zeile = new UI\Tabelle\Zeile($id);
   $zeile["Rolle"]     = $bezeichung;
   $zeile["Personen"]  = $personen;
+  $zeile["Rechte"]    = $rechte;
   if($id === 0) {
     $zeile->setIcon(new UI\Icon("fas fa-star"));
   } else {
     if($DSH_BENUTZER->hatRecht("verwaltung.rechte.rollen.bearbeiten")) {
-      $zeile->addAktion(new UI\MiniIconKnopf(new UI\Icon(UI\Konstanten::BEARBEITEN), "Rolle bearbeiten"));
+      $knopf = new UI\MiniIconKnopf(new UI\Icon(UI\Konstanten::BEARBEITEN), "Rolle bearbeiten");
+      $knopf ->addFunktion("href", "Schulhof/Verwaltung/Rollen/".str_replace(" ", "_", $bezeichung));
+      $zeile ->addAktion($knopf);
     }
     if($DSH_BENUTZER->hatRecht("verwaltung.rechte.rollen.löschen")) {
       $knopf = new UI\MiniIconKnopf(new UI\Icon(UI\Konstanten::LOESCHEN), "Rolle löschen", "Warnung");
       $knopf ->addFunktion("onclick", "kern.schulhof.verwaltung.rollen.loeschen.fragen($id)");
-      $zeile->addAktion($knopf);
+      $zeile ->addAktion($knopf);
     }
   }
 

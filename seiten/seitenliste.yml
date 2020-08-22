@@ -19,4 +19,5 @@ seiten:
   "Schulhof/Verwaltung/Personen"             : "schulhof/verwaltung/personen/personen.php"
   "Schulhof/Verwaltung/Personen/Neue_Person" : "schulhof/verwaltung/personen/personneu.php"
   "Schulhof/Verwaltung/Rollen"               : "schulhof/verwaltung/rechte/rollen/rollen.php"
-  "Schulhof/Verwaltung/Rollen/Neue_Rolle"    : "schulhof/verwaltung/rechte/rollen/rolleneu.php"
+  "Schulhof/Verwaltung/Rollen/Neue_Rolle"    : "schulhof/verwaltung/rechte/rollen/neu.php"
+  "/Schulhof\/Verwaltung\/Rollen\/.+/"       : "schulhof/verwaltung/rechte/rollen/bearbeiten.php"
