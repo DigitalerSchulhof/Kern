@@ -159,7 +159,7 @@ class DB {
     $anfrage = str_replace("}", ", '$this->schluessel')", $anfrage);
     $anfrage = str_replace("[", "AES_ENCRYPT(", $anfrage);
     $anfrage = str_replace("]", ", '$this->schluessel')", $anfrage);
-    
+
     // Stelle Anfrage
     $anzahl = 0;
     $sql = $this->db->prepare($anfrage);
@@ -289,8 +289,8 @@ class DB {
    * @param  string $tabelle :)
    * @param  array  $fehldr Auszufüllende Felder und deren Werte
    * <code>["Feld1" => "Wert1", Feld2 => "[?]"]
-   * @param  string $parameterarten Für die Anfrage :)
-   * @param  mixed  ...$parameter Für die Anfrage :)
+   * @param  string $parameterarten Siehe DB::anfrage() :)
+   * @param  mixed  ...$parameter Siehe DB::anfrage() :)
    * Wenn mehr Parameter als Parameterarten übergeben werden, sind die jeweils letzen Parameter <code>$anonym</code> und <code>$silent</code>
    * param  bool   $anonym Wenn true, wird der Datensatz ohne Nutzerverbindung angelegt
    * param  bool   $silent verzichtet auf den Aktionslog
@@ -381,6 +381,35 @@ class DB {
     }
 
     return $id;
+  }
+
+  /**
+   * Ändert den Datensatz mit der ID <code>$id</code> um die Felder <code>$felder</code>.
+   * @param  string $tabelle       :)
+   * @param  integer $id            :)
+   * @param  array $felder        :)
+   * @param  string $paramterarten Siehe DB::anfrage() :)
+   * @param  array $parameter     Siehe DB::anfrage() :)
+   * Wenn mehr Parameter als Parameterarten übergeben werden, wird letze Parameter <code>$silent</code>
+   * param  bool   $silent verzichtet auf den Aktionslog
+   */
+  public function datensatzBearbeiten($tabelle, $id, $felder, $paramterarten, ...$parameter) {
+    $silent = false;
+    if(count($parameter) > strlen($parameterarten)) {
+      $silent = array_pop($parameter);
+    }
+
+    $sql = "UPDATE $tabelle SET ";
+    foreach($felder as $feld => $wert) {
+      $sql .= "$feld = $wert, ";
+    }
+    $sql = substr($sql, 0, -2);
+    $sql .= " WHERE id = ?";
+    if($silent) {
+      $this->silentanfrage($sql, "{$parameterarten}i", array_merge($parameter, [$id]));
+    } else {
+      $this->anfrage($sql, "{$parameterarten}i", array_merge($parameter, [$id]));
+    }
   }
 
   /**
