@@ -55,7 +55,7 @@ class Rechtebaum extends \UI\Element {
       return true;
     };
     $knopfid = 0;
-    $rechteAus = function($rechte, $pfad = "", $vergeben = false) use (&$rechteAus, $istVergeben, &$knopfid) {
+    $rechteAus = function($rechte, $pfad = "", $vergeben = false, $tiefe = 0) use (&$rechteAus, $istVergeben, &$knopfid) {
       $i = 0;
       $code = "";
       $va = $vergeben;
@@ -99,7 +99,15 @@ class Rechtebaum extends \UI\Element {
           $knopf ->addFunktion("onclick", "kern.rechtebaum.click(this)");
         }
 
-        $anzeige = new UI\InhaltElement($knopf);
+        $icon = new UI\Box();
+        $icon ->addKlasse("dshRechtebaumIcon");
+        $icon ->addFunktion("onclick", "kern.rechtebaum.einausfahren(this)");
+        if($tiefe === 0) {
+          $inh = $knopf;
+        } else {
+          $inh = $icon.$knopf;
+        }
+        $anzeige = new UI\InhaltElement($inh);
         $anzeige ->setTag("div");
         $anzeige ->addKlasse("dshRechtebaumRecht");
 
@@ -107,10 +115,12 @@ class Rechtebaum extends \UI\Element {
         $box ->setTag("div");
         $box ->addKlasse("dshRechtebaumBox");
         $box ->setAttribut("data-knoten", $k);
+        $tiefe > 1 && $box->setStyle("display", "none");
+        $tiefe > 0 && $box->addKlasse("dshRechtebaumEingefahren");
         $unterstes && $box->addKlasse("dshRechtebaumUnterstes");
-        $hatKinder && $anzeige->addKlasse("dshRechtebaumHatKinder");
+        $hatKinder && $box->addKlasse("dshRechtebaumHatKinder");
         if($hatKinder) {
-          $box ->setInhalt($anzeige.$rechteAus($w, "$pfad.$k", $vergeben));
+          $box ->setInhalt($anzeige.$rechteAus($w, "$pfad.$k", $vergeben, $tiefe+1));
         } else {
           $box ->setInhalt($anzeige);
         }

@@ -26,6 +26,18 @@ kern.rechtebaum = {
       }
     }
   },
+  einausfahren: (el) => {
+    el = $(el);
+    let r = el.parent();
+    let ausfahren = r.parent().hatKlasse("dshRechtebaumEingefahren");
+    if(ausfahren) {
+      r.parent().removeKlasse("dshRechtebaumEingefahren");
+      r.siblings().setCss("display", "");
+    } else {
+      r.parent().addKlasse("dshRechtebaumEingefahren");
+      r.siblings().setCss("display", "none");
+    }
+  },
   rechte: (baum) => {
     let r = [];
     let rechtecheck = (box, pfad) => {

@@ -10,42 +10,54 @@ div:not(.dshRechtebaumBox)>.dshRechtebaumBox>* {
   margin-left: 30px;
 }
 
-.dshRechtebaumBox:not(.dshRechtebaumUnterstes) {
+.dshRechtebaumBox .dshRechtebaumRecht {
+  display: flex;
+}
+
+.dshRechtebaumBox .dshRechtebaumIcon {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+}
+
+.dshRechtebaumBox {
   background-size: 30px;
-  background-image: url(../res/rechtebaum/leer.png);
-  background-repeat: repeat-y;
   image-rendering: pixelated;
+  background-repeat: repeat-y;
+}
+
+.dshRechtebaumBox:not(.dshRechtebaumUnterstes) {
+  background-image: url(../res/rechtebaum/leer.png);
 }
 
 .dshRechtebaumBox .dshUiKnopf {
   margin: 2px;
 }
-.dshRechtebaumBox>div:not(.dshRechtebaumBox) {
-  padding-left: 30px;
-}
 
-.dshRechtebaumBox>div {
+.dshRechtebaumBox>div>.dshRechtebaumIcon {
   background-image: url(../res/rechtebaum/wert.png);
   background-repeat: no-repeat;
   image-rendering: pixelated;
+  // transition: background-image 250ms ease-in-out;
 }
 
-.dshRechtebaumBox>div.dshRechtebaumHatKinder {
+.dshRechtebaumBox.dshRechtebaumHatKinder>div>.dshRechtebaumIcon {
+  background-image: url(../res/rechtebaum/wert_k.png);
+  cursor: pointer;
+}
+
+.dshRechtebaumBox.dshRechtebaumHatKinder.dshRechtebaumEingefahren>div>.dshRechtebaumIcon {
   background-image: url(../res/rechtebaum/wert_k_c.png);
 }
 
-.dshRechtebaumBox>div.dshRechtebaumHatKinder.dshRechtebaumEingefahren {
-  background-image: url(../res/rechtebaum/wert_k.png);
-}
-
-.dshRechtebaumBox>div.dshRechtebaumUnterstes {
+.dshRechtebaumBox.dshRechtebaumUnterstes>div>.dshRechtebaumIcon {
   background-image: url(../res/rechtebaum/wert_u.png);
 }
 
-.dshRechtebaumBox>div.dshRechtebaumHatKinder.dshRechtebaumUnterstes {
-  background-image: url(../res/rechtebaum/wert_u_k_c.png);
+.dshRechtebaumBox.dshRechtebaumHatKinder.dshRechtebaumUnterstes>div>.dshRechtebaumIcon {
+  background-image: url(../res/rechtebaum/wert_u_k.png);
 }
 
-.dshRechtebaumBox>div.dshRechtebaumHatKinder.dshRechtebaumUnterstes.dshRechtebaumEingefahren {
-  background-image: url(../res/rechtebaum/wert_u_k.png);
+.dshRechtebaumBox.dshRechtebaumHatKinder.dshRechtebaumUnterstes.dshRechtebaumEingefahren>div>.dshRechtebaumIcon {
+  background-image: url(../res/rechtebaum/wert_u_k_c.png);
 }
