@@ -69,8 +69,8 @@ if ($art == "l") {
   $DBS->anfrage($sql, "is", $id, $kuerzel);
 }
 
-$sql = "INSERT INTO kern_nutzereinstellungen (person, notifikationsmail, postmail, postalletage, postpapierkorbtage, uebersichtsanzahl, oeffentlichertermin, oeffentlicherblog, oeffentlichegalerie, inaktivitaetszeit, wikiknopf, emailaktiv) VALUES (?, [?], [?], [?], [?], [?], [?], [?], [?], [?], [?], [?])";
-$DBS->anfrage($sql, "iiiiiiiiiiii", $id, "1", "1", "365", "30", "5", "1", "0", "0", "30", "1", "0");
+$sql = "INSERT INTO kern_nutzereinstellungen (person, notifikationsmail, uebersichtsanzahl, oeffentlichertermin, oeffentlicherblog, oeffentlichegalerie, inaktivitaetszeit, wikiknopf) VALUES (?, [1], [5], [1], [0], [0], [30], [1])";
+$DBS->anfrage($sql, "i", $id);
 
 // Dateisystem des Benutzers anlegen
 if (is_dir("$ROOT/dateien/personen/$id")) {

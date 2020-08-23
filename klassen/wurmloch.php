@@ -18,7 +18,6 @@ class Wurmloch {
     foreach($DSH_ALLEMODULE as $modul => $pfad) {
       if(is_file("$pfad/$datei")) {
         \Core\Einbinden::modulLaden($modul, true, false, $scripts);
-        DB::datenbankenLaden();
         $dateien[$modul] = "$pfad/$datei";
       }
     }

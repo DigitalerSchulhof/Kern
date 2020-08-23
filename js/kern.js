@@ -86,16 +86,6 @@ kern.konfiguration = {
       var passwort   = $("#dshKonfigDatenbankShPasswort").getWert();
       var schluessel = $("#dshKonfigDatenbankShSchluessel").getWert();
       core.ajax("Kern", 29, "Schulhofdatenbank ändern", {art:art, host:host, port:port, datenbank:datenbank, benutzer:benutzer, passwort:passwort, schluessel:schluessel}, 18);
-    },
-    personen: () => {
-      var art        = "Personen";
-      var host       = $("#dshKonfigDatenbankPeHost").getWert();
-      var port       = $("#dshKonfigDatenbankPePort").getWert();
-      var datenbank  = $("#dshKonfigDatenbankPeDatenbank").getWert();
-      var benutzer   = $("#dshKonfigDatenbankPeBenutzer").getWert();
-      var passwort   = $("#dshKonfigDatenbankPePasswort").getWert();
-      var schluessel = $("#dshKonfigDatenbankPeSchluessel").getWert();
-      core.ajax("Kern", 29, "Personendatenbank ändern", {art:art, host:host, port:port, datenbank:datenbank, benutzer:benutzer, passwort:passwort, schluessel:schluessel}, 18);
     }
   }
 };

@@ -21,7 +21,7 @@ class Profil {
   /**
    * Gibt den Balken für die Aktivitätsanzeuge aus
    * @param  string $id ID der Aktivitätsanzeige
-   * @return string     HTML-Code der Aktivitätsanzeige
+   * @return string HTML-Code der Aktivitätsanzeige
    */
   public function aktivitaetsanzeige($id) {
     global $DSH_ALLEMODULE;
@@ -42,8 +42,6 @@ class Profil {
     $knoepfe[] = $knopf;
 
     if (in_array("Postfach", $module)) {
-      global $DBP;
-
       $knopf = new UI\Knopf("Postfach");
       $knopf->addFunktion("href", "Schulhof/Nutzerkonto/Postfach");
       $knoepfe[] = $knopf;
@@ -237,7 +235,7 @@ class Profil {
    * Gibt das Aktionsporokoll für den Benutzer aus
    * @return array Elemente, die bei der Ausgabe erzeugt werden
    */
-  public function getAktionsprotokoll($autoladen = false, $sortSeite = 1, $sortDatenproseite = 25, $sortSpalte = 0, $sortRichtung = "ASC") : array{
+  public function getAktionsprotokoll($autoladen = false, $sortSeite = 1, $sortDatenproseite = 25, $sortSpalte = 0, $sortRichtung = "ASC") : array {
     global $DSH_BENUTZER;
     $recht = $this->istFremdzugriff();
 
@@ -279,9 +277,6 @@ class Profil {
 
   /**
    * Erstellt ein bearbeitbares Profil dieses Benutzers
-   * @param  bool   $fremdzugriff entscheidet, welche Rechte relevant sind
-   *                              false: die des Nutzerkontos
-   *                              true: die der Personen
    * @return UI\Reiter :)
    */
   public function getProfil() : UI\Reiter {
@@ -290,13 +285,13 @@ class Profil {
 
     $profilid = $this->person->getId();
 
-    $sql = "SELECT {benutzername}, {email}, {notifikationsmail}, {uebersichtsanzahl}, {oeffentlichertermin}, {oeffentlicherblog}, {oeffentlichegalerie}, {inaktivitaetszeit}, {wikiknopf}, kern_nutzerkonten.person FROM kern_nutzerkonten LEFT JOIN kern_nutzereinstellungen ON kern_nutzerkonten.person = kern_nutzereinstellungen.person WHERE kern_nutzerkonten.person = ?";
-    $anfrage = $DBS->anfrage($sql, "i", $this->person->getId());
-    $anfrage->werte($benutzername, $mail, $notifikationsmail, $uebersicht, $oetermin, $oeblog, $oegalerie, $inaktiv, $wiki, $nutzerkonto);
+    $sql      = "SELECT {benutzername}, {email}, {notifikationsmail}, {uebersichtsanzahl}, {oeffentlichertermin}, {oeffentlicherblog}, {oeffentlichegalerie}, {inaktivitaetszeit}, {wikiknopf}, kn.person, {kuerzel} FROM kern_nutzerkonten as kn LEFT JOIN kern_nutzereinstellungen as kne ON kn.person = kne.person LEFT JOIN kern_lehrer as kl ON kl.id = kn.person WHERE kn.person = ?";
+    $anfrage  = $DBS->anfrage($sql, "i", $this->person->getId());
+    $anfrage  ->werte($benutzername, $mail, $notifikationsmail, $uebersicht, $oetermin, $oeblog, $oegalerie, $inaktiv, $wiki, $nutzerkonto, $kuerzel);
 
-    $sql = "SELECT {kuerzel} FROM kern_lehrer WHERE id = ?";
-    $anfrage = $DBS->anfrage($sql, "i", $this->person->getId());
-    $anfrage->werte($kuerzel);
+    $sql      = "SELECT {kuerzel} FROM kern_lehrer WHERE id = ?";
+    $anfrage  = $DBS->anfrage($sql, "i", $this->person->getId());
+    $anfrage  ->werte($kuerzel);
 
 
     $reiter = new UI\Reiter("dshProfil$profilid");

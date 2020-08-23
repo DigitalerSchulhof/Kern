@@ -147,7 +147,11 @@ switch ($meldeid) {
     break;
   case 25:
     parameter("id", "laden", "nutzerkonto");
-    Anfrage::setRueck("Meldung", new UI\Meldung("Diese Person wirklich löschen", "Soll die Person wirklich gelöscht werden? Wenn ja, nur das Nutzerkonto oder die gesamte Person?", "Warnung"));
+    $wenn = "";
+    if($nutzerkonto == "1") {
+      $wenn = " Wenn ja, nur das Nutzerkonto oder die gesamte Person?";
+    }
+    Anfrage::setRueck("Meldung", new UI\Meldung("Diese Person wirklich löschen", "Soll die Person wirklich gelöscht werden?$wenn", "Warnung"));
     $knoepfe[] = new UI\Knopf("Person löschen", "Fehler", "kern.schulhof.verwaltung.personen.loeschen.ausfuehren('$id', 'person', '$laden')");
     if ($nutzerkonto == "1") {
       $knoepfe[] = new UI\Knopf("Nutzerkonto löschen", "Warnung", "kern.schulhof.verwaltung.personen.loeschen.ausfuehren('$id', 'nutzerkonto', '$laden')");

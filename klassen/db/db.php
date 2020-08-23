@@ -183,6 +183,8 @@ class DB {
       $sql->close();
     }
     else {
+      // @TODO: Enfernen!
+      var_dump(\debug_backtrace(), 1);
       throw new \Exception("Ungültige Anfrage\nFehler: ".mysqli_error($this->db)."<br>\n".$anfrage);
     }
 
@@ -440,28 +442,17 @@ class DB {
    * Öffnet alle gefragten Datenbankenverbindungen und setzt die Variablen
    */
   public static function datenbankenLaden() {
-    global $DSH_DB, $DSH_DATENBANKEN, $EINSTELLUNGEN;
+    global $DSH_DB, $EINSTELLUNGEN;
     if(!isset($DSH_DB)) {
       $DSH_DB = array();
     }
 
-    foreach($DSH_DATENBANKEN as $d) {
-      // Schon Geladene nicht nochmal laden
-      if(isset($DSH_DB[$d])) {
-        continue;
-      }
-    	if($d == "schulhof") {
-        global $DBS;
-        $e = $EINSTELLUNGEN["Datenbanken"]["Schulhof"];
-    		$DBS = new DB($e["Host"], $e["Port"], $e["Benutzer"], $e["Passwort"], $e["DB"], $e["Schluessel"]);
-        $DSH_DB[$d] = $DBS;
-    	}
-    	if($d == "personen") {
-        global $DBP;
-        $e = $EINSTELLUNGEN["Datenbanken"]["Personen"];
-    		$DBP = new DB($e["Host"], $e["Port"], $e["Benutzer"], $e["Passwort"], $e["DB"], $e["Schluessel"]);
-        $DSH_DB[$d] = $DBP;
-    	}
+    // Schon Geladene nicht nochmal laden
+    if(!isset($DSH_DB["schulhof"])) {
+      global $DBS;
+      $e = $EINSTELLUNGEN["Datenbanken"]["Schulhof"];
+      $DBS = new DB($e["Host"], $e["Port"], $e["Benutzer"], $e["Passwort"], $e["DB"], $e["Schluessel"]);
+      $DSH_DB["schulhof"] = $DBS;
     }
 
     DB::log();
