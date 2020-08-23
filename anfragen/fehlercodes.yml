@@ -274,3 +274,9 @@
 100:
   ort: anfragen/schulhof/verwaltung/personen/rechte/rolleneu.php
   beschreibung: Eine Rolle mit der <b>Bezeichnung</b> ist bereits vorhanden.
+101:
+  ort: anfragen/schulhof/verwaltung/modul/modulverwaltung.php
+  beschreibung: Die <b>Pool-Kennung</b> ist ungültig.
+102:
+  ort: anfragen/schulhof/verwaltung/modul/modulverwaltung.php
+  beschreibung: Der <b>Pool-Token</b> ist ungültig.

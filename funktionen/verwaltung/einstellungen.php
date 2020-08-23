@@ -7,6 +7,7 @@ $einstellungen = Kern\Einstellungen::ladenAlle("Kern");
 
 $reiter = new UI\Reiter("dshModulKernEinstellungen");
 
+// SCHULDATEN
 $meldung      = new UI\Meldung("Ende der Spielewiese", "<p>Eine falsche Schuldomain kann zur Folge haben, dass die Seiten des Digitalen Schulhofs nicht mehr korrekt angezeigt werden können.</p>", "Warnung", new UI\Icon("fas fa-exclamation-triangle"));
 $formular    = new UI\FormularTabelle();
 $schulname   = (new UI\Textfeld("dshModulKernSchulname"))                 ->setWert($einstellungen["Schulname"]);
@@ -33,6 +34,7 @@ $reiterspalte   = new UI\Spalte("A1", $meldung, $formular);
 $reiterkoerper  = new UI\Reiterkoerper($reiterspalte->addKlasse("dshUiOhnePadding"));
 $reiter[]       = new UI\Reitersegment($reiterkopf, $reiterkoerper);
 
+// VERTRETER
 $formular     = new UI\FormularTabelle();
 $persleitname = (new UI\Textfeld("dshModulKernLeiterName"))               ->setWert($einstellungen["Schulleitung Name"]);
 $persleitmail = (new UI\Textfeld("dshModulKernLeiterMail"))               ->setWert($einstellungen["Schulleitung Mail"]);
@@ -62,6 +64,7 @@ $reiterspalte   = new UI\Spalte("A1", $formular);
 $reiterkoerper  = new UI\Reiterkoerper($reiterspalte->addKlasse("dshUiOhnePadding"));
 $reiter[]       = new UI\Reitersegment($reiterkopf, $reiterkoerper);
 
+// MAIL
 $meldung      = new UI\Meldung("Ende der Spielewiese", "<p>Hier sollten nur Änderungen erfolgen, wenn man weiß, was man tut. Wenn die folgenden Eingaben fehlerhaft sind, erreichen die Benutzer des Digitalen Schulhofs keine automatischen eMails mehr. Das heißt, dass Benachrichtigungen wegfallen, keine neuen Kennworte verschickt werden können, ...</p><p>Ein Test der Eingaben vor deren Bestätigung wird sehr empfohlen!</p>", "Warnung", new UI\Icon("fas fa-exclamation-triangle"));
 $formular     = new UI\FormularTabelle();
 $mailadresse  = (new UI\Textfeld("dshModulKernMailadresse"))               ->setWert($einstellungen["Mailadresse"]);
@@ -91,6 +94,7 @@ $reiterspalte   = new UI\Spalte("A1", $meldung, $formular);
 $reiterkoerper  = new UI\Reiterkoerper($reiterspalte->addKlasse("dshUiOhnePadding"));
 $reiter[]       = new UI\Reitersegment($reiterkopf, $reiterkoerper);
 
+// LDAP
 $meldung      = new UI\Meldung("Ende der Spielewiese", "<p>Hier sollten nur Änderungen erfolgen, wenn man weiß, was man tut. Wenn die folgenden Eingaben fehlerhaft sind, können ggf. keine Anmeldungen am Digitalen Schulhof mehr erfolgen.</p><p>Ein Test der Eingaben vor deren Bestätigung wird sehr empfohlen!</p>", "Warnung", new UI\Icon("fas fa-exclamation-triangle"));
 $formular     = new UI\FormularTabelle();
 $ldapaktiv    = (new UI\IconToggle("dshModulKernLdapAktiv", "Für die Nutzerauthentifizierung einen LDAP-Server verwenden", new UI\Icon(UI\Konstanten::HAKEN)))->setWert($einstellungen["LDAP"]);
@@ -112,6 +116,23 @@ $reiterspalte   = new UI\Spalte("A1", $meldung, $formular);
 $reiterkoerper  = new UI\Reiterkoerper($reiterspalte->addKlasse("dshUiOhnePadding"));
 $reiter[]       = new UI\Reitersegment($reiterkopf, $reiterkoerper);
 
+// UPDATER
+$formular     = new UI\FormularTabelle();
+$poolRoot     = (new UI\Textfeld("dshModulKernUpdaterPoolRoot"))                        ->setWert($einstellungen["PoolRoot"])->setAttribut("readonly", true);
+$formular[]   = new UI\FormularFeld(new UI\InhaltElement("Pool-Basisverzeichnis:"),      $poolRoot);
+$poolKennung  = (new UI\Textfeld("dshModulKernUpdaterPoolKennung"))                     ->setWert($einstellungen["PoolKennung"]);
+$formular[]   = new UI\FormularFeld(new UI\InhaltElement("Pool-Kundenkennung:"),        $poolKennung);
+$poolToken    = (new UI\Textfeld("dshModulKernUpdaterPoolToken"))                       ->setWert($einstellungen["PoolToken"]);
+$formular[]   = new UI\FormularFeld(new UI\InhaltElement("Pool-Kundentoken:"),          $poolToken);
+$formular[]   = (new UI\Knopf("Änderungen speichern", "Erfolg"))                        ->setSubmit(true);
+$formular     ->addSubmit("kern.modul.einstellungen.modulverwaltung()");
+
+$reiterkopf     = new UI\Reiterkopf("Modulverwaltung", new UI\Icon(UI\Konstanten::MODUL));
+$reiterspalte   = new UI\Spalte("A1", $formular);
+$reiterkoerper  = new UI\Reiterkoerper($reiterspalte->addKlasse("dshUiOhnePadding"));
+$reiter[]       = new UI\Reitersegment($reiterkopf, $reiterkoerper);
+
+// AKTIONSLOG
 $formular     = new UI\FormularTabelle();
 $logaktiv     = (new UI\IconToggle("dshModulKernLogAktiv", "Alle Änderungen an der Datenbank und dem Dateisystem aufzeichnen", new UI\Icon(UI\Konstanten::HAKEN)))->setWert($einstellungen["Aktionslog"]);
 $formular[]   = new UI\FormularFeld(new UI\InhaltElement("Aktionslog aktiv:"),     $logaktiv);

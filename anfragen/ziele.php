@@ -46,4 +46,5 @@ $ZIELE[44] = "schulhof/verwaltung/personen/rechte/rolleneu.php";
 $ZIELE[45] = "schulhof/verwaltung/personen/rechte/rolleloeschen.php";
 $ZIELE[46] = "schulhof/verwaltung/personen/rechte/rollebearbeiten.php";
 $ZIELE[47] = "schulhof/verwaltung/module/suche.php";
+$ZIELE[48] = "schulhof/verwaltung/modul/modulverwaltung.php";
 ?>

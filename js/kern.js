@@ -66,6 +66,13 @@ kern.modul = {
       testen: () => {
         // 27
       }
+    },
+    modulverwaltung: () => {
+      let daten = {
+        poolKennung : $("#dshModulKernUpdaterPoolKennung").getWert(),
+        poolToken   : $("#dshModulKernUpdaterPoolToken").getWert(),
+      };
+      core.ajax("Kern", 48, "Modulverwaltung ändern", {...daten}, 37);
     }
   }
 };

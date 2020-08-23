@@ -227,5 +227,8 @@ switch ($meldeid) {
     Anfrage::setRueck("Meldung", new UI\Meldung("Rolle bearbeiten", "Die Rolle wurde bearbeitet.", "Erfolg"));
     Anfrage::setRueck("Knöpfe", [$ok]);
     break;
+  case 37:
+    Anfrage::setRueck("Meldung", new UI\Meldung("Änderungen erfolgreich!", "Die Änderungen der Modulverwaltung wurden vorgenomen.", "Erfolg"));
+    break;
 }
 ?>
