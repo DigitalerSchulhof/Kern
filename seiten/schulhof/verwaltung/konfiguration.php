@@ -11,10 +11,11 @@ $basisver = (new UI\Textfeld("dshKonfigBasis"))                                 
 $formular[]  = new UI\FormularFeld(new UI\InhaltElement("Basisverzeichnis:"),   $basisver);
 $formular[]  = (new UI\Knopf("Änderungen speichern", "Erfolg"))                 ->setSubmit(true);
 $formular    ->addSubmit("kern.konfiguration.verzeichnisse()");
-$reiterkopf = new UI\Reiterkopf("Verzeichnisse");
-$reiterspalte = new UI\Spalte("A1", $meldung, $formular);
-$reiterkoerper = new UI\Reiterkoerper($reiterspalte->addKlasse("dshUiOhnePadding"));
-$reiter->addReitersegment(new UI\Reitersegment($reiterkopf, $reiterkoerper));
+
+$reiterkopf     = new UI\Reiterkopf("Verzeichnisse", new UI\Icon("fas fa-folder-open"));
+$reiterspalte   = new UI\Spalte("A1", $meldung, $formular);
+$reiterkoerper  = new UI\Reiterkoerper($reiterspalte->addKlasse("dshUiOhnePadding"));
+$reiter[]       = new UI\Reitersegment($reiterkopf, $reiterkoerper);
 
 $meldung  = new UI\Meldung("Ende der Spielewiese", "<p>Falsche Daten in dieser Tabelle können die Funktionsfähigkeit des Digitalen Schulhofs nachhaltig beschädigen!</p>", "Warnung", new UI\Icon("fas fa-exclamation-triangle"));
 $ueberschriftsh = new UI\Ueberschrift(3, "Schulhof");
@@ -34,7 +35,7 @@ $formularsh[]  = new UI\FormularFeld(new UI\InhaltElement("Schlüssel:"), $dbshs
 $formularsh[]  = (new UI\Knopf("Änderungen speichern", "Erfolg"))           ->setSubmit(true);
 $formularsh    ->addSubmit("kern.konfiguration.datenbanken.schulhof()");
 
-$reiterkopf     = new UI\Reiterkopf("Datenbanken");
+$reiterkopf     = new UI\Reiterkopf("Datenbanken", new UI\Icon("fas fa-database"));
 $reiterspalte   = new UI\Spalte("A1", $meldung, $ueberschriftsh, $formularsh);
 $reiterkoerper  = new UI\Reiterkoerper($reiterspalte->addKlasse("dshUiOhnePadding"));
 $reiter[]       = new UI\Reitersegment($reiterkopf, $reiterkoerper);

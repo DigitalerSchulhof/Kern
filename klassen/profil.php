@@ -289,11 +289,6 @@ class Profil {
     $anfrage  = $DBS->anfrage($sql, "i", $this->person->getId());
     $anfrage  ->werte($benutzername, $mail, $notifikationsmail, $uebersicht, $oetermin, $oeblog, $oegalerie, $inaktiv, $wiki, $nutzerkonto, $kuerzel);
 
-    $sql      = "SELECT {kuerzel} FROM kern_lehrer WHERE id = ?";
-    $anfrage  = $DBS->anfrage($sql, "i", $this->person->getId());
-    $anfrage  ->werte($kuerzel);
-
-
     $reiter = new UI\Reiter("dshProfil$profilid");
 
     /*
@@ -360,10 +355,11 @@ class Profil {
 
     $formular[]       = (new UI\Knopf("Änderungen speichern", "Erfolg"))  ->setSubmit(true);
     $formular         ->addSubmit("kern.schulhof.nutzerkonto.aendern.persoenliches('{$profilid}')");
-    $reiterkopf = new UI\Reiterkopf("Persönliches");
-    $reiterspalte = new UI\Spalte("A1", $formular);
-    $reiterkoerper = new UI\Reiterkoerper($reiterspalte->addKlasse("dshUiOhnePadding"));
-    $reiter->addReitersegment(new UI\Reitersegment($reiterkopf, $reiterkoerper));
+
+    $reiterkopf     = new UI\Reiterkopf("Persönliches", new UI\Icon(UI\Konstanten::PERSON));
+    $reiterspalte   = new UI\Spalte("A1", $formular);
+    $reiterkoerper  = new UI\Reiterkoerper($reiterspalte->addKlasse("dshUiOhnePadding"));
+    $reiter[]       = new UI\Reitersegment($reiterkopf, $reiterkoerper);
 
     /*
      * Nutzerkonto
@@ -390,8 +386,9 @@ class Profil {
 
       $formular[]       = (new UI\Knopf("Änderungen speichern", "Erfolg"))  ->setSubmit(true);
       $formular         ->addSubmit("kern.schulhof.nutzerkonto.aendern.kontodaten('{$profilid}')");
-      $reiterkopf = new UI\Reiterkopf("Nutzerkonto");
-      $reiterspalte = new UI\Spalte("A1");
+
+      $reiterkopf     = new UI\Reiterkopf("Nutzerkonto", new UI\Icon("fas fa-address-card"));
+      $reiterspalte   = new UI\Spalte("A1");
       $ldap = Einstellungen::laden("Kern", "LDAP");
       if ($ldap == "1" && $DSH_BENUTZER->hatRecht("$recht.benutzer")) {
         $reiterspalte[] = new UI\Meldung("LDAP wird verwendet", "Eine Änderung des Benutzernamens kann dazu führen, dass die verschiedenen Systeme, die dieses Nutzerkonto verwenden, nicht mehr optimal zusammen funktionieren.", "Warnung");
@@ -421,8 +418,8 @@ class Profil {
         $reiterspalte[]   = $formular;
       }
 
-      $reiterkoerper = new UI\Reiterkoerper($reiterspalte->addKlasse("dshUiOhnePadding"));
-      $reiter->addReitersegment(new UI\Reitersegment($reiterkopf, $reiterkoerper));
+      $reiterkoerper      = new UI\Reiterkoerper($reiterspalte->addKlasse("dshUiOhnePadding"));
+      $reiter[]           = new UI\Reitersegment($reiterkopf, $reiterkoerper);
 
       /*
        * Passwort
@@ -430,13 +427,13 @@ class Profil {
 
       if ($DSH_BENUTZER->hatRecht("$recht.passwort")) {
         $formular         = new UI\FormularTabelle();
-        $passwortaltF = (new UI\Passwortfeld("dshProfil{$profilid}PasswortAlt"));
-        $passwortneuF = (new UI\Passwortfeld("dshProfil{$profilid}PasswortNeu"));
-        $passwortneu2F = (new UI\Passwortfeld("dshProfil{$profilid}PasswortNeu2", $passwortneuF));
+        $passwortaltF   = (new UI\Passwortfeld("dshProfil{$profilid}PasswortAlt"));
+        $passwortneuF   = (new UI\Passwortfeld("dshProfil{$profilid}PasswortNeu"));
+        $passwortneu2F  = (new UI\Passwortfeld("dshProfil{$profilid}PasswortNeu2", $passwortneuF));
 
-        $passwortaltF->setAutocomplete("password");
-        $passwortneuF->setAutocomplete("password");
-        $passwortneu2F->setAutocomplete("password");
+        $passwortaltF   ->setAutocomplete("password");
+        $passwortneuF   ->setAutocomplete("new-password");
+        $passwortneu2F  ->setAutocomplete("new-password");
 
         $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Altes Passwort:"),                 $passwortaltF);
         $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Neues Passwort:"),                 $passwortneuF);
@@ -444,10 +441,11 @@ class Profil {
 
         $formular[]       = (new UI\Knopf("Änderungen speichern", "Erfolg"))  ->setSubmit(true);
         $formular         ->addSubmit("kern.schulhof.nutzerkonto.aendern.passwort('{$profilid}')");
-        $reiterkopf = new UI\Reiterkopf("Passwort");
-        $reiterspalte = new UI\Spalte("A1", $formular);
-        $reiterkoerper = new UI\Reiterkoerper($reiterspalte->addKlasse("dshUiOhnePadding"));
-        $reiter->addReitersegment(new UI\Reitersegment($reiterkopf, $reiterkoerper));
+
+        $reiterkopf       = new UI\Reiterkopf("Passwort", new UI\Icon("fas fa-key"));
+        $reiterspalte     = new UI\Spalte("A1", $formular);
+        $reiterkoerper    = new UI\Reiterkoerper($reiterspalte->addKlasse("dshUiOhnePadding"));
+        $reiter[]         = new UI\Reitersegment($reiterkopf, $reiterkoerper);
       }
 
       new Wurmloch("funktionen/einstellungen.php", array("recht" => $recht, "profilid" => $profilid), function($r) use ($reiter) {
@@ -469,9 +467,9 @@ class Profil {
         foreach ($sessionprotokoll as $s) {
           $reiterspalte[]   = $s;
         }
-        $reiterkopf = new UI\Reiterkopf("Sessionprotokoll");
-        $reiterkoerper = new UI\Reiterkoerper($reiterspalte->addKlasse("dshUiOhnePadding"));
-        $reiter->addReitersegment(new UI\Reitersegment($reiterkopf, $reiterkoerper));
+        $reiterkopf     = new UI\Reiterkopf("Sessionprotokoll", new UI\Icon("fas fa-user-clock"));
+        $reiterkoerper  = new UI\Reiterkoerper($reiterspalte->addKlasse("dshUiOhnePadding"));
+        $reiter[]       = new UI\Reitersegment($reiterkopf, $reiterkoerper);
       }
 
       /*
@@ -484,9 +482,9 @@ class Profil {
         foreach ($aktionsprotokoll as $a) {
           $reiterspalte[]   = $a;
         }
-        $reiterkopf = new UI\Reiterkopf("Aktionsprotokoll");
-        $reiterkoerper = new UI\Reiterkoerper($reiterspalte->addKlasse("dshUiOhnePadding"));
-        $reiter->addReitersegment(new UI\Reitersegment($reiterkopf, $reiterkoerper));
+        $reiterkopf       = new UI\Reiterkopf("Aktionsprotokoll", new UI\Icon("fas fa-clipboard-list"));
+        $reiterkoerper    = new UI\Reiterkoerper($reiterspalte->addKlasse("dshUiOhnePadding"));
+        $reiter[]         = new UI\Reitersegment($reiterkopf, $reiterkoerper);
       }
     }
 
