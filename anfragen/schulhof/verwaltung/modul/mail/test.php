@@ -40,7 +40,7 @@ $betreff = "Neu eMail-Daten testen";
 $anrede = $DSH_BENUTZER->getAnrede();
 $empfaenger = $DSH_BENUTZER->getName();
 
-$sql = "SELECT {email} FROM kern_nutzerkonten WHERE id = ?";
+$sql = "SELECT {email} FROM kern_nutzerkonten WHERE person = ?";
 $anfrage = $DBS->anfrage($sql, "i", $DSH_BENUTZER->getId());
 $anfrage->werte($mail);
 

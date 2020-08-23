@@ -4,8 +4,8 @@ $SEITE = new Kern\Seite("Rollen", "verwaltung.rechte.rollen.sehen");
 $spalte = new UI\Spalte("A1", new UI\SeitenUeberschrift("Rollen"));
 
 $tabelle = new UI\Tabelle("dshVerwaltungRollen", new UI\Icon("fas fa-tag"), "Rolle", "Personen", "Rechte");
-$tabelle ->setAutoladen(true);
-$tabelle ->setSortierfunktion("kern.schulhof.verwaltung.rollen.suche");
+$tabelle ->setAnfrageziel(43);
+$tabelle ->setAutoload(true);
 
 $spalte[] = $tabelle;
 $knoepfe = [];

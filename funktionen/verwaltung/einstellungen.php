@@ -27,10 +27,11 @@ $formular[]  = (new UI\FormularFeld(new UI\InhaltElement("eMail-Adresse:"),     
 $formular[]  = new UI\FormularFeld(new UI\InhaltElement("Schuldomain:"),           $schuldomain);
 $formular[]  = (new UI\Knopf("Änderungen speichern", "Erfolg"))           ->setSubmit(true);
 $formular    ->addSubmit("kern.modul.einstellungen.schuldaten()");
-$reiterkopf = new UI\Reiterkopf("Schuldaten");
-$reiterspalte = new UI\Spalte("A1", $meldung, $formular);
-$reiterkoerper = new UI\Reiterkoerper($reiterspalte->addKlasse("dshUiOhnePadding"));
-$reiter->addReitersegment(new UI\Reitersegment($reiterkopf, $reiterkoerper));
+
+$reiterkopf     = new UI\Reiterkopf("Schuldaten", new UI\Icon("fas fa-home"));
+$reiterspalte   = new UI\Spalte("A1", $meldung, $formular);
+$reiterkoerper  = new UI\Reiterkoerper($reiterspalte->addKlasse("dshUiOhnePadding"));
+$reiter[]       = new UI\Reitersegment($reiterkopf, $reiterkoerper);
 
 $formular     = new UI\FormularTabelle();
 $persleitname = (new UI\Textfeld("dshModulKernLeiterName"))               ->setWert($einstellungen["Schulleitung Name"]);
@@ -55,10 +56,11 @@ $formular[]  = (new UI\FormularFeld(new UI\InhaltElement("Administration Name:")
 $formular[]  = (new UI\FormularFeld(new UI\InhaltElement("Administration eMail:"),  $admileitmail))->setOptional(true);
 $formular[]  = (new UI\Knopf("Änderungen speichern", "Erfolg"))           ->setSubmit(true);
 $formular    ->addSubmit("kern.modul.einstellungen.vertreter()");
-$reiterkopf = new UI\Reiterkopf("Vertreter");
-$reiterspalte = new UI\Spalte("A1", $formular);
-$reiterkoerper = new UI\Reiterkoerper($reiterspalte->addKlasse("dshUiOhnePadding"));
-$reiter->addReitersegment(new UI\Reitersegment($reiterkopf, $reiterkoerper));
+
+$reiterkopf     = new UI\Reiterkopf("Vertreter", new UI\Icon("fas fa-user-tie"));
+$reiterspalte   = new UI\Spalte("A1", $formular);
+$reiterkoerper  = new UI\Reiterkoerper($reiterspalte->addKlasse("dshUiOhnePadding"));
+$reiter[]       = new UI\Reitersegment($reiterkopf, $reiterkoerper);
 
 $meldung      = new UI\Meldung("Ende der Spielewiese", "<p>Hier sollten nur Änderungen erfolgen, wenn man weiß, was man tut. Wenn die folgenden Eingaben fehlerhaft sind, erreichen die Benutzer des Digitalen Schulhofs keine automatischen eMails mehr. Das heißt, dass Benachrichtigungen wegfallen, keine neuen Kennworte verschickt werden können, ...</p><p>Ein Test der Eingaben vor deren Bestätigung wird sehr empfohlen!</p>", "Warnung", new UI\Icon("fas fa-exclamation-triangle"));
 $formular     = new UI\FormularTabelle();
@@ -83,10 +85,11 @@ $formular[]   = (new UI\FormularFeld(new UI\InhaltElement("HTML Signatur:"),    
 $formular[]   = (new UI\Knopf("Änderungen speichern", "Erfolg"))                      ->setSubmit(true);
 $formular[]   = (new UI\Knopf("Änderungen testen", "Information"))                    ->addFunktion("onclick", "kern.modul.einstellungen.mail.testen()");
 $formular     ->addSubmit("kern.modul.einstellungen.mail.aendern()");
-$reiterkopf = new UI\Reiterkopf("Mailversand");
-$reiterspalte = new UI\Spalte("A1", $meldung, $formular);
-$reiterkoerper = new UI\Reiterkoerper($reiterspalte->addKlasse("dshUiOhnePadding"));
-$reiter->addReitersegment(new UI\Reitersegment($reiterkopf, $reiterkoerper));
+
+$reiterkopf     = new UI\Reiterkopf("Mailversand", new UI\Icon("fas fa-mail-bulk"));
+$reiterspalte   = new UI\Spalte("A1", $meldung, $formular);
+$reiterkoerper  = new UI\Reiterkoerper($reiterspalte->addKlasse("dshUiOhnePadding"));
+$reiter[]       = new UI\Reitersegment($reiterkopf, $reiterkoerper);
 
 $meldung      = new UI\Meldung("Ende der Spielewiese", "<p>Hier sollten nur Änderungen erfolgen, wenn man weiß, was man tut. Wenn die folgenden Eingaben fehlerhaft sind, können ggf. keine Anmeldungen am Digitalen Schulhof mehr erfolgen.</p><p>Ein Test der Eingaben vor deren Bestätigung wird sehr empfohlen!</p>", "Warnung", new UI\Icon("fas fa-exclamation-triangle"));
 $formular     = new UI\FormularTabelle();
@@ -103,20 +106,22 @@ $formular[]   = new UI\FormularFeld(new UI\InhaltElement("LDAP-Port:"),      $ld
 $formular[]   = (new UI\Knopf("Änderungen speichern", "Erfolg"))             ->setSubmit(true);
 $formular[]   = (new UI\Knopf("Änderungen testen", "Information"))           ->addFunktion("onclick", "kern.modul.einstellungen.ldap.testen()")->setSubmit(false);
 $formular     ->addSubmit("kern.modul.einstellungen.ldap.aendern()");
-$reiterkopf = new UI\Reiterkopf("LDAP");
-$reiterspalte = new UI\Spalte("A1", $meldung, $formular);
-$reiterkoerper = new UI\Reiterkoerper($reiterspalte->addKlasse("dshUiOhnePadding"));
-$reiter->addReitersegment(new UI\Reitersegment($reiterkopf, $reiterkoerper));
+
+$reiterkopf     = new UI\Reiterkopf("LDAP", new UI\Icon("fas fa-project-diagram"));
+$reiterspalte   = new UI\Spalte("A1", $meldung, $formular);
+$reiterkoerper  = new UI\Reiterkoerper($reiterspalte->addKlasse("dshUiOhnePadding"));
+$reiter[]       = new UI\Reitersegment($reiterkopf, $reiterkoerper);
 
 $formular     = new UI\FormularTabelle();
 $logaktiv     = (new UI\IconToggle("dshModulKernLogAktiv", "Alle Änderungen an der Datenbank und dem Dateisystem aufzeichnen", new UI\Icon(UI\Konstanten::HAKEN)))->setWert($einstellungen["Aktionslog"]);
 $formular[]   = new UI\FormularFeld(new UI\InhaltElement("Aktionslog aktiv:"),     $logaktiv);
 $formular[]   = (new UI\Knopf("Änderungen speichern", "Erfolg"))             ->setSubmit(true);
 $formular     ->addSubmit("kern.modul.einstellungen.aktionslog()");
-$reiterkopf = new UI\Reiterkopf("Aktionslog");
-$reiterspalte = new UI\Spalte("A1", $formular);
-$reiterkoerper = new UI\Reiterkoerper($reiterspalte->addKlasse("dshUiOhnePadding"));
-$reiter->addReitersegment(new UI\Reitersegment($reiterkopf, $reiterkoerper));
+
+$reiterkopf     = new UI\Reiterkopf("Aktionslog", new UI\Icon("fas fa-clipboard-list"));
+$reiterspalte   = new UI\Spalte("A1", $formular);
+$reiterkoerper  = new UI\Reiterkoerper($reiterspalte->addKlasse("dshUiOhnePadding"));
+$reiter[]       = new UI\Reitersegment($reiterkopf, $reiterkoerper);
 
 $spalte[] = $reiter;
 

@@ -39,7 +39,7 @@ kern.modul = {
         var mailauth    = $("#dshModulKernMailauthentifizierung").getWert();
         var mailsigp    = $("#dshModulKernMailsignaturPlain").getWert();
         var mailsigh    = $("#dshModulKernMailsignaturHTML").getWert();
-        core.ajax("Kern", 23, "eMailadresse ändern", {mailadresse:mailadresse, mailtitel:mailtitel, mailuser:mailuser, mailpass:mailpass, mailhost:mailhost, mailport:mailport, mailauth:mailauth, mailsigp:mailsigp, mailsigh:mailsigh}, 21);
+        core.ajax("Kern", 23, "eMailadresse ändern", {mailadresse:mailadresse, mailtitel:mailtitel, mailuser:mailuser, mailpass:mailpass, mailhost:mailhost, mailport:mailport, mailauth:mailauth, mailsigp:mailsigp, mailsigh:mailsigh}, 20);
       },
       testen: () => {
         var mailadresse = $("#dshModulKernMailadresse").getWert();
@@ -51,7 +51,7 @@ kern.modul = {
         var mailauth    = $("#dshModulKernMailauthentifizierung").getWert();
         var mailsigp    = $("#dshModulKernMailsignaturPlain").getWert();
         var mailsigh    = $("#dshModulKernMailsignaturHTML").getWert();
-        core.ajax("Kern", 26, "eMailadresse testen", {mailadresse:mailadresse, mailtitel:mailtitel, mailuser:mailuser, mailpass:mailpass, mailhost:mailhost, mailport:mailport, mailauth:mailauth, mailsigp:mailsigp, mailsigh:mailsigh}, 20);
+        core.ajax("Kern", 26, "eMailadresse testen", {mailadresse:mailadresse, mailtitel:mailtitel, mailuser:mailuser, mailpass:mailpass, mailhost:mailhost, mailport:mailport, mailauth:mailauth, mailsigp:mailsigp, mailsigh:mailsigh}, 21);
       }
     },
     ldap: {

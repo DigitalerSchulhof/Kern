@@ -2,13 +2,6 @@ kern.schulhof.verwaltung.rechte = {
 
 };
 kern.schulhof.verwaltung.rollen = {
-  suche: (feld, id, sortieren) => {
-    core.ajax("Kern", 43, null, {...sortieren}).then((r) => {
-      if (r.Code) {
-        feld.setHTML(r.Code);
-      }
-    });
-  },
   loeschen: {
     fragen: (id) => ui.laden.meldung("Kern", 35, "Rolle löschen", {id: id}),
     ausfuehren: (id) => core.ajax("Kern", 45, "Rolle löschen", {id: id}, 34, ["dshVerwaltungRollen"]),
