@@ -22,7 +22,7 @@ kern.schulhof.nutzerkonto = {
   },
   session: {
     verlaengern: () => {
-      core.ajax("Kern", 2, ["Session verlängern", "Die Verlängerung wird durchgeführt"], null, 1).then((r) => {
+      core.ajax("Kern", 2, ["Session verlängern", "Die Verlängerung wird durchgeführt"], null, 17).then((r) => {
         kern.schulhof.nutzerkonto.aktivitaetsanzeige.limit = r.Limit;
         kern.schulhof.nutzerkonto.aktivitaetsanzeige.timeout = r.Ende;
       });
