@@ -5,7 +5,7 @@ $spalte = new UI\Spalte("A1", new UI\SeitenUeberschrift("Rollen"));
 
 $tabelle = new UI\Tabelle("dshVerwaltungRollen", new UI\Icon("fas fa-tag"), "Rolle", "Personen", "Rechte");
 $tabelle ->setAnfrageziel(43);
-$tabelle ->setAutoload(true);
+$tabelle ->setAutoladen(true);
 
 $spalte[] = $tabelle;
 $knoepfe = [];

@@ -63,7 +63,7 @@ foreach($module as $modul => $info) {
   if(!$info["system"] && $darflo) {
     $knopf = UI\MiniIconKnopf::loeschen();
     // @TODO: Module deinstallieren
-    $knopf ->addFunktion("onclick", "kern.schulhof.verwaltung.module.loeschen.fragen('$modul')");
+    // $knopf ->addFunktion("onclick", "kern.schulhof.verwaltung.module.loeschen.fragen('$modul')");
     $zeile ->addAktion($knopf);
   }
 
