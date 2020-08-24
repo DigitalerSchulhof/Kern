@@ -168,7 +168,8 @@ switch ($meldeid) {
   case 27:
     Anfrage::setRueck("Meldung", new UI\Meldung("Person erstellt", "Die Person wurde angelegt.", "Erfolg"));
     $knoepfe = [UI\Knopf::ok()];
-    $knoepfe[0]->addFunktion("onclick", "core.rueck()");
+    $knoepfe[0]->addFunktion("onclick", "ui.fenster.schliessen('dshVerwaltungNeuePerson')");
+    $knoepfe[0]->addFunktion("onclick", "ui.tabelle.sortieren('dshVerwaltungPersonen')");
     Anfrage::setRueck("Knöpfe", $knoepfe);
     break;
   case 28:

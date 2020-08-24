@@ -16,7 +16,7 @@ $spalte[] = $tabelle;
 $knoepfe = [];
 if ($DSH_BENUTZER->hatRecht("verwaltung.personen.anlegen.person")) {
   $knopf      = new UI\IconKnopf(new UI\Icon (UI\Konstanten::NEU), "Neue Person anlegen", "Erfolg");
-  $knopf      ->addFunktion("href", "Schulhof/Verwaltung/Personen/Neue_Person");
+  $knopf      ->addFunktion("onclick", "kern.schulhof.verwaltung.personen.neu.person.fenster()");
   $knoepfe[]   = $knopf;
 }
 if ($DSH_BENUTZER->hatRecht("verwaltung.personen.importieren.[|konten,ids]")) {

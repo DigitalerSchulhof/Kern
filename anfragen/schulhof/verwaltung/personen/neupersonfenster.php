@@ -1,9 +1,17 @@
 <?php
-$SEITE = new Kern\Seite("Personen", "verwaltung.personen.anlegen.person");
+if(!Kern\Check::angemeldet()) {
+  Anfrage::addFehler(-2, true);
+}
+
+if (!$DSH_BENUTZER->hatRecht("verwaltung.personen.anlegen.person")) {
+  Anfrage::addFehler(-4, true);
+}
 
 $darfnutzerkonto = $DSH_BENUTZER->hatRecht("verwaltung.personen.anlegen.nutzerkonto");
 
-$spalte = new UI\Spalte("A1", new UI\SeitenUeberschrift("Neue Person anlegen"));
+$fensterid = "dshVerwaltungNeuePerson";
+
+$fenstertitel = (new UI\Icon("fas fa-user-plus"))." Neue Person anlegen";
 
 $formular         = new UI\FormularTabelle();
 
@@ -49,9 +57,11 @@ if ($darfnutzerkonto) {
 }
 
 $formular[]       = (new UI\Knopf("Neue Person anlegen", "Erfolg"))  ->setSubmit(true);
-$formular         ->addSubmit("kern.schulhof.verwaltung.personen.neu.person()");
-$formular[]   = (new UI\Knopf("Abbrechen", "Fehler"))                ->addFunktion("onclick", "core.rueck()");
-$spalte[]         = $formular;
+$formular         ->addSubmit("kern.schulhof.verwaltung.personen.neu.person.erstellen()");
+$fensterinhalt    = UI\Zeile::standard($formular);
 
-$SEITE[] = new UI\Zeile($spalte);
+$code = new UI\Fenster($fensterid, $fenstertitel, $fensterinhalt, true, true);
+$code->addFensteraktion(UI\Knopf::schliessen($fensterid));
+
+Anfrage::setRueck("Code", (string) $code);
 ?>
