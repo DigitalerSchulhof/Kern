@@ -30,7 +30,7 @@ while($anfrage->werte($id, $bezeichung, $personen, $rechte)) {
   } else {
     if($DSH_BENUTZER->hatRecht("verwaltung.rechte.rollen.bearbeiten")) {
       $knopf = new UI\MiniIconKnopf(new UI\Icon(UI\Konstanten::BEARBEITEN), "Rolle bearbeiten");
-      $knopf ->addFunktion("href", "Schulhof/Verwaltung/Rollen/".str_replace(" ", "_", $bezeichung));
+      $knopf ->addFunktion("onclick", "kern.schulhof.verwaltung.rollen.bearbeiten.fenster($id)");
       $zeile ->addAktion($knopf);
     }
     if($DSH_BENUTZER->hatRecht("verwaltung.rechte.rollen.löschen")) {

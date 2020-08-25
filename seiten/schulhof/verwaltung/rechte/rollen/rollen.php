@@ -10,7 +10,7 @@ $spalte[] = $tabelle;
 $knoepfe = [];
 if ($DSH_BENUTZER->hatRecht("verwaltung.rechte.rollen.anlegen")) {
   $knopf      = new UI\IconKnopf(new UI\Icon (UI\Konstanten::NEU), "Rolle anlegen", "Erfolg");
-  $knopf      ->addFunktion("href", "Schulhof/Verwaltung/Rollen/Neue_Rolle");
+  $knopf      ->addFunktion("onclick", "kern.schulhof.verwaltung.rollen.neu.fenster()");
   $knoepfe[]   = $knopf;
 }
 

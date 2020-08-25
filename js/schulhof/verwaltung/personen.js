@@ -37,7 +37,9 @@ kern.schulhof.verwaltung.personen = {
   },
   loeschen: {
     fragen: (id, nutzerkonto) => ui.laden.meldung("Kern", 25, "Person löschen", {id:id, nutzerkonto:nutzerkonto}),
-    ausfuehren: (id, art) => core.ajax("Kern", 33, "Person löschen", {id:id, art:art}, 26, "dshVerwaltungPersonen"),
+    ausfuehren: (id, art) => core.ajax("Kern", 33, "Person löschen", {id:id, art:art}, null, "dshVerwaltungPersonen").then(() => {
+      ui.laden.meldung("Kern", 26, null, {art:art});
+    }),
   },
   neu: {
     person: {
@@ -54,7 +56,7 @@ kern.schulhof.verwaltung.personen = {
         var nutzerkonto = $("#dshNeuePersonNutzerkonto").getWert();
         var benutzername = $("#dshNeuePersonBenutzername").getWert();
         var mail = $("#dshNeuePersonMail").getWert();
-        core.ajax("Kern", 34, "Neue Person erstellen", {art:art, geschlecht:geschlecht, titel:titel, vorname:vorname, nachname:nachname, kuerzel:kuerzel, nutzerkonto:nutzerkonto, benutzername:benutzername, mail:mail}).then((r) => {
+        core.ajax("Kern", 34, "Neue Person erstellen", {art:art, geschlecht:geschlecht, titel:titel, vorname:vorname, nachname:nachname, kuerzel:kuerzel, nutzerkonto:nutzerkonto, benutzername:benutzername, mail:mail}, null, "dshVerwaltungPersonen").then((r) => {
           if (nutzerkonto == "1") {
             var id = r.ID;
             core.ajax("Kern", 35, "Neues Nutzerkonto erstellen", {id:id, benutzername:benutzername, mail:mail}).then((r) => {

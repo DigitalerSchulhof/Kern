@@ -45,10 +45,10 @@ function rollenDetails($id = null) : UI\Element {
 
   if($id === null) {
     $formular[] = (new UI\Knopf("Neue Rolle anlegen", "Erfolg"))          ->setSubmit(true);
-    $formular   ->addSubmit("kern.schulhof.verwaltung.rollen.neu()");
+    $formular   ->addSubmit("kern.schulhof.verwaltung.rollen.neu.speichern()");
   } else {
     $formular[] = (new UI\Knopf("Änderungen speichern", "Erfolg"))        ->setSubmit(true);
-    $formular   ->addSubmit("kern.schulhof.verwaltung.rollen.speichern($id)");
+    $formular   ->addSubmit("kern.schulhof.verwaltung.rollen.bearbeiten.speichern($id)");
   }
   $formular[]   = (new UI\Knopf("Abbrechen", "Fehler"))                   ->addFunktion("onclick", "core.rueck()");
   return $formular;

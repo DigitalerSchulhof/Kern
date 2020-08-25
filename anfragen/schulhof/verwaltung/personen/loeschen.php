@@ -1,6 +1,5 @@
 <?php
 Anfrage::post("id", "art");
-
 if(!Kern\Check::angemeldet()) {
   Anfrage::addFehler(-2, true);
 }

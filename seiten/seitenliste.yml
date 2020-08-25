@@ -18,5 +18,3 @@ seiten:
   "Schulhof/Verwaltung/Konfiguration"        : "schulhof/verwaltung/konfiguration.php"
   "Schulhof/Verwaltung/Personen"             : "schulhof/verwaltung/personen.php"
   "Schulhof/Verwaltung/Rollen"               : "schulhof/verwaltung/rechte/rollen/rollen.php"
-  "Schulhof/Verwaltung/Rollen/Neue_Rolle"    : "schulhof/verwaltung/rechte/rollen/neu.php"
-  "/Schulhof\/Verwaltung\/Rollen\/.+/"       : "schulhof/verwaltung/rechte/rollen/bearbeiten.php"

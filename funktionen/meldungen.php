@@ -169,7 +169,6 @@ switch ($meldeid) {
     Anfrage::setRueck("Meldung", new UI\Meldung("Person erstellt", "Die Person wurde angelegt.", "Erfolg"));
     $knoepfe = [UI\Knopf::ok()];
     $knoepfe[0]->addFunktion("onclick", "ui.fenster.schliessen('dshVerwaltungNeuePerson')");
-    $knoepfe[0]->addFunktion("onclick", "ui.tabelle.sortieren('dshVerwaltungPersonen')");
     Anfrage::setRueck("Knöpfe", $knoepfe);
     break;
   case 28:
@@ -207,10 +206,10 @@ switch ($meldeid) {
     Anfrage::setRueck("Meldung", new UI\Meldung("Rechte aktualisiert", "Die Rechte der Person wurden aktualisiert.", "Erfolg"));
     break;
   case 33:
-    $ok = UI\Knopf::ok();
-    $ok ->addFunktion("href", "Schulhof/Verwaltung/Rollen");
     Anfrage::setRueck("Meldung", new UI\Meldung("Rolle anlegen", "Die Rolle wurde angelegt.", "Erfolg"));
-    Anfrage::setRueck("Knöpfe", [$ok]);
+    $knoepfe = [UI\Knopf::ok()];
+    $knoepfe[0]->addFunktion("onclick", "ui.fenster.schliessen('dshVerwaltungNeueRolle')");
+    Anfrage::setRueck("Knöpfe", $knoepfe);
     break;
   case 34:
     Anfrage::setRueck("Meldung", new UI\Meldung("Rolle löschen", "Die Rolle wurde gelöscht.", "Erfolg"));
@@ -223,10 +222,10 @@ switch ($meldeid) {
     Anfrage::setRueck("Knöpfe", $knoepfe);
     break;
   case 36:
-    $ok = UI\Knopf::ok();
-    $ok ->addFunktion("href", "Schulhof/Verwaltung/Rollen");
     Anfrage::setRueck("Meldung", new UI\Meldung("Rolle bearbeiten", "Die Rolle wurde bearbeitet.", "Erfolg"));
-    Anfrage::setRueck("Knöpfe", [$ok]);
+    $knoepfe = [UI\Knopf::ok()];
+    $knoepfe[0]->addFunktion("onclick", "ui.fenster.schliessen('dshVerwaltungBearbeitenRolle')");
+    Anfrage::setRueck("Knöpfe", $knoepfe);
     break;
   case 37:
     Anfrage::setRueck("Meldung", new UI\Meldung("Änderungen erfolgreich!", "Die Änderungen der Modulverwaltung wurden vorgenomen.", "Erfolg"));

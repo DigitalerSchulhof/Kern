@@ -65,7 +65,7 @@ kern.schulhof.nutzerkonto = {
       var vorname     = $("#dshProfil"+id+"Vorname").getWert();
       var nachname    = $("#dshProfil"+id+"Nachname").getWert();
       var kuerzel     = $("#dshProfil"+id+"Kuerzel").getWert();
-      core.ajax("Kern", 7, "Profil ändern", {id:id, art:art, geschlecht:geschlecht, titel:titel, vorname:vorname, nachname:nachname, kuerzel:kuerzel}, 7, ["dshVerwaltungPersonen"]);
+      core.ajax("Kern", 7, "Profil ändern", {id:id, art:art, geschlecht:geschlecht, titel:titel, vorname:vorname, nachname:nachname, kuerzel:kuerzel}, 7, "dshVerwaltungPersonen");
     },
     kontodaten: (id) => {
       var benutzer    = $("#dshProfil"+id+"Benutzer").getWert();
@@ -131,7 +131,7 @@ kern.schulhof.nutzerkonto = {
         ui.laden.meldung("Kern", 3, "Aktionslog löschen", {nutzerid:nutzerid, logid: logid});
       },
       ausfuehren: (nutzerid, logid) => {
-        core.ajax("Kern", 16, "Aktionslog löschen", {nutzerid:nutzerid, logid:logid}, null, ["dshProfil"+nutzerid+"Aktionsprotokoll"]).then(() => {
+        core.ajax("Kern", 16, "Aktionslog löschen", {nutzerid:nutzerid, logid:logid}, null, "dshProfil"+nutzerid+"Aktionsprotokoll").then(() => {
           ui.laden.meldung("Kern", 16, null, {nutzerid:nutzerid, logid:logid});
         });
       }

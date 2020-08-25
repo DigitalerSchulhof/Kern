@@ -18,7 +18,7 @@ $ZIELE[15] = "schulhof/nutzerkonto/profil/sessions/laden.php";
 $ZIELE[16] = "schulhof/nutzerkonto/profil/aktionslog/loeschen.php";
 $ZIELE[17] = "schulhof/nutzerkonto/profil/aktionslog/details.php";
 $ZIELE[18] = "schulhof/nutzerkonto/profil/aktionslog/laden.php";
-$ZIELE[19] = "";
+$ZIELE[19] = "schulhof/verwaltung/personen/rechte/rolleneufenster.php";
 $ZIELE[20] = "schulhof/verwaltung/module/version.php";
 $ZIELE[21] = "schulhof/verwaltung/modul/schuldaten.php";
 $ZIELE[22] = "schulhof/verwaltung/modul/vertreter.php";
@@ -47,4 +47,5 @@ $ZIELE[45] = "schulhof/verwaltung/personen/rechte/rolleloeschen.php";
 $ZIELE[46] = "schulhof/verwaltung/personen/rechte/rollebearbeiten.php";
 $ZIELE[47] = "schulhof/verwaltung/module/suche.php";
 $ZIELE[48] = "schulhof/verwaltung/modul/modulverwaltung.php";
+$ZIELE[49] = "schulhof/verwaltung/personen/rechte/rollebearbeitenfenster.php";
 ?>

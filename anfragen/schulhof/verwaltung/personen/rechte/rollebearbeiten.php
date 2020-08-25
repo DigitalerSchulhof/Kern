@@ -8,7 +8,7 @@ $rechte = json_decode($rechte, true);
 if($rechte === null) {
   Anfrage::addFehler(-3, true);
 }
-if (!UI\Check::istText($bezeichnung) || str_replace("_", " ", $bezeichnung) === "Neue Rolle") {
+if (!UI\Check::istText($bezeichnung)) {
   Anfrage::addFehler(99);
 }
 
