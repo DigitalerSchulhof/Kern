@@ -105,35 +105,35 @@ class Profil {
 
     if ($autoladen) {
       $tabelle->setAutoladen(true);
-    }
-
-    while ($anfrage->werte($sessionid, $browser, $sessiontimeout, $anmeldezeit, $id)) {
-      $zeile = new UI\Tabelle\Zeile();
-      if ($sessionid != null) {
-        $zeile["Sessionstatus"] = "gültig";
-      } else {
-        $zeile["Sessionstatus"] = "<i>erloschen</i>";
-      }
-      $zeile["Browser"] = $browser;
-
-      if ($sessiontimeout > 0) {
-        if ($sessionid == $this->person->getSessionid() && $DSH_BENUTZER->getId() == $this->person->getId()) {
-          $sessiontimeout = "<i>diese Session</i>";
+    } else {
+      while ($anfrage->werte($sessionid, $browser, $sessiontimeout, $anmeldezeit, $id)) {
+        $zeile = new UI\Tabelle\Zeile();
+        if ($sessionid != null) {
+          $zeile["Sessionstatus"] = "gültig";
         } else {
-          $sessiontimeout = (new UI\Datum($sessiontimeout))->kurz();
+          $zeile["Sessionstatus"] = "<i>erloschen</i>";
         }
-      } else {
-        $sessiontimeout = "<i>abgemeldet</i>";
-      }
-      $zeile["Sessiontimeout"] = $sessiontimeout;
-      $zeile["Anmeldezeit"] = (new UI\Datum($anmeldezeit))->kurz();
+        $zeile["Browser"] = $browser;
 
-      if ($darflo) {
-        $knopf = UI\MiniIconKnopf::loeschen();
-        $knopf ->addFunktion("onclick", "kern.schulhof.nutzerkonto.sessions.loeschen.fragen('$profilid', '$id')");
-        $zeile ->addAktion($knopf);
+        if ($sessiontimeout > 0) {
+          if ($sessionid == $this->person->getSessionid() && $DSH_BENUTZER->getId() == $this->person->getId()) {
+            $sessiontimeout = "<i>diese Session</i>";
+          } else {
+            $sessiontimeout = (new UI\Datum($sessiontimeout))->kurz();
+          }
+        } else {
+          $sessiontimeout = "<i>abgemeldet</i>";
+        }
+        $zeile["Sessiontimeout"] = $sessiontimeout;
+        $zeile["Anmeldezeit"] = (new UI\Datum($anmeldezeit))->kurz();
+
+        if ($darflo) {
+          $knopf = UI\MiniIconKnopf::loeschen();
+          $knopf ->addFunktion("onclick", "kern.schulhof.nutzerkonto.sessions.loeschen.fragen('$profilid', '$id')");
+          $zeile ->addAktion($knopf);
+        }
+        $tabelle[] = $zeile;
       }
-      $tabelle[] = $zeile;
     }
 
     return $tabelle;
@@ -201,34 +201,34 @@ class Profil {
 
     if ($autoladen) {
       $tabelle->setAutoladen(true);
-    }
+    } else {
+      while ($anfrage->werte($tabellepfad, $aktion, $zeitpunkt, $art, $id)) {
+        $zeile = new UI\Tabelle\Zeile();
 
-    while ($anfrage->werte($tabellepfad, $aktion, $zeitpunkt, $art, $id)) {
-      $zeile = new UI\Tabelle\Zeile();
+        if ($art == "DB") {
+          $zeile->setIcon(new UI\Icon("fas fa-database"));
+        } else if ("Datei") {
+          $zeile->setIcon(new UI\Icon("fas fa-archive"));
+        } else {
+          $zeile->setIcon(new UI\Icon("fas fa-shoe-prints"));
+        }
+        $zeile["Datenbank / Pfad"] = $tabellepfad;
+        $zeile["Aktion"] = $aktion;
+        $zeile["Zeit"] = (new UI\Datum($zeitpunkt))->kurz("MUs");
 
-      if ($art == "DB") {
-        $zeile->setIcon(new UI\Icon("fas fa-database"));
-      } else if ("Datei") {
-        $zeile->setIcon(new UI\Icon("fas fa-archive"));
-      } else {
-        $zeile->setIcon(new UI\Icon("fas fa-shoe-prints"));
+        if ($darfdetails) {
+          $knopf = new UI\MiniIconKnopf(new UI\Icon(UI\Konstanten::DETAILS), "Details anzeigen");
+          $knopf ->addFunktion("onclick", "kern.schulhof.nutzerkonto.aktionslog.details('{$profilid}', '$id')");
+          $zeile ->addAktion($knopf);
+        }
+        if ($darfloeschen) {
+          $knopf = UI\MiniIconKnopf::loeschen();
+          $knopf ->addFunktion("onclick", "kern.schulhof.nutzerkonto.aktionslog.loeschen.fragen('{$profilid}', '$id')");
+          $zeile ->addAktion($knopf);
+        }
+        $tabelle[] = $zeile;
       }
-      $zeile["Datenbank / Pfad"] = $tabellepfad;
-      $zeile["Aktion"] = $aktion;
-      $zeile["Zeit"] = (new UI\Datum($zeitpunkt))->kurz("MUs");
-
-      if ($darfdetails) {
-        $knopf = new UI\MiniIconKnopf(new UI\Icon(UI\Konstanten::DETAILS), "Details anzeigen");
-        $knopf ->addFunktion("onclick", "kern.schulhof.nutzerkonto.aktionslog.details('{$profilid}', '$id')");
-        $zeile ->addAktion($knopf);
-      }
-      if ($darfloeschen) {
-        $knopf = UI\MiniIconKnopf::loeschen();
-        $knopf ->addFunktion("onclick", "kern.schulhof.nutzerkonto.aktionslog.loeschen.fragen('{$profilid}', '$id')");
-        $zeile ->addAktion($knopf);
-      }
-      $tabelle[] = $zeile;
-    }
+    }    
 
     return $tabelle;
   }
