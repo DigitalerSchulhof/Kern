@@ -16,7 +16,7 @@ $darflo = $DSH_BENUTZER->hatRecht("module.löschen");
 $darfei = $DSH_BENUTZER->hatRecht("module.einstellungen");
 $darfve = $DSH_BENUTZER->hatRecht("module.versionshistorie");
 
-$tabelle  = new UI\Tabelle("dshVerwaltungModuleInstalliert", new UI\Icon(UI\Konstanten::MODUL), "Modul", "Beschreibung", "Version");
+$tabelle  = new UI\Tabelle("dshVerwaltungModuleInstalliert", new UI\Icon(UI\Konstanten::MODUL), "Modul", "Beschreibung", "Autor", "Version");
 $tabelle  ->setAnfrageziel(47);
 
 $module = [];
@@ -27,26 +27,26 @@ foreach($DSH_ALLEMODULE as $modul => $modulpfad) {
   $istSystem = in_array($modul, array("Kern", "UI"));
 
   $module[$modul] = array(
-    "name"    => $info["name"],
-    "version" => $info["version"],
-    "system"  => $istSystem,
-    "einstellungen" => $info["einstellungen"],
+    "nam" => $info["name"],
+    "ver" => $info["version"],
+    "bes" => $info["beschreibung"],
+    "aut" => $info["autor"],
+    "sys" => $istSystem,
+    "einstlg" => $info["einstellungen"],
     // "update"  => $hatUpdate
   );
 }
 
 foreach($module as $modul => $info) {
   $zeile  = new UI\Tabelle\Zeile();
-  if($info["system"]) {
+  if($info["sys"]) {
     $zeile->setIcon(new UI\Icon("fas fa-microchip"));
   }
 
-  $zeile["Modul"]   = $info["name"];
-  $zeile["Version"] = $info["version"];
-
-  $knopf = new UI\MiniIconKnopf(new UI\Icon(UI\Konstanten::DETAILS), "Details");
-  $knopf ->addFunktion("onclick", "kern.schulhof.verwaltung.module.details('$modul')");
-  $zeile ->addAktion($knopf);
+  $zeile["Modul"]   = $info["nam"];
+  $zeile["Version"] = $info["ver"];
+  $zeile["Autor"]   = $info["aut"];
+  $zeile["Beschreibung"] = $info["bes"];
 
   if($darfve) {
     $knopf = new UI\MiniIconKnopf(new UI\Icon("fas fa-code-branch"), "Versionshistorie");
@@ -54,16 +54,17 @@ foreach($module as $modul => $info) {
     $zeile ->addAktion($knopf);
   }
 
-  if(($info["einstellungen"] ?? false) && $darfei) {
+  if(($info["einstlg"] ?? false) && $darfei) {
     $knopf = new UI\MiniIconKnopf(new UI\Icon("fas fa-sliders-h"), "Einstellungen");
     $knopf ->addFunktion("href", "Schulhof/Verwaltung/Module/$modul");
     $zeile ->addAktion($knopf);
   }
 
-  if(!$info["system"] && $darflo) {
+  if(!$info["sys"] && $darflo) {
     $knopf = UI\MiniIconKnopf::loeschen();
     // @TODO: Module deinstallieren
     // $knopf ->addFunktion("onclick", "kern.schulhof.verwaltung.module.loeschen.fragen('$modul')");
+    $knopf ->addFunktion("onclick", "alert('Diese Funktion steht demnächst zur Verfügung.')");
     $zeile ->addAktion($knopf);
   }
 

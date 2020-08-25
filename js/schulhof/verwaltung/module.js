@@ -1,7 +1,4 @@
 kern.schulhof.verwaltung.module = {
-  details: (modulname) => {
-    ui.fenster.laden("Kern", 19, null, {modulname:modulname});
-  },
   version: (modulname) => {
     ui.fenster.laden("Kern", 20, null, {modulname:modulname});
   },
