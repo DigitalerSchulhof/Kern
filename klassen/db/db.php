@@ -159,6 +159,7 @@ class DB {
     $anfrage = str_replace("}", ", '$this->schluessel')", $anfrage);
     $anfrage = str_replace("[", "AES_ENCRYPT(", $anfrage);
     $anfrage = str_replace("]", ", '$this->schluessel')", $anfrage);
+    $anfrage = str_replace("§", "'$this->schluessel'", $anfrage);
 
     // Stelle Anfrage
     $anzahl = 0;
