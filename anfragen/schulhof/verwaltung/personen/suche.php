@@ -91,8 +91,9 @@ $ta = new Kern\Tabellenanfrage($sql, $spalten, $sortSeite, $sortDatenproseite, $
 $tanfrage = $ta->anfrage($DBS, $parameterarten, $parameter);
 $anfrage = $tanfrage["Anfrage"];
 
-$tabelle = new UI\Tabelle("dshVerwaltungPersonen", new UI\Icon(UI\Konstanten::SCHUELER), "Titel", "Vorname", "Nachname", "Status");
-$tabelle->setSeiten($tanfrage, "kern.schulhof.verwaltung.personen.suche");
+$tabelle = new UI\Tabelle("dshVerwaltungPersonen", 31, new UI\Icon(UI\Konstanten::SCHUELER), "Titel", "Vorname", "Nachname", "Status");
+$tabelle ->setSortierfunktion("kern.schulhof.verwaltung.personen.suche");
+$tabelle ->setSeiten($tanfrage);
 
 $darfsession = $DSH_BENUTZER->hatRecht("personen.andere.profil.sessionprotokoll.sehen");
 $darfprofil = $DSH_BENUTZER->hatRecht("personen.andere.profil.sehen");
@@ -167,7 +168,7 @@ while ($anfrage->werte($tit, $vor, $nach, $nutzer, $anmeldung, $id, $art)) {
     } else {
       $nk = "0";
     }
-    $knopf->addFunktion("onclick", "kern.schulhof.verwaltung.personen.loeschen.fragen('$id', '$nk', '1')");
+    $knopf->addFunktion("onclick", "kern.schulhof.verwaltung.personen.loeschen.fragen('$id', '$nk')");
     $zeile->addAktion($knopf);
   }
 

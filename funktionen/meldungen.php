@@ -146,15 +146,15 @@ switch ($meldeid) {
     Anfrage::setRueck("Meldung", new UI\Meldung("Änderungen erfolgreich!", "Die Änderungen der Vertreter wurden vorgenomen.", "Erfolg"));
     break;
   case 25:
-    parameter("id", "laden", "nutzerkonto");
+    parameter("id", "nutzerkonto");
     $wenn = "";
     if($nutzerkonto == "1") {
       $wenn = " Wenn ja, nur das Nutzerkonto oder die gesamte Person?";
     }
     Anfrage::setRueck("Meldung", new UI\Meldung("Diese Person wirklich löschen", "Soll die Person wirklich gelöscht werden?$wenn", "Warnung"));
-    $knoepfe[] = new UI\Knopf("Person löschen", "Fehler", "kern.schulhof.verwaltung.personen.loeschen.ausfuehren('$id', 'person', '$laden')");
+    $knoepfe[] = new UI\Knopf("Person löschen", "Fehler", "kern.schulhof.verwaltung.personen.loeschen.ausfuehren('$id', 'person')");
     if ($nutzerkonto == "1") {
-      $knoepfe[] = new UI\Knopf("Nutzerkonto löschen", "Warnung", "kern.schulhof.verwaltung.personen.loeschen.ausfuehren('$id', 'nutzerkonto', '$laden')");
+      $knoepfe[] = new UI\Knopf("Nutzerkonto löschen", "Warnung", "kern.schulhof.verwaltung.personen.loeschen.ausfuehren('$id', 'nutzerkonto')");
     }
     $knoepfe[] = UI\Knopf::abbrechen();
     Anfrage::setRueck("Knöpfe", $knoepfe);

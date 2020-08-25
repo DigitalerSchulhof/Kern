@@ -3,8 +3,7 @@ $SEITE = new Kern\Seite("Rollen", "verwaltung.rechte.rollen.sehen");
 
 $spalte = new UI\Spalte("A1", new UI\SeitenUeberschrift("Rollen"));
 
-$tabelle = new UI\Tabelle("dshVerwaltungRollen", new UI\Icon("fas fa-tag"), "Rolle", "Personen", "Rechte");
-$tabelle ->setAnfrageziel(43);
+$tabelle = new UI\Tabelle("dshVerwaltungRollen", 43, new UI\Icon("fas fa-tag"), "Rolle", "Personen", "Rechte");
 $tabelle ->setAutoladen(true);
 
 $spalte[] = $tabelle;

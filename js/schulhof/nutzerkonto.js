@@ -112,11 +112,7 @@ kern.schulhof.nutzerkonto = {
       if (id == "alle") {
         // @TODO: Filter laden
       }
-      core.ajax("Kern", 15, null, {id:id, ...sortieren}).then((r) => {
-        if (r.Code) {
-          feld.setHTML(r.Code);
-        }
-      });
+      ui.tabelle.standardsortieren(feld, id, {id:id, ...sortieren});
     },
     beenden: {
       fragen: () => {
@@ -135,9 +131,8 @@ kern.schulhof.nutzerkonto = {
         ui.laden.meldung("Kern", 3, "Aktionslog löschen", {nutzerid:nutzerid, logid: logid});
       },
       ausfuehren: (nutzerid, logid) => {
-        core.ajax("Kern", 16, "Aktionslog löschen", {nutzerid:nutzerid, logid:logid}).then(() => {
+        core.ajax("Kern", 16, "Aktionslog löschen", {nutzerid:nutzerid, logid:logid}, null, ["dshProfil"+nutzerid+"Aktionsprotokoll"]).then(() => {
           ui.laden.meldung("Kern", 16, null, {nutzerid:nutzerid, logid:logid});
-          ui.tabelle.sortieren("dshProfil"+nutzerid+"Aktionsprotokoll");
         });
       }
     },
@@ -150,11 +145,7 @@ kern.schulhof.nutzerkonto = {
       } else {
         var datum = $("#"+id+"Datum").getWert();
       }
-      core.ajax("Kern", 18, null, {id:id, datum:datum, ...sortieren}).then((r) => {
-        if (r.Code) {
-          feld.setHTML(r.Code);
-        }
-      });
+      ui.tabelle.standardsortieren(feld, id, {id:id, datum:datum, ...sortieren});
     }
   },
   identitaetsdiebstahl: () => {

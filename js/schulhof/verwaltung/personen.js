@@ -30,28 +30,14 @@ kern.schulhof.verwaltung.personen = {
     var erzieher = $("#dshPersonenFilterErziehungsberechtigte").getWert();
     var verwaltung = $("#dshPersonenFilterVerwaltungsangestellte").getWert();
     var externe = $("#dshPersonenFilterExterne").getWert();
-    core.ajax("Kern", 31, null, {vorname:vorname, nachname:nachname, klasse:klasse, schueler:schueler, lehrer:lehrer, erzieher:erzieher, verwaltung:verwaltung, externe:externe, ...sortieren}).then((r) => {
-      if (r.Code) {
-        feld.setHTML(r.Code);
-      }
-    });
+    ui.tabelle.standardsortieren(feld, id, {vorname:vorname, nachname:nachname, klasse:klasse, schueler:schueler, lehrer:lehrer, erzieher:erzieher, verwaltung:verwaltung, externe:externe, ...sortieren});
   },
   profil: (id) => {
     ui.fenster.laden("Kern", 32, null, {id:id});
   },
   loeschen: {
-    fragen: (id, nutzerkonto, laden) => {
-      var laden = laden || '0';
-      ui.laden.meldung("Kern", 25, "Person löschen", {id:id, laden:laden, nutzerkonto:nutzerkonto});
-    },
-    ausfuehren: (id, art, laden) => {
-      core.ajax("Kern", 33, "Person löschen", {id:id, art:art}).then(() => {
-        ui.laden.meldung("Kern", 26, null, {art:art});
-        if (laden == '1') {
-          ui.tabelle.sortieren('dshVerwaltungPersonen');
-        }
-      });
-    }
+    fragen: (id, nutzerkonto) => ui.laden.meldung("Kern", 25, "Person löschen", {id:id, nutzerkonto:nutzerkonto}),
+    ausfuehren: (id, art) => core.ajax("Kern", 33, "Person löschen", {id:id, art:art}, 26, "dshVerwaltungPersonen"),
   },
   neu: {
     person: {

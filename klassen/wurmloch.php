@@ -13,8 +13,9 @@ class Wurmloch {
    * @return
    */
   public function __construct($datei, $parameter = array(), $callback = null, $scripts = false) {
-    global $DSH_ALLEMODULE, $DSH_BENUTZER, $ROOT, $DBS, $DSH_DB;
+    global $DSH_ALLEMODULE, $DSH_BENUTZER, $ROOT, $DBS, $DSH_DB, $MODUL;
     $dateien = [];
+    $mod = $MODUL;
     foreach($DSH_ALLEMODULE as $modul => $pfad) {
       if(is_file("$pfad/$datei")) {
         \Core\Einbinden::modulLaden($modul, true, false, $scripts);
@@ -25,12 +26,14 @@ class Wurmloch {
       foreach($parameter as $name => $wert) {
         $$name = $wert;
       }
+      $MODUL = $modul;
       if($callback !== null) {
         $callback(((include $d)), $modul);
       } else {
         include $d;
       }
     }
+    $MODUL = $mod;
   }
 }
 

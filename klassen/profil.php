@@ -99,8 +99,9 @@ class Profil {
     $anfrage = $tanfrage["Anfrage"];
 
     $tabellenid = "dshProfil{$profilid}Sessionprotokoll";
-    $tabelle = new UI\Tabelle($tabellenid, null, "Sessionstatus", "Browser", "Sessiontimeout", "Anmeldezeit");
-    $tabelle->setSeiten($tanfrage, "kern.schulhof.nutzerkonto.sessions.laden");
+    $tabelle = new UI\Tabelle($tabellenid, 15, null, "Sessionstatus", "Browser", "Sessiontimeout", "Anmeldezeit");
+    $tabelle ->setSortierfunktion("kern.schulhof.nutzerkonto.sessions.laden");
+    $tabelle ->setSeiten($tanfrage);
 
     if ($autoladen) {
       $tabelle->setAutoladen(true);
@@ -194,8 +195,9 @@ class Profil {
     $anfrage = $tanfrage["Anfrage"];
 
     $tabellenid = "dshProfil{$profilid}Aktionsprotokoll";
-    $tabelle = new UI\Tabelle($tabellenid, null, "Datenbank / Pfad", "Aktion", "Zeit");
-    $tabelle->setSeiten($tanfrage, "kern.schulhof.nutzerkonto.aktionslog.laden");
+    $tabelle = new UI\Tabelle($tabellenid, 18, null, "Datenbank / Pfad", "Aktion", "Zeit");
+    $tabelle ->setSortierfunktion("kern.schulhof.nutzerkonto.aktionslog.laden");
+    $tabelle ->setSeiten($tanfrage);
 
     if ($autoladen) {
       $tabelle->setAutoladen(true);
@@ -290,7 +292,6 @@ class Profil {
     $anfrage  ->werte($benutzername, $mail, $notifikationsmail, $uebersicht, $oetermin, $oeblog, $oegalerie, $inaktiv, $wiki, $nutzerkonto, $kuerzel);
 
     $reiter = new UI\Reiter("dshProfil$profilid");
-
     /*
      * Persönliches
      */
@@ -451,11 +452,6 @@ class Profil {
       new Wurmloch("funktionen/einstellungen.php", array("recht" => $recht, "profilid" => $profilid), function($r) use ($reiter) {
         $reiter->addReitersegment(...$r);
       }, true);
-
-      $angbote = \Core\Angebote::finden("Kern/Einstellungen");
-      foreach($angbote as $a) {
-        $reiter->addReitersegment($a);
-      }
 
       /*
        * Sessionprokoll
