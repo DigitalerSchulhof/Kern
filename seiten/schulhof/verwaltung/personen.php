@@ -4,7 +4,7 @@ $SEITE = new Kern\Seite("Personen", "verwaltung.personen.sehen");
 $spalte = new UI\Spalte("A1", new UI\SeitenUeberschrift("Personen"));
 
 $tabellenid = "dshVerwaltungPersonen";
-$filter = new Kern\Personenfilter("dshPersonenFilter", "ui.tabelle.sortieren('$tabellenid')");
+$filter = new Kern\Personenfilter("dshPersonenFilter", "ui.tabelle.sortieren('$tabellenid')", "Filter");
 $spalte[] = $filter->setAnzeigen(true);
 
 $tabelle = new UI\Tabelle($tabellenid, new UI\Icon(UI\Konstanten::SCHUELER), "Titel", "Vorname", "Nachname", "Status");

@@ -2,7 +2,7 @@
 namespace Kern;
 use UI;
 
-class Personenfilter extends UI\Eingabe {
+abstract class Filter extends UI\Eingabe {
   protected $tag = "div";
 
   protected $ziel;
@@ -16,12 +16,12 @@ class Personenfilter extends UI\Eingabe {
    * @param string $ziel  Javascript-Funktion die ausgelöst wird
    * @param bool   $auto  Aktiviert die Aktualisierung des Ergebnisses bei Nutzereingabe wenn true
    */
-  public function __construct($id, $ziel, $knopfart = "Hinzufügen", $auto = true) {
+  public function __construct($id, $ziel, $knopfart, $auto) {
     parent::__construct($id);
     $this->ziel = $ziel;
     $this->autoaktualisierung = $auto;
     $this->id = $id;
-    if ($knopfart == "Filter") {
+    if ($knopfart == "Hinzufügen") {
       $this->knopf = new UI\MiniIconToggle("{$this->id}Anzeigen", "Hinzufügen", new UI\Icon(UI\Konstanten::NEU));
     } else {
       $this->knopf = new UI\Toggle("{$this->id}Anzeigen", "Filter");
@@ -38,6 +38,18 @@ class Personenfilter extends UI\Eingabe {
   public function setAnzeigen($anzeigen) : self {
     $this->anzeigen = $anzeigen;
     return $this;
+  }
+}
+
+class Personenfilter extends Filter {
+  /**
+   * Erstellt einen neuen Filter
+   * @param int    $id    :)
+   * @param string $ziel  Javascript-Funktion die ausgelöst wird
+   * @param bool   $auto  Aktiviert die Aktualisierung des Ergebnisses bei Nutzereingabe wenn true
+   */
+  public function __construct($id, $ziel, $knopfart = "Hinzufügen", $auto = true) {
+    parent::__construct($id, $ziel, $knopfart, $auto);
   }
 
   public function __toString() : string {
