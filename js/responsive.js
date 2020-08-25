@@ -1,5 +1,4 @@
 var resizecheck = () => {
-  console.log("Breite:" + document.body.clientWidth);
   if(document.body.clientWidth >= 1024) {
     $("body").addKlasse("dshSeiteP");
     $("body").removeKlasse("dshSeiteT", "dshSeiteH");
