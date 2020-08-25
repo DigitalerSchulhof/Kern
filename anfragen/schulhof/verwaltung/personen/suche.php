@@ -91,8 +91,7 @@ $ta = new Kern\Tabellenanfrage($sql, $spalten, $sortSeite, $sortDatenproseite, $
 $tanfrage = $ta->anfrage($DBS, $parameterarten, $parameter);
 $anfrage = $tanfrage["Anfrage"];
 
-$tabelle = new UI\Tabelle("dshVerwaltungPersonen", 31, new UI\Icon(UI\Konstanten::SCHUELER), "Titel", "Vorname", "Nachname", "Status");
-$tabelle ->setSortierfunktion("kern.schulhof.verwaltung.personen.suche");
+$tabelle = new UI\Tabelle("dshVerwaltungPersonen", "kern.schulhof.verwaltung.personen.suche", new UI\Icon(UI\Konstanten::SCHUELER), "Titel", "Vorname", "Nachname", "Status");
 $tabelle ->setSeiten($tanfrage);
 
 $darfsession = $DSH_BENUTZER->hatRecht("personen.andere.profil.sessionprotokoll.sehen");

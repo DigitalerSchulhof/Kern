@@ -108,11 +108,11 @@ kern.schulhof.nutzerkonto = {
         });
       }
     },
-    laden: (feld, id, sortieren) => {
+    laden: (sortieren, id) => {
       if (id == "alle") {
         // @TODO: Filter laden
       }
-      ui.tabelle.standardsortieren(feld, id, {id:id, ...sortieren});
+      return core.ajax("Kern", 15, null, {id:id, ...sortieren});
     },
     beenden: {
       fragen: () => {
@@ -139,13 +139,13 @@ kern.schulhof.nutzerkonto = {
     details: (nutzerid, logid) => {
       ui.fenster.laden("Kern", 17, null, {nutzerid:nutzerid, logid:logid});
     },
-    laden: (feld, id, sortieren) => {
+    laden: (sortieren, id) => {
       if (id == "alle") {
         // @TODO: Filter laden
       } else {
         var datum = $("#"+id+"Datum").getWert();
       }
-      ui.tabelle.standardsortieren(feld, id, {id:id, datum:datum, ...sortieren});
+      return core.ajax("Kern", 18, null, {id:id, datum:datum, ...sortieren});
     }
   },
   identitaetsdiebstahl: () => {

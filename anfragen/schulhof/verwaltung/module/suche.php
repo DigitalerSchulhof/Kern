@@ -16,7 +16,7 @@ $darflo = $DSH_BENUTZER->hatRecht("module.löschen");
 $darfei = $DSH_BENUTZER->hatRecht("module.einstellungen");
 $darfve = $DSH_BENUTZER->hatRecht("module.versionshistorie");
 
-$tabelle  = new UI\Tabelle("dshVerwaltungModuleInstalliert", 47, new UI\Icon(UI\Konstanten::MODUL), "Modul", "Beschreibung", "Autor", "Version");
+$tabelle  = new UI\Tabelle("dshVerwaltungModuleInstalliert", "kern.schulhof.verwaltung.module.suchen", new UI\Icon(UI\Konstanten::MODUL), "Modul", "Beschreibung", "Autor", "Version");
 
 $module = [];
 

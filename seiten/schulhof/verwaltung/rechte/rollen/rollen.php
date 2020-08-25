@@ -3,7 +3,7 @@ $SEITE = new Kern\Seite("Rollen", "verwaltung.rechte.rollen.sehen");
 
 $spalte = new UI\Spalte("A1", new UI\SeitenUeberschrift("Rollen"));
 
-$tabelle = new UI\Tabelle("dshVerwaltungRollen", 43, new UI\Icon("fas fa-tag"), "Rolle", "Personen", "Rechte");
+$tabelle = new UI\Tabelle("dshVerwaltungRollen", "kern.schulhof.verwaltung.rollen.suchen", new UI\Icon("fas fa-tag"), "Rolle", "Personen", "Rechte");
 $tabelle ->setAutoladen(true);
 
 $spalte[] = $tabelle;

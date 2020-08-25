@@ -17,7 +17,7 @@ $ta = new Kern\Tabellenanfrage($sql, $spalten, $sortSeite, $sortDatenproseite, $
 $tanfrage = $ta->anfrage($DBS);
 $anfrage = $tanfrage["Anfrage"];
 
-$tabelle = new UI\Tabelle("dshVerwaltungRollen", 43, new UI\Icon("fas fa-tag"), "Rolle", "Personen", "Rechte");
+$tabelle = new UI\Tabelle("dshVerwaltungRollen", "kern.schulhof.verwaltung.rollen.suchen", new UI\Icon("fas fa-tag"), "Rolle", "Personen", "Rechte");
 $tabelle->setSeiten($tanfrage);
 
 while($anfrage->werte($id, $bezeichung, $personen, $rechte)) {

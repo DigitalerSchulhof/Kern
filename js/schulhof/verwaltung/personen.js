@@ -21,7 +21,7 @@ kern.schulhof.verwaltung.personen = {
     core.ajax("Kern", 42, "Rechte vergeben", {id: id, rechte: rechte}, 13);
   },
   rechteneuladen: (id) => core.ajax("Kern", 41, "Rechte aktualisieren", {id: id}, 32),
-  suche: (feld, id, sortieren) => {
+  suche: (sortieren, id) => {
     var vorname = $("#dshPersonenFilterVorname").getWert();
     var nachname = $("#dshPersonenFilterNachname").getWert();
     var klasse = $("#dshPersonenFilterKlasse").getWert();
@@ -30,7 +30,7 @@ kern.schulhof.verwaltung.personen = {
     var erzieher = $("#dshPersonenFilterErziehungsberechtigte").getWert();
     var verwaltung = $("#dshPersonenFilterVerwaltungsangestellte").getWert();
     var externe = $("#dshPersonenFilterExterne").getWert();
-    ui.tabelle.standardsortieren(feld, id, {vorname:vorname, nachname:nachname, klasse:klasse, schueler:schueler, lehrer:lehrer, erzieher:erzieher, verwaltung:verwaltung, externe:externe, ...sortieren});
+    return core.ajax("Kern", 31, null, {vorname:vorname, nachname:nachname, klasse:klasse, schueler:schueler, lehrer:lehrer, erzieher:erzieher, verwaltung:verwaltung, externe:externe, ...sortieren});
   },
   profil: (id) => {
     ui.fenster.laden("Kern", 32, null, {id:id});
