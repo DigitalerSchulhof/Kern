@@ -222,7 +222,17 @@ class Person {
    * @return string Name der Person
    */
   public function getName() : string {
-    return "{$this->titel} {$this->vorname} {$this->nachname}";
+    $r = "";
+    if($this->titel !== null) {
+      $r .= "{$this->titel} ";
+    }
+    if($this->vorname !== null) {
+      $r .= "{$this->vorname} ";
+    }
+    if($this->nachname !== null) {
+      $r .= "{$this->nachname}";
+    }
+    return $r;
   }
 
   /**
