@@ -54,26 +54,31 @@ kern.schulhof.verwaltung.personen = {
     }
   },
   neu: {
-    person: () => {
-      var art = $("#dshNeuePersonArt").getWert();
-      var geschlecht = $("#dshNeuePersonGeschlecht").getWert();
-      var titel = $("#dshNeuePersonTitel").getWert();
-      var vorname = $("#dshNeuePersonVorname").getWert();
-      var nachname = $("#dshNeuePersonNachname").getWert();
-      var kuerzel = $("#dshNeuePersonKuerzel").getWert();
-      var nutzerkonto = $("#dshNeuePersonNutzerkonto").getWert();
-      var benutzername = $("#dshNeuePersonBenutzername").getWert();
-      var mail = $("#dshNeuePersonMail").getWert();
-      core.ajax("Kern", 34, "Neue Person erstellen", {art:art, geschlecht:geschlecht, titel:titel, vorname:vorname, nachname:nachname, kuerzel:kuerzel, nutzerkonto:nutzerkonto, benutzername:benutzername, mail:mail}).then((r) => {
-        if (nutzerkonto == "1") {
-          var id = r.ID;
-          core.ajax("Kern", 35, "Neues Nutzerkonto erstellen", {id:id, benutzername:benutzername, mail:mail}).then((r) => {
-            ui.laden.meldung("Kern", 29, null);
-          });
-        } else {
-          ui.laden.meldung("Kern", 27, null);
-        }
-      });
+    person: {
+      fenster: () => {
+        ui.fenster.laden("Kern", 13, null, null, null, null);
+      },
+      erstellen: () => {
+        var art = $("#dshNeuePersonArt").getWert();
+        var geschlecht = $("#dshNeuePersonGeschlecht").getWert();
+        var titel = $("#dshNeuePersonTitel").getWert();
+        var vorname = $("#dshNeuePersonVorname").getWert();
+        var nachname = $("#dshNeuePersonNachname").getWert();
+        var kuerzel = $("#dshNeuePersonKuerzel").getWert();
+        var nutzerkonto = $("#dshNeuePersonNutzerkonto").getWert();
+        var benutzername = $("#dshNeuePersonBenutzername").getWert();
+        var mail = $("#dshNeuePersonMail").getWert();
+        core.ajax("Kern", 34, "Neue Person erstellen", {art:art, geschlecht:geschlecht, titel:titel, vorname:vorname, nachname:nachname, kuerzel:kuerzel, nutzerkonto:nutzerkonto, benutzername:benutzername, mail:mail}).then((r) => {
+          if (nutzerkonto == "1") {
+            var id = r.ID;
+            core.ajax("Kern", 35, "Neues Nutzerkonto erstellen", {id:id, benutzername:benutzername, mail:mail}).then((r) => {
+              ui.laden.meldung("Kern", 29, null);
+            });
+          } else {
+            ui.laden.meldung("Kern", 27, null);
+          }
+        });
+      },
     },
     nutzerkonto: {
       anzeigen: (id, laden) => {
