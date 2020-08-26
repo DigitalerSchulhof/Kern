@@ -72,7 +72,7 @@ if($DSH_BENUTZER->hatRecht("verwaltung.rechte.vergeben")) {
 }
 $fensterinhalt  = UI\Zeile::standard($zeileAktionen.$zeileKnoepfe);
 
-$code = new UI\Fenster($fensterid, $fenstertitel, $fensterinhalt, true, true);
+$code = new UI\Fenster($fensterid, $fenstertitel, $fensterinhalt);
 
 Anfrage::setRueck("Code", (string) $code);
 ?>

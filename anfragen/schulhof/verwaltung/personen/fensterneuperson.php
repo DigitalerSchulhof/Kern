@@ -58,7 +58,7 @@ $formular[]       = (new UI\Knopf("Neue Person anlegen", "Erfolg"))  ->setSubmit
 $formular         ->addSubmit("kern.schulhof.verwaltung.personen.neu.person.erstellen()");
 $fensterinhalt    = UI\Zeile::standard($formular);
 
-$code = new UI\Fenster("dshVerwaltungNeuePerson", $fenstertitel, $fensterinhalt, true, true);
+$code = new UI\Fenster("dshVerwaltungNeuePerson", $fenstertitel, $fensterinhalt);
 
 Anfrage::setRueck("Code", (string) $code);
 ?>

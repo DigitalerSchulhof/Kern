@@ -43,7 +43,7 @@ if ($benutzername === null) {
 }
 $inhalt .= new UI\Code($datensatzdatei);
 
-$code = new UI\Fenster("dshProfil{$nutzerid}FensterLoginfo$logid", $fenstertitel, UI\Zeile::standard($inhalt));
+$code = new UI\Fenster("dshProfil{$nutzerid}FensterLoginfo$logid", $fenstertitel, UI\Zeile::standard($inhalt), false);
 
 Anfrage::setRueck("Code", (string) $code);
 ?>
