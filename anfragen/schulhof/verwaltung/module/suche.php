@@ -31,7 +31,6 @@ foreach($DSH_ALLEMODULE as $modul => $modulpfad) {
     "bes" => $info["beschreibung"],
     "aut" => $info["autor"],
     "sys" => $istSystem,
-    "einstlg" => $info["einstellungen"],
     // "update"  => $hatUpdate
   );
 }
@@ -53,7 +52,7 @@ foreach($module as $modul => $info) {
     $zeile ->addAktion($knopf);
   }
 
-  if(($info["einstlg"] ?? false) && $darfei) {
+  if(is_file("$DSH_MODULE/$modul/funktionen/verwaltung/einstellungen.php") && $darfei) {
     $knopf = new UI\MiniIconKnopf(new UI\Icon("fas fa-sliders-h"), "Einstellungen");
     $knopf ->addFunktion("href", "Schulhof/Verwaltung/Module/$modul");
     $zeile ->addAktion($knopf);

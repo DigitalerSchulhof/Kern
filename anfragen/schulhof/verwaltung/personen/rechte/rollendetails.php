@@ -10,7 +10,7 @@ function rollenDetails($id = null) : UI\Element {
   if($id === null) {
     $rid = "dshNeueRolle";
   } else {
-    $rid = "dshBearbeitenRolle";
+    $rid = "dshBearbeitenRolle$id";
   }
 
   $bezeichung = new UI\Textfeld("{$rid}Bezeichnung");
@@ -46,11 +46,12 @@ function rollenDetails($id = null) : UI\Element {
   if($id === null) {
     $formular[] = (new UI\Knopf("Neue Rolle anlegen", "Erfolg"))          ->setSubmit(true);
     $formular   ->addSubmit("kern.schulhof.verwaltung.rollen.neu.speichern()");
+    $formular[]   = (new UI\Knopf("Abbrechen", "Fehler"))                 ->addFunktion("onclick", "ui.fenster.schliessen('dshVerwaltungNeueRolle')");
   } else {
     $formular[] = (new UI\Knopf("Änderungen speichern", "Erfolg"))        ->setSubmit(true);
     $formular   ->addSubmit("kern.schulhof.verwaltung.rollen.bearbeiten.speichern($id)");
+    $formular[]   = (new UI\Knopf("Abbrechen", "Fehler"))                 ->addFunktion("onclick", "ui.fenster.schliessen('dshVerwaltungBearbeitenRolle')");
   }
-  $formular[]   = (new UI\Knopf("Abbrechen", "Fehler"))                   ->addFunktion("onclick", "core.rueck()");
   return $formular;
 }
 

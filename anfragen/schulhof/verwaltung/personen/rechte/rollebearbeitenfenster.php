@@ -10,6 +10,10 @@ if(!UI\Check::istZahl($id)) {
   Anfrage::addFehler(-3, true);
 }
 
+if(!$DBS->anfrage("SELECT id FROM kern_rollen WHERE id = ?", "i", $id)->werte($NULL)) {
+  Anfrage::addFehler(-3, true);
+}
+
 if (!$DSH_BENUTZER->hatRecht("verwaltung.rechte.rollen.bearbeiten")) {
   Anfrage::addFehler(-4, true);
 }
@@ -20,8 +24,8 @@ include_once __DIR__."/rollendetails.php";
 
 $spalte[] = rollenDetails($id);
 
-$code = new UI\Fenster("dshVerwaltungBearbeitenRolle", "Neue Rolle anlegen", new UI\Zeile($spalte), true, true);
-$code->addFensteraktion(UI\Knopf::schliessen("dshVerwaltungNeuePerson"));
+$code = new UI\Fenster("dshVerwaltungBearbeitenRolle$id", "Rolle bearbeiten", new UI\Zeile($spalte), true, true);
+$code->addFensteraktion(UI\Knopf::schliessen("dshVerwaltungBearbeitenRolle$id"));
 
 Anfrage::setRueck("Code", (string) $code);
 ?>

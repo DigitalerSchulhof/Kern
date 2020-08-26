@@ -18,7 +18,7 @@ kern.schulhof.verwaltung.rollen = {
       ui.fenster.laden("Kern", 49, null, {id: id});
     },
     speichern: (id) => {
-      let daten = kern.schulhof.verwaltung.rollen.daten("dshBearbeitenRolle");
+      let daten = kern.schulhof.verwaltung.rollen.daten("dshBearbeitenRolle"+id);
       core.ajax("Kern", 46, "Rolle bearbeiten", {id: id, ...daten}, 36, "dshVerwaltungRollen");
     },
   },
