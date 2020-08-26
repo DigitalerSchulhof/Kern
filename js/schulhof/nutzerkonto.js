@@ -2,7 +2,10 @@ kern.schulhof.nutzerkonto = {
   anmelden: () => {
     var benutzer = $("#dshAnmeldungBenutzer").getWert();
     var passwort = $("#dshAnmeldungPasswort").getWert();
-    core.ajax("Kern", 0, ["Anmeldung", "Anmeldedaten werden überprüft"], {benutzer: benutzer, passwort: passwort}).then(() => core.neuladen());
+    core.ajax("Kern", 0, ["Anmeldung", "Anmeldedaten werden überprüft"], {benutzer: benutzer, passwort: passwort}).then(() => {
+      core.navigationAnpassen(null, true);
+      core.neuladen();
+    });
   },
   abmelden: {
     fragen: () => {
@@ -11,10 +14,12 @@ kern.schulhof.nutzerkonto = {
     ausfuehren: (auto) => {
       if(auto) {
         core.ajax("Kern", 1, ["Abmeldung", "Die Abmeldung wird durchgeführt"], null, 31).then(() => {
+          core.navigationAnpassen(null, true);
           core.seiteLaden("Schulhof/Anmeldung");
         });
       } else {
         core.ajax("Kern", 1, ["Abmeldung", "Die Abmeldung wird durchgeführt"], null, 1).then(() => {
+          core.navigationAnpassen(null, true);
           core.seiteLaden("Schulhof/Anmeldung");
         });
       }
