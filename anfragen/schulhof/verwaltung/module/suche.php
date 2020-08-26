@@ -24,12 +24,14 @@ foreach($DSH_ALLEMODULE as $modul => $modulpfad) {
   $info   = YAML::loader(file_get_contents("$modulpfad/modul.yml"));
 
   $istSystem = in_array($modul, array("Kern", "UI"));
+  $hatEinstellungen = is_file("$DSH_MODULE/$modul/funktionen/verwaltung/einstellungen.php");
 
   $module[$modul] = array(
     "nam" => $info["name"],
     "ver" => $info["version"],
     "bes" => $info["beschreibung"],
     "aut" => $info["autor"],
+    "ein" => $hatEinstellungen,
     "sys" => $istSystem,
     // "update"  => $hatUpdate
   );
@@ -52,7 +54,7 @@ foreach($module as $modul => $info) {
     $zeile ->addAktion($knopf);
   }
 
-  if(is_file("$DSH_MODULE/$modul/funktionen/verwaltung/einstellungen.php") && $darfei) {
+  if($info["ein"] && $darfei) {
     $knopf = new UI\MiniIconKnopf(new UI\Icon("fas fa-sliders-h"), "Einstellungen");
     $knopf ->addFunktion("href", "Schulhof/Verwaltung/Module/$modul");
     $zeile ->addAktion($knopf);
