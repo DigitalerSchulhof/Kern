@@ -36,25 +36,40 @@
   cursor: pointer;
 }
 
+#dshHauptnavigation>.dshUiReiter>.dshUiReiterKoepfe>.dshUiReiterKopf:not(:hover) {
+  border-bottom-color: transparent !important;
+}
+
 #dshHauptnavigation>.dshUiReiter>.dshUiReiterKoerper {
   position: fixed;
   width: @seitenbreite;
   left: calc((100% - @seitenbreite) / 2);
-  border-top: 0;
+  border: 0;
+}
+#dshHauptnavigation>.dshUiReiter>.dshUiReiterKoerper>.dshUiReiterKoerperInaktiv {
+  transition: max-height 500ms ease-out 0s, border-top-width 0s linear 475ms, border-bottom-width 0s linear 475ms;
 }
 
 #dshHauptnavigation>.dshUiReiter>.dshUiReiterKoerper>.dshUiReiterKoerperInaktiv,
 #dshHauptnavigation>.dshUiReiter>.dshUiReiterKoerper>.dshUiReiterKoerperAktiv {
-  transition: max-height 500ms ease-out;
   max-height: 0;
   overflow: hidden;
-  border-bottom: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
   display: block;
+  box-shadow: 0px 4px 4px 1px rgba(33, 33, 33, 0.1);
+  border: 0px solid;
+  border-top-width: 0px;
+  border-bottom-width: 0px;
 }
 
 #dshHauptnavigation>.dshUiReiter>.dshUiReiterKoerper>.dshUiReiterKoerperAktiv {
+  transition: border-top-width 0s linear 0s, border-bottom-width 0s linear 0s, max-height 500ms ease-out 0s;
+  border-top-width: 1px;
+  border-bottom-width: 1px;
   max-height: 500px;
-  transition-timing-function: ease-in;
 }
 
 #dshHauptnavigation>.dshUiReiter>.dshUiReiterKoerper>.dshUiReiterKoerperAktiv .dshUiReiter,
@@ -159,8 +174,9 @@
 
 // FARBEN;
 
-#dshHauptnavigation>.dshUiReiter>.dshUiReiterKoerper {
-  background-color: khaki;
+#dshHauptnavigation>.dshUiReiter>.dshUiReiterKoerper>.dshUiReiterKoerperAktiv,
+#dshHauptnavigation>.dshUiReiter>.dshUiReiterKoerper>.dshUiReiterKoerperInaktiv {
+  background-color: @kopfzeileHintergrund;
 }
 
 #dshKopfnaviFeld .dshUiToggle {
