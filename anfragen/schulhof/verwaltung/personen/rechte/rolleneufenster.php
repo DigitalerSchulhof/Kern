@@ -15,7 +15,6 @@ include_once __DIR__."/rollendetails.php";
 $spalte[] = rollenDetails(null);
 
 $code = new UI\Fenster("dshVerwaltungNeueRolle", "Neue Rolle anlegen", new UI\Zeile($spalte), true, true);
-$code->addFensteraktion(UI\Knopf::schliessen("dshVerwaltungNeueRolle"));
 
 Anfrage::setRueck("Code", (string) $code);
 ?>

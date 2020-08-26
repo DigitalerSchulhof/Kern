@@ -9,8 +9,6 @@ if (!$DSH_BENUTZER->hatRecht("verwaltung.personen.anlegen.person")) {
 
 $darfnutzerkonto = $DSH_BENUTZER->hatRecht("verwaltung.personen.anlegen.nutzerkonto");
 
-$fensterid = "dshVerwaltungNeuePerson";
-
 $fenstertitel = (new UI\Icon("fas fa-user-plus"))." Neue Person anlegen";
 
 $formular         = new UI\FormularTabelle();
@@ -60,8 +58,7 @@ $formular[]       = (new UI\Knopf("Neue Person anlegen", "Erfolg"))  ->setSubmit
 $formular         ->addSubmit("kern.schulhof.verwaltung.personen.neu.person.erstellen()");
 $fensterinhalt    = UI\Zeile::standard($formular);
 
-$code = new UI\Fenster($fensterid, $fenstertitel, $fensterinhalt, true, true);
-$code->addFensteraktion(UI\Knopf::schliessen($fensterid));
+$code = new UI\Fenster("dshVerwaltungNeuePerson", $fenstertitel, $fensterinhalt, true, true);
 
 Anfrage::setRueck("Code", (string) $code);
 ?>

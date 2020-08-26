@@ -25,7 +25,6 @@ include_once __DIR__."/rollendetails.php";
 $spalte[] = rollenDetails($id);
 
 $code = new UI\Fenster("dshVerwaltungBearbeitenRolle$id", "Rolle bearbeiten", new UI\Zeile($spalte), true, true);
-$code->addFensteraktion(UI\Knopf::schliessen("dshVerwaltungBearbeitenRolle$id"));
 
 Anfrage::setRueck("Code", (string) $code);
 ?>

@@ -45,10 +45,9 @@ $formular[]       = new UI\FormularFeld(new UI\InhaltElement("eMail-Adresse:"), 
 $formular[]       = (new UI\Knopf("Neues Nutzerkonto anlegen", "Erfolg"))  ->setSubmit(true);
 $formular         ->addSubmit("kern.schulhof.verwaltung.personen.neu.nutzerkonto.erstellen('$id', '$laden')");
 
-$fensterinhalt = $formular;
+$fensterinhalt = UI\Zeile::standard($formular);
 
 $code = new UI\Fenster($fensterid, $fenstertitel, $fensterinhalt);
-$code->addFensteraktion(UI\Knopf::schliessen($fensterid));
 
 Anfrage::setRueck("Code", (string) $code);
 ?>

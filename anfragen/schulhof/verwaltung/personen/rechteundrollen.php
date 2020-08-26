@@ -70,10 +70,9 @@ $zeileKnoepfe[]          = new UI\Spalte(null, new UI\Knopf("Rechte aktualisiere
 if($DSH_BENUTZER->hatRecht("verwaltung.rechte.vergeben")) {
   $zeileKnoepfe[]        = new UI\Spalte(null, new UI\Knopf("Speichern", "Erfolg", "kern.schulhof.verwaltung.personen.rechtespeichern('$id')"));
 }
-$fensterinhalt  = $zeileAktionen.$zeileKnoepfe;
+$fensterinhalt  = UI\Zeile::standard($zeileAktionen.$zeileKnoepfe);
 
 $code = new UI\Fenster($fensterid, $fenstertitel, $fensterinhalt, true, true);
-$code->addFensteraktion(UI\Knopf::schliessen($fensterid));
 
 Anfrage::setRueck("Code", (string) $code);
 ?>

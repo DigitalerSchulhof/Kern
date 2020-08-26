@@ -20,10 +20,9 @@ $person = Kern\Nutzerkonto::vonID($id);
 $fenstertitel = (new UI\Icon("fas fa-address-card"))." Profil von $person";
 $profil = new Kern\Profil($person);
 
-$fensterinhalt = $profil->getProfil();
+$fensterinhalt = UI\Zeile::standard($profil->getProfil());
 
 $code = new UI\Fenster($fensterid, $fenstertitel, $fensterinhalt, true);
-$code->addFensteraktion(UI\Knopf::schliessen($fensterid));
 
 Anfrage::setRueck("Code", (string) $code);
 ?>
