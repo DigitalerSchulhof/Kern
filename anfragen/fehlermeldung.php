@@ -57,6 +57,6 @@ if(count($fehlercodes) > 1) {
   $titel = "Es ist folgender Fehler aufgetreten:";
 }
 
-Anfrage::setRueck("Meldung", (string) new UI\Meldung($titel, $fehlerCode, "Fehler"));
+Anfrage::setRueck("Meldung", (string) UI\Zeile::standard(new UI\Meldung($titel, $fehlerCode, "Fehler")));
 Anfrage::setRueck("Knoepfe", (string) UI\Knopf::ok());
 ?>

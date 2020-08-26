@@ -10,7 +10,7 @@ if (!$DSH_BENUTZER->hatRecht("verwaltung.personen.anlegen.nutzerkonto")) {
 }
 
 // Prüfen, ob es für diesen Nutzer bereits ein Nutzerkonto gibt
-$sql = "SELECT COUNT(*) FROM kern_nutzerkonten WHERE id = ?";
+$sql = "SELECT COUNT(*) FROM kern_nutzerkonten WHERE person = ?";
 $anfrage = $DBS->anfrage($sql, "i", $id);
 $anfrage->werte($nanzahl);
 

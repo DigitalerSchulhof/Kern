@@ -45,7 +45,7 @@ class Person {
    * @param  int $id Die Personenid
    * @return Person Die Person mit allen Variablen korrekt gesetzt
    */
-  public static function vonID($id) : Person {
+  public static function vonID($id) : ?Person {
     global $DBS;
     $sql = "SELECT {art}, {geschlecht}, {vorname}, {nachname}, {titel} FROM kern_personen WHERE id = ?";
     $anfrage = $DBS->anfrage($sql, "i", $id);
@@ -303,7 +303,7 @@ class Nutzerkonto extends Person {
    * @param  int $id Die Personenid
    * @return Nutzerkonto Das Nutzerkonto mit allen Variablen korrekt gesetzt
    */
-  public static function vonID($id) : Nutzerkonto {
+  public static function vonID($id) : ?Nutzerkonto {
     global $DBS;
     $sql = "SELECT {art}, {geschlecht}, {vorname}, {nachname}, {titel} FROM kern_personen WHERE id = ?";
     $anfrage = $DBS->anfrage($sql, "i", $id);

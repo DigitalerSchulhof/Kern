@@ -10,7 +10,7 @@ if (!$DSH_BENUTZER->hatRecht("verwaltung.personen.anlegen.nutzerkonto")) {
 }
 
 // Prüfen, ob es für diesen Nutzer bereits ein Nutzerkonto gibt
-$sql = "SELECT COUNT(*) FROM kern_nutzerkonten WHERE id = ?";
+$sql = "SELECT COUNT(*) FROM kern_nutzerkonten WHERE person = ?";
 $anfrage = $DBS->anfrage($sql, "i", $id);
 $anfrage->werte($nanzahl);
 
@@ -57,10 +57,10 @@ $salt = $person->generiereSalt();
 $erstellt = time();
 $passworttimeout = $erstellt + 24*60*60;
 
-$sql = "INSERT INTO kern_nutzerkonten (id, benutzername, passwort, passworttimeout, salt, email, erstellt, letztenotifikation) VALUES (?, [?], SHA1(?), ?, [?], [?], ?, ?)";
+$sql = "INSERT INTO kern_nutzerkonten (person, benutzername, passwort, passworttimeout, salt, email, erstellt, letztenotifikation) VALUES (?, [?], SHA1(?), ?, [?], [?], ?, ?)";
 $DBS->silentanfrage($sql, "ississii", $id, $benutzername, $passwort.$salt, $passworttimeout, $salt, $mail, $erstellt, $erstellt);
 
-$DBS->logZugriff("DB", "kern_nutzerkonten", "INSERT INTO kern_nutzerkonten (id, benutzername, passwort, passworttimeout, salt, email, erstellt, letztenotifikation) VALUES (?, ?, SHA1(?), ?, ?, ?, ?, ?)", "Änderung", [$id, $benutzername, "*****", $passworttimeout, "*****", $mail, $erstellt, $erstellt]);
+$DBS->logZugriff("DB", "kern_nutzerkonten", "INSERT INTO kern_nutzerkonten (person, benutzername, passwort, passworttimeout, salt, email, erstellt, letztenotifikation) VALUES (?, ?, SHA1(?), ?, ?, ?, ?, ?)", "Änderung", [$id, $benutzername, "*****", $passworttimeout, "*****", $mail, $erstellt, $erstellt]);
 
 
 

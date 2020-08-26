@@ -59,9 +59,7 @@ kern.schulhof.verwaltung.personen = {
         core.ajax("Kern", 34, "Neue Person erstellen", {art:art, geschlecht:geschlecht, titel:titel, vorname:vorname, nachname:nachname, kuerzel:kuerzel, nutzerkonto:nutzerkonto, benutzername:benutzername, mail:mail}, null, "dshVerwaltungPersonen").then((r) => {
           if (nutzerkonto == "1") {
             var id = r.ID;
-            core.ajax("Kern", 35, "Neues Nutzerkonto erstellen", {id:id, benutzername:benutzername, mail:mail}).then((r) => {
-              ui.laden.meldung("Kern", 29, null);
-            });
+            core.ajax("Kern", 35, "Neues Nutzerkonto erstellen", {id:id, benutzername:benutzername, mail:mail}, 29);
           } else {
             ui.laden.meldung("Kern", 27, null);
           }
@@ -77,7 +75,9 @@ kern.schulhof.verwaltung.personen = {
         var laden = laden || '0';
         var benutzername = $("#dshNeuesNutzerkonto"+id+"Benutzername").getWert();
         var mail = $("#dshNeuesNutzerkonto"+id+"Mail").getWert();
-        core.ajax("Kern", 35, "Neues Nutzerkonto erstellen", {id:id, benutzername:benutzername, mail:mail}, 28, "dshVerwaltungPersonen");
+        core.ajax("Kern", 35, "Neues Nutzerkonto erstellen", {id:id, benutzername:benutzername, mail:mail}, null, "dshVerwaltungPersonen").then(() => {
+          ui.laden.meldung("Kern", 28, null, {id: id});
+        });
       }
     }
   },
