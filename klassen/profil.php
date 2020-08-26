@@ -92,7 +92,7 @@ class Profil {
     $darflo = $DSH_BENUTZER->hatRecht("$recht.sessionprotokoll.löschen");
 
     $sql = "UPDATE kern_nutzersessions SET sessionid = null WHERE sessiontimeout < ?";
-    $DBS->anfrage($sql, "i", time());
+    $DBS->silentanfrage($sql, "i", time());
 
     $spalten = [["{sessionid} AS sessionid"], ["{browser} AS browser"], ["sessiontimeout"], ["anmeldezeit"], ["id"]];
     $sql = "SELECT ?? FROM kern_nutzersessions WHERE person = ? ORDER BY anmeldezeit DESC";
