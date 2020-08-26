@@ -4,11 +4,11 @@ use Kern\Verwaltung\Liste;
 use Kern\Verwaltung\Element;
 use UI\Icon;
 
-$personen   = Liste::getKategorie("personen");
-$technik    = Liste::getKategorie("technik");
+$personen = Liste::addKategorie(new \Kern\Verwaltung\Kategorie("personen", "Personen"));
+$technik  = Liste::addKategorie(new \Kern\Verwaltung\Kategorie("technik", "Technik"));
 
 if($DSH_BENUTZER->hatRecht("verwaltung.personen.sehen"))        $personen[] = new Element("Personen",         "Benutzerdaten",      new Icon("fas fa-users"),           "Schulhof/Verwaltung/Personen");
-if($DSH_BENUTZER->hatRecht("verwaltung.rechte.rollen.sehen"))   $personen[] = new Element("Rollen",           "Rechte",             new Icon("fas fa-tag"),             "Schulhof/Verwaltung/Rollen");
+if($DSH_BENUTZER->hatRecht("verwaltung.rechte.rollen.sehen"))   $personen[] = new Element("Rollen",           "Rechte",             new Icon(UI\Konstanten::ROLLE),     "Schulhof/Verwaltung/Rollen");
 
 if($DSH_BENUTZER->hatRecht("technik.konfiguration"))          $technik[] = new Element("Konfiguration", "Konfiguration",  new Icon("fas fa-cogs"),            "Schulhof/Verwaltung/Konfiguration",        true);
 if($DSH_BENUTZER->hatRecht("module.sehen"))                   $technik[] = new Element("Module",        "Module",         new Icon(UI\Konstanten::MODUL),     "Schulhof/Verwaltung/Module",               true);

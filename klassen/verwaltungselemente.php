@@ -19,7 +19,7 @@ class Liste {
         self::$kategorien[$kategorie->getName()] = $kategorie;
       }
     }
-    return $kategorien[0];
+    return self::$kategorien[$kategorien[0]->getName()];
   }
 
   /**
@@ -121,6 +121,8 @@ class Element extends UI\Link {
   private $name;
   /** @var string */
   private $beschreibung;
+  /** @var bool */
+  private $fortgeschritten;
 
   /**
    * Legt ein neues Verwaltungselement an
@@ -136,13 +138,46 @@ class Element extends UI\Link {
     $this->beschreibung     = $beschreibung;
     $this->icon             = $icon;
     $this->addKlasse("dshVerwaltungsElement");
-    if($fortgeschritten) {
-      $this->addKlasse("dshVerwaltungsElementFortgeschritten");
-    }
+    $this->fortgeschritten  = $fortgeschritten;
+  }
+
+  /**
+   * Gibt das Icon zurück
+   * @return \UI\Icon
+   */
+  public function getIcon() : \UI\Icon {
+    return $this->icon;
+  }
+
+  /**
+   * Gibt den Namen zurück
+   * @return string
+   */
+  public function getName() : string {
+    return $this->name;
+  }
+
+  /**
+   * Gibt die Beschreibung zurück
+   * @return string
+   */
+  public function getBeschreibung() : string {
+    return $this->beschreibung;
+  }
+
+  /**
+   * Gibt zurück, ob das Element nur für Profis ist
+   * @return bool
+   */
+  public function istFortgeschritten() : bool {
+    return $this->fortgeschritten;
   }
 
   public function __toString() : string {
     $name = new UI\Ueberschrift("4", $this->name);
+    if($this->fortgeschritten) {
+      $this->addKlasse("dshVerwaltungsElementFortgeschritten");
+    }
     return "{$this->codeAuf()}{$this->icon}$name{$this->codeZu()}";
   }
 }

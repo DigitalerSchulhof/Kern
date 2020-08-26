@@ -8,8 +8,6 @@ include_once "$DIR/klassen/verwaltungselemente.php";
 use Kern\Verwaltung\Liste;
 use Kern\Verwaltung\Kategorie;
 
-Liste::addKategorie(new Kategorie("personen", "Personen"), new Kategorie("technik", "Technik"));
-
 new Kern\Wurmloch("funktionen/verwaltung/elemente.php");
 
 $zeile = new UI\Zeile();

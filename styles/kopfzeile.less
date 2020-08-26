@@ -22,6 +22,50 @@
 	margin: 0 auto;
 }
 
+#dshHauptnavigation {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+#dshHauptnavigation>.dshUiReiter {
+  margin-bottom: 0;
+}
+
+#dshHauptnavigation>.dshUiReiter>.dshUiReiterKoepfe>.dshUiReiterKopf {
+  cursor: pointer;
+}
+
+#dshHauptnavigation>.dshUiReiter>.dshUiReiterKoerper {
+  position: fixed;
+  width: @seitenbreite;
+  left: calc((100% - @seitenbreite) / 2);
+  border-top: 0;
+}
+
+#dshHauptnavigation>.dshUiReiter>.dshUiReiterKoerper>.dshUiReiterKoerperInaktiv,
+#dshHauptnavigation>.dshUiReiter>.dshUiReiterKoerper>.dshUiReiterKoerperAktiv {
+  transition: max-height 500ms ease-out;
+  max-height: 0;
+  overflow: hidden;
+  border-bottom: 0;
+  display: block;
+}
+
+#dshHauptnavigation>.dshUiReiter>.dshUiReiterKoerper>.dshUiReiterKoerperAktiv {
+  max-height: 500px;
+  transition-timing-function: ease-in;
+}
+
+#dshHauptnavigation>.dshUiReiter>.dshUiReiterKoerper>.dshUiReiterKoerperAktiv .dshUiReiter,
+#dshHauptnavigation>.dshUiReiter>.dshUiReiterKoerper>.dshUiReiterKoerperInaktiv .dshUiReiter {
+  margin-top: 0;
+}
+
+#dshHauptnavigation>.dshUiReiter>.dshUiReiterKoerper>.dshUiReiterKoerperAktiv .dshUiReiter .dshUiKnopf,
+#dshHauptnavigation>.dshUiReiter>.dshUiReiterKoerper>.dshUiReiterKoerperInaktiv .dshUiReiter .dshUiKnopf {
+  margin-bottom: 0;
+}
 
 #dshLogo {
 	position: absolute;
@@ -114,6 +158,10 @@
 }
 
 // FARBEN;
+
+#dshHauptnavigation>.dshUiReiter>.dshUiReiterKoerper {
+  background-color: khaki;
+}
 
 #dshKopfnaviFeld .dshUiToggle {
   background-color: @kopfzeileHintergrund;

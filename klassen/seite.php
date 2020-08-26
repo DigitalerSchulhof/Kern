@@ -101,7 +101,7 @@ class Seite implements \ArrayAccess {
 
   public function offsetSet($o, $v) {
     if(!($v instanceof UI\Zeile)) {
-      throw new \TypeError("Die übergebene Spalte ist nicht vom Typ \\UI\\Zeile");
+      throw new \TypeError("Die übergebene Zeile ist nicht vom Typ \\UI\\Zeile");
     }
     if(!is_null($o)) {
       throw new \Exception("Nicht implementiert!");
