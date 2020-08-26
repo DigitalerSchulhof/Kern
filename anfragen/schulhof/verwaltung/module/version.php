@@ -60,7 +60,7 @@ if (is_file("{$DSH_ALLEMODULE[$modulname]}/version/versionen.yml")) {
 
 $fenstertitel = (new UI\Icon("fas fa-puzzle-piece"))." Modulversionen";
 
-$code = new UI\Fenster($fensterid, $fenstertitel, UI\Zeile::standard($letzteVersion));
+$code = new UI\Fenster($fensterid, $fenstertitel, UI\Zeile::standard($letzteVersion), false);
 
 Anfrage::setRueck("Code", (string) $code);
 ?>

@@ -22,7 +22,7 @@ $profil = new Kern\Profil($person);
 
 $fensterinhalt = UI\Zeile::standard($profil->getProfil());
 
-$code = new UI\Fenster($fensterid, $fenstertitel, $fensterinhalt, true);
+$code = new UI\Fenster($fensterid, $fenstertitel, $fensterinhalt);
 
 Anfrage::setRueck("Code", (string) $code);
 ?>
