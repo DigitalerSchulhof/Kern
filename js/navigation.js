@@ -7,7 +7,13 @@ kern.navigation = {
     $("#"+id).finde(".dshUiReiterKoerper>.dshUiReiterKoerper").addKlasse("dshUiReiterKoerperInaktiv").removeKlasse("dshUiReiterKoerperAktiv");
     $("#"+id+"Koerper"+nr).addKlasse("dshUiReiterKoerperAktiv").removeKlasse("dshUiReiterKoerperInaktiv");
   },
-  ausblenden: (el) => {
+  ausblenden: (el, ev) => {
+    if(el === true) {
+      if($(ev.target).hatAttr("href") || $(ev.target).parentSelector("[href]").existiert()) {
+        $("#dshHauptnavigationReiter").kinderSelector(".dshUiReiterKoerper").kinderSelector(".dshUiReiterKoerperAktiv").toggleKlasse("dshUiReiterKoerperInaktiv", "dshUiReiterKoerperAktiv");
+      }
+      return;
+    }
     el = $(el);
     let m = el.getID().match(/(.+)(?:Kopf|Koerper)(\d+)/);
     let id = m[1];
