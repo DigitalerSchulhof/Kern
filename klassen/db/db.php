@@ -222,12 +222,19 @@ class DB {
   /**
   * Prüft, ob ein Datensatz, welcher der Bedingung entspricht, schon in der übergeben Tabelle vorhanden ist
   * @param string $tabelle Die Tabelle, in welcher geprüft wird
-	* @param string $bedingung Die SQL-Bedingung <b>ohne WHERE</b>, welche zu prüfen ist
+	* @param string|int $bedingung
+	* Wenn <code>string</code>: Die SQL-Bedingung <b>ohne WHERE</b>, welche zu prüfen ist
+  * Wenn <code>int</code>: Der Wert der Spalte <code>id</code>
   * @param string $parameterarten :)
 	* @param array $werte Array mit den Werten, die übergeben werden
   * @return bool
   */
   public function existiert($tabelle, $bedingung, $parameterarten = "", ...$werte) : bool {
+    if(is_numeric($bedingung)) {
+      $parameterarten = "i";
+      $werte = [$bedingung];
+      $bedingung = "id = ?";
+    }
     $sql = "SELECT COUNT(*) FROM $tabelle WHERE $bedingung";
     $sql = $this->anfrage($sql, $parameterarten, ...$werte);
     $sql->werte($anzahl);

@@ -117,16 +117,16 @@ while ($anfrage->werte($tit, $vor, $nach, $nutzer, $anmeldung, $id, $art)) {
 
   if ($darfsession) {
     if ($nutzer === null) {
-      $zeile["Status"]    = new UI\Badge(new UI\Icon("fas fa-user-slash"), "kein Nutzerkonto", "Fehler");
+      $zeile["Status"]    = new UI\IconBadge(new UI\Icon("fas fa-user-slash"), "kein Nutzerkonto", "Fehler");
     } else {
       if ($anmeldung !== null) {
         $datum            = new UI\Datum($anmeldung);
         $sorttoken = new UI\InhaltElement($anmeldung);
         $sorttoken->setTag("span");
         $sorttoken->addKlasse("dshUiUnsichtbar");
-        $zeile["Status"]    = new UI\Badge(new UI\Icon("fas fa-id-card-alt"), "$sorttoken{$datum->kurz("X")}", "Erfolg");
+        $zeile["Status"]    = new UI\IconBadge(new UI\Icon("fas fa-id-card-alt"), "$sorttoken{$datum->kurz("X")}", "Erfolg");
       } else {
-        $zeile["Status"]    = new UI\Badge(new UI\Icon("fas fa-id-card-alt"), "noch keine Anmeldung", "Erfolg");
+        $zeile["Status"]    = new UI\IconBadge(new UI\Icon("fas fa-id-card-alt"), "noch keine Anmeldung", "Erfolg");
       }
     }
   } else {
