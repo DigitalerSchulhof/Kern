@@ -205,6 +205,9 @@ class DB {
       if (strpos(strtoupper($anfragenteile[0]), "UPDATE") !== false) {
         $aktion[] = "Änderung";
       }
+      if (strpos(strtoupper($anfragenteile[0]), "ALTER") !== false) {
+        $aktion[] = "Anpassung";
+      }
       if (strpos(strtoupper($anfragenteile[0]), "DELETE") !== false) {
         $aktion[] = "Löschung";
       }
