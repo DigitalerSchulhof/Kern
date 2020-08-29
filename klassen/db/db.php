@@ -405,7 +405,7 @@ class DB {
    * Wenn mehr Parameter als Parameterarten übergeben werden, wird letze Parameter <code>$silent</code>
    * param  bool   $silent verzichtet auf den Aktionslog
    */
-  public function datensatzBearbeiten($tabelle, $id, $felder, $parameterarten, ...$parameter) {
+  public function datensatzBearbeiten($tabelle, $id, $felder, $parameterarten = "", ...$parameter) {
     if(!is_array($id)) {
       $id = array("id" => $id);
     }

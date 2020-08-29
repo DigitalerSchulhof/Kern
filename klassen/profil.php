@@ -307,7 +307,7 @@ class Profil {
     $artF          ->add("Externe(r)", "x");
     $artF          ->addFunktion("oninput", "ui.formular.anzeigenwenn('dshProfil{$profilid}Art', 'l', 'dshProfil{$profilid}KuerzelFeld')");
     if (!$DSH_BENUTZER->hatRecht("$recht.art")) {
-      $artF->setAttribut("disabled", "disabled");
+      $artF->setDisabled(true);
     }
 
     $geschlechtF  = (new UI\Auswahl("dshProfil{$profilid}Geschlecht"))->setWert($this->person->getGeschlecht());
@@ -315,33 +315,33 @@ class Profil {
     $geschlechtF  ->add("Männlich", "m");
     $geschlechtF  ->add("Divers", "d");
     if (!$DSH_BENUTZER->hatRecht("$recht.geschlecht")) {
-      $geschlechtF->setAttribut("disabled", "disabled");
+      $geschlechtF->setDisabled(true);
     }
 
     $titelF = (new UI\Textfeld("dshProfil{$profilid}Titel"))->setWert($this->person->getTitel());
     if ($DSH_BENUTZER->hatRecht("$recht.titel")) {
       $titelF->setAutocomplete("honorific-prefix");
     } else {
-      $titelF->setAttribut("disabled", "disabled");
+      $titelF->setDisabled(true);
     }
 
     $vornameF = (new UI\Textfeld("dshProfil{$profilid}Vorname"))->setWert($this->person->getVorname());
     if ($DSH_BENUTZER->hatRecht("$recht.vorname")) {
       $vornameF->setAutocomplete("given-name");
     } else {
-      $vornameF->setAttribut("disabled", "disabled");
+      $vornameF->setDisabled(true);
     }
 
     $nachnameF = (new UI\Textfeld("dshProfil{$profilid}Nachname"))->setWert($this->person->getNachname());
     if ($DSH_BENUTZER->hatRecht("$recht.nachname")) {
       $nachnameF->setAutocomplete("family-name");
     } else {
-      $nachnameF->setAttribut("disabled", "disabled");
+      $nachnameF->setDisabled(true);
     }
 
     $kuerzelF = (new UI\Textfeld("dshProfil{$profilid}Kuerzel"))->setWert($kuerzel);
     if (!$DSH_BENUTZER->hatRecht("$recht.kuerzel")) {
-      $kuerzelF->setAttribut("disabled", "disabled");
+      $kuerzelF->setDisabled(true);
     }
 
     $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Art:"),                      $artF);
@@ -375,14 +375,14 @@ class Profil {
       if ($DSH_BENUTZER->hatRecht("$recht.email")) {
         $mailF->setAutocomplete("email");
       } else {
-        $mailF->setAttribut("disabled", "disabled");
+        $mailF->setDisabled(true);
       }
 
       $benutzerF = (new UI\Textfeld("dshProfil{$profilid}Benutzer"))->setWert($benutzername);
       if ($DSH_BENUTZER->hatRecht("$recht.benutzer")) {
         $benutzerF->setAutocomplete("username");
       } else {
-        $benutzerF->setAttribut("disabled", "disabled");
+        $benutzerF->setDisabled(true);
       }
 
       $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Benutzername:"),                   $benutzerF);

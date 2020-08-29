@@ -9,7 +9,7 @@ if (!$DSH_BENUTZER->hatRecht("verwaltung.rechte.rollen.sehen")) {
   Anfrage::addFehler(-4, true);
 }
 
-$spalten = [["kr.id as id"], ["{bezeichnung} AS bezeichnung"], ["(SELECT GROUP_CONCAT(kern_anzeigename(kp.id, §) SEPARATOR ', ') FROM kern_personen as kp JOIN kern_rollenzuordnung as krz ON krz.person = kp.id WHERE krz.rolle = kr.id) as personen"], ["(SELECT GROUP_CONCAT({krr.recht} SEPARATOR ', ') FROM kern_rollenrechte as krr WHERE krr.rolle = kr.id) as rechte"]];
+$spalten = [["kr.id as id"], ["{bezeichnung} AS bezeichnung"], ["(SELECT GROUP_CONCAT(CONCAT(IF((SELECT {kpp.titel} FROM kern_personen as kpp WHERE kpp.id = kp.id) != '', CONCAT((SELECT {kpp.titel} FROM kern_personen as kpp WHERE kpp.id = kp.id), ' '), ''), IF((SELECT {kpp.vorname} FROM kern_personen as kpp WHERE kpp.id = kp.id) != '', CONCAT((SELECT {kpp.vorname} FROM kern_personen as kpp WHERE kpp.id = kp.id), ' '), ''), IF((SELECT {kpp.nachname} FROM kern_personen as kpp WHERE kpp.id = kp.id) != '', (SELECT {kpp.nachname} FROM kern_personen as kpp WHERE kpp.id = kp.id), '')) SEPARATOR ', ') FROM kern_personen as kp JOIN kern_rollenzuordnung as krz ON krz.person = kp.id WHERE krz.rolle = kr.id) as personen"], ["(SELECT GROUP_CONCAT({krr.recht} SEPARATOR ', ') FROM kern_rollenrechte as krr WHERE krr.rolle = kr.id) as rechte"]];
 
 $sql = "SELECT ?? FROM kern_rollen as kr";
 
