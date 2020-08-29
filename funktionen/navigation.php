@@ -3,6 +3,8 @@
 $r = [];
 if(Kern\Check::angemeldet(false)) {
   $kopf     = new UI\Reiterkopf("Nutzerkonto", new UI\Icon("fas fa-user"));
+  $kopf->addFunktion("href", "Schulhof/Nutzerkonto");
+  $kopf->setTag("a");
   $koerper  = new UI\Reiterkoerper();
   $spalteMeinKonto = new UI\Spalte(null,
     new UI\Ueberschrift("4", "Mein Konto"),
