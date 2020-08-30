@@ -8,7 +8,7 @@ if(Kern\Check::angemeldet(false)) {
   $koerper  = new UI\Reiterkoerper();
   $spalteMeinKonto = new UI\Spalte(null,
     new UI\Ueberschrift("4", "Mein Konto"),
-    (new Kern\Profil($DSH_BENUTZER))->aktivitaetsanzeige("dshHauptnavigationAktivitaetNutzerkonto")
+    (new Kern\Profil($DSH_BENUTZER))->getNutzerkontoKontrollpanele("dshHauptnavigationAktivitaetNutzerkonto")
   );
   global $DSH_ALLEMODULE;
   $module = array_keys($DSH_ALLEMODULE);

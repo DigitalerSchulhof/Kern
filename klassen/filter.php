@@ -5,9 +5,11 @@ use UI;
 abstract class Filter extends UI\Eingabe {
   protected $tag = "div";
 
+  /** @var string JS-Filtermethode - ohne () */
   protected $ziel;
-  protected $autoaktualisierung;
+  /** @var bool Knopf zum Ein- und Ausblenden des Filters */
   protected $knopf;
+  /** @var bool Anfangs angezeigt, wenn true, sonst false */
   protected $anzeigen;
 
   /**
@@ -16,17 +18,16 @@ abstract class Filter extends UI\Eingabe {
    * @param string $ziel  Javascript-Funktion die ausgelöst wird
    * @param bool   $auto  Aktiviert die Aktualisierung des Ergebnisses bei Nutzereingabe wenn true
    */
-  public function __construct($id, $ziel, $knopfart, $auto) {
+  public function __construct($id, $ziel, $knopfart) {
     parent::__construct($id);
     $this->ziel = $ziel;
-    $this->autoaktualisierung = $auto;
     $this->id = $id;
     if ($knopfart == "Hinzufügen") {
       $this->knopf = new UI\MiniIconToggle("{$this->id}Anzeigen", "Hinzufügen", new UI\Icon(UI\Konstanten::NEU));
     } else {
       $this->knopf = new UI\Toggle("{$this->id}Anzeigen", "Filter");
-      $this->knopf->addFunktion("onclick", "kern.filter.anzeigen('{$this->id}')");
     }
+    $this->knopf->addFunktion("onclick", "kern.filter.anzeigen('{$this->id}')");
     $this->anzeigen = false;
   }
 
@@ -48,39 +49,35 @@ class Personenfilter extends Filter {
    * @param string $ziel  Javascript-Funktion die ausgelöst wird
    * @param bool   $auto  Aktiviert die Aktualisierung des Ergebnisses bei Nutzereingabe wenn true
    */
-  public function __construct($id, $ziel, $knopfart = "Hinzufügen", $auto = true) {
-    parent::__construct($id, $ziel, $knopfart, $auto);
+  public function __construct($id, $ziel, $knopfart = "Hinzufügen") {
+    parent::__construct($id, $ziel, $knopfart);
   }
 
   public function __toString() : string {
     global $DSH_ALLEMODULE;
-    if ($this->anzeigen) {
-      $this->knopf->setWert("1");
-    }
-    $code = new UI\Absatz($this->knopf);
 
-    $arten = new UI\Multitoggle("dshPersonenFilterArten");
-    $schueler = new UI\Toggle("dshPersonenFilterSchueler", "Schüler");
-    $lehrer = new UI\Toggle("dshPersonenFilterLehrer", "Lehrer");
-    $erziehungsberechtigte = new UI\Toggle("dshPersonenFilterErziehungsberechtigte", "Erziehungsberechtigte");
-    $verwaltungsangestellte = new UI\Toggle("dshPersonenFilterVerwaltungsangestellte", "Verwaltungsangestellte");
-    $externe = new UI\Toggle("dshPersonenFilterExterne", "Externe");
+    $arten = new UI\Multitoggle("{$this->id}Arten");
+    $schueler = new UI\Toggle("{$this->id}ArtenSchueler", "Schüler");
+    $lehrer = new UI\Toggle("{$this->id}ArtenLehrer", "Lehrer");
+    $erziehungsberechtigte = new UI\Toggle("{$this->id}ArtenErziehungsberechtigte", "Erziehungsberechtigte");
+    $verwaltungsangestellte = new UI\Toggle("{$this->id}ArtenVerwaltungsangestellte", "Verwaltungsangestellte");
+    $externe = new UI\Toggle("{$this->id}ArtenExterne", "Externe");
 
-    $formular         = new UI\FormularTabelle();
-    $vorname          = new UI\Textfeld("dshPersonenFilterVorname");
-    $nachname         = new UI\Textfeld("dshPersonenFilterNachname");
-    $klasse           = new UI\Textfeld("dshPersonenFilterKlasse");
+    $vorname          = new UI\Textfeld("{$this->id}Vorname");
+    $nachname         = new UI\Textfeld("{$this->id}Nachname");
+    $klasse           = new UI\Textfeld("{$this->id}Klasse");
+    $vorname->setPlatzhalter("Vorname");
+    $nachname->setPlatzhalter("Nachname");
+    $klasse->setPlatzhalter("Klasse");
 
-    if ($this->autoaktualisierung) {
-      $vorname->addFunktion("oninput", $this->ziel);
-      $nachname->addFunktion("oninput", $this->ziel);
-      $klasse->addFunktion("oninput", $this->ziel);
-      $schueler->addFunktion("onclick", $this->ziel);
-      $lehrer->addFunktion("onclick", $this->ziel);
-      $erziehungsberechtigte->addFunktion("onclick", $this->ziel);
-      $verwaltungsangestellte->addFunktion("onclick", $this->ziel);
-      $externe->addFunktion("onclick", $this->ziel);
-    }
+    $vorname->addFunktion("oninput", $this->ziel);
+    $nachname->addFunktion("oninput", $this->ziel);
+    $klasse->addFunktion("oninput", $this->ziel);
+    $schueler->addFunktion("onclick", $this->ziel);
+    $lehrer->addFunktion("onclick", $this->ziel);
+    $erziehungsberechtigte->addFunktion("onclick", $this->ziel);
+    $verwaltungsangestellte->addFunktion("onclick", $this->ziel);
+    $externe->addFunktion("onclick", $this->ziel);
 
     $arten->add($schueler);
     $arten->add($lehrer);
@@ -88,28 +85,92 @@ class Personenfilter extends Filter {
     $arten->add($verwaltungsangestellte);
     $arten->add($externe);
 
-    $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Vorname:"),              $vorname);
-    $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Nachname:"),             $nachname);
-    $klasseF          = new UI\FormularFeld(new UI\InhaltElement("Klasse:"),               $klasse);
+    $felder  = new UI\Absatz($vorname);
+    $felder .= new UI\Absatz($nachname);
+    $felder .= new UI\Absatz($vorname);
+    $a = new UI\Absatz($klasse);
     if (!in_array("Gruppen", array_keys($DSH_ALLEMODULE))) {
-      $klasseF->addKlasse("dshUiUnsichtbar");
+      $a->addKlasse("dshUiUnsichtbar");
     }
-    $formular[]       = $klasseF;
-    $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Art des Nutzerkontos:"), $arten);
+    $felder .= $a;
+    $felder .= new UI\Absatz($arten);
 
-
-    $formular[]       = (new UI\Knopf("Suchen", "Erfolg"))  ->setSubmit(true);
-    $formular         -> addSubmit($this->ziel);
-    $formular         -> setID("{$this->id}A");
+    $code = new UI\Absatz($this->knopf);
+    $felder = new UI\InhaltElement($felder);
+    $felder->setTag("div");
+    $felder->setID("{$this->id}A");
+    $felder->addKlasse("dshUiFilter");
     if (!$this->anzeigen) {
-      $formular       -> addKlasse("dshUiUnsichtbar");
+      $felder->addKlasse("dshUiUnsichtbar");
+    } else {
+      $this->knopf->setWert("1");
     }
-
-    $code            .= $formular;
-    return $code;
+    return $code.$felder;
   }
 
+}
 
 
+class Personenwahl extends Filter {
+  /**
+   * Erstellt einen neuen Filter
+   * @param int    $id    :)
+   * @param string $ziel  Javascript-Funktion die ausgelöst wird
+   * @param bool   $auto  Aktiviert die Aktualisierung des Ergebnisses bei Nutzereingabe wenn true
+   */
+  public function __construct($id, $ziel, $knopfart = "Hinzufügen") {
+    parent::__construct($id, $ziel, $knopfart);
+  }
+
+  public function __toString() : string {
+    global $DSH_ALLEMODULE;
+
+    $arten = new UI\Multitoggle("{$this->id}Arten");
+    $schueler = new UI\Toggle("{$this->id}ArtenSchueler", "Schüler");
+    $lehrer = new UI\Toggle("{$this->id}ArtenLehrer", "Lehrer");
+    $erziehungsberechtigte = new UI\Toggle("{$this->id}ArtenErziehungsberechtigte", "Erziehungsberechtigte");
+    $verwaltungsangestellte = new UI\Toggle("{$this->id}ArtenVerwaltungsangestellte", "Verwaltungsangestellte");
+    $externe = new UI\Toggle("{$this->id}ArtenExterne", "Externe");
+
+    $vorname          = new UI\Textfeld("{$this->id}Vorname");
+    $nachname         = new UI\Textfeld("{$this->id}Nachname");
+    $vorname->setPlatzhalter("Vorname");
+    $nachname->setPlatzhalter("Nachname");
+
+    $vorname->addFunktion("oninput", $this->ziel);
+    $nachname->addFunktion("oninput", $this->ziel);
+    $schueler->addFunktion("onclick", $this->ziel);
+    $lehrer->addFunktion("onclick", $this->ziel);
+    $erziehungsberechtigte->addFunktion("onclick", $this->ziel);
+    $verwaltungsangestellte->addFunktion("onclick", $this->ziel);
+    $externe->addFunktion("onclick", $this->ziel);
+
+    $arten->add($schueler);
+    $arten->add($lehrer);
+    $arten->add($erziehungsberechtigte);
+    $arten->add($verwaltungsangestellte);
+    $arten->add($externe);
+
+    $felder  = new UI\Absatz($vorname);
+    $felder .= new UI\Absatz($nachname);
+    $felder .= new UI\Absatz($arten);
+
+    $code = new UI\Absatz($this->knopf);
+    $suchergebnisse = new UI\InhaltElement(new UI\Notiz("Suche ohne Ergebnis"));
+    $suchergebnisse->setTag("div");
+    $suchergebnisse->setID("{$this->id}Suchergebnisse");
+    $suchergebnisse->addKlasse("dshUiSuchergebnisse");
+
+    $felder = new UI\InhaltElement($felder.$suchergebnisse);
+    $felder->setTag("div");
+    $felder->setID("{$this->id}A");
+    $felder->addKlasse("dshUiFilter");
+    if (!$this->anzeigen) {
+      $felder->addKlasse("dshUiUnsichtbar");
+    } else {
+      $this->knopf->setWert("1");
+    }
+    return $code.$felder;
+  }
 }
 ?>

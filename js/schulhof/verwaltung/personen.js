@@ -25,11 +25,11 @@ kern.schulhof.verwaltung.personen = {
     var vorname = $("#dshPersonenFilterVorname").getWert();
     var nachname = $("#dshPersonenFilterNachname").getWert();
     var klasse = $("#dshPersonenFilterKlasse").getWert();
-    var schueler = $("#dshPersonenFilterSchueler").getWert();
-    var lehrer = $("#dshPersonenFilterLehrer").getWert();
-    var erzieher = $("#dshPersonenFilterErziehungsberechtigte").getWert();
-    var verwaltung = $("#dshPersonenFilterVerwaltungsangestellte").getWert();
-    var externe = $("#dshPersonenFilterExterne").getWert();
+    var schueler = $("#dshPersonenFilterArtenSchueler").getWert();
+    var lehrer = $("#dshPersonenFilterArtenLehrer").getWert();
+    var erzieher = $("#dshPersonenFilterArtenErziehungsberechtigte").getWert();
+    var verwaltung = $("#dshPersonenFilterArtenVerwaltungsangestellte").getWert();
+    var externe = $("#dshPersonenFilterArtenExterne").getWert();
     return core.ajax("Kern", 31, null, {vorname:vorname, nachname:nachname, klasse:klasse, schueler:schueler, lehrer:lehrer, erzieher:erzieher, verwaltung:verwaltung, externe:externe, ...sortieren});
   },
   profil: (id) => {
