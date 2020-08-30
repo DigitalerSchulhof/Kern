@@ -1,5 +1,4 @@
 <?php
-
 $r = [];
 if(Kern\Check::angemeldet(false)) {
   $kopf     = new UI\Reiterkopf("Nutzerkonto", new UI\Icon("fas fa-user"));
@@ -25,5 +24,4 @@ if(Kern\Check::angemeldet(false)) {
 }
 
 return $r;
-
 ?>
