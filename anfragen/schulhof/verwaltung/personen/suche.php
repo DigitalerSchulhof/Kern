@@ -36,27 +36,27 @@ $parameter = [];
 $parameterarten = "";
 
 $arten = [];
-if ($schueler == "1") {
+if ($schueler === "1") {
   $arten[] = "art = [?]";
   $parameter[] = "s";
   $parameterarten .= "s";
 }
-if ($lehrer == "1") {
+if ($lehrer === "1") {
   $arten[] = "art = [?]";
   $parameter[] = "l";
   $parameterarten .= "s";
 }
-if ($erzieher == "1") {
+if ($erzieher === "1") {
   $arten[] = "art = [?]";
   $parameter[] = "e";
   $parameterarten .= "s";
 }
-if ($verwaltung == "1") {
+if ($verwaltung === "1") {
   $arten[] = "art = [?]";
   $parameter[] = "v";
   $parameterarten .= "s";
 }
-if ($externe == "1") {
+if ($externe === "1") {
   $arten[] = "art = [?]";
   $parameter[] = "x";
   $parameterarten .= "s";

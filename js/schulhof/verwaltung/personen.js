@@ -59,7 +59,7 @@ kern.schulhof.verwaltung.personen = {
         core.ajax("Kern", 34, "Neue Person erstellen", {art:art, geschlecht:geschlecht, titel:titel, vorname:vorname, nachname:nachname, kuerzel:kuerzel, nutzerkonto:nutzerkonto, benutzername:benutzername, mail:mail}, null, "dshVerwaltungPersonen").then((r) => {
           if (nutzerkonto == "1") {
             var id = r.ID;
-            core.ajax("Kern", 35, "Neues Nutzerkonto erstellen", {id:id, benutzername:benutzername, mail:mail}, 29);
+            core.ajax("Kern", 35, "Neues Nutzerkonto erstellen", {id:id, benutzername:benutzername, mail:mail}, 29, "dshVerwaltungPersonen");
           } else {
             ui.laden.meldung("Kern", 27, null);
           }
@@ -93,6 +93,45 @@ kern.schulhof.verwaltung.personen = {
       feld.setWert(vorname.substr(0,1)+nachname.substr(0,7)+"-"+art.toUpperCase());
     } else {
       feld.setWert(nachname.substr(0,8)+vorname.substr(0,3)+"-"+art.toUpperCase());
+    }
+  },
+  wahl: {
+    daten: (id) => ({
+      id: id,
+      pool: $("#"+id+"Pool").getWert(),
+      nutzerkonto: $("#"+id+"Nutzerkonto").getWert(),
+      recht: $("#"+id+"Recht").getWert(),
+      gewaehlt: $("#"+id+"Gewaehlt").getWert(),
+      vorname: $("#"+id+"Vorname").getWert(),
+      nachname: $("#"+id+"Nachname").getWert(),
+      schueler: $("#"+id+"ArtenSchueler").getWert(),
+      lehrer: $("#"+id+"ArtenLehrer").getWert(),
+      erziehungsberechtigte: $("#"+id+"ArtenErziehungsberechtigte").getWert(),
+      verwaltungsangestellte: $("#"+id+"ArtenVerwaltungsangestellte").getWert(),
+      externe: $("#"+id+"ArtenExterne").getWert()
+    }),
+    einzeln: {
+      suchen: (id) => {
+        var feld = $("#"+id+"Suchergebnisse");
+        feld.setHTML(ui.generieren.laden.icon("Die Suche läuft..."));
+        core.ajax("Kern", 50, null, {...kern.schulhof.verwaltung.personen.wahl.daten(id)}).then((r) => {
+          feld.setHTML(r.ergebnisse);
+        });
+      },
+      dazu: (feldid, personid, inhalt, perart) => {
+        var gewaehlt = $("#"+feldid+"").getWert();
+        if (gewaehlt.length != 0) {
+          $("#"+id+"").setWert(gewaehlt+","+personid);
+        } else {
+          $("#"+id+"").setWert(personid);
+        }
+        var knopfid = feldid+"Person"+personid;
+        core.ajax("UI", 2, null, {komponente:"IconKnopfPerson", inhalt:inhalt, personart:perart, id:knopfid, klickaktion:"kern.schulhof.verwaltung.personen.wahl.einzeln.entfernen('"+personid+"', '"+knopfid+"')"}).then((r) => {
+          feld = $("#"+id+"GewaehltFeld");
+          feld.anhaengen(r.Code);
+        });
+        kern.schulhof.verwaltung.personen.wahl.einzeln.suchen(feldid);
+      }
     }
   }
 };

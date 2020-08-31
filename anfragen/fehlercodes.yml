@@ -280,3 +280,9 @@
 102:
   ort: anfragen/schulhof/verwaltung/modul/modulverwaltung.php
   beschreibung: Der <b>Pool-Token</b> ist ungültig.
+103:
+  ort: anfragen/schulhof/personen/wahl.php
+  beschreibung: Der <b>Vorname</b> ist ungültig.
+104:
+  ort: anfragen/schulhof/personen/wahl.php
+  beschreibung: Der <b>Nachname</b> ist ungültig.
