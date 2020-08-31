@@ -1,6 +1,6 @@
 kern.schulhof.verwaltung.personen = {
   rechteundrollen: (id, ueberschreiben) => {
-    return ui.fenster.laden("Kern", 38, null, {id:id}, null, null, ueberschreiben);
+    return ui.fenster.laden("Kern", 38, {id:id}, null, null, ueberschreiben);
   },
   rolleaktion: (id, rolle) => {
     let wert = $("#dshVerwaltungRechteUndRollen"+id+"Rolle"+rolle).getWert();
@@ -8,7 +8,7 @@ kern.schulhof.verwaltung.personen = {
     if(wert == "1") {
       aktion = "vergeben";
     }
-    core.ajax("Kern", 39, "Rolle "+aktion, {id: id, rolle: rolle, wert: wert}).then(() => kern.schulhof.verwaltung.personen.rechteundrollen(id, true).then(() => ui.laden.aus()), r => {
+    core.ajax("Kern", 39, "Rolle "+aktion, {id: id, rolle: rolle, wert: wert}).then(_ => kern.schulhof.verwaltung.personen.rechteundrollen(id, true).then(_ => ui.laden.aus()), r => {
       if(!r.Erfolg) {
         $("#dshVerwaltungRechteUndRollen"+id+"Rolle"+rolle+"Toggle").setKlasse(wert, "dshUiToggled");
         $("#dshVerwaltungRechteUndRollen"+id+"Rolle"+rolle).setWert(1-wert);
@@ -33,20 +33,20 @@ kern.schulhof.verwaltung.personen = {
     return core.ajax("Kern", 31, null, {vorname:vorname, nachname:nachname, klasse:klasse, schueler:schueler, lehrer:lehrer, erzieher:erzieher, verwaltung:verwaltung, externe:externe, ...sortieren});
   },
   profil: (id) => {
-    ui.fenster.laden("Kern", 32, null, {id:id});
+    ui.fenster.laden("Kern", 32, {id:id});
   },
   loeschen: {
     fragen: (id, nutzerkonto) => ui.laden.meldung("Kern", 25, "Person löschen", {id:id, nutzerkonto:nutzerkonto}),
-    ausfuehren: (id, art) => core.ajax("Kern", 33, "Person löschen", {id:id, art:art}, null, "dshVerwaltungPersonen").then(() => {
+    ausfuehren: (id, art) => core.ajax("Kern", 33, "Person löschen", {id:id, art:art}, null, "dshVerwaltungPersonen").then(_ => {
       ui.laden.meldung("Kern", 26, null, {art:art});
     }),
   },
   neu: {
     person: {
-      fenster: () => {
-        ui.fenster.laden("Kern", 13, null, null, null, null);
+      fenster: _ => {
+        ui.fenster.laden("Kern", 13);
       },
-      erstellen: () => {
+      erstellen: _ => {
         var art = $("#dshNeuePersonArt").getWert();
         var geschlecht = $("#dshNeuePersonGeschlecht").getWert();
         var titel = $("#dshNeuePersonTitel").getWert();
@@ -69,19 +69,19 @@ kern.schulhof.verwaltung.personen = {
     nutzerkonto: {
       anzeigen: (id, laden) => {
         var laden = laden || '0';
-        ui.fenster.laden("Kern", 36, null, {id:id, laden:laden});
+        ui.fenster.laden("Kern", 36, {id:id, laden:laden});
       },
       erstellen: (id, laden) => {
         var laden = laden || '0';
         var benutzername = $("#dshNeuesNutzerkonto"+id+"Benutzername").getWert();
         var mail = $("#dshNeuesNutzerkonto"+id+"Mail").getWert();
-        core.ajax("Kern", 35, "Neues Nutzerkonto erstellen", {id:id, benutzername:benutzername, mail:mail}, null, "dshVerwaltungPersonen").then(() => {
+        core.ajax("Kern", 35, "Neues Nutzerkonto erstellen", {id:id, benutzername:benutzername, mail:mail}, null, "dshVerwaltungPersonen").then(_ => {
           ui.laden.meldung("Kern", 28, null, {id: id});
         });
       }
     }
   },
-  benutzername: () => {
+  benutzername: _ => {
     var art = $("#dshNeuePersonArt").getWert();
     var feld = $("#dshNeuePersonBenutzername");
     var vorname = $("#dshNeuePersonVorname").getWert();

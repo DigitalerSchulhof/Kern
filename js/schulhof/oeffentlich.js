@@ -1,10 +1,10 @@
 kern.schulhof.oeffentlich = {
-  browsercheck: () => {
+  browsercheck: _ => {
     if($("#dshBrowsercheckLaden").length === 0) {
       return;
     }
-    setTimeout(() => {
-      var browser = (() => {
+    setTimeout(_ => {
+      var browser = (_ => {
         var ua=navigator.userAgent;
         var tem;
         var M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
@@ -54,7 +54,7 @@ kern.schulhof.oeffentlich = {
         let start = new Date().getTime();
 
         let http = new XMLHttpRequest();
-        http.onreadystatechange = () => {
+        http.onreadystatechange = _ => {
           if(http.readyState === 4) {
             let ms = new Date().getTime() - start;
             if(http.status !== 0) {
@@ -64,7 +64,7 @@ kern.schulhof.oeffentlich = {
             }
           }
         };
-        http.onerror = () => {
+        http.onerror = _ => {
           let ms = new Date().getTime() - start;
           fertig(null);
         };

@@ -26,7 +26,7 @@ class Profil {
   public function getAktivitaetsanzeige($id) {
     global $DSH_ALLEMODULE;
     $module = array_keys($DSH_ALLEMODULE);
-    $balken = new UI\Balken("Zeit", time(), $this->person->getSessiontimeout(), $this->person->getInaktivitaetszeit());
+    $balken = new UI\Balken("Zeit", time(), $this->person->getSessiontimeout(), true, $this->person->getInaktivitaetszeit());
     $balken->setID($id);
     $code  = $balken;
 

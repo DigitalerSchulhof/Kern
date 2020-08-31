@@ -294,8 +294,8 @@ class Nutzerkonto extends Person {
     $this->passworttimeout = null;
     $this->uebersichtszahl = null;
 
-    $this->rechteLaden();
     $this->rechtecache = [];
+    $this->rechteLaden();
   }
 
   /**

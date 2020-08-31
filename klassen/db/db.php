@@ -400,8 +400,8 @@ class DB {
    * Ändert den Datensatz mit der ID <code>$id</code> um die Felder <code>$felder</code>.
    * @param  string $tabelle      :)
    * @param  integer|array $id
-   * Wenn <code>int</code>:  Die ID des Datensatzes (Wird zu <code>["id" => $id]</code>)
-   * Wenn <code>array/code>: [Index-Feld => Wert]
+   * Wenn <code>int</code>:  Die ID des Datensatzes (Wird zu id = ?)
+   * Wenn <code>string</code>: WHERE-Teil der SQL-Query. <b>Parameter/-arten müssen selbst übergeben werden und kommen NACH den eingefügten Werten</b>
    * @param  array $felder        :)
    * @param  string $parameterarten Siehe DB::anfrage() :)
    * @param  array $parameter     Siehe DB::anfrage() :)
@@ -409,8 +409,12 @@ class DB {
    * param  bool   $silent verzichtet auf den Aktionslog
    */
   public function datensatzBearbeiten($tabelle, $id, $felder, $parameterarten = "", ...$parameter) {
-    if(!is_array($id)) {
-      $id = array("id" => $id);
+    if(is_numeric($id)) {
+      $where = "id = ?";
+      $parameterarten .= "i";
+      $parameter[] = $id;
+    } else {
+      $where = $id;
     }
     $silent = false;
     if(count($parameter) > strlen($parameterarten)) {
@@ -422,11 +426,11 @@ class DB {
       $sql .= "$feld = $wert, ";
     }
     $sql = substr($sql, 0, -2);
-    $sql .= " WHERE ".array_keys($id)[0]." = ?";
+    $sql .= " WHERE $where";
     if($silent) {
-      $this->silentanfrage($sql, "{$parameterarten}i", array_merge($parameter, [array_values($id)[0]]));
+      $this->silentanfrage($sql, "{$parameterarten}", $parameter);
     } else {
-      $this->anfrage($sql, "{$parameterarten}i", array_merge($parameter, [array_values($id)[0]]));
+      $this->anfrage($sql, "{$parameterarten}", $parameter);
     }
   }
 

@@ -1,10 +1,10 @@
-(() => {
-  var netzcheck = () => {
+(_ => {
+  var netzcheck = _ => {
     new Promise((fertig, fehler) => {
       let start = new Date().getTime();
 
       let http = new XMLHttpRequest();
-      http.onreadystatechange = () => {
+      http.onreadystatechange = _ => {
         if(http.readyState === 4) {
           let ms = new Date().getTime() - start;
           if(http.status !== 0) {
@@ -14,7 +14,7 @@
           }
         }
       };
-      http.onerror = () => {
+      http.onerror = _ => {
         let ms = new Date().getTime() - start;
         fehler(ms);
       };
