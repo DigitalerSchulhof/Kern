@@ -1,7 +1,7 @@
 kern.schulhof.verwaltung.module = {
   suchen: (sortieren) => core.ajax("Kern", 47, null, {...sortieren}),
   version: (modulname) => {
-    ui.fenster.laden("Kern", 20, null, {modulname:modulname});
+    ui.fenster.laden("Kern", 20, {modulname:modulname});
   },
   alteEinblenden: (id) => {
     var wert = $("#"+id).getWert();

@@ -1,6 +1,6 @@
 kern.modul = {
   einstellungen: {
-    schuldaten: () => {
+    schuldaten: _ => {
       var schulname = $("#dshModulKernSchulname").getWert();
       var schulort  = $("#dshModulKernSchulort").getWert();
       var strhnr    = $("#dshModulKernSchulstrhnr").getWert();
@@ -11,7 +11,7 @@ kern.modul = {
       var domain    = $("#dshModulKernSchuldomain").getWert();
       core.ajax("Kern", 21, "Schuldaten ändern", {schulname:schulname, schulort:schulort, strhnr:strhnr, plzort:plzort, telefon:telefon, fax:fax, mail:mail, domain:domain}, 23);
     },
-    vertreter: () => {
+    vertreter: _ => {
       var slname = $("#dshModulKernLeiterName").getWert();
       var slmail = $("#dshModulKernLeiterMail").getWert();
       var daname = $("#dshModulKernDatemschutzName").getWert();
@@ -24,12 +24,12 @@ kern.modul = {
       var admail = $("#dshModulKernAdminMail").getWert();
       core.ajax("Kern", 22, "Vertreter ändern", {slname:slname, slmail:slmail, daname:daname, damail:damail, prname:prname, prmail:prmail, wename:wename, wemail:wemail, adname:adname, admail:admail}, 24);
     },
-    aktionslog: () => {
+    aktionslog: _ => {
       var aktionslog = $("#dshModulKernLogAktiv").getWert();
       core.ajax("Kern", 25, "Aktionslog ändern", {aktionslog:aktionslog}, 22);
     },
     mail: {
-      aendern: () => {
+      aendern: _ => {
         var mailadresse = $("#dshModulKernMailadresse").getWert();
         var mailtitel   = $("#dshModulKernMailtitel").getWert();
         var mailuser    = $("#dshModulKernMailbenutzer").getWert();
@@ -41,7 +41,7 @@ kern.modul = {
         var mailsigh    = $("#dshModulKernMailsignaturHTML").getWert();
         core.ajax("Kern", 23, "eMailadresse ändern", {mailadresse:mailadresse, mailtitel:mailtitel, mailuser:mailuser, mailpass:mailpass, mailhost:mailhost, mailport:mailport, mailauth:mailauth, mailsigp:mailsigp, mailsigh:mailsigh}, 20);
       },
-      testen: () => {
+      testen: _ => {
         var mailadresse = $("#dshModulKernMailadresse").getWert();
         var mailtitel   = $("#dshModulKernMailtitel").getWert();
         var mailuser    = $("#dshModulKernMailbenutzer").getWert();
@@ -55,7 +55,7 @@ kern.modul = {
       }
     },
     ldap: {
-      aendern: () => {
+      aendern: _ => {
         var ldapaktiv   = $("#dshModulKernLdapAktiv").getWert();
         var ldapuser    = $("#dshModulKernLdapBenutzer").getWert();
         var ldappass    = $("#dshModulKernLdapPasswort").getWert();
@@ -63,11 +63,11 @@ kern.modul = {
         var ldapport    = $("#dshModulKernLdapPort").getWert();
         core.ajax("Kern", 24, "LDAP ändern", {ldapaktiv:ldapaktiv, ldapuser:ldapuser, ldappass:ldappass, ldaphost:ldaphost, ldapport:ldapport}, 19);
       },
-      testen: () => {
+      testen: _ => {
         // 27
       }
     },
-    modulverwaltung: () => {
+    modulverwaltung: _ => {
       let daten = {
         poolKennung : $("#dshModulKernUpdaterPoolKennung").getWert(),
         poolToken   : $("#dshModulKernUpdaterPoolToken").getWert(),
@@ -78,13 +78,13 @@ kern.modul = {
 };
 
 kern.konfiguration = {
-  verzeichnisse: () => {
+  verzeichnisse: _ => {
     var art = "Verzeichnisse";
     var basis   = $("#dshKonfigBasis").getWert();
     core.ajax("Kern", 29, "Basisverzeichnis ändern", {art:art, basis:basis}, 18);
   },
   datenbanken: {
-    schulhof: () => {
+    schulhof: _ => {
       var art        = "Schulhof";
       var host       = $("#dshKonfigDatenbankShHost").getWert();
       var port       = $("#dshKonfigDatenbankShPort").getWert();

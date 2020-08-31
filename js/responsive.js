@@ -1,4 +1,4 @@
-var resizecheck = () => {
+var resizecheck = _ => {
   if(document.body.clientWidth >= 1024) {
     $("body").addKlasse("dshSeiteP");
     $("body").removeKlasse("dshSeiteT", "dshSeiteH");
@@ -11,6 +11,6 @@ var resizecheck = () => {
   }
 };
 window.addEventListener("resize", resizecheck);
-window.addEventListener("load", () => {
+window.addEventListener("load", _ => {
   window.dispatchEvent(new Event("resize"));
 });
