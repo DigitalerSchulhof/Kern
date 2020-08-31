@@ -19,19 +19,26 @@ class Profil {
   }
 
   /**
-   * Gibt den Balken für die Aktivitätsanzeuge aus
+   * Gibt den Balken für die Aktivitätsanzeige aus
    * @param  string $id ID der Aktivitätsanzeige
-   * @return string HTML-Code der Aktivitätsanzeige
+   * @return UI\Balken Balken der Aktivitätsanzeige
    */
-  public function getAktivitaetsanzeige($id) {
+  public function getAktivitaetsanzeige($id) : UI\Balken {
+    $balken = new UI\Balken("Zeit", time(), $this->person->getSessiontimeout(), $this->person->getInaktivitaetszeit());
+    $balken->setID($id);
+    return $balken;
+  }
+
+  /**
+   * Gibt den Balken der Aktivitätsanzeige und Hauptknöpfe des Nutzerkontos aus
+   * @param  string $id ID des Balkens
+   * @return string :)
+   */
+  public function getNutzerkontoKontrollpanele($id) : string {
     global $DSH_ALLEMODULE;
     $module = array_keys($DSH_ALLEMODULE);
-    $balken = new UI\Balken("Zeit", time(), $this->person->getSessiontimeout(), true, $this->person->getInaktivitaetszeit());
-    $balken->setID($id);
-    $code  = $balken;
 
-    $skript = "<script>kern.schulhof.nutzerkonto.aktivitaetsanzeige.hinzufuegen('$id');</script>";
-
+    $code = $this->getAktivitaetsanzeige($id);
     $knoepfe = [];
 
     $knopf = new UI\Knopf("Verlängern", "Erfolg");
