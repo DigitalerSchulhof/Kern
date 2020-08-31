@@ -119,17 +119,28 @@ kern.schulhof.verwaltung.personen = {
         });
       },
       dazu: (feldid, personid, inhalt, perart) => {
-        var gewaehlt = $("#"+feldid+"").getWert();
+        var gewaehlt = $("#"+feldid+"Gewaehlt").getWert();
         if (gewaehlt.length != 0) {
-          $("#"+id+"").setWert(gewaehlt+","+personid);
+          $("#"+feldid+"Gewaehlt").setWert(gewaehlt+","+personid);
         } else {
-          $("#"+id+"").setWert(personid);
+          $("#"+feldid+"Gewaehlt").setWert(personid);
         }
         var knopfid = feldid+"Person"+personid;
-        core.ajax("UI", 2, null, {komponente:"IconKnopfPerson", inhalt:inhalt, personart:perart, id:knopfid, klickaktion:"kern.schulhof.verwaltung.personen.wahl.einzeln.entfernen('"+personid+"', '"+knopfid+"')"}).then((r) => {
-          feld = $("#"+id+"GewaehltFeld");
-          feld.anhaengen(r.Code);
+        core.ajax("UI", 2, null, {komponente:"IconKnopfPerson", inhalt:inhalt, personart:perart, id:knopfid, klickaktion:"kern.schulhof.verwaltung.personen.wahl.einzeln.entfernen('"+feldid+"', '"+personid+"', '"+knopfid+"')"}).then((r) => {
+          feld = $("#"+feldid+"GewaehltFeld");
+          feld.setHTML(r.Code+" "+feld.getHTML());
         });
+        kern.schulhof.verwaltung.personen.wahl.einzeln.suchen(feldid);
+      },
+      entfernen: (feldid, personid, knopfid) => {
+        var gewaehlt = $("#"+feldid+"Gewaehlt").getWert();
+        if (gewaehlt.length != 0) {
+          gewaehlt = gewaehlt.split(",");
+          gewaehlt.splice(gewaehlt.indexOf(personid), 1);
+          $("#"+feldid+"Gewaehlt").setWert(gewaehlt.join(","));
+        }
+        var knopf = document.getElementById(knopfid);
+        knopf.parentElement.removeChild(knopf);
         kern.schulhof.verwaltung.personen.wahl.einzeln.suchen(feldid);
       }
     }
