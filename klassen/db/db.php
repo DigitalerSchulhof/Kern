@@ -300,7 +300,7 @@ class DB {
   /**
    * Legt einen leeren Datensatz an
    * @param  string $tabelle :)
-   * @param  array  $fehldr Auszufüllende Felder und deren Werte
+   * @param  array  $felder Auszufüllende Felder und deren Werte
    * <code>["Feld1" => "Wert1", Feld2 => "[?]"]
    * @param  string $parameterarten Siehe DB::anfrage() :)
    * @param  mixed  ...$parameter Siehe DB::anfrage() :)

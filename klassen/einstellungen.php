@@ -32,7 +32,7 @@ class Einstellungen {
     if (!Check::istModul($modul)) {
       throw new \Exception("Ungültiges Modul");
     }
-    
+
     $modul = strtolower($modul);
     global $DBS;
     $anfrage = $DBS->anfrage("SELECT {inhalt} AS inhalt, {wert} AS wert FROM {$modul}_einstellungen");

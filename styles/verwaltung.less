@@ -6,7 +6,6 @@
   .dshVerwaltungsKategorie .dshVerwaltungsElement {
     box-shadow: 2px 2px 4px 1px rgba(33, 33, 33, 0.1);
     padding: 7px 13px;
-    display: block;
     min-height: 40px;
     position: relative;
     border-bottom: 1px solid;
@@ -56,13 +55,21 @@
       text-align: center;
     }
 
-    .dshVerwaltungsKategorie .dshVerwaltungsElement h4 {
-      line-height: 40px;
-      margin-top: 0;
+    .dshVerwaltungsKategorie .dshVerwaltungsElement div {
       margin-left: 10px;
-      display: inline-block;
       flex-grow: 1;
     }
+
+      .dshVerwaltungsKategorie .dshVerwaltungsElement div h4 {
+        line-height: 40px;
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+
+      .dshVerwaltungsKategorie .dshVerwaltungsElement div .dshNotiz {
+        color: inherit;
+        font-size: 80%;
+      }
 
 .dshAlteVersionen {
   display: none;

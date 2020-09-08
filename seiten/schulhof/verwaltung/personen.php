@@ -7,7 +7,7 @@ $tabellenid = "dshVerwaltungPersonen";
 $filter = new Kern\Personenfilter("dshPersonenFilter", "ui.tabelle.sortieren('$tabellenid')", "Filter");
 $spalte[] = $filter->setAnzeigen(true);
 
-$tabelle = new UI\Tabelle($tabellenid, "kern.schulhof.verwaltung.personen.suche", new UI\Icon(UI\Konstanten::SCHUELER), "Titel", "Vorname", "Nachname", "Status");
+$tabelle = new UI\Tabelle($tabellenid, "kern.schulhof.verwaltung.personen.suche", null, "Titel", "Vorname", "Nachname", "Status");
 $tabelle ->setAutoladen(true);
 
 $spalte[] = $tabelle;

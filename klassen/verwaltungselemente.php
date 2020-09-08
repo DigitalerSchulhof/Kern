@@ -174,11 +174,11 @@ class Element extends UI\Link {
   }
 
   public function __toString() : string {
-    $name = new UI\Ueberschrift("4", $this->name);
     if($this->fortgeschritten) {
       $this->addKlasse("dshVerwaltungsElementFortgeschritten");
     }
-    return "{$this->codeAuf()}{$this->icon}$name{$this->codeZu()}";
+    $text = new UI\Box(new UI\Ueberschrift("4", $this->name), new UI\Notiz($this->beschreibung));
+    return "{$this->codeAuf()}{$this->icon}$text{$this->codeZu()}";
   }
 }
 
