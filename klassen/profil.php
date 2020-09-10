@@ -24,7 +24,7 @@ class Profil {
    * @return UI\Balken Balken der Aktivitätsanzeige
    */
   public function getAktivitaetsanzeige($id) : UI\Balken {
-    $balken = new UI\Balken("Zeit", time(), $this->person->getSessiontimeout(), $this->person->getInaktivitaetszeit());
+    $balken = new UI\Balken("Zeit", time(), $this->person->getSessiontimeout(), true, $this->person->getInaktivitaetszeit());
     $balken->setID($id);
     return $balken;
   }
