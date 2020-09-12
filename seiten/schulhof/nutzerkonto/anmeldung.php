@@ -61,12 +61,16 @@ $knopfGitHub = new UI\IconKnopf(new UI\Icon("fab fa-github"), "GitHub");
 $knopfGitHub->addFunktion("href", "https://github.com/DigitalerSchulhof");
 $knopfGitHub->addKlasse("dshExtern");
 
+$knopfPWA     = new UI\GrossIconKnopf(new UI\Icon("fas fa-cloud-download-alt"), "Direkt installieren", "Information");
+$knopfPWA     ->addFunktion("onclick", "core.a2hs.install()");
+
 $spalteLinks[]          = new UI\Absatz("$knopfApple $knopfAndroid $knopfGitHub");
+$spalteLinks[]          = (new UI\Absatz("$knopfPWA"))->setStyle("display", "none")->setID("dshPWAInstallation");
 
 $spalteLinks[]          = new UI\Ueberschrift(2, "Links");
 $spalteLinks[]          = new UI\Absatz("Links folgen");
 
 $SEITE[]                = new UI\Zeile($spalteAnmeldung, $spalteLinks);
 
-$SEITE->setCodedanach("<script>kern.schulhof.oeffentlich.browsercheck()</script>");
+$SEITE->setCodedanach("<script>kern.schulhof.oeffentlich.browsercheck();</script>");
 ?>
