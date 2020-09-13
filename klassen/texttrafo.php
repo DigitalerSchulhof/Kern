@@ -6,11 +6,11 @@ class Texttrafo {
 
   /**
    * Wandelt einen Text bzw. ein Array dessen in gültige URL-Zeichen bzw. ein Array dieser um.
-   * <code>&nbsp;</code> -> <code>_</code>
-   * <code>ä</code> -> <code>ae</code>
-   * <code>ö</code> -> <code>oe</code>
-   * <code>ü</code> -> <code>ue</code>
-   * <code>ß</code> -> <code>sz</code>
+   * ``` ``` -> ```_```
+   * ```ä``` -> ```ae```
+   * ```ö``` -> ```oe```
+   * ```ü``` -> ```ue```
+   * ```ß``` -> ```sz```
    * @param  string|string[] $text :)
    * @return string
    */
@@ -36,11 +36,11 @@ class Texttrafo {
 
   /**
    * Wandelt gültige URL-Zeichen bzw. ein Array dieser in einen Text bzw. ein Array dessen um.
-   * <code>&nbsp;</code> <- <code>_</code>
-   * <code>ä</code> <- <code>ae</code>
-   * <code>ö</code> <- <code>oe</code>
-   * <code>ü</code> <- <code>ue</code>
-   * <code>ß</code> <- <code>sz</code>
+   * ``` ``` <- ```_```
+   * ```ä``` <- ```ae```
+   * ```ö``` <- ```oe```
+   * ```ü``` <- ```ue```
+   * ```ß``` <- ```sz```
    * @param  string|string[] $text :)
    * @return string
    */

@@ -5,7 +5,7 @@ namespace Kern;
 * Eine Datenbankverbindung
 */
 class DB {
-  /** @var mysqli Enthält die Datenbankverbindung */
+  /** @var \mysqli Enthält die Datenbankverbindung */
   private $db;
   /** @var string Enthält den Schlüssel der Datenbank */
   private $schluessel;
@@ -55,6 +55,15 @@ class DB {
    */
   public function getDatenbankname() : string {
     return $this->dbname;
+  }
+
+  /**
+   * Gibt die Datenbankverbindung zurück
+   *
+   * @return mysqli
+   */
+  public function getDB() : \mysqli {
+    return $this->db;
   }
 
   /**
@@ -119,7 +128,7 @@ class DB {
       else {
         throw new \Exception("Übergebene Paramter in unzulässigem Format");
       }
-    } catch (Exception $e) {
+    } catch (\Exception $e) {
       throw new \Exception("Übergebene Paramter in unzulässigem Format: {$e->getMessage()}");
     }
 
