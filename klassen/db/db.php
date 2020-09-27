@@ -310,13 +310,13 @@ class DB {
    * Legt einen leeren Datensatz an
    * @param  string $tabelle :)
    * @param  array  $felder Auszufüllende Felder und deren Werte
-   * <code>["Feld1" => "Wert1", Feld2 => "[?]"]
+   * `["Feld1" => "Wert1", Feld2 => "[?]"]`
    * @param  string $parameterarten Siehe DB::anfrage() :)
    * @param  mixed  ...$parameter Siehe DB::anfrage() :)
-   * Wenn mehr Parameter als Parameterarten übergeben werden, sind die jeweils letzen Parameter <code>$anonym</code> und <code>$silent</code>
+   * Wenn mehr Parameter als Parameterarten übergeben werden, sind die jeweils letzen Parameter `$anonym` und `$silent`
    * param  bool   $anonym Wenn true, wird der Datensatz ohne Nutzerverbindung angelegt
    * param  bool   $silent verzichtet auf den Aktionslog
-   * @return int    Wert der Spalte <code>id</code> des neuen Datensatzes
+   * @return int    Wert der Spalte `id` des neuen Datensatzes
    */
   public function neuerDatensatz($tabelle, $felder = array(), $parameterarten = "", ...$parameter) {
     $fehler = false;

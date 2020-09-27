@@ -15,7 +15,7 @@ $spalteAnmeldung[]      = new UI\Ueberschrift(2, "Anmeldung");
 $meldungBrowserLaden      = new UI\Meldung("Kompatibilität prüfen",       "Es wird geprüft, ob Ihr Browser unterstützt wird...", "Arbeit");
 $meldungBrowserErfolg     = new UI\Meldung("Kompatibilität prüfen",       "Dieser Browser unterstützt alle Funktionen des Digitalen Schulhofs.", "Erfolg", new UI\Icon(""));
 $meldungBrowserFehler     = new UI\Meldung("Kompatibilität prüfen",       "<b>Dieser Browser unterstützt möglicherweise nicht alle Funktionen des Digitalen Schulhofs!</b>", "Fehler", new UI\Icon(""));
-$meldungBrowserUnsicher   = new UI\Meldung("Kompatibilität prüfen",       "Dieser Browser konnte nicht erkannt werden! Um sicherzustellen, dass alle Funktionen des Digitalen Schulhofs verwendet werden können, muss ein aktueller Browser verwendet werden. <a href=\"https://digitaler-schulhof.de/Wiki/Browser\" class=\"dshExtern\">Hier</a> finden Sie eine Liste an Browsern, die offiziell unterstützt werden.", "Warnung"); // @TODO: Browserliste
+$meldungBrowserUnsicher   = new UI\Meldung("Kompatibilität prüfen",       "Dieser Browser konnte nicht erkannt werden! Um sicherzustellen, dass alle Funktionen des Digitalen Schulhofs verwendet werden können, muss ein aktueller Browser verwendet werden. <a href=\"https://digitaler-schulhof.de/Wiki/Browser\" rel=\"noopener\" target=\"_blank\" class=\"dshExtern\">Hier</a> finden Sie eine Liste an Browsern, die offiziell unterstützt werden.", "Warnung"); // @TODO: Browserliste
 $meldungBrowserInternetM  = new UI\Meldung("Langsame Internetverbindung",       "Es wurde eine langsame Internetverbindung festgestellt. Für ein bestmögliches Erlebnis ist eine schnelle Internetverbindung notwendig.", "Warnung", new UI\Icon("fas fa-wifi"));
 $meldungBrowserInternetL  = new UI\Meldung("Sehr langsame Internetverbindung",  "Es wurde eine sehr langsame Internetverbindung festgestellt. Gewisse Bereiche des Digitalen Schulhofs sind nur eingeschränkt nutzbar!", "Fehler", new UI\Icon("fas fa-wifi"));
 $meldungBrowserLaden      ->setID("dshBrowsercheckLaden");
@@ -51,14 +51,17 @@ $spalteLinks[]          = new UI\Ueberschrift(2, "Digitaler Schulhof");
 
 $knopfAndroid = new UI\IconKnopf(new UI\Icon(UI\Konstanten::ANDROID), "Andorid");
 $knopfAndroid->addFunktion("href", "https://play.google.com/store/apps/details?id=com.dsh.digitalerschulhof");
+$knopfAndroid->setAttribut("rel", "noopener");
 $knopfAndroid->addKlasse("dshExtern");
 
 $knopfApple = new UI\IconKnopf(new UI\Icon(UI\Konstanten::APPLE), "iOS");
 $knopfApple->addFunktion("href", "https://apps.apple.com/de/app/digitaler-schulhof/id1500912100");
+$knopfApple->setAttribut("rel", "noopener");
 $knopfApple->addKlasse("dshExtern");
 
 $knopfGitHub = new UI\IconKnopf(new UI\Icon("fab fa-github"), "GitHub");
 $knopfGitHub->addFunktion("href", "https://github.com/DigitalerSchulhof");
+$knopfGitHub->setAttribut("rel", "noopener");
 $knopfGitHub->addKlasse("dshExtern");
 
 $knopfPWA     = new UI\GrossIconKnopf(new UI\Icon("fas fa-cloud-download-alt"), "Direkt installieren", "Information");
