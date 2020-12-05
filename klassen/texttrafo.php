@@ -11,7 +11,7 @@ class Texttrafo {
    * ```ö``` -> ```oe```
    * ```ü``` -> ```ue```
    * ```ß``` -> ```sz```
-   * @param  string|string[] $text :)
+   * @param  string|string[] $text
    * @return string
    */
   public static function text2url($text) {
@@ -41,7 +41,7 @@ class Texttrafo {
    * ```ö``` <- ```oe```
    * ```ü``` <- ```ue```
    * ```ß``` <- ```sz```
-   * @param  string|string[] $text :)
+   * @param  string|string[] $text
    * @return string
    */
   public static function url2text($text) {

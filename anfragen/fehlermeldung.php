@@ -1,6 +1,6 @@
 <?php
 
-include_once("$ROOT/yaml.php");
+include_once("$ROOT/core/yaml.php");
 use Async\YAML;
 
 Anfrage::post("fehler");

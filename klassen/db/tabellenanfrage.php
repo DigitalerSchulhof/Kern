@@ -27,7 +27,7 @@ class Tabellenanfrage {
    * @param string  $anfrage         SQL-Code mit ?? an Stelle der Spalten
    * @param string  $spalten         Spalten in bestimmter Form (siehe oben)
    * @param integer $seite           Seite der Tabellendatensätze
-   * @param integer $datenproseite   :)
+   * @param integer $datenproseite
    * @param integer $sortierennach   Spaltennummer beginnend bei 0
    * @param string  $sortierrichtung "ASC" / "DESC"
    */
@@ -42,9 +42,9 @@ class Tabellenanfrage {
 
   /**
    * Stellt eine Anfrage an die angegebene DB und sortiert dabei entsprechend
-   * @param  DB       $DB             :)
-   * @param  string   $parameterarten :)
-   * @param  string[] $werte          :)
+   * @param  DB       $DB
+   * @param  string   $parameterarten
+   * @param  string[] $werte
    * @return array    ["Anfrage"] ["Seite"]
    */
   public function anfrage($DB, $parameterarten = "", ...$werte) {

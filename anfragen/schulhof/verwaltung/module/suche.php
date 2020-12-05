@@ -9,7 +9,7 @@ if (!$DSH_BENUTZER->hatRecht("module.sehen")) {
   Anfrage::addFehler(-4, true);
 }
 
-include_once("$ROOT/yaml.php");
+include_once("$ROOT/core/yaml.php");
 use Async\YAML;
 
 $darflo = $DSH_BENUTZER->hatRecht("module.löschen");

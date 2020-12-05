@@ -4,7 +4,7 @@ namespace Kern;
 class Dateisystem {
   /**
    * Löscht den unter $pfad angegebenen Ordner
-   * @param  string $pfad :)
+   * @param  string $pfad
    * @return bool   true im Erfolgsfall, sonst false
    */
   public static function ordnerLoeschen($pfad) : bool {
@@ -30,7 +30,7 @@ class Dateisystem {
   /**
    * Bestimmt wie viele Dateien und Ordner in diesem Pfad liegen und wie viel
    * Speicherplatz der Ordner oder die Datei verbrauchen
-   * @param  string $pfad :)
+   * @param  string $pfad
    * @return array        Array mit Indizes dateien, ordner und groesse
    */
   public static function ordnerInfo($pfad) : array {
@@ -66,7 +66,7 @@ class Dateisystem {
 
   /**
    * Ermittelt die Größe der angegebenen Datenbank-Tabellen
-   * @param  Kern\DB  $DB       :)
+   * @param  Kern\DB  $DB
    * @param  string[] $tabellen Namen der Tabellen in einem Array
    * @return int                Größe in Byte
    */

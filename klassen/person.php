@@ -25,10 +25,10 @@ class Person {
 
   /**
    * Erstellt eine neue Person
-   * @param int    $id    :)
-   * @param string $titel    :)
-   * @param string $vorname  :)
-   * @param string $nachname :)
+   * @param int    $id
+   * @param string $titel
+   * @param string $vorname
+   * @param string $nachname
    */
   public function __construct($id, $titel = null, $vorname = null, $nachname = null) {
     $this->id = $id;
@@ -59,7 +59,7 @@ class Person {
 
   /**
    * ID setzen
-   * @param  int $id :)
+   * @param  int $id
    * @return self             :)
    */
   public function setId($id) : self {
@@ -69,7 +69,7 @@ class Person {
 
   /**
    * Art setzen
-   * @param  string $art :)
+   * @param  string $art
    * @return self      :)
    */
   public function setArt($art) : self {
@@ -82,7 +82,7 @@ class Person {
 
   /**
    * Geschlecht setzen
-   * @param  string $geschlecht :)
+   * @param  string $geschlecht
    * @return self      :)
    */
   public function setGeschlecht($geschlecht) : self {
@@ -106,7 +106,7 @@ class Person {
 
   /**
    * Titel setzen
-   * @param  string $titel :)
+   * @param  string $titel
    * @return self      :)
    */
   public function setTitel($titel) : self {
@@ -116,7 +116,7 @@ class Person {
 
   /**
    * Vorname setzen
-   * @param  string $vorname :)
+   * @param  string $vorname
    * @return self      :)
    */
   public function setVorname($vorname) : self {
@@ -126,7 +126,7 @@ class Person {
 
   /**
    * Nachname setzen
-   * @param  string $nachname :)
+   * @param  string $nachname
    * @return self      :)
    */
   public function setNachname($nachname) : self {
@@ -277,10 +277,10 @@ class Nutzerkonto extends Person {
 
   /**
    * Erstellt eine neues Nutzerkonto
-   * @param id     $id       :)
-   * @param string $titel    :)
-   * @param string $vorname  :)
-   * @param string $nachname :)
+   * @param id     $id
+   * @param string $titel
+   * @param string $vorname
+   * @param string $nachname
    */
   public function __construct($id, $titel = null, $vorname = null, $nachname = null) {
     parent::__construct($id, $titel, $vorname, $nachname);
@@ -319,7 +319,7 @@ class Nutzerkonto extends Person {
 
   /**
    * Benutzername setzen
-   * @param  string $benutzer :)
+   * @param  string $benutzer
    * @return self             :)
    */
   public function setBenutzer($benutzer) : self {
@@ -343,7 +343,7 @@ class Nutzerkonto extends Person {
 
   /**
    * Sessionid setzen
-   * @param  string $sessionid :)
+   * @param  string $sessionid
    * @return self              :)
    */
   public function setSessionid($sessionid) : self {
@@ -353,7 +353,7 @@ class Nutzerkonto extends Person {
 
   /**
    * Inaktivitätszeit setzen
-   * @param  int $inaktivitaetszeit :)
+   * @param  int $inaktivitaetszeit
    * @return self              :)
    */
   public function setInaktivitaetszeit($inaktivitaetszeit) : self {
@@ -449,7 +449,7 @@ class Nutzerkonto extends Person {
 
   /**
    * Prüft, ob das übergebene Passwort zum Nutzer gehört
-   * @param  string $passwort :)
+   * @param  string $passwort
    * @return bool             true, wenn das Passwort stimmt, false sonst
    */
   public function passwortPruefen($passwort) : bool {

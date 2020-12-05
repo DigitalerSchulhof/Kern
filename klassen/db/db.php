@@ -15,12 +15,12 @@ class DB {
   private $dbname;
 
 	/**
-	* @param string $host :)
-	* @param string $benutzer :)
-  * @param int    $port :)
-	* @param string $passwort :)
-	* @param string $datenbank :)
-	* @param string $schluessel :)
+	* @param string $host
+	* @param string $benutzer
+  * @param int    $port
+	* @param string $passwort
+	* @param string $datenbank
+	* @param string $schluessel
 	* @param string $aktionslog 1
 	*/
   public function __construct($host, $port, $benutzer, $passwort, $datenbank, $schluessel) {
@@ -94,7 +94,7 @@ class DB {
   * Stellt eine Anfrage an die Datenbank
   * @param string $anfrage SQL-Anfrage {x} wird entschlüsselt, [y] wird verschlüsselt
 	* @param string $parameterarten Datentypen der übergebenen Werte für den Prepared-Request
-  * @param string $parameterarten :)
+  * @param string $parameterarten
 	* @param array $werte Array mit den Werten, die übergeben werden
   * @return Anfrage Enstprechendes Anfrageobjekt
   */
@@ -194,7 +194,6 @@ class DB {
     }
     else {
       // @TODO: Enfernen!
-      var_dump(\debug_backtrace(), 1);
       throw new \Exception("Ungültige Anfrage\nFehler: ".mysqli_error($this->db)."<br>\n".$anfrage);
     }
 
@@ -237,7 +236,7 @@ class DB {
 	* @param string|int $bedingung
 	* Wenn <code>string</code>: Die SQL-Bedingung <b>ohne WHERE</b>, welche zu prüfen ist
   * Wenn <code>int</code>: Der Wert der Spalte <code>id</code>
-  * @param string $parameterarten :)
+  * @param string $parameterarten
 	* @param array $werte Array mit den Werten, die übergeben werden
   * @return bool
   */
@@ -308,11 +307,11 @@ class DB {
 
   /**
    * Legt einen leeren Datensatz an
-   * @param  string $tabelle :)
+   * @param  string $tabelle
    * @param  array  $felder Auszufüllende Felder und deren Werte
    * `["Feld1" => "Wert1", Feld2 => "[?]"]`
-   * @param  string $parameterarten Siehe DB::anfrage() :)
-   * @param  mixed  ...$parameter Siehe DB::anfrage() :)
+   * @param  string $parameterarten Siehe DB::anfrage()
+   * @param  mixed  ...$parameter Siehe DB::anfrage()
    * Wenn mehr Parameter als Parameterarten übergeben werden, sind die jeweils letzen Parameter `$anonym` und `$silent`
    * param  bool   $anonym Wenn true, wird der Datensatz ohne Nutzerverbindung angelegt
    * param  bool   $silent verzichtet auf den Aktionslog
@@ -407,13 +406,13 @@ class DB {
 
   /**
    * Ändert den Datensatz mit der ID <code>$id</code> um die Felder <code>$felder</code>.
-   * @param  string $tabelle      :)
+   * @param  string $tabelle
    * @param  integer|array $id
    * Wenn <code>int</code>:  Die ID des Datensatzes (Wird zu id = ?)
    * Wenn <code>string</code>: WHERE-Teil der SQL-Query. <b>Parameter/-arten müssen selbst übergeben werden und kommen NACH den eingefügten Werten</b>
-   * @param  array $felder        :)
-   * @param  string $parameterarten Siehe DB::anfrage() :)
-   * @param  array $parameter     Siehe DB::anfrage() :)
+   * @param  array $felder
+   * @param  string $parameterarten Siehe DB::anfrage()
+   * @param  array $parameter     Siehe DB::anfrage()
    * Wenn mehr Parameter als Parameterarten übergeben werden, wird letze Parameter <code>$silent</code>
    * param  bool   $silent verzichtet auf den Aktionslog
    */
@@ -445,7 +444,7 @@ class DB {
 
   /**
    * Löscht den Datensatz mit der ID aus der Tabelle.
-   * @param  string  $tabelle :)
+   * @param  string  $tabelle
    * @param  integer|array $id
    * Wenn <code>int</code>:  Die ID des Datensatzes (Wird zu <code>["id" => $id]</code>)
    * Wenn <code>array/code>: [Index-Feld => Wert]

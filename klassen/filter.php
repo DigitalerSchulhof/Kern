@@ -14,7 +14,7 @@ abstract class Filter extends UI\Eingabe {
 
   /**
    * Erstellt einen neuen Filter
-   * @param int    $id    :)
+   * @param int    $id
    * @param string $ziel  Javascript-Funktion die ausgelöst wird
    * @param bool   $auto  Aktiviert die Aktualisierung des Ergebnisses bei Nutzereingabe wenn true
    */
@@ -33,7 +33,7 @@ abstract class Filter extends UI\Eingabe {
 
   /**
    * Setzt den Wert Anzeigen
-   * @param  bool $anzeigen :)
+   * @param  bool $anzeigen
    * @return self           :)
    */
   public function setAnzeigen($anzeigen) : self {
@@ -45,7 +45,7 @@ abstract class Filter extends UI\Eingabe {
 class Personenfilter extends Filter {
   /**
    * Erstellt einen neuen Filter
-   * @param int    $id    :)
+   * @param int    $id
    * @param string $ziel  Javascript-Funktion die ausgelöst wird
    * @param bool   $auto  Aktiviert die Aktualisierung des Ergebnisses bei Nutzereingabe wenn true
    */
@@ -119,7 +119,7 @@ class Personenwahl extends Filter {
 
   /**
    * Erstellt einen neuen Filter
-   * @param int    $id        :)
+   * @param int    $id
    * @param string $knopfart  Hinzufügen macht + Rest erstellt einen Togglebutton
    * @param string $zulaessig s erlaubt schüler,
    *                          l erlaubt lehrer,

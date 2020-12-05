@@ -10,7 +10,7 @@ class Liste {
 
   /**
    * Fügt eine oder mehrere Verwaltungskategorien hinzu, sofern keine Kategorie mit dem jeweiligen internen Namen schon existiert.
-   * @param Kategorie ...$kategorien :)
+   * @param Kategorie ...$kategorien
    * @return Kategorie Die erste übergebene Kategorie
    */
   public static function addKategorie(...$kategorien) : Kategorie {
@@ -24,7 +24,7 @@ class Liste {
 
   /**
    * Gibt die Kategorie zu einem internen Namen zurück.
-   * @param  string                     $name :)
+   * @param  string                     $name
    * @return Kern\Verwaltung\Kategorie
    */
   public static function getKategorie($name) : Kategorie {
@@ -126,9 +126,9 @@ class Element extends UI\Link {
 
   /**
    * Legt ein neues Verwaltungselement an
-   * @param string $name         :)
-   * @param string $beschreibung :)
-   * @param \UI\Icon $icon         :)
+   * @param string $name
+   * @param string $beschreibung
+   * @param \UI\Icon $icon
    * @param string $ziel Ziel des Links
    * @param bool $fortgeschritten Setzt das Verwaltungselement Gymnasialniveau voraus?
    */

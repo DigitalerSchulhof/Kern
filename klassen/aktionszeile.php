@@ -44,7 +44,7 @@ class Aktionszeile extends UI\Element {
 
   /**
    * Setzt, ob Brotkrumen auszugeben sind
-   * @param bool $brotkrumen :)
+   * @param bool $brotkrumen
    * @return self
    */
   public function setBrotkrumen($brotkrumen) : self {
@@ -54,7 +54,7 @@ class Aktionszeile extends UI\Element {
 
   /**
    * Setzt, ob Aktionsicons auszugeben sind
-   * @param bool $aktionsicons :)
+   * @param bool $aktionsicons
    * @return self
    */
   public function setAktionsicons($aktionsicons) : self {

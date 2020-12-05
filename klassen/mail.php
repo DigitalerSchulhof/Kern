@@ -89,7 +89,7 @@ class Mail {
   public function senden($empfaenger, $mailempfaenger, $betreff, $text, $textPlain = null, $signatur = true) : bool {
   	global $ROOT;
 
-    require_once "$ROOT/core/phpmailer/PHPMailerAutoload.php";
+    require_once "$ROOT/vendor/autoload.php";
 
   	// Vorbereitungen treffen
   	$umschlag = new \PHPMailer();

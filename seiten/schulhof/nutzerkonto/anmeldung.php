@@ -50,7 +50,7 @@ $spalteLinks            = new UI\Spalte("A2");
 $spalteLinks[]          = new UI\Ueberschrift(2, "Digitaler Schulhof");
 
 $knopfAndroid = new UI\IconKnopf(new UI\Icon(UI\Konstanten::ANDROID), "Andorid");
-$knopfAndroid->addFunktion("href", "https://play.google.com/store/apps/details?id=com.dsh.digitalerschulhof");
+$knopfAndroid->addFunktion("href", "https://play.google.com/store/apps/details?id=de.dsh");
 $knopfAndroid->setAttribut("rel", "noopener");
 $knopfAndroid->addKlasse("dshExtern");
 

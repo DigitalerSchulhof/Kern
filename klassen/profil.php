@@ -8,7 +8,7 @@ class Profil {
 
   /**
    * Erstellt eine neue Person
-   * @param Person $person :)
+   * @param Person $person
    */
   public function __construct($person) {
     $this->person = $person;
@@ -461,7 +461,7 @@ class Profil {
 
       new Wurmloch("funktionen/einstellungen.php", array("recht" => $recht, "profilid" => $profilid), function($r) use ($reiter) {
         $reiter->addReitersegment(...$r);
-      }, true);
+      });
 
       /*
        * Sessionprokoll
