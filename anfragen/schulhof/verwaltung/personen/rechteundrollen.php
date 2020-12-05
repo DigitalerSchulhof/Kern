@@ -36,7 +36,7 @@ if($DSH_BENUTZER->hatRecht("verwaltung.rechte.rollen.zuordnen")) {
   while($anfrage->werte($rolle, $bezeichnung, $hat)) {
     $tog = new UI\Toggle("dshVerwaltungRechteUndRollen{$id}Rolle$rolle", $bezeichnung);
     $tog ->setWert($hat);
-    $tog ->addFunktion("onclick", "kern.schulhof.verwaltung.personen.rolleaktion('$id', '$rolle')");
+    $tog ->addFunktion("onclick", "kern.schulhof.verwaltung.personen.rolleaktion($id, $rolle)");
     $spalteRollen[] = $tog." ";
   }
 

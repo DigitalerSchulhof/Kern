@@ -1,12 +1,14 @@
 import $ from "ts/eQuery";
-import ajax, { AnfrageErfolg } from "ts/ajax";
+import ajax, { AnfrageAntwortErfolg } from "ts/ajax";
 import seiteLaden, { neuladen } from "ts/laden";
 import { navigationAnpassen } from "ts/navigation";
 import * as uiLaden from "module/UI/ts/elemente/laden";
 import * as uiTabelle from "module/UI/ts/elemente/tabelle";
 import * as uiFenster from "module/UI/ts/elemente/fenster";
 import { fuehrendeNull } from "module/UI/ts/generieren";
-import {minuten as minutenGen, prozent as prozentGen} from "module/UI/ts/generieren";
+import { minuten as minutenGen, prozent as prozentGen } from "module/UI/ts/generieren";
+import { PersonenArt, PersonenGeschlecht, ToggleWert } from "ts/AnfrageDaten";
+import { SortierParameter } from "module/UI/ts/elemente/tabelle";
 
 export const anmelden = (): void => {
   const benutzer = $("#dshAnmeldungBenutzer").getWert();
@@ -58,8 +60,8 @@ export const vergessen = {
 };
 
 export const registrieren = (): void => {
-  const art = $("#dshRegistrierungArt").getWert();
-  const geschlecht = $("#dshRegistrierungGeschlecht").getWert();
+  const art = $("#dshRegistrierungArt").getWert() as PersonenArt;
+  const geschlecht = $("#dshRegistrierungGeschlecht").getWert() as PersonenGeschlecht;
   const titel = $("#dshRegistrierungTitel").getWert();
   const vorname = $("#dshRegistrierungVorname").getWert();
   const nachname = $("#dshRegistrierungNachname").getWert();
@@ -67,9 +69,9 @@ export const registrieren = (): void => {
   const passwort = $("#dshRegistrierungPasswort").getWert();
   const passwort2 = $("#dshRegistrierungPasswort2").getWert();
   const mail = $("#dshRegistrierungMail").getWert();
-  const datenschutz = $("#dshRegistrierungDatenschutz").getWert();
-  const entscheidung = $("#dshRegistrierungEntscheidung").getWert();
-  const korrektheit = $("#dshRegistrierungKorrektheit").getWert();
+  const datenschutz = $("#dshRegistrierungDatenschutz").getWert() as ToggleWert;
+  const entscheidung = $("#dshRegistrierungEntscheidung").getWert() as ToggleWert;
+  const korrektheit = $("#dshRegistrierungKorrektheit").getWert() as ToggleWert;
   const spamschutz = $("#dshRegistrierungSpamschutz").getWert();
   const spamid = $("#dshRegistrierungSpamschutzSpamid").getWert();
 
@@ -77,48 +79,48 @@ export const registrieren = (): void => {
 };
 
 export const aendern = {
-  persoenliches: (id: string): void => {
-    const art = $("#dshProfil" + id + "Art").getWert();
-    const geschlecht = $("#dshProfil" + id + "Geschlecht").getWert();
+  persoenliches: (id: number): void => {
+    const art = $("#dshProfil" + id + "Art").getWert() as PersonenArt;
+    const geschlecht = $("#dshProfil" + id + "Geschlecht").getWert() as PersonenGeschlecht;
     const titel = $("#dshProfil" + id + "Titel").getWert();
     const vorname = $("#dshProfil" + id + "Vorname").getWert();
     const nachname = $("#dshProfil" + id + "Nachname").getWert();
     const kuerzel = $("#dshProfil" + id + "Kuerzel").getWert();
     ajax("Kern", 7, "Profil ändern", { id: id, art: art, geschlecht: geschlecht, titel: titel, vorname: vorname, nachname: nachname, kuerzel: kuerzel }, 7, "dshVerwaltungPersonen");
   },
-  kontodaten: (id: string): void => {
+  kontodaten: (id: number): void => {
     const benutzer = $("#dshProfil" + id + "Benutzer").getWert();
     const email = $("#dshProfil" + id + "Mail").getWert();
     ajax("Kern", 8, "Profil ändern", { id: id, benutzer: benutzer, email: email }, 8);
   },
-  passwort: (id: string): void => {
+  passwort: (id: number): void => {
     const passwortalt = $("#dshProfil" + id + "PasswortAlt").getWert();
     const passwortneu = $("#dshProfil" + id + "PasswortNeu").getWert();
     const passwortneu2 = $("#dshProfil" + id + "PasswortNeu2").getWert();
     ajax("Kern", 9, "Profil ändern", { id: id, passwortalt: passwortalt, passwortneu: passwortneu, passwortneu2: passwortneu2 }, 9);
   },
   einstellungen: {
-    nutzerkonto: (id: string): void => {
-      const inaktivitaetszeit = $("#dshProfil" + id + "Inaktivitaetszeit").getWert();
-      const uebersichtselemente = $("#dshProfil" + id + "ElementeProUebersicht").getWert();
-      const wiki = $("#dshProfil" + id + "Wiki").getWert();
+    nutzerkonto: (id: number): void => {
+      const inaktivitaetszeit = Number($("#dshProfil" + id + "Inaktivitaetszeit").getWert());
+      const uebersichtselemente = Number($("#dshProfil" + id + "ElementeProUebersicht").getWert());
+      const wiki = $("#dshProfil" + id + "Wiki").getWert() as ToggleWert;
       ajax("Kern", 10, "Profileinstellungen ändern", { id: id, inaktivitaetszeit: inaktivitaetszeit, uebersichtselemente: uebersichtselemente, wiki: wiki }, 10);
     },
-    notifikationen: (id: string): void => {
-      const notifikationen = $("#dshProfil" + id + "Notifikationsmails").getWert();
-      const blog = $("#dshProfil" + id + "OeffentlichBlog").getWert();
-      const termin = $("#dshProfil" + id + "OeffentlichTermine").getWert();
-      const galerie = $("#dshProfil" + id + "OeffentlichGalerien").getWert();
+    notifikationen: (id: number): void => {
+      const notifikationen = $("#dshProfil" + id + "Notifikationsmails").getWert() as ToggleWert;
+      const blog = $("#dshProfil" + id + "OeffentlichBlog").getWert() as ToggleWert;
+      const termin = $("#dshProfil" + id + "OeffentlichTermine").getWert() as ToggleWert;
+      const galerie = $("#dshProfil" + id + "OeffentlichGalerien").getWert() as ToggleWert;
       ajax("Kern", 11, "Notifikationseinstellungen ändern", { id: id, notifikationen: notifikationen, blog: blog, termin: termin, galerie: galerie }, 11);
     }
   }
 };
 export const sessions = {
   loeschen: {
-    fragen: (nutzerid: string, sessionid: string | "alle"): void => {
+    fragen: (nutzerid: number, sessionid: number | "alle"): void => {
       uiLaden.meldung("Kern", 2, "Sessions löschen", { nutzerid: nutzerid, sessionid: sessionid });
     },
-    ausfuehren: (nutzerid: string, sessionid: string | "alle"): void => {
+    ausfuehren: (nutzerid: number, sessionid: number | "alle"): void => {
       ajax("Kern", 14, "Sessions löschen", { nutzerid: nutzerid, sessionid: sessionid }).then((): void => {
         uiLaden.meldung("Kern", 15, null, { nutzerid: nutzerid, sessionid: sessionid });
         if (sessionid != "alle") {
@@ -127,7 +129,7 @@ export const sessions = {
       });
     }
   },
-  laden: (sortieren: { [key: string]: any; }, id: string | "alle"): Promise<AnfrageErfolg> => {
+  laden: (sortieren: SortierParameter, id: number | "alle"): Promise<AnfrageAntwortErfolg> => {
     if (id == "alle") {
       // @TODO: Filter laden
     }
@@ -147,24 +149,24 @@ export const sessions = {
 
 export const aktionslog = {
   loeschen: {
-    fragen: (nutzerid: string, logid: string): void => {
+    fragen: (nutzerid: number | "alle", logid: number | "alle"): void => {
       uiLaden.meldung("Kern", 3, "Aktionslog löschen", { nutzerid: nutzerid, logid: logid });
     },
-    ausfuehren: (nutzerid: string, logid: string): void => {
+    ausfuehren: (nutzerid: number | "alle", logid: number | "alle"): void => {
       ajax("Kern", 16, "Aktionslog löschen", { nutzerid: nutzerid, logid: logid }, null, "dshProfil" + nutzerid + "Aktionsprotokoll").then((): void => {
         uiLaden.meldung("Kern", 16, null, { nutzerid: nutzerid, logid: logid });
       });
     }
   },
-  details: (nutzerid: string, logid: string): void => {
+  details: (nutzerid: number, logid: number): void => {
     uiFenster.laden("Kern", 17, { nutzerid: nutzerid, logid: logid });
   },
-  laden: (sortieren: { [key: string]: any }, id: string | "alle"): Promise<AnfrageErfolg> => {
-    let datum: string;
+  laden: (sortieren: SortierParameter, id: number | "alle"): Promise<AnfrageAntwortErfolg> => {
+    let datum: number;
     if (id == "alle") {
       // @TODO: Filter laden
     } else {
-      datum = $("#" + id + "Datum").getWert();
+      datum = Number($("#" + id + "Datum").getWert());
     }
     return ajax("Kern", 18, false, { id: id, datum: datum, ...sortieren });
   }

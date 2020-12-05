@@ -5,11 +5,12 @@ import ajax, { AjaxAntwort, ANTWORTEN } from "ts/ajax";
 import { rechte as rechtebaumRechte } from "module/Kern/ts/rechtebaum";
 import { SortierParameter } from "module/UI/ts/elemente/tabelle";
 import { laden } from "module/UI/ts/generieren";
+import { PersonenArt, PersonenGeschlecht, ProfilArt, ToggleWert } from "ts/AnfrageDaten";
 
 export const rechteundrollen = (id: number, ueberschreiben: boolean): AjaxAntwort<ANTWORTEN["Kern"][38]> => uiFenster.laden("Kern", 38, { id: id }, null, null, ueberschreiben);
 
-export const rolleaktion = (id: number, rolle: string): void => {
-  const wert = $("#dshVerwaltungRechteUndRollen" + id + "Rolle" + rolle).getWert();
+export const rolleaktion = (id: number, rolle: number): void => {
+  const wert = $("#dshVerwaltungRechteUndRollen" + id + "Rolle" + rolle).getWert() as ToggleWert;
   let aktion = "nehmen";
   if (wert === "1") {
     aktion = "vergeben";
@@ -34,11 +35,11 @@ export const suche = (sortieren: SortierParameter): AjaxAntwort<ANTWORTEN["Kern"
   const vorname = $("#dshPersonenFilterVorname").getWert();
   const nachname = $("#dshPersonenFilterNachname").getWert();
   const klasse = $("#dshPersonenFilterKlasse").getWert();
-  const schueler = $("#dshPersonenFilterArtenSchueler").getWert();
-  const lehrer = $("#dshPersonenFilterArtenLehrer").getWert();
-  const erzieher = $("#dshPersonenFilterArtenErziehungsberechtigte").getWert();
-  const verwaltung = $("#dshPersonenFilterArtenVerwaltungsangestellte").getWert();
-  const externe = $("#dshPersonenFilterArtenExterne").getWert();
+  const schueler = $("#dshPersonenFilterArtenSchueler").getWert() as ToggleWert;
+  const lehrer = $("#dshPersonenFilterArtenLehrer").getWert() as ToggleWert;
+  const erzieher = $("#dshPersonenFilterArtenErziehungsberechtigte").getWert() as ToggleWert;
+  const verwaltung = $("#dshPersonenFilterArtenVerwaltungsangestellte").getWert() as ToggleWert;
+  const externe = $("#dshPersonenFilterArtenExterne").getWert() as ToggleWert;
   return ajax("Kern", 31, false, { vorname: vorname, nachname: nachname, klasse: klasse, schueler: schueler, lehrer: lehrer, erzieher: erzieher, verwaltung: verwaltung, externe: externe, ...sortieren });
 };
 
@@ -47,7 +48,7 @@ export const profil = (id: number): AjaxAntwort<ANTWORTEN["Kern"][32]> => uiFens
 
 export const loeschen = {
   fragen: (id: number, nutzerkonto: boolean): void => uiLaden.meldung("Kern", 25, "Person löschen", { id: id, nutzerkonto: nutzerkonto }),
-  ausfuehren: (id: number, art: "person" | "nutzerkonto"): Promise<void> => ajax("Kern", 33, "Person löschen", { id: id, art: art }, null, "dshVerwaltungPersonen").then(() => {
+  ausfuehren: (id: number, art: ProfilArt): Promise<void> => ajax("Kern", 33, "Person löschen", { id: id, art: art }, null, "dshVerwaltungPersonen").then(() => {
     uiLaden.meldung("Kern", 26, null, { art: art });
   })
 };
@@ -56,13 +57,13 @@ export const neu = {
   person: {
     fenster: (): AjaxAntwort<ANTWORTEN["Kern"][13]> => uiFenster.laden("Kern", 13),
     erstellen: (): void => {
-      const art = $("#dshNeuePersonArt").getWert();
-      const geschlecht = $("#dshNeuePersonGeschlecht").getWert();
+      const art = $("#dshNeuePersonArt").getWert() as PersonenArt;
+      const geschlecht = $("#dshNeuePersonGeschlecht").getWert() as PersonenGeschlecht;
       const titel = $("#dshNeuePersonTitel").getWert();
       const vorname = $("#dshNeuePersonVorname").getWert();
       const nachname = $("#dshNeuePersonNachname").getWert();
       const kuerzel = $("#dshNeuePersonKuerzel").getWert();
-      const nutzerkonto = $("#dshNeuePersonNutzerkonto").getWert();
+      const nutzerkonto = $("#dshNeuePersonNutzerkonto").getWert() as ToggleWert;
       const benutzername = $("#dshNeuePersonBenutzername").getWert();
       const mail = $("#dshNeuePersonMail").getWert();
       ajax("Kern", 34, "Neue Person erstellen", { art: art, geschlecht: geschlecht, titel: titel, vorname: vorname, nachname: nachname, kuerzel: kuerzel, nutzerkonto: nutzerkonto, benutzername: benutzername, mail: mail }, null, "dshVerwaltungPersonen").then((r) => {
@@ -76,9 +77,8 @@ export const neu = {
     },
   },
   nutzerkonto: {
-    anzeigen: (id: number, laden: boolean): void => {
-      laden = laden || false;
-      uiFenster.laden("Kern", 36, { id: id, laden: laden });
+    anzeigen: (id: number): void => {
+      uiFenster.laden("Kern", 36, { id: id });
     },
     erstellen: (id: number): void => {
       const benutzername = $("#dshNeuesNutzerkonto" + id + "Benutzername").getWert();
@@ -93,16 +93,16 @@ export const neu = {
 interface PersonenDaten {
   id: number,
   pool: string;
-  nutzerkonto: string;
+  nutzerkonto: ToggleWert;
   recht: string,
   gewaehlt: string,
   vorname: string;
   nachname: string,
-  lehrer: string;
-  schueler: string;
-  erziehungsberechtigte: string;
-  verwaltungsangestellte: string;
-  externe: string;
+  lehrer: ToggleWert;
+  schueler: ToggleWert;
+  erziehungsberechtigte: ToggleWert;
+  verwaltungsangestellte: ToggleWert;
+  externe: ToggleWert;
 }
 
 export const benutzername = (): void => {
@@ -121,16 +121,16 @@ export const wahl = {
   daten: (id: number): PersonenDaten => ({
     id: id,
     pool: $("#" + id + "Pool").getWert(),
-    nutzerkonto: $("#" + id + "Nutzerkonto").getWert(),
+    nutzerkonto: $("#" + id + "Nutzerkonto").getWert() as ToggleWert,
     recht: $("#" + id + "Recht").getWert(),
     gewaehlt: $("#" + id + "Gewaehlt").getWert(),
     vorname: $("#" + id + "Vorname").getWert(),
     nachname: $("#" + id + "Nachname").getWert(),
-    schueler: $("#" + id + "ArtenSchueler").getWert(),
-    lehrer: $("#" + id + "ArtenLehrer").getWert(),
-    erziehungsberechtigte: $("#" + id + "ArtenErziehungsberechtigte").getWert(),
-    verwaltungsangestellte: $("#" + id + "ArtenVerwaltungsangestellte").getWert(),
-    externe: $("#" + id + "ArtenExterne").getWert()
+    schueler: $("#" + id + "ArtenSchueler").getWert() as ToggleWert,
+    lehrer: $("#" + id + "ArtenLehrer").getWert() as ToggleWert,
+    erziehungsberechtigte: $("#" + id + "ArtenErziehungsberechtigte").getWert() as ToggleWert,
+    verwaltungsangestellte: $("#" + id + "ArtenVerwaltungsangestellte").getWert() as ToggleWert,
+    externe: $("#" + id + "ArtenExterne").getWert() as ToggleWert
   }),
   einzeln: {
     suchen: (id: number): void => {
@@ -140,7 +140,7 @@ export const wahl = {
         feld.setHTML(r.ergebnisse);
       });
     },
-    dazu: (feldid: number, personid: number, inhalt: string, perart: "person" | "nutzerkonto"): void => {
+    dazu: (feldid: number, personid: number, inhalt: string, perart: PersonenArt): void => {
       const gewaehlt = $("#" + feldid + "Gewaehlt").getWert();
       if (gewaehlt.length != 0) {
         $("#" + feldid + "Gewaehlt").setWert(gewaehlt + "," + personid);

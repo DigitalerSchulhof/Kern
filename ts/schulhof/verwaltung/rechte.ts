@@ -9,7 +9,7 @@ export const rechte = {
 
 };
 
-interface Rolle {
+interface RolleI {
   bezeichnung: string;
   rechte: string[];
 }
@@ -20,7 +20,7 @@ export const rollen = {
     fragen: (id: number): void => uiLaden.meldung("Kern", 35, "Rolle löschen", { id: id }),
     ausfuehren: (id: number): AjaxAntwort<ANTWORTEN["Kern"][45]> => ajax("Kern", 45, "Rolle löschen", { id: id }, 34, "dshVerwaltungRollen"),
   },
-  daten: (id: string): Rolle => {
+  daten: (id: string): RolleI => {
     return {
       bezeichnung: $("#" + id + "Bezeichnung").getWert(),
       rechte: rechtebaumRechte($("#" + id + "Rechtebaum"))

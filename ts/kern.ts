@@ -1,4 +1,5 @@
 import ajax from "ts/ajax";
+import { ToggleWert } from "ts/AnfrageDaten";
 import $ from "ts/eQuery";
 
 export const einstellungen = {
@@ -27,7 +28,7 @@ export const einstellungen = {
     ajax("Kern", 22, "Vertreter ändern", { slname: slname, slmail: slmail, daname: daname, damail: damail, prname: prname, prmail: prmail, wename: wename, wemail: wemail, adname: adname, admail: admail }, 24);
   },
   aktionslog: (): void => {
-    const aktionslog = $("#dshModulKernLogAktiv").getWert();
+    const aktionslog = $("#dshModulKernLogAktiv").getWert() as ToggleWert;
     ajax("Kern", 25, "Aktionslog ändern", { aktionslog: aktionslog }, 22);
   },
   mail: {
@@ -37,8 +38,8 @@ export const einstellungen = {
       const mailuser = $("#dshModulKernMailbenutzer").getWert();
       const mailpass = $("#dshModulKernMailpasswort").getWert();
       const mailhost = $("#dshModulKernMailhost").getWert();
-      const mailport = $("#dshModulKernMailport").getWert();
-      const mailauth = $("#dshModulKernMailauthentifizierung").getWert();
+      const mailport = Number($("#dshModulKernMailport").getWert());
+      const mailauth = $("#dshModulKernMailauthentifizierung").getWert() as ToggleWert;
       const mailsigp = $("#dshModulKernMailsignaturPlain").getWert();
       const mailsigh = $("#dshModulKernMailsignaturHTML").getWert();
       ajax("Kern", 23, "eMailadresse ändern", { mailadresse: mailadresse, mailtitel: mailtitel, mailuser: mailuser, mailpass: mailpass, mailhost: mailhost, mailport: mailport, mailauth: mailauth, mailsigp: mailsigp, mailsigh: mailsigh }, 20);
@@ -49,8 +50,8 @@ export const einstellungen = {
       const mailuser = $("#dshModulKernMailbenutzer").getWert();
       const mailpass = $("#dshModulKernMailpasswort").getWert();
       const mailhost = $("#dshModulKernMailhost").getWert();
-      const mailport = $("#dshModulKernMailport").getWert();
-      const mailauth = $("#dshModulKernMailauthentifizierung").getWert();
+      const mailport = Number($("#dshModulKernMailport").getWert());
+      const mailauth = $("#dshModulKernMailauthentifizierung").getWert() as ToggleWert;
       const mailsigp = $("#dshModulKernMailsignaturPlain").getWert();
       const mailsigh = $("#dshModulKernMailsignaturHTML").getWert();
       ajax("Kern", 26, "eMailadresse testen", { mailadresse: mailadresse, mailtitel: mailtitel, mailuser: mailuser, mailpass: mailpass, mailhost: mailhost, mailport: mailport, mailauth: mailauth, mailsigp: mailsigp, mailsigh: mailsigh }, 21);
@@ -58,11 +59,11 @@ export const einstellungen = {
   },
   ldap: {
     aendern: (): void => {
-      const ldapaktiv = $("#dshModulKernLdapAktiv").getWert();
+      const ldapaktiv = $("#dshModulKernLdapAktiv").getWert() as ToggleWert;
       const ldapuser = $("#dshModulKernLdapBenutzer").getWert();
       const ldappass = $("#dshModulKernLdapPasswort").getWert();
       const ldaphost = $("#dshModulKernLdapHost").getWert();
-      const ldapport = $("#dshModulKernLdapPort").getWert();
+      const ldapport = Number($("#dshModulKernLdapPort").getWert());
       ajax("Kern", 24, "LDAP ändern", { ldapaktiv: ldapaktiv, ldapuser: ldapuser, ldappass: ldappass, ldaphost: ldaphost, ldapport: ldapport }, 19);
     },
     testen: (): void => {
@@ -88,7 +89,7 @@ export const konfiguration = {
     schulhof: (): void => {
       const art = "Schulhof";
       const host = $("#dshKonfigDatenbankShHost").getWert();
-      const port = $("#dshKonfigDatenbankShPort").getWert();
+      const port = Number($("#dshKonfigDatenbankShPort").getWert());
       const datenbank = $("#dshKonfigDatenbankShDatenbank").getWert();
       const benutzer = $("#dshKonfigDatenbankShBenutzer").getWert();
       const passwort = $("#dshKonfigDatenbankShPasswort").getWert();
