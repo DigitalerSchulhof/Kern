@@ -5,7 +5,7 @@ import ajax, { AjaxAntwort, ANTWORTEN } from "ts/ajax";
 import { rechte as rechtebaumRechte } from "module/Kern/ts/rechtebaum";
 import { SortierParameter } from "module/UI/ts/elemente/tabelle";
 import { laden } from "module/UI/ts/generieren";
-import { PersonenArt, PersonenGeschlecht, ProfilArt, ToggleWert } from "ts/AnfrageDaten";
+import { ToggleWert, ProfilArt, PersonenArt, PersonenGeschlecht } from "module/UI/ts/_export";
 
 export const rechteundrollen = (id: number, ueberschreiben: boolean): AjaxAntwort<ANTWORTEN["Kern"][38]> => uiFenster.laden("Kern", 38, { id: id }, false, undefined, ueberschreiben);
 

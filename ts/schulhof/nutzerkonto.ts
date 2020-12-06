@@ -7,8 +7,8 @@ import * as uiTabelle from "module/UI/ts/elemente/tabelle";
 import * as uiFenster from "module/UI/ts/elemente/fenster";
 import { fuehrendeNull } from "module/UI/ts/generieren";
 import { minuten as minutenGen, prozent as prozentGen } from "module/UI/ts/generieren";
-import { PersonenArt, PersonenGeschlecht, ToggleWert } from "ts/AnfrageDaten";
 import { SortierParameter } from "module/UI/ts/elemente/tabelle";
+import { PersonenArt, PersonenGeschlecht, ToggleWert } from "module/UI/ts/_export";
 
 export const anmelden = (): void => {
   const benutzer = $("#dshAnmeldungBenutzer").getWert();

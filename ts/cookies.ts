@@ -1,5 +1,5 @@
+import { ToggleWert } from "module/UI/ts/_export";
 import ajax from "ts/ajax";
-import { ToggleWert } from "ts/AnfrageDaten";
 import { neuladen } from "ts/laden";
 
 export const setzen = (aktiv: ToggleWert, typ: "DSH" | "EXT"): void => {
