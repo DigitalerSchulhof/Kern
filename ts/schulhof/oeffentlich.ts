@@ -15,18 +15,18 @@ export const browsercheck = (): void => {
       }
       if (M[1] === "Chrome") {
         tem = ua.match(/\bOPR|Edge\/(\d+)/);
-        if (tem != null) {
+        if (tem !== null) {
           return { name: "Opera", version: tem[1] };
         }
       }
       M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, "-?"];
-      if ((tem = ua.match(/version\/(\d+)/i)) != null) {
+      if ((tem = ua.match(/version\/(\d+)/i)) !== null) {
         M.splice(1, 1, tem[1]);
       }
       return { name: M[0], version: parseInt(M[1]) };
     })();
-    let icon: string = null;
-    let unterstuetzt = false;
+    let icon: string | null = null;
+    let unterstuetzt: boolean | undefined = false;
     switch (browser.name) {
       case "Safari":
         icon = "fab fa-safari";
@@ -51,7 +51,7 @@ export const browsercheck = (): void => {
       default:
         unterstuetzt = undefined;
     }
-    new Promise(fertig => {
+    new Promise((fertig: (ms: number | null) => void) => {
       const start = new Date().getTime();
 
       const http = new XMLHttpRequest();

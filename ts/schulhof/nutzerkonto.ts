@@ -25,12 +25,12 @@ export const abmelden = {
   },
   ausfuehren: (auto: boolean): void => {
     if (auto) {
-      ajax("Kern", 1, { titel: "Abmeldung", beschreibung: "Die Abmeldung wird durchgeführt" }, null, 31).then((): void => {
+      ajax("Kern", 1, { titel: "Abmeldung", beschreibung: "Die Abmeldung wird durchgeführt" }, false, 31).then((): void => {
         navigationAnpassen(null, true);
         seiteLaden("Schulhof/Anmeldung");
       });
     } else {
-      ajax("Kern", 1, { titel: "Abmeldung", beschreibung: "Die Abmeldung wird durchgeführt" }, null, 1).then((): void => {
+      ajax("Kern", 1, { titel: "Abmeldung", beschreibung: "Die Abmeldung wird durchgeführt" }, false, 1).then((): void => {
         navigationAnpassen(null, true);
         seiteLaden("Schulhof/Anmeldung");
       });
@@ -40,7 +40,7 @@ export const abmelden = {
 
 export const session = {
   verlaengern: (): void => {
-    ajax("Kern", 2, { titel: "Session verlängern", beschreibung: "Die Verlängerung wird durchgeführt" }, null, 17).then((r): void => {
+    ajax("Kern", 2, { titel: "Session verlängern", beschreibung: "Die Verlängerung wird durchgeführt" }, false, 17).then((r): void => {
       aktivitaetsanzeige.limit = r.Limit;
       aktivitaetsanzeige.timeout = r.Ende;
     });
@@ -122,15 +122,15 @@ export const sessions = {
     },
     ausfuehren: (nutzerid: number, sessionid: number | "alle"): void => {
       ajax("Kern", 14, "Sessions löschen", { nutzerid: nutzerid, sessionid: sessionid }).then((): void => {
-        uiLaden.meldung("Kern", 15, null, { nutzerid: nutzerid, sessionid: sessionid });
-        if (sessionid != "alle") {
+        uiLaden.meldung("Kern", 15, false, { nutzerid: nutzerid, sessionid: sessionid });
+        if (sessionid !== "alle") {
           uiTabelle.sortieren("dshProfil" + nutzerid + "Sessionprotokoll");
         }
       });
     }
   },
   laden: (sortieren: SortierParameter, id: number | "alle"): Promise<AnfrageAntwortErfolg> => {
-    if (id == "alle") {
+    if (id === "alle") {
       // @TODO: Filter laden
     }
     return ajax("Kern", 15, false, { id: id, ...sortieren });
@@ -140,7 +140,7 @@ export const sessions = {
       uiLaden.meldung("Kern", 12, "Alle Sessions beenden");
     },
     ausfuehren: (): void => {
-      ajax("Kern", 12, "Alle Sessions beenden", null, 1).then((): void => {
+      ajax("Kern", 12, "Alle Sessions beenden", false, 1).then((): void => {
         seiteLaden("Schulhof/Anmeldung");
       });
     }
@@ -153,8 +153,8 @@ export const aktionslog = {
       uiLaden.meldung("Kern", 3, "Aktionslog löschen", { nutzerid: nutzerid, logid: logid });
     },
     ausfuehren: (nutzerid: number | "alle", logid: number | "alle"): void => {
-      ajax("Kern", 16, "Aktionslog löschen", { nutzerid: nutzerid, logid: logid }, null, "dshProfil" + nutzerid + "Aktionsprotokoll").then((): void => {
-        uiLaden.meldung("Kern", 16, null, { nutzerid: nutzerid, logid: logid });
+      ajax("Kern", 16, "Aktionslog löschen", { nutzerid: nutzerid, logid: logid }, false, "dshProfil" + nutzerid + "Aktionsprotokoll").then((): void => {
+        uiLaden.meldung("Kern", 16, false, { nutzerid: nutzerid, logid: logid });
       });
     }
   },
@@ -162,8 +162,8 @@ export const aktionslog = {
     uiFenster.laden("Kern", 17, { nutzerid: nutzerid, logid: logid });
   },
   laden: (sortieren: SortierParameter, id: number | "alle"): Promise<AnfrageAntwortErfolg> => {
-    let datum: number;
-    if (id == "alle") {
+    let datum = 0;
+    if (id === "alle") {
       // @TODO: Filter laden
     } else {
       datum = Number($("#" + id + "Datum").getWert());
@@ -185,7 +185,7 @@ export const aktivitaetsanzeige = {
   timeout: 0,
   ids: [] as string[],
   hinzufuegen: (id: string): void => {
-    if (aktivitaetsanzeige.ids.indexOf(id) == -1) {
+    if (aktivitaetsanzeige.ids.indexOf(id) === -1) {
       aktivitaetsanzeige.ids.push(id);
     }
   },
@@ -204,9 +204,9 @@ export const aktivitaetsanzeige = {
         balken.setCss("width", prozent + "%");
       }
       if (uebrig) {
-        if (minuten == 1) {
+        if (minuten === 1) {
           uebrig.setHTML("etwa eine Minute");
-        } else if (minuten == 0) {
+        } else if (minuten === 0) {
           uebrig.setHTML("weniger als eine Minute");
         } else {
           uebrig.setHTML(minuten + " Minuten");
@@ -220,7 +220,7 @@ export const aktivitaetsanzeige = {
     } else if (minuten < 2) {
       uiLaden.meldung("Kern", 30, "Session verlängern?");
 
-      ajax("Kern", 37, false, null).then((r): void => {
+      ajax("Kern", 37).then((r): void => {
         aktivitaetsanzeige.limit = r.Limit;
         aktivitaetsanzeige.timeout = r.Ende;
         const ende = new Date(r.Ende * 1000);
@@ -236,9 +236,9 @@ export const aktivitaetsanzeige = {
         for (let i = 0; i < aktivitaetsanzeige.ids.length; i++) {
           let text = "Aktiv bis " + datum + " um " + zeit + " Uhr - noch ";
           text += "<span id=\"" + aktivitaetsanzeige.ids[i] + "Infotext" + "\">";
-          if (minuten == 1) {
+          if (minuten === 1) {
             text += "etwa eine Minute";
-          } else if (minuten == 0) {
+          } else if (minuten === 0) {
             text += "weniger als eine Minute";
           } else {
             text += minuten + " Minuten";

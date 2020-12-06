@@ -9,7 +9,7 @@ export const version = (modulname: string): AjaxAntwort<ANTWORTEN["Kern"][20]> =
 export const alteEinblenden = (id: number): void => {
   const wert = $("#" + id).getWert();
   const feld = $("#" + id + "Feld");
-  if (wert == "1") {
+  if (wert === "1") {
     feld.einblenden();
   } else {
     feld.ausblenden();

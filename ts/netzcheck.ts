@@ -1,4 +1,4 @@
-(function () {
+const netzcheck = () => {
   new Promise((fertig, fehler) => {
     const start = new Date().getTime();
 
@@ -20,11 +20,13 @@
     http.open("HEAD", "ping.php", true);
     http.send(null);
   }).then(
-    ():void => {
-      setTimeout(this, 60000);
+    (): void => {
+      setTimeout(netzcheck, 60000);
     },
-    ():void => {
-      setTimeout(this, 60000);
+    (): void => {
+      setTimeout(netzcheck, 60000);
     }
   );
-})();
+};
+
+netzcheck();

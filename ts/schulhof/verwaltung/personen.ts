@@ -7,7 +7,7 @@ import { SortierParameter } from "module/UI/ts/elemente/tabelle";
 import { laden } from "module/UI/ts/generieren";
 import { PersonenArt, PersonenGeschlecht, ProfilArt, ToggleWert } from "ts/AnfrageDaten";
 
-export const rechteundrollen = (id: number, ueberschreiben: boolean): AjaxAntwort<ANTWORTEN["Kern"][38]> => uiFenster.laden("Kern", 38, { id: id }, null, null, ueberschreiben);
+export const rechteundrollen = (id: number, ueberschreiben: boolean): AjaxAntwort<ANTWORTEN["Kern"][38]> => uiFenster.laden("Kern", 38, { id: id }, false, undefined, ueberschreiben);
 
 export const rolleaktion = (id: number, rolle: number): void => {
   const wert = $("#dshVerwaltungRechteUndRollen" + id + "Rolle" + rolle).getWert() as ToggleWert;
@@ -48,8 +48,8 @@ export const profil = (id: number): AjaxAntwort<ANTWORTEN["Kern"][32]> => uiFens
 
 export const loeschen = {
   fragen: (id: number, nutzerkonto: boolean): void => uiLaden.meldung("Kern", 25, "Person löschen", { id: id, nutzerkonto: nutzerkonto }),
-  ausfuehren: (id: number, art: ProfilArt): Promise<void> => ajax("Kern", 33, "Person löschen", { id: id, art: art }, null, "dshVerwaltungPersonen").then(() => {
-    uiLaden.meldung("Kern", 26, null, { art: art });
+  ausfuehren: (id: number, art: ProfilArt): Promise<void> => ajax("Kern", 33, "Person löschen", { id: id, art: art }, false, "dshVerwaltungPersonen").then(() => {
+    uiLaden.meldung("Kern", 26, false, { art: art });
   })
 };
 
@@ -66,12 +66,12 @@ export const neu = {
       const nutzerkonto = $("#dshNeuePersonNutzerkonto").getWert() as ToggleWert;
       const benutzername = $("#dshNeuePersonBenutzername").getWert();
       const mail = $("#dshNeuePersonMail").getWert();
-      ajax("Kern", 34, "Neue Person erstellen", { art: art, geschlecht: geschlecht, titel: titel, vorname: vorname, nachname: nachname, kuerzel: kuerzel, nutzerkonto: nutzerkonto, benutzername: benutzername, mail: mail }, null, "dshVerwaltungPersonen").then((r) => {
-        if (nutzerkonto == "1") {
+      ajax("Kern", 34, "Neue Person erstellen", { art: art, geschlecht: geschlecht, titel: titel, vorname: vorname, nachname: nachname, kuerzel: kuerzel, nutzerkonto: nutzerkonto, benutzername: benutzername, mail: mail }, false, "dshVerwaltungPersonen").then((r) => {
+        if (nutzerkonto === "1") {
           const id = r.ID;
           ajax("Kern", 35, "Neues Nutzerkonto erstellen", { id: id, benutzername: benutzername, mail: mail }, 29, "dshVerwaltungPersonen");
         } else {
-          uiLaden.meldung("Kern", 27, null);
+          uiLaden.meldung("Kern", 27, false);
         }
       });
     },
@@ -83,8 +83,8 @@ export const neu = {
     erstellen: (id: number): void => {
       const benutzername = $("#dshNeuesNutzerkonto" + id + "Benutzername").getWert();
       const mail = $("#dshNeuesNutzerkonto" + id + "Mail").getWert();
-      ajax("Kern", 35, "Neues Nutzerkonto erstellen", { id: id, benutzername: benutzername, mail: mail }, null, "dshVerwaltungPersonen").then(() => {
-        uiLaden.meldung("Kern", 28, null, { id: id });
+      ajax("Kern", 35, "Neues Nutzerkonto erstellen", { id: id, benutzername: benutzername, mail: mail }, false, "dshVerwaltungPersonen").then(() => {
+        uiLaden.meldung("Kern", 28, false, { id: id });
       });
     }
   }
@@ -111,7 +111,7 @@ export const benutzername = (): void => {
   const vorname = $("#dshNeuePersonVorname").getWert().replace(/ /g, "");
   const nachname = $("#dshNeuePersonNachname").getWert().replace(/ /g, "");
 
-  if (art == "l") {
+  if (art === "l") {
     feld.setWert(vorname.substr(0, 1) + nachname.substr(0, 7) + "-" + art.toUpperCase());
   } else {
     feld.setWert(nachname.substr(0, 8) + vorname.substr(0, 3) + "-" + art.toUpperCase());
@@ -142,7 +142,7 @@ export const wahl = {
     },
     dazu: (feldid: number, personid: number, inhalt: string, perart: PersonenArt): void => {
       const gewaehlt = $("#" + feldid + "Gewaehlt").getWert();
-      if (gewaehlt.length != 0) {
+      if (gewaehlt.length !== 0) {
         $("#" + feldid + "Gewaehlt").setWert(gewaehlt + "," + personid);
       } else {
         $("#" + feldid + "Gewaehlt").setWert(personid.toString());
@@ -156,13 +156,13 @@ export const wahl = {
     },
     entfernen: (feldid: number, personid: number, knopfid: string): void => {
       const gewaehlt = $("#" + feldid + "Gewaehlt").getWert();
-      if (gewaehlt.length != 0) {
+      if (gewaehlt.length !== 0) {
         const gewaehltArr = gewaehlt.split(",");
         gewaehltArr.splice(gewaehltArr.indexOf(personid.toString()), 1);
         $("#" + feldid + "Gewaehlt").setWert(gewaehltArr.join(","));
       }
       const knopf = document.getElementById(knopfid);
-      knopf.parentElement.removeChild(knopf);
+      knopf?.parentElement?.removeChild(knopf);
       wahl.einzeln.suchen(feldid);
     }
   }
