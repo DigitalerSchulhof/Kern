@@ -5,8 +5,75 @@ import * as kern from "./kern";
 import * as rechtebaum from "./rechtebaum";
 import * as cookies from "./cookies";
 import { SortierParameter } from "module/UI/ts/elemente/tabelle";
-import { AnfrageDatenLeer } from "ts/ajax";
+import { AnfrageAntwortCode, AnfrageAntwortLeer, AnfrageDatenLeer } from "ts/ajax";
 import { PersonenArt, PersonenGeschlecht, ProfilArt, ToggleWert } from "module/UI/ts/_export";
+
+export interface Antworten {
+  0: AnfrageAntwortLeer;
+  1: AnfrageAntwortLeer;
+  2: {
+    Limit: number;
+    Ende: number;
+  };
+  3: AnfrageAntwortLeer;
+  4: AnfrageAntwortLeer;
+  5: AnfrageAntwortLeer;
+  6: AnfrageAntwortLeer;
+  7: AnfrageAntwortLeer;
+  8: AnfrageAntwortLeer;
+  9: AnfrageAntwortLeer;
+  10: AnfrageAntwortLeer;
+  11: AnfrageAntwortLeer;
+  12: AnfrageAntwortLeer;
+  13: AnfrageAntwortCode;
+  14: AnfrageAntwortLeer;
+  15: AnfrageAntwortCode;
+  16: AnfrageAntwortLeer;
+  17: AnfrageAntwortCode;
+  18: AnfrageAntwortCode;
+  19: AnfrageAntwortCode;
+  20: AnfrageAntwortCode;
+  21: AnfrageAntwortLeer;
+  22: AnfrageAntwortLeer;
+  23: AnfrageAntwortLeer;
+  24: AnfrageAntwortLeer;
+  25: AnfrageAntwortLeer;
+  26: AnfrageAntwortLeer;
+  27: AnfrageAntwortLeer;
+  28: AnfrageAntwortLeer;
+  29: AnfrageAntwortLeer;
+  30: {
+    Meldung: string;
+    Knoepfe: string;
+  };
+  31: AnfrageAntwortCode;
+  32: AnfrageAntwortCode;
+  33: AnfrageAntwortLeer;
+  34: {
+    ID: number;
+  };
+  35: AnfrageAntwortCode;
+  36: AnfrageAntwortLeer;
+  37: {
+    Limit: number;
+    Ende: number;
+  };
+  38: AnfrageAntwortCode;
+  39: AnfrageAntwortLeer;
+  40: AnfrageAntwortLeer;
+  41: AnfrageAntwortLeer;
+  42: AnfrageAntwortLeer;
+  43: AnfrageAntwortCode;
+  44: AnfrageAntwortLeer;
+  45: AnfrageAntwortLeer;
+  46: AnfrageAntwortLeer;
+  47: AnfrageAntwortCode;
+  48: AnfrageAntwortLeer;
+  49: AnfrageAntwortCode;
+  50: {
+    ergebnisse: string;
+  }
+}
 
 interface PersonenDaten {
   art: PersonenArt,
