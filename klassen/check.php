@@ -74,7 +74,7 @@ class Check {
 
   /**
    * Prüft, on der Benutzer ein Recht besitzt und gibt eine Fehlermeldung aus, wenn nicht
-   * @param string $recht :)
+   * @param string $recht
    */
   public static function verboten($recht) {
     global $DSH_BENUTZER;

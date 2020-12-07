@@ -8,7 +8,7 @@ class Profil {
 
   /**
    * Erstellt eine neue Person
-   * @param Person $person :)
+   * @param Person $person
    */
   public function __construct($person) {
     $this->person = $person;
@@ -139,7 +139,7 @@ class Profil {
 
         if ($darflo) {
           $knopf = UI\MiniIconKnopf::loeschen();
-          $knopf ->addFunktion("onclick", "kern.schulhof.nutzerkonto.sessions.loeschen.fragen('$profilid', '$id')");
+          $knopf ->addFunktion("onclick", "kern.schulhof.nutzerkonto.sessions.loeschen.fragen($profilid, $id)");
           $zeile ->addAktion($knopf);
         }
         $tabelle[] = $zeile;
@@ -165,7 +165,7 @@ class Profil {
     $rueck[] = $this->getSessionprotokollTabelle($autoladen, $sortSeite, $sortDatenproseite, $sortSpalte, $sortRichtung);
     $knoepfe = [];
     if ($darfloeschen) {
-      $knoepfe[] = new UI\Knopf("Alle Sessions löschen", "Warnung", "kern.schulhof.nutzerkonto.sessions.loeschen.fragen('$profilid', 'alle')");
+      $knoepfe[] = new UI\Knopf("Alle Sessions löschen", "Warnung", "kern.schulhof.nutzerkonto.sessions.loeschen.fragen($profilid, 'alle')");
     }
     if ($profilid == $DSH_BENUTZER->getId()) {
       $knoepfe[] = new UI\Knopf("Alle Sessions beenden", "Warnung", "kern.schulhof.nutzerkonto.sessions.beenden.fragen()");
@@ -365,7 +365,7 @@ class Profil {
     $formular[]       = $kuerzel;
 
     $formular[]       = (new UI\Knopf("Änderungen speichern", "Erfolg"))  ->setSubmit(true);
-    $formular         ->addSubmit("kern.schulhof.nutzerkonto.aendern.persoenliches('{$profilid}')");
+    $formular         ->addSubmit("kern.schulhof.nutzerkonto.aendern.persoenliches({$profilid})");
 
     $reiterkopf     = new UI\Reiterkopf("Persönliches", new UI\Icon(UI\Konstanten::PERSON));
     $reiterspalte   = new UI\Spalte("A1", $formular);
@@ -461,7 +461,7 @@ class Profil {
 
       new Wurmloch("funktionen/einstellungen.php", array("recht" => $recht, "profilid" => $profilid), function($r) use ($reiter) {
         $reiter->addReitersegment(...$r);
-      }, true);
+      });
 
       /*
        * Sessionprokoll

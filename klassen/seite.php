@@ -44,7 +44,7 @@ class Seite implements \ArrayAccess {
 
   /**
    * Setzt das Aktionszeilen-Attribut auf den angegebenen Wert
-   * @param  bool $aktionszeile :)
+   * @param  bool $aktionszeile
    * @return self               :)
    */
   public function setAktionszeile ($aktionszeile) : self {
@@ -54,7 +54,7 @@ class Seite implements \ArrayAccess {
 
   /**
    * Setzt das Codedanach-Attribut auf den angegebenen Wert
-   * @param  string $codedanach :)
+   * @param  string $codedanach
    * @return self               :)
    */
   public function setCodedanach ($codedanach) : self {
@@ -64,7 +64,7 @@ class Seite implements \ArrayAccess {
 
   /**
    * Fügt der Seite eine neue Zeile hinzu
-   * @param  UI\Zeile $zeile :)
+   * @param  UI\Zeile $zeile
    * @return self            :)
    */
   public function addZeile($zeile) : self {

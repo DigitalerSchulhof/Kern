@@ -13,7 +13,7 @@ class Rechtebaum extends \UI\Element {
 
   /**
    * Erzeugt einen neuen Rechtebaum
-   * @param string $id :)
+   * @param string $id
    * @param array $rechteP Primär vergebene Rechte
    *  Rechte werden als Toggle ausgegeben.
    * @param array $rechteS Sekundär vergebene Rechte

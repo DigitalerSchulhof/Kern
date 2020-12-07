@@ -1,8 +1,10 @@
-var resizecheck = _ => {
-  if(document.body.clientWidth >= 1024) {
+import $ from "ts/eQuery";
+
+export const resizecheck = (): void => {
+  if (document.body.clientWidth >= 1024) {
     $("body").addKlasse("dshSeiteP");
     $("body").removeKlasse("dshSeiteT", "dshSeiteH");
-  } else if(document.body.clientWidth >= 768) {
+  } else if (document.body.clientWidth >= 768) {
     $("body").addKlasse("dshSeiteT");
     $("body").removeKlasse("dshSeiteP", "dshSeiteH");
   } else {
@@ -10,7 +12,9 @@ var resizecheck = _ => {
     $("body").removeKlasse("dshSeiteP", "dshSeiteT");
   }
 };
-window.addEventListener("resize", resizecheck);
-window.addEventListener("load", _ => {
+
+export const resize = resizecheck;
+
+export const load = ():void => {
   window.dispatchEvent(new Event("resize"));
-});
+};

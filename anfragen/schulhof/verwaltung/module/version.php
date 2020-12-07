@@ -14,7 +14,7 @@ if (!$DSH_BENUTZER->hatRecht("module.sehen")) {
 }
 
 // Modulbeschreibung laden
-include_once("$ROOT/yaml.php");
+include_once("$ROOT/core/yaml.php");
 use Async\YAML;
 
 $letzteVersion = (string) new UI\Ueberschrift(3, "Unbekannte Version");

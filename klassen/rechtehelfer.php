@@ -10,7 +10,7 @@ class Rechtehelfer {
 
   /**
    * Gibt zurück, ob das übergebene Recht ein gültiges Recht ist, welches vergeben werden kann
-   * @param  string $recht :)
+   * @param  string $recht
    * @return bool
    */
   public static function istRecht($recht) : bool {
@@ -215,7 +215,7 @@ class Rechtehelfer {
 
   /**
    * Nimmt einen Rechtebaum und sortiert diesen so, dass weniger komplexe Rechte (Pfade, die früh mit .* enden) weiter oben sind
-   * @param  array $baum :)
+   * @param  array $baum
    * @return array|bool Sortierter Rechtebaum
    */
   public static function baumSortieren($baum) {

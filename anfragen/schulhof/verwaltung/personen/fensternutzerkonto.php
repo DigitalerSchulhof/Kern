@@ -1,5 +1,5 @@
 <?php
-Anfrage::post("id", "laden");
+Anfrage::post("id");
 
 if(!Kern\Check::angemeldet()) {
   Anfrage::addFehler(-2, true);
@@ -18,7 +18,7 @@ $sql = "SELECT COUNT(*) FROM kern_personen WHERE id = ?";
 $anfrage = $DBS->anfrage($sql, "i", $id);
 $anfrage->werte($panzahl);
 
-if (!UI\Check::istZahl($id) || !UI\Check::istToggle($laden) || $nanzahl > 0 || $panzahl != 1) {
+if (!UI\Check::istZahl($id) || $nanzahl > 0 || $panzahl != 1) {
   Anfrage::addFehler(-3, true);
 }
 
@@ -43,7 +43,7 @@ $formular[]       = new UI\FormularFeld(new UI\InhaltElement("Benutzername:"),  
 $formular[]       = new UI\FormularFeld(new UI\InhaltElement("eMail-Adresse:"),             (new UI\Mailfeld("dshNeuesNutzerkonto{$id}Mail"))     ->setAutocomplete("email"));
 
 $formular[]       = (new UI\Knopf("Neues Nutzerkonto anlegen", "Erfolg"))  ->setSubmit(true);
-$formular         ->addSubmit("kern.schulhof.verwaltung.personen.neu.nutzerkonto.erstellen('$id', '$laden')");
+$formular         ->addSubmit("kern.schulhof.verwaltung.personen.neu.nutzerkonto.erstellen($id)");
 
 $fensterinhalt = UI\Zeile::standard($formular);
 
