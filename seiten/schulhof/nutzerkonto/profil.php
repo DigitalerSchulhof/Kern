@@ -1,10 +1,11 @@
 <?php
-$SEITE = new Kern\Seite("Profil", null);
-
-$spalte    = new UI\Spalte("A1");
-$spalte[]  = new UI\SeitenUeberschrift("Profil von ".($DSH_BENUTZER->getName()));
-$profil    = (new Kern\Profil($DSH_BENUTZER))->getProfil();
-$spalte[]  = $profil;
-
-$SEITE[]   = new UI\Zeile($spalte);
-?>
+return new Kern\Seite(
+  "Profil",
+  new UI\Zeile(
+    new UI\Spalte(
+      ["art" => "A1"],
+      new UI\SeitenUeberschrift("Profil von " . ($DSH_BENUTZER->getName())),
+      (new Kern\Profil($DSH_BENUTZER))->getProfil()
+    )
+  )
+);
